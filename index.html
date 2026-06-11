@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Robin Martinent — Réalisateur Monteur</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d0d0f;
+      --bg2: #141417;
+      --ink: #f0f0f0;
+      --muted: #888;
+      --accent: #5b6af0;
+      --accent-glow: rgba(91,106,240,0.18);
+      --border: rgba(255,255,255,0.07);
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 20px 48px;
+      background: rgba(13,13,15,0.85);
+      backdrop-filter: blur(12px);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-weight: 700;
+      font-size: 15px;
+      letter-spacing: 0.02em;
+      color: var(--ink);
+      text-decoration: none;
+    }
+    .nav-logo span { color: var(--accent); }
+    .nav-links { display: flex; gap: 32px; list-style: none; }
+    .nav-links a {
+      font-size: 13px;
+      font-weight: 400;
+      color: var(--muted);
+      text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--ink); }
+
+    /* HERO */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 120px 48px 80px;
+      position: relative;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: 20%;
+      left: -10%;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(91,106,240,0.12) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-glow);
+      border: 1px solid rgba(91,106,240,0.3);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-bottom: 32px;
+      width: fit-content;
+    }
+    .hero-tag::before {
+      content: '';
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--accent);
+      animation: pulse 2s infinite;
+    }
+    @keyframes pulse {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
+    }
+    .hero h1 {
+      font-size: clamp(42px, 7vw, 90px);
+      font-weight: 700;
+      line-height: 1.05;
+      letter-spacing: -0.03em;
+      max-width: 800px;
+      margin-bottom: 24px;
+    }
+    .hero h1 .light { font-weight: 300; }
+    .hero h1 .accent { color: var(--accent); }
+    .hero-sub {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--muted);
+      max-width: 480px;
+      line-height: 1.7;
+      margin-bottom: 48px;
+    }
+    .hero-cta {
+      display: flex;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      transition: opacity 0.2s, transform 0.2s;
+    }
+    .btn-primary:hover { opacity: 0.85; transform: translateY(-1px); }
+    .btn-ghost {
+      border: 1px solid var(--border);
+      color: var(--muted);
+      padding: 14px 28px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 400;
+      text-decoration: none;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-ghost:hover { border-color: rgba(255,255,255,0.2); color: var(--ink); }
+
+    /* SKILLS */
+    .section {
+      padding: 100px 48px;
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 16px;
+    }
+    .section-title {
+      font-size: clamp(24px, 3vw, 36px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      margin-bottom: 56px;
+    }
+
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 16px;
+    }
+    .skill-card {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+      transition: border-color 0.2s, transform 0.2s;
+    }
+    .skill-card:hover {
+      border-color: rgba(91,106,240,0.4);
+      transform: translateY(-2px);
+    }
+    .skill-icon {
+      font-size: 24px;
+      margin-bottom: 14px;
+    }
+    .skill-card h3 {
+      font-size: 14px;
+      font-weight: 600;
+      margin-bottom: 8px;
+    }
+    .skill-card p {
+      font-size: 12px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* TOOLS */
+    .tools-list {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 40px;
+    }
+    .tool-tag {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 8px 16px;
+      font-size: 12px;
+      font-weight: 400;
+      color: var(--muted);
+    }
+
+    /* ABOUT */
+    .about-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: center;
+    }
+    .about-text p {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 1.8;
+      margin-bottom: 16px;
+    }
+    .about-text p strong { color: var(--ink); font-weight: 500; }
+    .about-stats {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+    .stat {
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px 24px;
+    }
+    .stat-num {
+      font-size: 32px;
+      font-weight: 700;
+      color: var(--accent);
+      letter-spacing: -0.03em;
+    }
+    .stat-label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* CONTACT */
+    .contact-section {
+      padding: 100px 48px;
+      text-align: center;
+      background: var(--bg2);
+      border-top: 1px solid var(--border);
+    }
+    .contact-section h2 {
+      font-size: clamp(28px, 4vw, 48px);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      margin-bottom: 16px;
+    }
+    .contact-section p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 40px;
+    }
+    .contact-links {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    /* FOOTER */
+    footer {
+      padding: 32px 48px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-top: 1px solid var(--border);
+    }
+    footer p { font-size: 12px; color: var(--muted); }
+
+    /* DIVIDER */
+    .divider {
+      width: 100%;
+      height: 1px;
+      background: var(--border);
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 768px) {
+      nav { padding: 16px 24px; }
+      .nav-links { display: none; }
+      .hero { padding: 100px 24px 60px; }
+      .section { padding: 64px 24px; }
+      .about-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contact-section { padding: 64px 24px; }
+      footer { padding: 24px; flex-direction: column; gap: 8px; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <a href="#" class="nav-logo">Robin<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#competences">Competences</a></li>
+      <li><a href="#a-propos">A propos</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-tag">Disponible en alternance 2 ans · Rentre 2026</div>
+    <h1>
+      <span class="light">Realisateur</span><br>
+      <span class="accent">Monteur</span><br>
+      <span class="light">& Creatif</span>
+    </h1>
+    <p class="hero-sub">
+      Montage video, motion design, illustration, dev web et un peu de hardware.
+      Je cherche une alternance de 2 ans pour continuer a apprendre en faisant.
+    </p>
+    <div class="hero-cta">
+      <a href="mailto:robin.martinent@gmail.com" class="btn-primary">Me contacter</a>
+      <a href="#competences" class="btn-ghost">Voir mes competences</a>
+    </div>
+  </section>
+
+  <!-- COMPETENCES -->
+  <div class="divider"></div>
+  <div class="section" id="competences">
+    <p class="section-label">Ce que je sais faire</p>
+    <h2 class="section-title">Competences</h2>
+    <div class="skills-grid">
+      <div class="skill-card">
+        <div class="skill-icon">🎬</div>
+        <h3>Montage video</h3>
+        <p>Mon coeur de metier. Du rushes au rendu final, etalonnage inclus.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">✨</div>
+        <h3>Motion design</h3>
+        <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🎨</div>
+        <h3>Illustration & graphisme</h3>
+        <p>Affiches, visuels reseaux sociaux, identite visuelle.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🌐</div>
+        <h3>Dev web</h3>
+        <p>HTML, CSS, JavaScript. Capable de coder et mettre en ligne un site propre.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">📷</div>
+        <h3>Realisation</h3>
+        <p>Tournage, cadrage, son, gestion de plateau.</p>
+      </div>
+      <div class="skill-card">
+        <div class="skill-icon">🖨️</div>
+        <h3>Impression 3D resine</h3>
+        <p>Conception et impression, a l'aise avec le hardware et le depannage technique.</p>
+      </div>
+    </div>
+
+    <div class="tools-list">
+      <span class="tool-tag">Premiere Pro</span>
+      <span class="tool-tag">After Effects</span>
+      <span class="tool-tag">DaVinci Resolve</span>
+      <span class="tool-tag">Illustrator</span>
+      <span class="tool-tag">Photoshop</span>
+      <span class="tool-tag">Canva</span>
+      <span class="tool-tag">HTML / CSS</span>
+      <span class="tool-tag">JavaScript</span>
+    </div>
+  </div>
+
+  <!-- A PROPOS -->
+  <div class="divider"></div>
+  <div class="section" id="a-propos">
+    <p class="section-label">Qui je suis</p>
+    <h2 class="section-title">A propos</h2>
+    <div class="about-grid">
+      <div class="about-text">
+        <p>
+          Je suis <strong>Robin Martinent</strong>, 20 ans, de Voiron.
+          Actuellement en Bachelor Realisateur-Monteur a Studio M, je me specialise
+          dans le montage video tout en cultivant des competences larges en creation numerique.
+        </p>
+        <p>
+          Ce qui me plait, c'est faire des choses qui se voient. Que ce soit une sequence
+          montee, une animation, un visuel ou une page web, j'aime quand le resultat
+          est propre et qu'il raconte quelque chose.
+        </p>
+        <p>
+          Je cherche une <strong>alternance de 2 ans</strong> a partir de fin aout 2026,
+          dans une structure ou je peux vraiment contribuer et progresser.
+        </p>
+      </div>
+      <div class="about-stats">
+        <div class="stat">
+          <div class="stat-num">2 ans</div>
+          <div class="stat-label">d'alternance recherchee</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">6+</div>
+          <div class="stat-label">outils maitrisés</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">20</div>
+          <div class="stat-label">ans, Voiron</div>
+        </div>
+        <div class="stat">
+          <div class="stat-num">B</div>
+          <div class="stat-label">Permis + voiture</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <p class="section-label" style="display:inline-block;margin-bottom:16px;">Me contacter</p>
+    <h2>On travaille ensemble ?</h2>
+    <p>Je suis dispo pour echanger, montrer mes realisations et repondre a vos questions.</p>
+    <div class="contact-links">
+      <a href="mailto:robin.martinent@gmail.com" class="btn-primary">robin.martinent@gmail.com</a>
+      <a href="tel:0766740346" class="btn-ghost">07 66 74 03 46</a>
+    </div>
+  </section>
+
+  <footer>
+    <p>Robin Martinent · Voiron 2026</p>
+    <p>Fait avec HTML / CSS</p>
+  </footer>
+
+</body>
+</html>
