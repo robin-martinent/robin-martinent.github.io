@@ -926,3 +926,102 @@ footer p {
     min-width: unset;
   }
 }
+/* ============================================================
+   HALO CURSEUR (UNIQUEMENT SUR LE HERO)
+   ============================================================ */
+.hero {
+  position: relative;
+  overflow: hidden;
+  cursor: none; /* Cache le curseur par défaut pour un effet plus propre */
+}
+
+.hero-cursor-halo {
+  position: fixed;
+  pointer-events: none;
+  z-index: 999;
+  width: 350px;
+  height: 350px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91, 43, 255, 0.15) 0%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: left 0.08s ease-out, top 0.08s ease-out;
+  will-change: left, top;
+  display: none;
+}
+.hero-cursor-halo.visible {
+  display: block;
+}
+
+/* Curseur personnalisé (petit point au centre) */
+.hero-cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 1000;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+  transition: left 0.05s ease-out, top 0.05s ease-out;
+  will-change: left, top;
+  display: none;
+  box-shadow: 0 0 20px var(--accent-glow);
+}
+.hero-cursor-dot.visible {
+  display: block;
+}
+
+/* ============================================================
+   CARTES CV AVEC DÉROULEMENT
+   ============================================================ */
+.cv-item {
+  position: relative;
+  padding-left: 22px;
+  margin-bottom: 30px;
+  cursor: pointer;
+  transition: transform 0.25s ease, border-color 0.25s ease;
+  border-left: 2px solid transparent;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 12px;
+  border-radius: 0 8px 8px 0;
+}
+
+.cv-item:hover {
+  transform: scale(1.04) translateX(4px);
+  border-left-color: var(--accent);
+  background: rgba(91, 43, 255, 0.05);
+}
+
+.cv-item .cv-desc {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+  opacity: 0;
+  margin-top: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-left: 0;
+}
+
+.cv-item:hover .cv-desc {
+  max-height: 120px;
+  opacity: 1;
+  margin-top: 8px;
+}
+
+.cv-item .cv-desc strong {
+  color: var(--accent);
+  font-weight: 500;
+}
+
+/* Ajustement pour le responsive */
+@media (max-width: 768px) {
+  .cv-item:hover {
+    transform: scale(1.02) translateX(2px);
+  }
+  .cv-item .cv-desc {
+    font-size: 12px;
+  }
+}
