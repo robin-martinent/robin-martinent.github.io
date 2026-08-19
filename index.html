@@ -14,6 +14,10 @@
 </head>
 <body>
 
+  <!-- ===== HALO CURSEUR ===== -->
+  <div class="hero-cursor-halo" id="cursorHalo"></div>
+  <div class="hero-cursor-dot" id="cursorDot"></div>
+
   <!-- OVERLAY EXPLOSION -->
   <div class="explosion-overlay" id="explosionOverlay">
     <div class="explosion-text" id="explosionText">💥 BOOM !</div>
@@ -35,7 +39,7 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero" id="mainContent">
+  <section class="hero" id="heroSection" data-halo="true">
     <div class="hero-bg-glow"></div>
     <div class="hero-bg-glow2"></div>
     <div class="hero-tag">Disponible en alternance 2 ans · Rentree 2026</div>
@@ -149,50 +153,69 @@
     <p class="section-label reveal">Mon parcours</p>
     <h2 class="section-title reveal">CV</h2>
     <div class="cv-grid">
+      <!-- ===== FORMATIONS ===== -->
       <div class="cv-col reveal">
         <h3>Formation</h3>
+
         <div class="cv-item">
-          <div class="cv-item-title">Bachelor Realisateur-Monteur</div>
+          <div class="cv-item-title">Bachelor Réalisateur-Monteur</div>
           <div class="cv-item-sub">Studio M</div>
           <div class="cv-item-date">2025 - 2026</div>
+          <div class="cv-desc"><strong>Montage vidéo</strong> · Motion design · Direction artistique · Gestion de projet audiovisuel · Réalisation de courts-métrages</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Licence MIASH</div>
           <div class="cv-item-sub">Grenoble IUT1</div>
           <div class="cv-item-date">2024 - 2025</div>
+          <div class="cv-desc"><strong>Mathématiques</strong> · Informatique · Algorithmique · Analyse de données · Programmation Python</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">BUT MMI</div>
           <div class="cv-item-sub">Grenoble IUT1</div>
           <div class="cv-item-date">2023 - 2024</div>
+          <div class="cv-desc"><strong>Multimédia</strong> · Communication · Design graphique · Développement web · Audiovisuel · UX/UI</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Bac STI2D option AC</div>
-          <div class="cv-item-sub">Lycee Ferdinand Buisson</div>
+          <div class="cv-item-sub">Lycée Ferdinand Buisson</div>
           <div class="cv-item-date">2023</div>
+          <div class="cv-desc"><strong>Sciences de l'ingénieur</strong> · Systèmes automatisés · Électronique · Architecture des systèmes · Projets techniques</div>
         </div>
       </div>
+
+      <!-- ===== EXPÉRIENCES ===== -->
       <div class="cv-col reveal">
         <h3>Experiences</h3>
+
         <div class="cv-item">
-          <div class="cv-item-title">Monteur video</div>
+          <div class="cv-item-title">Monteur vidéo</div>
           <div class="cv-item-sub">Shaolin Shadow</div>
           <div class="cv-item-date">Mars 2026 · 5 semaines</div>
+          <div class="cv-desc"><strong>Réalisation de showreels</strong> et best of d'événements dans le cadre d'un stage · Montage de clips et courts-métrages · Post-production</div>
         </div>
+
         <div class="cv-item">
-          <div class="cv-item-title">Employe polyvalent</div>
+          <div class="cv-item-title">Employé polyvalent</div>
           <div class="cv-item-sub">McDonald's</div>
-          <div class="cv-item-date">Ete 2025 · 1 mois</div>
+          <div class="cv-item-date">Été 2025 · 1 mois</div>
+          <div class="cv-desc"><strong>Job d'été</strong> · Accueil client · Préparation des commandes · Gestion du service · Travail en équipe</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Hydroguide</div>
           <div class="cv-item-sub">EDF</div>
-          <div class="cv-item-date">Ete 2024 · 2 mois</div>
+          <div class="cv-item-date">Été 2024 · 2 mois</div>
+          <div class="cv-desc"><strong>Job d'été</strong> · Garde de côtes · Sensibilisation aux dangers des barrages hydrauliques · Surveillance des zones</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Mise en rayon</div>
           <div class="cv-item-sub">Carrefour</div>
-          <div class="cv-item-date">Ete 2023 · 1 mois</div>
+          <div class="cv-item-date">Été 2023 · 1 mois</div>
+          <div class="cv-desc"><strong>Job d'été</strong> · Remplissage des rayons · Gestion des stocks · Réapprovisionnement · Organisation</div>
         </div>
       </div>
     </div>
@@ -345,18 +368,14 @@
       try {
         const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
 
-        // Buffer de 0.7s
         const bufferSize = audioCtx.sampleRate * 0.7;
         const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
         const data = buffer.getChannelData(0);
 
         for (let i = 0; i < bufferSize; i++) {
           const t = i / audioCtx.sampleRate;
-          // Enveloppe : attaque ultra-rapide, déclin progressif
           const envelope = Math.exp(-t * 5);
-          // Onde carrée grave (80 Hz) pour le "BOOM" lourd
           const square = Math.sign(Math.sin(2 * Math.PI * 80 * t));
-          // Bruit blanc assourdi
           const noise = (Math.random() * 2 - 1) * 0.3;
           data[i] = (square * 0.6 + noise) * envelope;
         }
@@ -368,7 +387,6 @@
         gainNode.gain.setValueAtTime(1.2, audioCtx.currentTime);
         gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
 
-        // Ajouter un peu de saturation pour plus de punch
         const distortion = audioCtx.createWaveShaper();
         distortion.curve = (function() {
           const samples = 44100;
@@ -390,8 +408,10 @@
     }
 
     // ============================================================
-    // 6. EXPLOSION COMPLÈTE (TOUT LE SITE TREMBLE)
+    // 6. EXPLOSION COMPLÈTE
     // ============================================================
+    let isExploding = false;
+
     function triggerExplosion() {
       if (isExploding) return;
       isExploding = true;
@@ -400,16 +420,9 @@
       const textEl = document.getElementById('explosionText');
       const body = document.body;
 
-      // 1. Son
       playExplosionSound();
-
-      // 2. Fumée
       startSmoke();
-
-      // 3. Overlay
       overlay.classList.add('active');
-
-      // 4. Tremblement de TOUTE la page (body entier)
       body.classList.add('site-shake');
 
       const panicMessages = ['💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOOON', '💻 FUMÉE'];
@@ -462,7 +475,6 @@
 
     const shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
     let emailClicks = 0;
-    let isExploding = false;
 
     copyBtn.addEventListener('click', async function(e) {
       e.preventDefault();
@@ -585,6 +597,48 @@
         if (phoneClicks < phoneMessages.length) phoneFeedbackMsg.textContent = 'Numéro copié !';
       }, 1800);
     });
+
+    // ============================================================
+    // 9. HALO CURSEUR (UNIQUEMENT SUR LE HERO)
+    // ============================================================
+    const heroSection = document.getElementById('heroSection');
+    const cursorHalo = document.getElementById('cursorHalo');
+    const cursorDot = document.getElementById('cursorDot');
+    let isOnHero = false;
+
+    function updateCursor(e) {
+      if (!isOnHero) return;
+      cursorHalo.style.left = e.clientX + 'px';
+      cursorHalo.style.top = e.clientY + 'px';
+      cursorDot.style.left = e.clientX + 'px';
+      cursorDot.style.top = e.clientY + 'px';
+    }
+
+    heroSection.addEventListener('mouseenter', () => {
+      isOnHero = true;
+      cursorHalo.classList.add('visible');
+      cursorDot.classList.add('visible');
+    });
+
+    heroSection.addEventListener('mouseleave', () => {
+      isOnHero = false;
+      cursorHalo.classList.remove('visible');
+      cursorDot.classList.remove('visible');
+    });
+
+    document.addEventListener('mousemove', updateCursor);
+
+    document.addEventListener('mouseleave', () => {
+      cursorHalo.classList.remove('visible');
+      cursorDot.classList.remove('visible');
+    });
+
+    // Désactiver sur mobile
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      cursorHalo.style.display = 'none';
+      cursorDot.style.display = 'none';
+      heroSection.style.cursor = 'auto';
+    }
   </script>
 </body>
 </html>
