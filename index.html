@@ -319,54 +319,70 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // ============================================================
-    // 4. GÉNÉRATEUR DE FUMÉE
-    // ============================================================
-    const smokeContainer = document.getElementById('smokeContainer');
+// ============================================================
+// 4. GÉNÉRATEUR DE FUMÉE (plus opaque)
+// ============================================================
+const smokeContainer = document.getElementById('smokeContainer');
 
-    function createSmoke() {
-      const particle = document.createElement('div');
-      particle.className = 'smoke-particle';
-      const size = 80 + Math.random() * 200;
-      const left = Math.random() * 100;
-      const duration = 4 + Math.random() * 4;
-      const delay = Math.random() * 2;
-      const opacity = 0.1 + Math.random() * 0.2;
+function createSmoke() {
+  const particle = document.createElement('div');
+  particle.className = 'smoke-particle';
 
-      particle.style.width = size + 'px';
-      particle.style.height = size + 'px';
-      particle.style.left = left + '%';
-      particle.style.animationDuration = duration + 's';
-      particle.style.animationDelay = delay + 's';
-      particle.style.opacity = opacity;
-      particle.style.background =
-        'radial-gradient(circle, rgba(200,200,200,' + opacity + ') 0%, rgba(150,150,150,0) 70%)';
+  // Taille plus grande (150 à 350px)
+  const size = 150 + Math.random() * 200;
 
-      smokeContainer.appendChild(particle);
+  // Position horizontale aléatoire
+  const left = Math.random() * 100;
 
-      setTimeout(() => {
-        particle.remove();
-      }, (duration + delay) * 1000 + 500);
-    }
+  // Durée plus longue (5 à 8 secondes)
+  const duration = 5 + Math.random() * 4;
 
-    function startSmoke() {
-      smokeContainer.classList.add('active');
-      const count = 20 + Math.floor(Math.random() * 15);
-      for (let i = 0; i < count; i++) {
-        setTimeout(() => createSmoke(), i * 150);
-      }
-      for (let i = 0; i < 15; i++) {
-        setTimeout(() => createSmoke(), 2000 + i * 300);
-      }
-    }
+  // Délai aléatoire
+  const delay = Math.random() * 2;
 
-    function stopSmoke() {
-      smokeContainer.classList.remove('active');
-      setTimeout(() => {
-        smokeContainer.innerHTML = '';
-      }, 2000);
-    }
+  // OPACITÉ PLUS ÉLEVÉE (0.3 à 0.6 au lieu de 0.1 à 0.3)
+  const opacity = 0.3 + Math.random() * 0.3;
 
+  particle.style.width = size + 'px';
+  particle.style.height = size + 'px';
+  particle.style.left = left + '%';
+  particle.style.animationDuration = duration + 's';
+  particle.style.animationDelay = delay + 's';
+  particle.style.opacity = opacity;
+
+  // Dégradé plus opaque
+  particle.style.background =
+    'radial-gradient(circle, rgba(220,220,220,' + opacity + ') 0%, rgba(180,180,180,' + (opacity * 0.4) + ') 40%, rgba(150,150,150,0) 80%)';
+
+  smokeContainer.appendChild(particle);
+
+  setTimeout(() => {
+    particle.remove();
+  }, (duration + delay) * 1000 + 500);
+}
+
+function startSmoke() {
+  smokeContainer.classList.add('active');
+
+  // PLUS DE PARTICULES (40 à 60 au lieu de 20 à 35)
+  const count = 40 + Math.floor(Math.random() * 25);
+
+  for (let i = 0; i < count; i++) {
+    setTimeout(() => createSmoke(), i * 100);
+  }
+
+  // Deuxième vague pour une fumée plus dense
+  for (let i = 0; i < 20; i++) {
+    setTimeout(() => createSmoke(), 2000 + i * 150);
+  }
+}
+
+function stopSmoke() {
+  smokeContainer.classList.remove('active');
+  setTimeout(() => {
+    smokeContainer.innerHTML = '';
+  }, 3000);
+}
     // ============================================================
     // 5. BOOM (SON)
     // ============================================================
