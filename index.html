@@ -597,60 +597,83 @@
       }, 1800);
     });
 
-    // ============================================================
-    // 9. CURSEUR AMÉLIORÉ (HALO + POINT + SILLAGE SUR TOUTE LA PAGE)
-    // ============================================================
-    const cursorHalo = document.getElementById('cursorHalo');
-    const cursorDot = document.getElementById('cursorDot');
-    const cursorTrail = document.getElementById('cursorTrail');
+ // ============================================================
+// 9. CURSEUR FLUIDE AVEC REQUESTANIMATIONFRAME
+// ============================================================
+const cursorHalo = document.getElementById('cursorHalo');
+const cursorDot = document.getElementById('cursorDot');
+const cursorTrail = document.getElementById('cursorTrail');
 
-    let trailX = window.innerWidth / 2;
-    let trailY = window.innerHeight / 2;
+let mouseX = window.innerWidth / 2;
+let mouseY = window.innerHeight / 2;
 
-    function updateCursor(e) {
-      const x = e.clientX;
-      const y = e.clientY;
+let haloX = mouseX;
+let haloY = mouseY;
+let dotX = mouseX;
+let dotY = mouseY;
+let trailX = mouseX;
+let trailY = mouseY;
 
-      cursorHalo.style.left = x + 'px';
-      cursorHalo.style.top = y + 'px';
-      cursorDot.style.left = x + 'px';
-      cursorDot.style.top = y + 'px';
+let isVisible = false;
 
-      trailX += (x - trailX) * 0.08;
-      trailY += (y - trailY) * 0.08;
-      cursorTrail.style.left = trailX + 'px';
-      cursorTrail.style.top = trailY + 'px';
-    }
+function updateCursorPositions() {
+    // Halo : suivi direct mais avec un très léger lissage
+    haloX += (mouseX - haloX) * 0.12;
+    haloY += (mouseY - haloY) * 0.12;
 
-    document.addEventListener('mouseenter', () => {
-      cursorHalo.classList.add('visible');
-      cursorDot.classList.add('visible');
-      cursorTrail.classList.add('visible');
-    });
+    // Point : suivi très rapide (presque direct)
+    dotX += (mouseX - dotX) * 0.25;
+    dotY += (mouseY - dotY) * 0.25;
 
-    document.addEventListener('mouseleave', () => {
-      cursorHalo.classList.remove('visible');
-      cursorDot.classList.remove('visible');
-      cursorTrail.classList.remove('visible');
-    });
+    // Sillage : suivi lent pour un effet de traînée
+    trailX += (mouseX - trailX) * 0.06;
+    trailY += (mouseY - trailY) * 0.06;
 
-    document.addEventListener('mousemove', updateCursor);
+    cursorHalo.style.left = haloX + 'px';
+    cursorHalo.style.top = haloY + 'px';
+    cursorDot.style.left = dotX + 'px';
+    cursorDot.style.top = dotY + 'px';
+    cursorTrail.style.left = trailX + 'px';
+    cursorTrail.style.top = trailY + 'px';
 
-    // Si la souris est déjà dans la page au chargement
-    if (window.matchMedia('(pointer: fine)').matches) {
-      setTimeout(() => {
+    requestAnimationFrame(updateCursorPositions);
+}
+
+document.addEventListener('mousemove', (e) => {
+    mouseX = e.clientX;
+    mouseY = e.clientY;
+
+    if (!isVisible) {
+        isVisible = true;
         cursorHalo.classList.add('visible');
         cursorDot.classList.add('visible');
         cursorTrail.classList.add('visible');
-      }, 100);
+        // Initialiser les positions pour éviter un saut
+        haloX = mouseX;
+        haloY = mouseY;
+        dotX = mouseX;
+        dotY = mouseY;
+        trailX = mouseX;
+        trailY = mouseY;
     }
+});
 
-    // Désactiver sur mobile
-    if (window.matchMedia('(pointer: coarse)').matches) {
-      cursorHalo.style.display = 'none';
-      cursorDot.style.display = 'none';
-      cursorTrail.style.display = 'none';
-    }
+document.addEventListener('mouseleave', () => {
+    isVisible = false;
+    cursorHalo.classList.remove('visible');
+    cursorDot.classList.remove('visible');
+    cursorTrail.classList.remove('visible');
+});
+
+// Démarrer l'animation
+updateCursorPositions();
+
+// Désactiver sur mobile
+if (window.matchMedia('(pointer: coarse)').matches) {
+    cursorHalo.style.display = 'none';
+    cursorDot.style.display = 'none';
+    cursorTrail.style.display = 'none';
+}
   </script>
 </body>
 </html>
