@@ -12,7 +12,7 @@
   --bg2: #141417;
   --ink: #f0f0f0;
   --muted: #888;
-  --accent: #5b2bff;          /* NOUVELLE COULEUR PRINCIPALE */
+  --accent: #5b2bff;
   --accent-glow: rgba(91, 43, 255, 0.15);
   --border: rgba(255, 255, 255, 0.07);
   --font: 'Poppins', sans-serif;
@@ -769,16 +769,27 @@ nav.scrolled {
   padding-bottom: 12px;
   border-bottom: 1px solid var(--border);
 }
+
 .cv-item {
   position: relative;
   padding-left: 22px;
   margin-bottom: 30px;
+  cursor: pointer;
+  transition: transform 0.25s ease, background 0.25s ease;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  padding-right: 12px;
+  border-radius: 8px;
+}
+.cv-item:hover {
+  transform: scale(1.04) translateX(4px);
+  background: rgba(91, 43, 255, 0.05);
 }
 .cv-item::before {
   content: '';
   position: absolute;
   left: 0;
-  top: 6px;
+  top: 12px;
   width: 7px;
   height: 7px;
   border-radius: 50%;
@@ -789,7 +800,7 @@ nav.scrolled {
   content: '';
   position: absolute;
   left: 3px;
-  top: 16px;
+  top: 22px;
   width: 1px;
   height: calc(100% + 10px);
   background: var(--border);
@@ -810,6 +821,27 @@ nav.scrolled {
 .cv-item-date {
   font-size: 11px;
   color: var(--muted);
+}
+
+.cv-item .cv-desc {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
+  opacity: 0;
+  margin-top: 0;
+  font-size: 13px;
+  color: var(--muted);
+  line-height: 1.6;
+  padding-left: 0;
+}
+.cv-item:hover .cv-desc {
+  max-height: 120px;
+  opacity: 1;
+  margin-top: 8px;
+}
+.cv-item .cv-desc strong {
+  color: var(--accent);
+  font-weight: 500;
 }
 
 /* ============================================================
@@ -884,6 +916,101 @@ footer p {
 }
 
 /* ============================================================
+   CURSEUR PERSONNALISÉ (HALO + POINT + SILLAGE)
+   ============================================================ */
+.hero-cursor-halo {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9999;
+  width: 360px;
+  height: 360px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91, 43, 255, 0.06) 0%, rgba(91, 43, 255, 0.015) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  transition: left 0.12s cubic-bezier(0.2, 0.9, 0.3, 1.1), top 0.12s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.4s ease;
+  will-change: left, top;
+  opacity: 0;
+  pointer-events: none;
+  border: 1px solid rgba(91, 43, 255, 0.04);
+}
+.hero-cursor-halo.visible {
+  opacity: 1;
+}
+
+.hero-cursor-halo::before {
+  content: '';
+  position: absolute;
+  inset: 30px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91, 43, 255, 0.04) 0%, transparent 70%);
+  animation: cursorPulse 3s ease-in-out infinite;
+}
+
+.hero-cursor-halo::after {
+  content: '';
+  position: absolute;
+  inset: 60px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(91, 43, 255, 0.025) 0%, transparent 70%);
+  animation: cursorPulse 4s ease-in-out infinite reverse;
+}
+
+@keyframes cursorPulse {
+  0%, 100% { transform: scale(1); opacity: 0.6; }
+  50% { transform: scale(1.15); opacity: 1; }
+}
+
+.hero-cursor-dot {
+  position: fixed;
+  pointer-events: none;
+  z-index: 10000;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--accent);
+  transform: translate(-50%, -50%);
+  transition: left 0.08s cubic-bezier(0.2, 0.9, 0.3, 1.1), top 0.08s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.3s ease;
+  will-change: left, top;
+  opacity: 0;
+  box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(91, 43, 255, 0.12);
+}
+.hero-cursor-dot.visible {
+  opacity: 1;
+}
+
+.hero-cursor-dot::before {
+  content: '';
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1px solid rgba(91, 43, 255, 0.12);
+  animation: ringPulse 2.2s ease-in-out infinite;
+}
+
+@keyframes ringPulse {
+  0%, 100% { transform: scale(0.8); opacity: 0.2; }
+  50% { transform: scale(1.25); opacity: 0.7; }
+}
+
+.hero-cursor-trail {
+  position: fixed;
+  pointer-events: none;
+  z-index: 9998;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(91, 43, 255, 0.2);
+  transform: translate(-50%, -50%);
+  transition: left 0.35s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.35s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.5s ease;
+  will-change: left, top;
+  opacity: 0;
+  filter: blur(1px);
+}
+.hero-cursor-trail.visible {
+  opacity: 0.7;
+}
+
+/* ============================================================
    RESPONSIVE
    ============================================================ */
 @media (max-width: 768px) {
@@ -925,99 +1052,6 @@ footer p {
   .btn-copy {
     min-width: unset;
   }
-}
-/* ============================================================
-   HALO CURSEUR (UNIQUEMENT SUR LE HERO)
-   ============================================================ */
-.hero {
-  position: relative;
-  overflow: hidden;
-  cursor: none; /* Cache le curseur par défaut pour un effet plus propre */
-}
-
-.hero-cursor-halo {
-  position: fixed;
-  pointer-events: none;
-  z-index: 999;
-  width: 350px;
-  height: 350px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(91, 43, 255, 0.15) 0%, transparent 70%);
-  transform: translate(-50%, -50%);
-  transition: left 0.08s ease-out, top 0.08s ease-out;
-  will-change: left, top;
-  display: none;
-}
-.hero-cursor-halo.visible {
-  display: block;
-}
-
-/* Curseur personnalisé (petit point au centre) */
-.hero-cursor-dot {
-  position: fixed;
-  pointer-events: none;
-  z-index: 1000;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background: var(--accent);
-  transform: translate(-50%, -50%);
-  transition: left 0.05s ease-out, top 0.05s ease-out;
-  will-change: left, top;
-  display: none;
-  box-shadow: 0 0 20px var(--accent-glow);
-}
-.hero-cursor-dot.visible {
-  display: block;
-}
-
-/* ============================================================
-   CARTES CV AVEC DÉROULEMENT
-   ============================================================ */
-.cv-item {
-  position: relative;
-  padding-left: 22px;
-  margin-bottom: 30px;
-  cursor: pointer;
-  transition: transform 0.25s ease, border-color 0.25s ease;
-  border-left: 2px solid transparent;
-  padding-top: 8px;
-  padding-bottom: 8px;
-  padding-right: 12px;
-  border-radius: 0 8px 8px 0;
-}
-
-.cv-item:hover {
-  transform: scale(1.04) translateX(4px);
-  border-left-color: var(--accent);
-  background: rgba(91, 43, 255, 0.05);
-}
-
-.cv-item .cv-desc {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease, opacity 0.3s ease, margin 0.3s ease;
-  opacity: 0;
-  margin-top: 0;
-  font-size: 13px;
-  color: var(--muted);
-  line-height: 1.6;
-  padding-left: 0;
-}
-
-.cv-item:hover .cv-desc {
-  max-height: 120px;
-  opacity: 1;
-  margin-top: 8px;
-}
-
-.cv-item .cv-desc strong {
-  color: var(--accent);
-  font-weight: 500;
-}
-
-/* Ajustement pour le responsive */
-@media (max-width: 768px) {
   .cv-item:hover {
     transform: scale(1.02) translateX(2px);
   }
