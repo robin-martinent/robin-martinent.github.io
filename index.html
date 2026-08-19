@@ -20,7 +20,6 @@
     html { scroll-behavior: smooth; }
     body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; transition: background 0.3s; }
 
-    /* SCROLLBAR */
     ::-webkit-scrollbar { width: 4px; }
     ::-webkit-scrollbar-track { background: var(--bg); }
     ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
@@ -97,6 +96,8 @@
       border: none; cursor: pointer;
     }
     .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(91,106,240,0.35); }
+    .btn-primary:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
     .btn-ghost {
       border: 1px solid var(--border); color: var(--muted); padding: 15px 30px; border-radius: 8px;
       font-size: 14px; text-decoration: none; font-family: 'Poppins', sans-serif;
@@ -104,6 +105,7 @@
       background: transparent; cursor: pointer;
     }
     .btn-ghost:hover { border-color: rgba(255,255,255,0.18); color: var(--ink); }
+    .btn-ghost:disabled { opacity: 0.5; cursor: not-allowed; border-color: var(--border); }
 
     .btn-rapport {
       background: transparent;
@@ -125,7 +127,7 @@
       box-shadow: 0 8px 32px rgba(91,106,240,0.3);
     }
 
-    /* ===== BOUTON EMAIL COPIER AVEC FOLIE PROGRESSIVE ===== */
+    /* ===== BOUTONS COPY AVEC FEEDBACK ===== */
     .btn-copy {
       position: relative;
       overflow: hidden;
@@ -133,7 +135,7 @@
       justify-content: center;
       align-items: center;
       gap: 8px;
-      transition: transform 0.1s ease;
+      transition: transform 0.15s ease;
     }
     .btn-copy .btn-text {
       transition: opacity 0.25s;
@@ -159,7 +161,7 @@
       fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
     }
 
-    /* Tremblement (shake) de plus en plus fort */
+    /* ===== EMAIL : SHAKE PROGRESSIF ===== */
     @keyframes shake1 { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
     @keyframes shake2 { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
     @keyframes shake3 { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-14px)} 30%{transform:translateX(14px)} 45%{transform:translateX(-10px)} 60%{transform:translateX(10px)} 75%{transform:translateX(-6px)} 90%{transform:translateX(6px)} }
@@ -178,7 +180,14 @@
       100%{transform:translateX(0) rotate(0deg)}
     }
 
-    /* Explosion */
+    /* ===== TÉLÉPHONE : BASCULE 3D ===== */
+    @keyframes wobble1 { 0%,100%{transform:rotateY(0deg)} 50%{transform:rotateY(10deg)} }
+    @keyframes wobble2 { 0%,100%{transform:rotateY(0deg)} 25%{transform:rotateY(-15deg)} 75%{transform:rotateY(15deg)} }
+    @keyframes wobble3 { 0%,100%{transform:rotateY(0deg)} 20%{transform:rotateY(-25deg)} 40%{transform:rotateY(25deg)} 60%{transform:rotateY(-15deg)} 80%{transform:rotateY(15deg)} }
+    @keyframes wobble4 { 0%,100%{transform:rotateY(0deg)} 15%{transform:rotateY(-35deg)} 30%{transform:rotateY(35deg)} 45%{transform:rotateY(-25deg)} 60%{transform:rotateY(25deg)} 75%{transform:rotateY(-15deg)} 90%{transform:rotateY(15deg)} }
+    @keyframes wobble5 { 0%,100%{transform:rotateY(0deg) rotateX(0deg)} 20%{transform:rotateY(-40deg) rotateX(5deg)} 40%{transform:rotateY(40deg) rotateX(-5deg)} 60%{transform:rotateY(-25deg) rotateX(3deg)} 80%{transform:rotateY(25deg) rotateX(-3deg)} }
+
+    /* ===== EXPLOSION ===== */
     .explosion-overlay {
       position: fixed; inset: 0; z-index: 9999;
       display: flex; align-items: center; justify-content: center;
@@ -211,21 +220,10 @@
       100% { transform: scale(0.5) rotate(0deg); opacity: 0; }
     }
 
-    /* FADE OUT/IN pour le reset */
-    .site-fadeout {
-      animation: siteFadeOut 0.8s ease forwards;
-    }
-    @keyframes siteFadeOut {
-      0% { opacity: 1; }
-      100% { opacity: 0; }
-    }
-    .site-fadein {
-      animation: siteFadeIn 1s ease forwards;
-    }
-    @keyframes siteFadeIn {
-      0% { opacity: 0; transform: translateY(20px); }
-      100% { opacity: 1; transform: translateY(0); }
-    }
+    .site-fadeout { animation: siteFadeOut 0.8s ease forwards; }
+    @keyframes siteFadeOut { 0% { opacity: 1; } 100% { opacity: 0; } }
+    .site-fadein { animation: siteFadeIn 1s ease forwards; }
+    @keyframes siteFadeIn { 0% { opacity: 0; transform: translateY(20px); } 100% { opacity: 1; transform: translateY(0); } }
 
     /* SCROLL INDICATOR */
     .scroll-hint {
@@ -343,7 +341,7 @@
 </head>
 <body>
 
-  <!-- OVERLAY D'EXPLOSION (caché par défaut) -->
+  <!-- OVERLAY D'EXPLOSION -->
   <div class="explosion-overlay" id="explosionOverlay">
     <div class="explosion-text" id="explosionText">💥 BOOM !</div>
   </div>
@@ -527,15 +525,23 @@
     <h2>On travaille ensemble ?</h2>
     <p>Dispo pour echanger, montrer mes realisations et repondre a vos questions.</p>
     <div class="contact-links">
-      <!-- LE BOUTON EMAIL DEVENU FOU -->
+      <!-- BOUTON EMAIL (avec explosion) -->
       <button id="copyEmailBtn" class="btn-primary btn-copy" style="min-width:220px;">
         <span class="btn-text">robin.martinent@gmail.com</span>
-        <span class="btn-feedback" id="feedbackText">
+        <span class="btn-feedback" id="emailFeedback">
           <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          <span id="feedbackMessage">Copié !</span>
+          <span id="emailFeedbackMsg">Copié !</span>
         </span>
       </button>
-      <a href="tel:0766740346" class="btn-ghost">07 66 74 03 46</a>
+
+      <!-- BOUTON TÉLÉPHONE (avec la nouvelle blague) -->
+      <button id="copyPhoneBtn" class="btn-ghost btn-copy" style="min-width:180px; border-color: var(--accent); color: var(--accent);">
+        <span class="btn-text">07 66 74 03 46</span>
+        <span class="btn-feedback" id="phoneFeedback" style="background: #2d7a9c;">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="phoneFeedbackMsg">Copié !</span>
+        </span>
+      </button>
     </div>
   </section>
 
@@ -604,14 +610,13 @@
     reveals.forEach(el => observer.observe(el));
 
     // ============================================================
-    // 4. BOUTON EMAIL — LA FOLIE PROGRESSIVE
+    // 4. BOUTON EMAIL — LA FOLIE PROGRESSIVE AVEC EXPLOSION
     // ============================================================
     const copyBtn = document.getElementById('copyEmailBtn');
-    const feedbackMsg = document.getElementById('feedbackMessage');
+    const emailFeedbackMsg = document.getElementById('emailFeedbackMsg');
     const email = 'robin.martinent@gmail.com';
 
-    // La séquence des messages
-    const messages = [
+    const emailMessages = [
       'Copié !',
       'Double copie !',
       'Triple copie !',
@@ -624,48 +629,29 @@
       'NOOOOOOONNNNN !!!!! 💥'
     ];
 
-    // Les animations de shake (index 0 = pas de shake, 1 = léger, etc.)
     const shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
-
-    let clickCount = 0;
+    let emailClicks = 0;
     let isExploding = false;
 
-    // Fonction pour déclencher l'explosion
     function triggerExplosion() {
       if (isExploding) return;
       isExploding = true;
-
       const overlay = document.getElementById('explosionOverlay');
       const textEl = document.getElementById('explosionText');
-
-      // Afficher l'overlay
       overlay.classList.add('active');
-
-      // Mettre le texte d'explosion avec un message aléatoire de panique
       const panicMessages = ['💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOOON', '💻 FUMÉE'];
       textEl.textContent = panicMessages[Math.floor(Math.random() * panicMessages.length)];
-
-      // Attendre la fin de l'animation, puis faire un fondu en blanc et reset
       setTimeout(() => {
-        // Faire disparaître tout le site
         document.body.classList.add('site-fadeout');
-
         setTimeout(() => {
-          // Réinitialiser tout : remonter en haut, enlever l'explosion, remettre le site
           window.scrollTo({ top: 0, behavior: 'smooth' });
           document.body.classList.remove('site-fadeout');
           document.body.classList.add('site-fadein');
-
-          // Remettre le bouton à l'état normal
           copyBtn.classList.remove('copied');
           copyBtn.style.animation = '';
-          feedbackMsg.textContent = 'Copié !';
-          clickCount = 0;
-
-          // Cacher l'explosion
+          emailFeedbackMsg.textContent = 'Copié !';
+          emailClicks = 0;
           overlay.classList.remove('active');
-
-          // Après le fondu, enlever la classe fadein
           setTimeout(() => {
             document.body.classList.remove('site-fadein');
             isExploding = false;
@@ -676,65 +662,103 @@
 
     copyBtn.addEventListener('click', async function(e) {
       e.preventDefault();
-
-      // Si on est en train d'exploser, on ignore
       if (isExploding) return;
-
-      // Copier l'email dans le presse-papier
-      try {
-        await navigator.clipboard.writeText(email);
-      } catch {
-        const input = document.createElement('input');
-        input.value = email;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
+      try { await navigator.clipboard.writeText(email); }
+      catch { const input = document.createElement('input'); input.value = email; document.body.appendChild(input); input.select(); document.execCommand('copy'); document.body.removeChild(input); }
+      emailClicks++;
+      const index = Math.min(emailClicks - 1, emailMessages.length - 1);
+      emailFeedbackMsg.textContent = emailMessages[index];
+      this.classList.add('copied');
+      let level = 0;
+      if (emailClicks >= 10) level = 5;
+      else if (emailClicks >= 8) level = 4;
+      else if (emailClicks >= 6) level = 3;
+      else if (emailClicks >= 4) level = 2;
+      else if (emailClicks >= 2) level = 1;
+      if (level > 0 && level < shakeClasses.length) {
+        this.style.animation = shakeClasses[level] + ' 0.5s ease';
+        setTimeout(() => { this.style.animation = ''; }, 500);
       }
+      if (emailClicks >= emailMessages.length) {
+        setTimeout(() => { triggerExplosion(); }, 400);
+        return;
+      }
+      setTimeout(() => {
+        this.classList.remove('copied');
+        if (emailClicks < emailMessages.length) emailFeedbackMsg.textContent = 'Copié !';
+      }, 1800);
+    });
 
-      // Incrémenter le compteur
-      clickCount++;
+    // ============================================================
+    // 5. BOUTON TÉLÉPHONE — LA BLAGUE MÉTA
+    // ============================================================
+    const phoneBtn = document.getElementById('copyPhoneBtn');
+    const phoneFeedbackMsg = document.getElementById('phoneFeedbackMsg');
+    const phoneNumber = '0766740346';
 
-      // Afficher le message correspondant (si on a dépassé la liste, on prend le dernier)
-      const index = Math.min(clickCount - 1, messages.length - 1);
-      feedbackMsg.textContent = messages[index];
+    const phoneMessages = [
+      'Numéro copié !',
+      'J\'allais pas faire la même chose...',
+      'Mais si, je l\'ai fait.',
+      'T\'es têtu toi.',
+      'Bon, voilà, c\'est copié.',
+      'Tu veux que je le dise plus fort ?',
+      '07 66 74 03 46',
+      'Ça suffit maintenant.',
+      'Je t\'ai copié 9 fois.',
+      'T\'as gagné, j\'arrête.'
+    ];
 
-      // Afficher le feedback
+    const wobbleClasses = ['', 'wobble1', 'wobble2', 'wobble3', 'wobble4', 'wobble5'];
+    let phoneClicks = 0;
+    let isPhoneDone = false;
+
+    phoneBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      if (isPhoneDone) return;
+
+      try { await navigator.clipboard.writeText(phoneNumber); }
+      catch { const input = document.createElement('input'); input.value = phoneNumber; document.body.appendChild(input); input.select(); document.execCommand('copy'); document.body.removeChild(input); }
+
+      phoneClicks++;
+      const index = Math.min(phoneClicks - 1, phoneMessages.length - 1);
+      phoneFeedbackMsg.textContent = phoneMessages[index];
       this.classList.add('copied');
 
-      // Déterminer le niveau de shake
-      let shakeLevel = 0;
-      if (clickCount >= 10) shakeLevel = 5;
-      else if (clickCount >= 8) shakeLevel = 4;
-      else if (clickCount >= 6) shakeLevel = 3;
-      else if (clickCount >= 4) shakeLevel = 2;
-      else if (clickCount >= 2) shakeLevel = 1;
-
-      // Appliquer le shake sur le bouton
-      if (shakeLevel > 0 && shakeLevel <= shakeClasses.length - 1) {
-        this.style.animation = shakeClasses[shakeLevel] + ' 0.5s ease';
-        // Après l'animation, on retire pour pouvoir la relancer
-        setTimeout(() => {
-          this.style.animation = '';
-        }, 500);
+      // Wobble 3D
+      let wobbleLevel = 0;
+      if (phoneClicks >= 10) wobbleLevel = 5;
+      else if (phoneClicks >= 8) wobbleLevel = 4;
+      else if (phoneClicks >= 6) wobbleLevel = 3;
+      else if (phoneClicks >= 4) wobbleLevel = 2;
+      else if (phoneClicks >= 2) wobbleLevel = 1;
+      if (wobbleLevel > 0 && wobbleLevel < wobbleClasses.length) {
+        this.style.animation = wobbleClasses[wobbleLevel] + ' 0.6s ease';
+        setTimeout(() => { this.style.animation = ''; }, 600);
       }
 
-      // Si on est au dernier message, on déclenche l'explosion après un court délai
-      if (clickCount >= messages.length) {
-        // On laisse le temps au message de s'afficher
+      // Si on arrive au dernier message : on désactive le bouton 3s en mode "j'ai compris"
+      if (phoneClicks >= phoneMessages.length) {
+        isPhoneDone = true;
+        this.disabled = true;
+        // On change le style pour montrer qu'il est "fatigué"
+        this.style.borderColor = '#ff6b6b';
+        this.style.color = '#ff6b6b';
         setTimeout(() => {
-          triggerExplosion();
-        }, 400);
+          this.disabled = false;
+          this.classList.remove('copied');
+          this.style.borderColor = '';
+          this.style.color = '';
+          phoneFeedbackMsg.textContent = 'Numéro copié !';
+          phoneClicks = 0;
+          isPhoneDone = false;
+        }, 3000);
         return;
       }
 
-      // Sinon, on remet le bouton normal après 1.8s
       setTimeout(() => {
         this.classList.remove('copied');
-        // On remet le message par défaut (sauf si c'est l'explosion qui va arriver)
-        if (clickCount < messages.length) {
-          feedbackMsg.textContent = 'Copié !';
-        }
+        if (phoneClicks < phoneMessages.length) phoneFeedbackMsg.textContent = 'Numéro copié !';
       }, 1800);
     });
   </script>
