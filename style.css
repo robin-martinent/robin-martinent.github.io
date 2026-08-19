@@ -12,9 +12,8 @@
   --bg2: #141417;
   --ink: #f0f0f0;
   --muted: #888;
-  --accent: #6b7af5;    /* Bleu plus lumineux (option B) */
-  /* --accent: #5b6af0;  /* Option A : retour à l'original */
-  --accent-glow: rgba(91, 106, 240, 0.15);
+  --accent: #5b2bff;          /* NOUVELLE COULEUR PRINCIPALE */
+  --accent-glow: rgba(91, 43, 255, 0.15);
   --border: rgba(255, 255, 255, 0.07);
   --font: 'Poppins', sans-serif;
 }
@@ -134,7 +133,7 @@ nav.scrolled {
   right: -10%;
   width: 500px;
   height: 500px;
-  background: radial-gradient(circle, rgba(91, 106, 240, 0.05) 0%, transparent 65%);
+  background: radial-gradient(circle, rgba(91, 43, 255, 0.05) 0%, transparent 65%);
   pointer-events: none;
   animation: floatGlow 10s ease-in-out infinite reverse;
 }
@@ -149,7 +148,7 @@ nav.scrolled {
   align-items: center;
   gap: 8px;
   background: var(--accent-glow);
-  border: 1px solid rgba(91, 106, 240, 0.25);
+  border: 1px solid rgba(91, 43, 255, 0.25);
   border-radius: 100px;
   padding: 7px 16px;
   font-size: 12px;
@@ -230,7 +229,7 @@ nav.scrolled {
   font-family: var(--font);
   transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s;
   display: inline-block;
-  box-shadow: 0 0 0 rgba(91, 106, 240, 0);
+  box-shadow: 0 0 0 rgba(91, 43, 255, 0);
   border: none;
   cursor: pointer;
 }
@@ -714,7 +713,7 @@ nav.scrolled {
   animation: fadeUp 0.5s forwards;
 }
 .skill-card:hover {
-  border-color: rgba(91, 106, 240, 0.4);
+  border-color: rgba(91, 43, 255, 0.4);
   transform: translateY(-3px);
 }
 .skill-icon {
@@ -748,7 +747,7 @@ nav.scrolled {
   transition: border-color 0.2s, color 0.2s;
 }
 .tool-tag:hover {
-  border-color: rgba(91, 106, 240, 0.3);
+  border-color: rgba(91, 43, 255, 0.3);
   color: var(--ink);
 }
 
