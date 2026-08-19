@@ -94,14 +94,70 @@
       font-size: 14px; font-weight: 500; text-decoration: none; font-family: 'Poppins', sans-serif;
       transition: opacity 0.2s, transform 0.2s, box-shadow 0.2s; display: inline-block;
       box-shadow: 0 0 0 rgba(91,106,240,0);
+      border: none; cursor: pointer;
     }
     .btn-primary:hover { opacity: 0.9; transform: translateY(-2px); box-shadow: 0 8px 32px rgba(91,106,240,0.35); }
     .btn-ghost {
       border: 1px solid var(--border); color: var(--muted); padding: 15px 30px; border-radius: 8px;
       font-size: 14px; text-decoration: none; font-family: 'Poppins', sans-serif;
       transition: border-color 0.2s, color 0.2s; display: inline-block;
+      background: transparent; cursor: pointer;
     }
     .btn-ghost:hover { border-color: rgba(255,255,255,0.18); color: var(--ink); }
+
+    /* Bouton rapport (style spécifique) */
+    .btn-rapport {
+      background: transparent;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: 15px 30px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 500;
+      text-decoration: none;
+      font-family: 'Poppins', sans-serif;
+      transition: all 0.2s;
+      display: inline-block;
+    }
+    .btn-rapport:hover {
+      background: var(--accent);
+      color: #fff;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(91,106,240,0.3);
+    }
+
+    /* Email button with copy feedback */
+    .btn-copy {
+      position: relative;
+      overflow: hidden;
+      min-width: 220px;
+      justify-content: center;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-copy .btn-text {
+      transition: opacity 0.25s;
+    }
+    .btn-copy .btn-feedback {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      opacity: 0;
+      transition: opacity 0.25s;
+      background: #1a8a3f;
+      color: #fff;
+      border-radius: 8px;
+      pointer-events: none;
+    }
+    .btn-copy.copied .btn-text { opacity: 0; }
+    .btn-copy.copied .btn-feedback { opacity: 1; }
+    .btn-copy .btn-feedback svg {
+      width: 18px; height: 18px;
+      fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+    }
 
     /* SCROLL INDICATOR */
     .scroll-hint {
@@ -217,6 +273,8 @@
       .cv-grid { grid-template-columns: 1fr; gap: 40px; }
       .contact-section { padding: 72px 24px; }
       footer { padding: 24px; flex-direction: column; gap: 8px; text-align: center; }
+      .hero-cta { flex-direction: column; align-items: stretch; }
+      .btn-copy { min-width: unset; }
     }
   </style>
 </head>
@@ -224,13 +282,13 @@
 
   <nav id="navbar">
     <a href="#" class="nav-logo">Robin<span>.</span></a>
-   <ul class="nav-links">
-  <li><a href="#portfolio">Portfolio</a></li>
-  <li><a href="#competences">Competences</a></li>
-  <li><a href="#cv">CV</a></li>
-  <li><a href="rapport.html">Rapport</a></li> 
-  <li><a href="#contact">Contact</a></li>
-</ul>
+    <ul class="nav-links">
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#competences">Competences</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="rapport.html">Rapport 2026</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
 
   <!-- HERO -->
@@ -247,6 +305,7 @@
     <div class="hero-cta">
       <a href="#portfolio" class="btn-primary">Voir mes projets</a>
       <a href="#contact" class="btn-ghost">Me contacter</a>
+      <a href="rapport.html" class="btn-rapport">📄 Rapport de stage 2026</a>
     </div>
     <div class="scroll-hint">
       <div class="scroll-line"></div>
@@ -400,7 +459,14 @@
     <h2>On travaille ensemble ?</h2>
     <p>Dispo pour echanger, montrer mes realisations et repondre a vos questions.</p>
     <div class="contact-links">
-      <a href="mailto:robin.martinent@gmail.com" class="btn-primary">robin.martinent@gmail.com</a>
+      <!-- Bouton email avec copie -->
+      <button id="copyEmailBtn" class="btn-primary btn-copy" style="min-width:220px;">
+        <span class="btn-text">robin.martinent@gmail.com</span>
+        <span class="btn-feedback">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          Copie !
+        </span>
+      </button>
       <a href="tel:0766740346" class="btn-ghost">07 66 74 03 46</a>
     </div>
   </section>
@@ -426,7 +492,6 @@
     let current = 0;
     const total = 4;
 
-    // Build dots
     for (let i = 0; i < total; i++) {
       const d = document.createElement('div');
       d.className = 'dot' + (i === 0 ? ' active' : '');
@@ -436,7 +501,7 @@
 
     function goTo(n) {
       current = (n + total) % total;
-      track.style.transform = `translateX(-${current * 100}%)`;
+      track.style.transform = 'translateX(-' + (current * 100) + '%)';
       document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
       curEl.textContent = current + 1;
       titleEl.textContent = titles[current];
@@ -445,7 +510,6 @@
     document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
     document.getElementById('next').addEventListener('click', () => goTo(current + 1));
 
-    // Swipe
     let startX = 0;
     track.addEventListener('touchstart', e => startX = e.touches[0].clientX, { passive: true });
     track.addEventListener('touchend', e => {
@@ -464,6 +528,33 @@
       });
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
+
+    // ========== COPY EMAIL WITH FEEDBACK ==========
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const email = 'robin.martinent@gmail.com';
+
+    copyBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      try {
+        await navigator.clipboard.writeText(email);
+        this.classList.add('copied');
+        setTimeout(() => {
+          this.classList.remove('copied');
+        }, 2000);
+      } catch (err) {
+        // Fallback : sélection manuelle
+        const input = document.createElement('input');
+        input.value = email;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+        this.classList.add('copied');
+        setTimeout(() => {
+          this.classList.remove('copied');
+        }, 2000);
+      }
+    });
   </script>
 </body>
 </html>
