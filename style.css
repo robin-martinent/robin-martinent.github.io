@@ -921,44 +921,51 @@ footer p {
    CURSEUR PERSONNALISÉ — HALO + POINT AVEC BORDS 0%
    ============================================================ */
 
-/* ----- HALO LUMINEUX (grand, présent sur toute la page) ----- */
+/* ===== HALO LUMINEUX (réduit, transition parfaite) ===== */
 .hero-cursor-halo {
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  width: 400px;
-  height: 400px;
+  width: 280px;
+  height: 280px;
   border-radius: 50%;
+  /* Dégradé avec stops progressifs pour une transition invisible */
   background: radial-gradient(circle at center,
-    rgba(91, 43, 255, 0.12) 0%,
-    rgba(91, 43, 255, 0.05) 40%,
-    rgba(91, 43, 255, 0.015) 70%,
+    rgba(91, 43, 255, 0.10) 0%,
+    rgba(91, 43, 255, 0.05) 25%,
+    rgba(91, 43, 255, 0.02) 50%,
+    rgba(91, 43, 255, 0.008) 75%,
+    rgba(91, 43, 255, 0.002) 90%,
     transparent 100%
   );
   transform: translate(-50%, -50%);
   opacity: 0;
   transition: opacity 0.4s ease;
   will-change: transform, left, top;
-  filter: blur(0px);
-  /* aucune bordure, pure lueur */
+  /* FLOU pour adoucir les bords et fondre avec le fond */
+  filter: blur(6px);
+  pointer-events: none;
+  border: none;
+  box-shadow: none;
 }
 
 .hero-cursor-halo.visible {
   opacity: 1;
 }
 
-/* Pulsation intérieure du halo */
+/* Pulsation légère (optionnelle) */
 .hero-cursor-halo::before {
   content: '';
   position: absolute;
   inset: 30px;
   border-radius: 50%;
   background: radial-gradient(circle at center,
-    rgba(91, 43, 255, 0.07) 0%,
+    rgba(91, 43, 255, 0.06) 0%,
     rgba(91, 43, 255, 0.02) 50%,
     transparent 100%
   );
-  animation: haloPulse 3s ease-in-out infinite;
+  animation: haloPulse 4s ease-in-out infinite;
+  filter: blur(3px);
 }
 
 .hero-cursor-halo::after {
@@ -967,15 +974,16 @@ footer p {
   inset: 60px;
   border-radius: 50%;
   background: radial-gradient(circle at center,
-    rgba(91, 43, 255, 0.04) 0%,
+    rgba(91, 43, 255, 0.03) 0%,
     transparent 70%
   );
-  animation: haloPulse 4s ease-in-out infinite reverse;
+  animation: haloPulse 5s ease-in-out infinite reverse;
+  filter: blur(5px);
 }
 
 @keyframes haloPulse {
   0%, 100% { transform: scale(1); opacity: 0.5; }
-  50% { transform: scale(1.2); opacity: 1; }
+  50% { transform: scale(1.15); opacity: 1; }
 }
 
 /* ----- POINT CENTRAL (bords dégradés jusqu'à 0%) ----- */
