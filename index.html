@@ -18,7 +18,7 @@
       --border: rgba(255,255,255,0.07);
     }
     html { scroll-behavior: smooth; }
-    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; }
+    body { font-family: 'Poppins', sans-serif; background: var(--bg); color: var(--ink); overflow-x: hidden; transition: background 0.3s; }
 
     /* SCROLLBAR */
     ::-webkit-scrollbar { width: 4px; }
@@ -105,7 +105,6 @@
     }
     .btn-ghost:hover { border-color: rgba(255,255,255,0.18); color: var(--ink); }
 
-    /* Bouton rapport (style spécifique) */
     .btn-rapport {
       background: transparent;
       border: 1px solid var(--accent);
@@ -126,7 +125,7 @@
       box-shadow: 0 8px 32px rgba(91,106,240,0.3);
     }
 
-    /* Email button with copy feedback */
+    /* ===== BOUTON EMAIL COPIER AVEC FOLIE PROGRESSIVE ===== */
     .btn-copy {
       position: relative;
       overflow: hidden;
@@ -134,6 +133,7 @@
       justify-content: center;
       align-items: center;
       gap: 8px;
+      transition: transform 0.1s ease;
     }
     .btn-copy .btn-text {
       transition: opacity 0.25s;
@@ -147,16 +147,84 @@
       gap: 8px;
       opacity: 0;
       transition: opacity 0.25s;
-      background: #1a8a3f;
-      color: #fff;
       border-radius: 8px;
       pointer-events: none;
+      background: #1a8a3f;
+      color: #fff;
     }
     .btn-copy.copied .btn-text { opacity: 0; }
     .btn-copy.copied .btn-feedback { opacity: 1; }
     .btn-copy .btn-feedback svg {
       width: 18px; height: 18px;
       fill: none; stroke: #fff; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round;
+    }
+
+    /* Tremblement (shake) de plus en plus fort */
+    @keyframes shake1 { 0%,100%{transform:translateX(0)} 25%{transform:translateX(-4px)} 75%{transform:translateX(4px)} }
+    @keyframes shake2 { 0%,100%{transform:translateX(0)} 20%{transform:translateX(-8px)} 40%{transform:translateX(8px)} 60%{transform:translateX(-6px)} 80%{transform:translateX(6px)} }
+    @keyframes shake3 { 0%,100%{transform:translateX(0)} 15%{transform:translateX(-14px)} 30%{transform:translateX(14px)} 45%{transform:translateX(-10px)} 60%{transform:translateX(10px)} 75%{transform:translateX(-6px)} 90%{transform:translateX(6px)} }
+    @keyframes shake4 { 0%,100%{transform:translateX(0)} 10%{transform:translateX(-20px)} 20%{transform:translateX(20px)} 30%{transform:translateX(-16px)} 40%{transform:translateX(16px)} 50%{transform:translateX(-12px)} 60%{transform:translateX(12px)} 70%{transform:translateX(-8px)} 80%{transform:translateX(8px)} 90%{transform:translateX(-4px)} }
+    @keyframes shake5 {
+      0%{transform:translateX(0) rotate(0deg)}
+      10%{transform:translateX(-25px) rotate(-5deg)}
+      20%{transform:translateX(25px) rotate(5deg)}
+      30%{transform:translateX(-20px) rotate(-4deg)}
+      40%{transform:translateX(20px) rotate(4deg)}
+      50%{transform:translateX(-15px) rotate(-3deg)}
+      60%{transform:translateX(15px) rotate(3deg)}
+      70%{transform:translateX(-10px) rotate(-2deg)}
+      80%{transform:translateX(10px) rotate(2deg)}
+      90%{transform:translateX(-5px) rotate(-1deg)}
+      100%{transform:translateX(0) rotate(0deg)}
+    }
+
+    /* Explosion */
+    .explosion-overlay {
+      position: fixed; inset: 0; z-index: 9999;
+      display: flex; align-items: center; justify-content: center;
+      pointer-events: none; opacity: 0;
+      background: rgba(255,200,50,0.3);
+      transition: opacity 0.3s;
+    }
+    .explosion-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+      animation: explosionFlash 0.8s ease;
+    }
+    @keyframes explosionFlash {
+      0% { background: rgba(255,255,255,1); transform: scale(0.8); }
+      30% { background: rgba(255,200,50,0.9); transform: scale(1.2); }
+      60% { background: rgba(255,100,50,0.7); transform: scale(1.5); }
+      100% { background: rgba(255,255,255,1); transform: scale(2); opacity: 0; }
+    }
+    .explosion-text {
+      font-size: 80px;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 0 0 40px rgba(255,200,0,0.8), 0 0 80px rgba(255,100,0,0.6);
+      animation: explodeText 1s ease forwards;
+      opacity: 0;
+    }
+    @keyframes explodeText {
+      0% { transform: scale(0.2) rotate(-20deg); opacity: 0; }
+      50% { transform: scale(1.8) rotate(5deg); opacity: 1; }
+      100% { transform: scale(0.5) rotate(0deg); opacity: 0; }
+    }
+
+    /* FADE OUT/IN pour le reset */
+    .site-fadeout {
+      animation: siteFadeOut 0.8s ease forwards;
+    }
+    @keyframes siteFadeOut {
+      0% { opacity: 1; }
+      100% { opacity: 0; }
+    }
+    .site-fadein {
+      animation: siteFadeIn 1s ease forwards;
+    }
+    @keyframes siteFadeIn {
+      0% { opacity: 0; transform: translateY(20px); }
+      100% { opacity: 1; transform: translateY(0); }
     }
 
     /* SCROLL INDICATOR */
@@ -170,7 +238,6 @@
     .scroll-line::after { content: ''; position: absolute; top: 0; left: -100%; width: 100%; height: 100%; background: var(--accent); animation: scanLine 2s 1.5s infinite; }
     @keyframes scanLine { 0%{left:-100%} 100%{left:100%} }
 
-    /* SECTIONS */
     .section { padding: 110px 52px; max-width: 1140px; margin: 0 auto; }
     .section-label { font-size: 11px; font-weight: 500; letter-spacing: 0.14em; text-transform: uppercase; color: var(--accent); margin-bottom: 14px; }
     .section-title { font-size: clamp(26px,3vw,40px); font-weight: 700; letter-spacing: -0.025em; margin-bottom: 60px; }
@@ -182,7 +249,6 @@
     .carousel-track { display: flex; transition: transform 0.55s cubic-bezier(0.77,0,0.175,1); }
     .carousel-slide { min-width: 100%; }
     .carousel-slide iframe { width: 100%; aspect-ratio: 16/9; display: block; border: none; border-radius: 16px; }
-
     .carousel-controls {
       display: flex; align-items: center; justify-content: space-between;
       margin-top: 24px;
@@ -229,7 +295,6 @@
     }
     .tool-tag:hover { border-color: rgba(91,106,240,0.3); color: var(--ink); }
 
-    /* CV */
     .cv-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; }
     .cv-col h3 { font-size: 12px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--accent); margin-bottom: 28px; padding-bottom: 12px; border-bottom: 1px solid var(--border); }
     .cv-item { position: relative; padding-left: 22px; margin-bottom: 30px; }
@@ -255,11 +320,9 @@
     .contact-section p { color: var(--muted); font-size: 15px; margin-bottom: 44px; position: relative; }
     .contact-links { display: flex; justify-content: center; gap: 14px; flex-wrap: wrap; position: relative; }
 
-    /* FOOTER */
     footer { padding: 28px 52px; display: flex; justify-content: space-between; align-items: center; border-top: 1px solid var(--border); }
     footer p { font-size: 12px; color: var(--muted); }
 
-    /* REVEAL */
     .reveal { opacity: 0; transform: translateY(28px); transition: opacity 0.7s, transform 0.7s; }
     .reveal.visible { opacity: 1; transform: translateY(0); }
 
@@ -279,6 +342,11 @@
   </style>
 </head>
 <body>
+
+  <!-- OVERLAY D'EXPLOSION (caché par défaut) -->
+  <div class="explosion-overlay" id="explosionOverlay">
+    <div class="explosion-text" id="explosionText">💥 BOOM !</div>
+  </div>
 
   <nav id="navbar">
     <a href="#" class="nav-logo">Robin<span>.</span></a>
@@ -459,12 +527,12 @@
     <h2>On travaille ensemble ?</h2>
     <p>Dispo pour echanger, montrer mes realisations et repondre a vos questions.</p>
     <div class="contact-links">
-      <!-- Bouton email avec copie -->
+      <!-- LE BOUTON EMAIL DEVENU FOU -->
       <button id="copyEmailBtn" class="btn-primary btn-copy" style="min-width:220px;">
         <span class="btn-text">robin.martinent@gmail.com</span>
-        <span class="btn-feedback">
+        <span class="btn-feedback" id="feedbackText">
           <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-          Copie !
+          <span id="feedbackMessage">Copié !</span>
         </span>
       </button>
       <a href="tel:0766740346" class="btn-ghost">07 66 74 03 46</a>
@@ -477,13 +545,17 @@
   </footer>
 
   <script>
-    // NAV SHRINK
+    // ============================================================
+    // 1. NAV SHRINK
+    // ============================================================
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
 
-    // CAROUSEL
+    // ============================================================
+    // 2. CAROUSEL
+    // ============================================================
     const titles = ['Projet 1', 'Projet 2', 'Projet 3', 'Projet 4'];
     const track = document.getElementById('track');
     const dotsContainer = document.getElementById('dots');
@@ -517,7 +589,9 @@
       if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
     });
 
-    // SCROLL REVEAL
+    // ============================================================
+    // 3. SCROLL REVEAL
+    // ============================================================
     const reveals = document.querySelectorAll('.reveal');
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
@@ -529,31 +603,139 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-    // ========== COPY EMAIL WITH FEEDBACK ==========
+    // ============================================================
+    // 4. BOUTON EMAIL — LA FOLIE PROGRESSIVE
+    // ============================================================
     const copyBtn = document.getElementById('copyEmailBtn');
+    const feedbackMsg = document.getElementById('feedbackMessage');
     const email = 'robin.martinent@gmail.com';
+
+    // La séquence des messages
+    const messages = [
+      'Copié !',
+      'Double copie !',
+      'Triple copie !',
+      'Quadruple copie !',
+      'T\'as vraiment copié ?',
+      'Recopie au cas où...',
+      'Tu vas casser le bouton !',
+      'Arrête...',
+      'Ça va casser le site !',
+      'NOOOOOOONNNNN !!!!! 💥'
+    ];
+
+    // Les animations de shake (index 0 = pas de shake, 1 = léger, etc.)
+    const shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
+
+    let clickCount = 0;
+    let isExploding = false;
+
+    // Fonction pour déclencher l'explosion
+    function triggerExplosion() {
+      if (isExploding) return;
+      isExploding = true;
+
+      const overlay = document.getElementById('explosionOverlay');
+      const textEl = document.getElementById('explosionText');
+
+      // Afficher l'overlay
+      overlay.classList.add('active');
+
+      // Mettre le texte d'explosion avec un message aléatoire de panique
+      const panicMessages = ['💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOOON', '💻 FUMÉE'];
+      textEl.textContent = panicMessages[Math.floor(Math.random() * panicMessages.length)];
+
+      // Attendre la fin de l'animation, puis faire un fondu en blanc et reset
+      setTimeout(() => {
+        // Faire disparaître tout le site
+        document.body.classList.add('site-fadeout');
+
+        setTimeout(() => {
+          // Réinitialiser tout : remonter en haut, enlever l'explosion, remettre le site
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          document.body.classList.remove('site-fadeout');
+          document.body.classList.add('site-fadein');
+
+          // Remettre le bouton à l'état normal
+          copyBtn.classList.remove('copied');
+          copyBtn.style.animation = '';
+          feedbackMsg.textContent = 'Copié !';
+          clickCount = 0;
+
+          // Cacher l'explosion
+          overlay.classList.remove('active');
+
+          // Après le fondu, enlever la classe fadein
+          setTimeout(() => {
+            document.body.classList.remove('site-fadein');
+            isExploding = false;
+          }, 1000);
+        }, 800);
+      }, 1200);
+    }
 
     copyBtn.addEventListener('click', async function(e) {
       e.preventDefault();
+
+      // Si on est en train d'exploser, on ignore
+      if (isExploding) return;
+
+      // Copier l'email dans le presse-papier
       try {
         await navigator.clipboard.writeText(email);
-        this.classList.add('copied');
-        setTimeout(() => {
-          this.classList.remove('copied');
-        }, 2000);
-      } catch (err) {
-        // Fallback : sélection manuelle
+      } catch {
         const input = document.createElement('input');
         input.value = email;
         document.body.appendChild(input);
         input.select();
         document.execCommand('copy');
         document.body.removeChild(input);
-        this.classList.add('copied');
-        setTimeout(() => {
-          this.classList.remove('copied');
-        }, 2000);
       }
+
+      // Incrémenter le compteur
+      clickCount++;
+
+      // Afficher le message correspondant (si on a dépassé la liste, on prend le dernier)
+      const index = Math.min(clickCount - 1, messages.length - 1);
+      feedbackMsg.textContent = messages[index];
+
+      // Afficher le feedback
+      this.classList.add('copied');
+
+      // Déterminer le niveau de shake
+      let shakeLevel = 0;
+      if (clickCount >= 10) shakeLevel = 5;
+      else if (clickCount >= 8) shakeLevel = 4;
+      else if (clickCount >= 6) shakeLevel = 3;
+      else if (clickCount >= 4) shakeLevel = 2;
+      else if (clickCount >= 2) shakeLevel = 1;
+
+      // Appliquer le shake sur le bouton
+      if (shakeLevel > 0 && shakeLevel <= shakeClasses.length - 1) {
+        this.style.animation = shakeClasses[shakeLevel] + ' 0.5s ease';
+        // Après l'animation, on retire pour pouvoir la relancer
+        setTimeout(() => {
+          this.style.animation = '';
+        }, 500);
+      }
+
+      // Si on est au dernier message, on déclenche l'explosion après un court délai
+      if (clickCount >= messages.length) {
+        // On laisse le temps au message de s'afficher
+        setTimeout(() => {
+          triggerExplosion();
+        }, 400);
+        return;
+      }
+
+      // Sinon, on remet le bouton normal après 1.8s
+      setTimeout(() => {
+        this.classList.remove('copied');
+        // On remet le message par défaut (sauf si c'est l'explosion qui va arriver)
+        if (clickCount < messages.length) {
+          feedbackMsg.textContent = 'Copié !';
+        }
+      }, 1800);
     });
   </script>
 </body>
