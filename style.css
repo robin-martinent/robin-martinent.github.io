@@ -27,7 +27,6 @@ body {
   background: var(--bg);
   color: var(--ink);
   overflow-x: hidden;
-  transition: background 0.3s;
 }
 
 /* SCROLLBAR */
@@ -752,7 +751,7 @@ nav.scrolled {
 }
 
 /* ============================================================
-   CV
+   CV — SANS BARRE VIOLETTE
    ============================================================ */
 .cv-grid {
   display: grid;
@@ -780,11 +779,14 @@ nav.scrolled {
   padding-bottom: 8px;
   padding-right: 12px;
   border-radius: 8px;
+  /* AUCUNE BORDER, AUCUNE BOX-SHADOW, AUCUNE BARRE */
 }
 .cv-item:hover {
   transform: scale(1.04) translateX(4px);
   background: rgba(91, 43, 255, 0.05);
 }
+
+/* Petit point à gauche (gardé car c'est le style original) */
 .cv-item::before {
   content: '';
   position: absolute;
@@ -796,6 +798,8 @@ nav.scrolled {
   background: var(--accent);
   box-shadow: 0 0 8px var(--accent-glow);
 }
+
+/* Trait vertical (gardé car c'est le style original) */
 .cv-item::after {
   content: '';
   position: absolute;
@@ -808,6 +812,7 @@ nav.scrolled {
 .cv-item:last-child::after {
   display: none;
 }
+
 .cv-item-title {
   font-size: 14px;
   font-weight: 600;
@@ -916,96 +921,70 @@ footer p {
 }
 
 /* ============================================================
-   CURSEUR PERSONNALISÉ (HALO + POINT + SILLAGE)
+   CURSEUR PERSONNALISÉ — VERSION FLUIDE AVEC CONTOURS PROGRESSIFS
    ============================================================ */
 .hero-cursor-halo {
   position: fixed;
   pointer-events: none;
   z-index: 9999;
-  width: 360px;
-  height: 360px;
+  width: 300px;
+  height: 300px;
   border-radius: 50%;
-  background: radial-gradient(circle, rgba(91, 43, 255, 0.06) 0%, rgba(91, 43, 255, 0.015) 40%, transparent 70%);
+  background: radial-gradient(circle, rgba(91, 43, 255, 0.05) 0%, transparent 70%);
   transform: translate(-50%, -50%);
-  transition: left 0.12s cubic-bezier(0.2, 0.9, 0.3, 1.1), top 0.12s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.4s ease;
-  will-change: left, top;
   opacity: 0;
-  pointer-events: none;
-  border: 1px solid rgba(91, 43, 255, 0.04);
+  transition: opacity 0.4s ease;
+  will-change: transform, left, top;
 }
+
 .hero-cursor-halo.visible {
   opacity: 1;
 }
 
-.hero-cursor-halo::before {
-  content: '';
-  position: absolute;
-  inset: 30px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(91, 43, 255, 0.04) 0%, transparent 70%);
-  animation: cursorPulse 3s ease-in-out infinite;
-}
-
-.hero-cursor-halo::after {
-  content: '';
-  position: absolute;
-  inset: 60px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(91, 43, 255, 0.025) 0%, transparent 70%);
-  animation: cursorPulse 4s ease-in-out infinite reverse;
-}
-
-@keyframes cursorPulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.15); opacity: 1; }
-}
-
+/* POINT CENTRAL — AVEC CONTOURS PROGRESSIFS (DÉGRADÉ) */
 .hero-cursor-dot {
   position: fixed;
   pointer-events: none;
   z-index: 10000;
-  width: 8px;
-  height: 8px;
+  width: 16px;
+  height: 16px;
   border-radius: 50%;
-  background: var(--accent);
   transform: translate(-50%, -50%);
-  transition: left 0.08s cubic-bezier(0.2, 0.9, 0.3, 1.1), top 0.08s cubic-bezier(0.2, 0.9, 0.3, 1.1), opacity 0.3s ease;
-  will-change: left, top;
   opacity: 0;
-  box-shadow: 0 0 20px var(--accent-glow), 0 0 60px rgba(91, 43, 255, 0.12);
+  will-change: transform, left, top;
+  /* Dégradé radial pour des contours progressifs */
+  background: radial-gradient(circle at center,
+    rgba(91, 43, 255, 1) 0%,
+    rgba(91, 43, 255, 0.8) 30%,
+    rgba(91, 43, 255, 0.3) 60%,
+    rgba(91, 43, 255, 0.05) 85%,
+    transparent 100%
+  );
+  box-shadow:
+    0 0 30px rgba(91, 43, 255, 0.2),
+    0 0 60px rgba(91, 43, 255, 0.08),
+    inset 0 0 15px rgba(91, 43, 255, 0.15);
 }
+
 .hero-cursor-dot.visible {
   opacity: 1;
 }
 
-.hero-cursor-dot::before {
-  content: '';
-  position: absolute;
-  inset: -14px;
-  border-radius: 50%;
-  border: 1px solid rgba(91, 43, 255, 0.12);
-  animation: ringPulse 2.2s ease-in-out infinite;
-}
-
-@keyframes ringPulse {
-  0%, 100% { transform: scale(0.8); opacity: 0.2; }
-  50% { transform: scale(1.25); opacity: 0.7; }
-}
-
+/* SILLAGE */
 .hero-cursor-trail {
   position: fixed;
   pointer-events: none;
   z-index: 9998;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(91, 43, 255, 0.2);
+  background: rgba(91, 43, 255, 0.15);
   transform: translate(-50%, -50%);
-  transition: left 0.35s cubic-bezier(0.2, 0.8, 0.3, 1), top 0.35s cubic-bezier(0.2, 0.8, 0.3, 1), opacity 0.5s ease;
-  will-change: left, top;
   opacity: 0;
-  filter: blur(1px);
+  will-change: transform, left, top;
+  filter: blur(2px);
 }
+
 .hero-cursor-trail.visible {
   opacity: 0.7;
 }
@@ -1057,5 +1036,14 @@ footer p {
   }
   .cv-item .cv-desc {
     font-size: 12px;
+  }
+  /* Réduire le curseur sur mobile */
+  .hero-cursor-dot {
+    width: 10px;
+    height: 10px;
+  }
+  .hero-cursor-halo {
+    width: 150px;
+    height: 150px;
   }
 }
