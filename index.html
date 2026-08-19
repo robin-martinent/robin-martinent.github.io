@@ -14,9 +14,10 @@
 </head>
 <body>
 
-  <!-- ===== HALO CURSEUR ===== -->
+  <!-- ===== CURSEUR PERSONNALISÉ ===== -->
   <div class="hero-cursor-halo" id="cursorHalo"></div>
   <div class="hero-cursor-dot" id="cursorDot"></div>
+  <div class="hero-cursor-trail" id="cursorTrail"></div>
 
   <!-- OVERLAY EXPLOSION -->
   <div class="explosion-overlay" id="explosionOverlay">
@@ -31,7 +32,7 @@
     <a href="#" class="nav-logo">Robin<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#portfolio">Portfolio</a></li>
-      <li><a href="#competences">Competences</a></li>
+      <li><a href="#competences">Compétences</a></li>
       <li><a href="#cv">CV</a></li>
       <li><a href="rapport.html">Rapport 2026</a></li>
       <li><a href="#contact">Contact</a></li>
@@ -39,17 +40,17 @@
   </nav>
 
   <!-- HERO -->
-  <section class="hero" id="heroSection" data-halo="true">
+  <section class="hero" id="heroSection">
     <div class="hero-bg-glow"></div>
     <div class="hero-bg-glow2"></div>
-    <div class="hero-tag">Disponible en alternance 2 ans · Rentree 2026</div>
+    <div class="hero-tag">Disponible en alternance 2 ans · Rentrée 2026</div>
     <h1>
-      <span class="light">Realisateur</span><br />
+      <span class="light">Réalisateur</span><br />
       <span class="accent">Monteur</span><br />
-      <span class="light">& Creatif</span>
+      <span class="light">& Créatif</span>
     </h1>
     <p class="hero-sub">
-      Montage video, motion design, illustration, dev web. Je cherche une alternance de 2 ans pour continuer a apprendre en faisant.
+      Montage vidéo, motion design, illustration, dev web. Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
     </p>
     <div class="hero-cta">
       <a href="#portfolio" class="btn-primary">Voir mes projets</a>
@@ -65,7 +66,7 @@
   <!-- PORTFOLIO -->
   <div class="divider"></div>
   <div class="section" id="portfolio">
-    <p class="section-label reveal">Mes realisations</p>
+    <p class="section-label reveal">Mes réalisations</p>
     <h2 class="section-title reveal">Portfolio</h2>
     <div class="carousel-wrap reveal">
       <div class="carousel">
@@ -98,16 +99,16 @@
     </div>
   </div>
 
-  <!-- COMPETENCES -->
+  <!-- COMPÉTENCES -->
   <div class="divider"></div>
   <div class="section" id="competences">
     <p class="section-label reveal">Ce que je sais faire</p>
-    <h2 class="section-title reveal">Competences</h2>
+    <h2 class="section-title reveal">Compétences</h2>
     <div class="skills-grid">
       <div class="skill-card reveal">
         <div class="skill-icon">🎬</div>
-        <h3>Montage video</h3>
-        <p>Mon coeur de metier. Du rushes au rendu final, etalonnage inclus.</p>
+        <h3>Montage vidéo</h3>
+        <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
       </div>
       <div class="skill-card reveal">
         <div class="skill-icon">✨</div>
@@ -117,7 +118,7 @@
       <div class="skill-card reveal">
         <div class="skill-icon">🎨</div>
         <h3>Illustration & graphisme</h3>
-        <p>Affiches, visuels reseaux sociaux, identite visuelle.</p>
+        <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
       </div>
       <div class="skill-card reveal">
         <div class="skill-icon">🌐</div>
@@ -126,13 +127,13 @@
       </div>
       <div class="skill-card reveal">
         <div class="skill-icon">📷</div>
-        <h3>Realisation</h3>
+        <h3>Réalisation</h3>
         <p>Tournage, cadrage, son, gestion de plateau.</p>
       </div>
       <div class="skill-card reveal">
         <div class="skill-icon">🖨️</div>
-        <h3>Impression 3D resine</h3>
-        <p>A l'aise avec le hardware, l'impression et le depannage technique.</p>
+        <h3>Impression 3D résine</h3>
+        <p>À l'aise avec le hardware, l'impression et le dépannage technique.</p>
       </div>
     </div>
     <div class="tools-list reveal">
@@ -188,7 +189,7 @@
 
       <!-- ===== EXPÉRIENCES ===== -->
       <div class="cv-col reveal">
-        <h3>Experiences</h3>
+        <h3>Expériences</h3>
 
         <div class="cv-item">
           <div class="cv-item-title">Monteur vidéo</div>
@@ -225,9 +226,8 @@
   <section class="contact-section" id="contact">
     <p class="section-label" style="display:inline-block;margin-bottom:16px;">Me contacter</p>
     <h2>On travaille ensemble ?</h2>
-    <p>Dispo pour echanger, montrer mes realisations et repondre a vos questions.</p>
+    <p>Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
     <div class="contact-links">
-      <!-- EMAIL -->
       <button id="copyEmailBtn" class="btn-primary btn-copy" style="min-width:220px;">
         <span class="btn-text">robin.martinent@gmail.com</span>
         <span class="btn-feedback" id="emailFeedback">
@@ -235,7 +235,6 @@
           <span id="emailFeedbackMsg">Copié !</span>
         </span>
       </button>
-      <!-- TÉLÉPHONE -->
       <button id="copyPhoneBtn" class="btn-ghost btn-copy" style="min-width:180px; border-color: var(--accent); color: var(--accent);">
         <span class="btn-text">07 66 74 03 46</span>
         <span class="btn-feedback" id="phoneFeedback" style="background: #1a8a3f;">
@@ -362,7 +361,7 @@
     }
 
     // ============================================================
-    // 5. VRAI BOOM (SON)
+    // 5. BOOM (SON)
     // ============================================================
     function playExplosionSound() {
       try {
@@ -599,45 +598,58 @@
     });
 
     // ============================================================
-    // 9. HALO CURSEUR (UNIQUEMENT SUR LE HERO)
+    // 9. CURSEUR AMÉLIORÉ (HALO + POINT + SILLAGE SUR TOUTE LA PAGE)
     // ============================================================
-    const heroSection = document.getElementById('heroSection');
     const cursorHalo = document.getElementById('cursorHalo');
     const cursorDot = document.getElementById('cursorDot');
-    let isOnHero = false;
+    const cursorTrail = document.getElementById('cursorTrail');
+
+    let trailX = window.innerWidth / 2;
+    let trailY = window.innerHeight / 2;
 
     function updateCursor(e) {
-      if (!isOnHero) return;
-      cursorHalo.style.left = e.clientX + 'px';
-      cursorHalo.style.top = e.clientY + 'px';
-      cursorDot.style.left = e.clientX + 'px';
-      cursorDot.style.top = e.clientY + 'px';
+      const x = e.clientX;
+      const y = e.clientY;
+
+      cursorHalo.style.left = x + 'px';
+      cursorHalo.style.top = y + 'px';
+      cursorDot.style.left = x + 'px';
+      cursorDot.style.top = y + 'px';
+
+      trailX += (x - trailX) * 0.08;
+      trailY += (y - trailY) * 0.08;
+      cursorTrail.style.left = trailX + 'px';
+      cursorTrail.style.top = trailY + 'px';
     }
 
-    heroSection.addEventListener('mouseenter', () => {
-      isOnHero = true;
+    document.addEventListener('mouseenter', () => {
       cursorHalo.classList.add('visible');
       cursorDot.classList.add('visible');
+      cursorTrail.classList.add('visible');
     });
-
-    heroSection.addEventListener('mouseleave', () => {
-      isOnHero = false;
-      cursorHalo.classList.remove('visible');
-      cursorDot.classList.remove('visible');
-    });
-
-    document.addEventListener('mousemove', updateCursor);
 
     document.addEventListener('mouseleave', () => {
       cursorHalo.classList.remove('visible');
       cursorDot.classList.remove('visible');
+      cursorTrail.classList.remove('visible');
     });
+
+    document.addEventListener('mousemove', updateCursor);
+
+    // Si la souris est déjà dans la page au chargement
+    if (window.matchMedia('(pointer: fine)').matches) {
+      setTimeout(() => {
+        cursorHalo.classList.add('visible');
+        cursorDot.classList.add('visible');
+        cursorTrail.classList.add('visible');
+      }, 100);
+    }
 
     // Désactiver sur mobile
     if (window.matchMedia('(pointer: coarse)').matches) {
       cursorHalo.style.display = 'none';
       cursorDot.style.display = 'none';
-      heroSection.style.cursor = 'auto';
+      cursorTrail.style.display = 'none';
     }
   </script>
 </body>
