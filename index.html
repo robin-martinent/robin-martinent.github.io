@@ -21,19 +21,23 @@
 </head>
 <body>
 
-  <!-- ===== ÉCRAN DE CHARGEMENT ===== -->
+  <!-- ===== LOADER ===== -->
   <div id="loader">
     <div class="loader-container">
+
+      <!-- R . M (R et M blancs, point violet) -->
       <div class="loader-rm">
         <span class="loader-r">R</span>
         <span class="loader-dot">.</span>
         <span class="loader-m">M</span>
       </div>
-      <div class="loader-fullname" id="fullName">
-        <span class="left">Robin</span>
-        <span class="space"></span>
-        <span class="right">Martinent</span>
+
+      <!-- Sous-titre : Réalisateur (violet) Monteur (blanc) -->
+      <div class="loader-subtitle">
+        <span class="sub-accent">Réalisateur</span>
+        <span class="sub-white">Monteur</span>
       </div>
+
     </div>
   </div>
 
@@ -700,14 +704,12 @@
     // ============================================================
     const loader = document.getElementById('loader');
 
-    // Le loader disparaît après 2.8s
     window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
       }, 2800);
     });
 
-    // Sécurité
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
