@@ -3,23 +3,47 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robin Martinent — Réalisateur Monteur</title>
+  <title>Robin Martinent — Réalisateur & Monteur Vidéo | Portfolio</title>
 
-  <!-- Google Fonts -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-  <!-- ===== CSS EXTERNE ===== -->
-  <link rel="stylesheet" href="style.css" />
+  <!-- ===== SEO ===== -->
+  <meta name="description" content="Portfolio de Robin Martinent, réalisateur et monteur vidéo. Montage, motion design, illustration, création audiovisuelle. Disponible en alternance." />
+  <meta name="keywords" content="Robin Martinent, réalisateur, monteur vidéo, motion design, illustration, audiovisuel, Grenoble, alternance, portfolio" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://martinent.github.io/" />
 
   <!-- ===== FAVICON ===== -->
-<link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-<link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-<link rel="manifest" href="favicon_io/site.webmanifest">
-<link rel="shortcut icon" href="favicon_io/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png" />
+  <link rel="manifest" href="favicon_io/site.webmanifest" />
+  <link rel="shortcut icon" href="favicon_io/favicon.ico" />
+
+  <!-- ===== POLICES & STYLES ===== -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="style.css" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Robin Martinent — Réalisateur & Monteur Vidéo" />
+  <meta property="og:description" content="Portfolio de Robin Martinent, réalisateur et monteur vidéo." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://martinent.github.io/" />
 </head>
 <body>
+
+  <!-- ===== ÉCRAN DE CHARGEMENT TYPOGRAPHIQUE ===== -->
+  <div id="loader">
+    <div class="loader-rm">
+      <span class="loader-r">R</span>
+      <span class="loader-m">M</span>
+      <span class="loader-dot">.</span>
+    </div>
+    <div class="loader-fullname" id="fullName">
+      <span class="left">Robin</span>
+      <span class="space"></span>
+      <span class="right">Martinent</span>
+    </div>
+  </div>
 
   <!-- ===== CURSEUR PERSONNALISÉ ===== -->
   <div class="hero-cursor-halo" id="cursorHalo"></div>
@@ -36,7 +60,7 @@
 
   <!-- NAV -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">Robin<span>.</span></a>
+    <a href="#" class="nav-logo" aria-label="Accueil">Robin<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#competences">Compétences</a></li>
@@ -79,24 +103,24 @@
       <div class="carousel">
         <div class="carousel-track" id="track">
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy" title="Projet vidéo 1"></iframe>
           </div>
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy" title="Projet vidéo 2"></iframe>
           </div>
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy" title="Projet vidéo 3"></iframe>
           </div>
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy"></iframe>
+            <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy" title="Projet vidéo 4"></iframe>
           </div>
         </div>
       </div>
       <div class="carousel-controls">
         <div class="carousel-dots" id="dots"></div>
         <div class="carousel-arrows">
-          <button class="arrow" id="prev">&#8592;</button>
-          <button class="arrow" id="next">&#8594;</button>
+          <button class="arrow" id="prev" aria-label="Précédent">&#8592;</button>
+          <button class="arrow" id="next" aria-label="Suivant">&#8594;</button>
         </div>
       </div>
       <div class="carousel-label">
@@ -161,31 +185,26 @@
     <p class="section-label reveal">Mon parcours</p>
     <h2 class="section-title reveal">CV</h2>
     <div class="cv-grid">
-      <!-- ===== FORMATIONS ===== -->
       <div class="cv-col reveal">
         <h3>Formation</h3>
-
         <div class="cv-item">
           <div class="cv-item-title">Bachelor Réalisateur-Monteur</div>
           <div class="cv-item-sub">Studio M</div>
           <div class="cv-item-date">2025 - 2026</div>
           <div class="cv-desc"><strong>Montage vidéo</strong> · Motion design · Direction artistique · Gestion de projet audiovisuel · Réalisation de courts-métrages</div>
         </div>
-
         <div class="cv-item">
           <div class="cv-item-title">Licence MIASH</div>
           <div class="cv-item-sub">Grenoble IUT1</div>
           <div class="cv-item-date">2024 - 2025</div>
           <div class="cv-desc"><strong>Mathématiques</strong> · Informatique · Algorithmique · Analyse de données · Programmation Python</div>
         </div>
-
         <div class="cv-item">
           <div class="cv-item-title">BUT MMI</div>
           <div class="cv-item-sub">Grenoble IUT1</div>
           <div class="cv-item-date">2023 - 2024</div>
           <div class="cv-desc"><strong>Multimédia</strong> · Communication · Design graphique · Développement web · Audiovisuel · UX/UI</div>
         </div>
-
         <div class="cv-item">
           <div class="cv-item-title">Bac STI2D option AC</div>
           <div class="cv-item-sub">Lycée Ferdinand Buisson</div>
@@ -193,32 +212,26 @@
           <div class="cv-desc"><strong>Sciences de l'ingénieur</strong> · Systèmes automatisés · Électronique · Architecture des systèmes · Projets techniques</div>
         </div>
       </div>
-
-      <!-- ===== EXPÉRIENCES ===== -->
       <div class="cv-col reveal">
         <h3>Expériences</h3>
-
         <div class="cv-item">
           <div class="cv-item-title">Monteur vidéo</div>
           <div class="cv-item-sub">Shaolin Shadow</div>
           <div class="cv-item-date">Mars 2026 · 5 semaines</div>
           <div class="cv-desc"><strong>Réalisation de showreels</strong> et best of d'événements dans le cadre d'un stage · Montage de clips et courts-métrages · Post-production</div>
         </div>
-
         <div class="cv-item">
           <div class="cv-item-title">Employé polyvalent</div>
           <div class="cv-item-sub">McDonald's</div>
           <div class="cv-item-date">Été 2025 · 1 mois</div>
           <div class="cv-desc"><strong>Job d'été</strong> · Accueil client · Préparation des commandes · Gestion du service · Travail en équipe</div>
         </div>
-
         <div class="cv-item">
           <div class="cv-item-title">Hydroguide</div>
           <div class="cv-item-sub">EDF</div>
           <div class="cv-item-date">Été 2024 · 2 mois</div>
           <div class="cv-desc"><strong>Job d'été</strong> · Garde de côtes · Sensibilisation aux dangers des barrages hydrauliques · Surveillance des zones</div>
         </div>
-
         <div class="cv-item">
           <div class="cv-item-title">Mise en rayon</div>
           <div class="cv-item-sub">Carrefour</div>
@@ -319,70 +332,57 @@
     }, { threshold: 0.12 });
     reveals.forEach(el => observer.observe(el));
 
-// ============================================================
-// 4. GÉNÉRATEUR DE FUMÉE (plus opaque)
-// ============================================================
-const smokeContainer = document.getElementById('smokeContainer');
+    // ============================================================
+    // 4. GÉNÉRATEUR DE FUMÉE (plus opaque)
+    // ============================================================
+    const smokeContainer = document.getElementById('smokeContainer');
 
-function createSmoke() {
-  const particle = document.createElement('div');
-  particle.className = 'smoke-particle';
+    function createSmoke() {
+      const particle = document.createElement('div');
+      particle.className = 'smoke-particle';
 
-  // Taille plus grande (150 à 350px)
-  const size = 150 + Math.random() * 200;
+      const size = 150 + Math.random() * 200;
+      const left = Math.random() * 100;
+      const duration = 5 + Math.random() * 4;
+      const delay = Math.random() * 2;
+      const opacity = 0.3 + Math.random() * 0.3;
 
-  // Position horizontale aléatoire
-  const left = Math.random() * 100;
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = left + '%';
+      particle.style.animationDuration = duration + 's';
+      particle.style.animationDelay = delay + 's';
+      particle.style.opacity = opacity;
+      particle.style.background =
+        'radial-gradient(circle, rgba(220,220,220,' + opacity + ') 0%, rgba(180,180,180,' + (opacity * 0.4) + ') 40%, rgba(150,150,150,0) 80%)';
 
-  // Durée plus longue (5 à 8 secondes)
-  const duration = 5 + Math.random() * 4;
+      smokeContainer.appendChild(particle);
 
-  // Délai aléatoire
-  const delay = Math.random() * 2;
+      setTimeout(() => {
+        particle.remove();
+      }, (duration + delay) * 1000 + 500);
+    }
 
-  // OPACITÉ PLUS ÉLEVÉE (0.3 à 0.6 au lieu de 0.1 à 0.3)
-  const opacity = 0.3 + Math.random() * 0.3;
+    function startSmoke() {
+      smokeContainer.classList.add('active');
+      const count = 40 + Math.floor(Math.random() * 25);
 
-  particle.style.width = size + 'px';
-  particle.style.height = size + 'px';
-  particle.style.left = left + '%';
-  particle.style.animationDuration = duration + 's';
-  particle.style.animationDelay = delay + 's';
-  particle.style.opacity = opacity;
+      for (let i = 0; i < count; i++) {
+        setTimeout(() => createSmoke(), i * 100);
+      }
 
-  // Dégradé plus opaque
-  particle.style.background =
-    'radial-gradient(circle, rgba(220,220,220,' + opacity + ') 0%, rgba(180,180,180,' + (opacity * 0.4) + ') 40%, rgba(150,150,150,0) 80%)';
+      for (let i = 0; i < 20; i++) {
+        setTimeout(() => createSmoke(), 2000 + i * 150);
+      }
+    }
 
-  smokeContainer.appendChild(particle);
+    function stopSmoke() {
+      smokeContainer.classList.remove('active');
+      setTimeout(() => {
+        smokeContainer.innerHTML = '';
+      }, 3000);
+    }
 
-  setTimeout(() => {
-    particle.remove();
-  }, (duration + delay) * 1000 + 500);
-}
-
-function startSmoke() {
-  smokeContainer.classList.add('active');
-
-  // PLUS DE PARTICULES (40 à 60 au lieu de 20 à 35)
-  const count = 40 + Math.floor(Math.random() * 25);
-
-  for (let i = 0; i < count; i++) {
-    setTimeout(() => createSmoke(), i * 100);
-  }
-
-  // Deuxième vague pour une fumée plus dense
-  for (let i = 0; i < 20; i++) {
-    setTimeout(() => createSmoke(), 2000 + i * 150);
-  }
-}
-
-function stopSmoke() {
-  smokeContainer.classList.remove('active');
-  setTimeout(() => {
-    smokeContainer.innerHTML = '';
-  }, 3000);
-}
     // ============================================================
     // 5. BOOM (SON)
     // ============================================================
@@ -620,83 +620,99 @@ function stopSmoke() {
       }, 1800);
     });
 
- // ============================================================
-// 9. CURSEUR FLUIDE AVEC REQUESTANIMATIONFRAME
-// ============================================================
-const cursorHalo = document.getElementById('cursorHalo');
-const cursorDot = document.getElementById('cursorDot');
-const cursorTrail = document.getElementById('cursorTrail');
+    // ============================================================
+    // 9. CURSEUR FLUIDE AVEC REQUESTANIMATIONFRAME
+    // ============================================================
+    const cursorHalo = document.getElementById('cursorHalo');
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorTrail = document.getElementById('cursorTrail');
 
-let mouseX = window.innerWidth / 2;
-let mouseY = window.innerHeight / 2;
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
 
-let haloX = mouseX;
-let haloY = mouseY;
-let dotX = mouseX;
-let dotY = mouseY;
-let trailX = mouseX;
-let trailY = mouseY;
+    let haloX = mouseX;
+    let haloY = mouseY;
+    let dotX = mouseX;
+    let dotY = mouseY;
+    let trailX = mouseX;
+    let trailY = mouseY;
 
-let isVisible = false;
+    let isVisible = false;
 
-function updateCursorPositions() {
-    // Halo : suivi direct mais avec un très léger lissage
-    haloX += (mouseX - haloX) * 0.12;
-    haloY += (mouseY - haloY) * 0.12;
+    function updateCursorPositions() {
+      haloX += (mouseX - haloX) * 0.12;
+      haloY += (mouseY - haloY) * 0.12;
 
-    // Point : suivi très rapide (presque direct)
-    dotX += (mouseX - dotX) * 0.25;
-    dotY += (mouseY - dotY) * 0.25;
+      dotX += (mouseX - dotX) * 0.25;
+      dotY += (mouseY - dotY) * 0.25;
 
-    // Sillage : suivi lent pour un effet de traînée
-    trailX += (mouseX - trailX) * 0.06;
-    trailY += (mouseY - trailY) * 0.06;
+      trailX += (mouseX - trailX) * 0.06;
+      trailY += (mouseY - trailY) * 0.06;
 
-    cursorHalo.style.left = haloX + 'px';
-    cursorHalo.style.top = haloY + 'px';
-    cursorDot.style.left = dotX + 'px';
-    cursorDot.style.top = dotY + 'px';
-    cursorTrail.style.left = trailX + 'px';
-    cursorTrail.style.top = trailY + 'px';
+      cursorHalo.style.left = haloX + 'px';
+      cursorHalo.style.top = haloY + 'px';
+      cursorDot.style.left = dotX + 'px';
+      cursorDot.style.top = dotY + 'px';
+      cursorTrail.style.left = trailX + 'px';
+      cursorTrail.style.top = trailY + 'px';
 
-    requestAnimationFrame(updateCursorPositions);
-}
+      requestAnimationFrame(updateCursorPositions);
+    }
 
-document.addEventListener('mousemove', (e) => {
-    mouseX = e.clientX;
-    mouseY = e.clientY;
+    document.addEventListener('mousemove', (e) => {
+      mouseX = e.clientX;
+      mouseY = e.clientY;
 
-    if (!isVisible) {
+      if (!isVisible) {
         isVisible = true;
         cursorHalo.classList.add('visible');
         cursorDot.classList.add('visible');
         cursorTrail.classList.add('visible');
-        // Initialiser les positions pour éviter un saut
         haloX = mouseX;
         haloY = mouseY;
         dotX = mouseX;
         dotY = mouseY;
         trailX = mouseX;
         trailY = mouseY;
+      }
+    });
+
+    document.addEventListener('mouseleave', () => {
+      isVisible = false;
+      cursorHalo.classList.remove('visible');
+      cursorDot.classList.remove('visible');
+      cursorTrail.classList.remove('visible');
+    });
+
+    updateCursorPositions();
+
+    if (window.matchMedia('(pointer: coarse)').matches) {
+      cursorHalo.style.display = 'none';
+      cursorDot.style.display = 'none';
+      cursorTrail.style.display = 'none';
     }
-});
 
-document.addEventListener('mouseleave', () => {
-    isVisible = false;
-    cursorHalo.classList.remove('visible');
-    cursorDot.classList.remove('visible');
-    cursorTrail.classList.remove('visible');
-});
+    // ============================================================
+    // 10. LOADER TYPOGRAPHIQUE ÉLASTIQUE
+    // ============================================================
+    const loader = document.getElementById('loader');
+    const fullName = document.getElementById('fullName');
 
-// Démarrer l'animation
-updateCursorPositions();
+    setTimeout(() => {
+      fullName.classList.add('visible');
+    }, 1500);
 
-// Désactiver sur mobile
-if (window.matchMedia('(pointer: coarse)').matches) {
-    cursorHalo.style.display = 'none';
-    cursorDot.style.display = 'none';
-    cursorTrail.style.display = 'none';
-}
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 2600);
+    });
+
+    setTimeout(() => {
+      if (!loader.classList.contains('hidden')) {
+        loader.classList.add('hidden');
+      }
+    }, 4000);
   </script>
 </body>
 </html>
