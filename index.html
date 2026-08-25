@@ -25,11 +25,22 @@
   <div id="loader">
     <div class="loader-container">
 
-      <!-- R . M (R et M blancs, point violet) -->
+      <!-- R → Robin (blanc) · M → Martinent (blanc) · point violet après M -->
       <div class="loader-rm">
-        <span class="loader-r">R</span>
+        <!-- R (blanc) → Robin -->
+        <div class="loader-word left">
+          <span class="letter">R</span>
+          <span class="rest">obin</span>
+        </div>
+
+        <!-- M (blanc) → Martinent -->
+        <div class="loader-word right">
+          <span class="letter">M</span>
+          <span class="rest">artinent</span>
+        </div>
+
+        <!-- Point violet après Martinent -->
         <span class="loader-dot">.</span>
-        <span class="loader-m">M</span>
       </div>
 
       <!-- Sous-titre : Réalisateur (violet) Monteur (blanc) -->
@@ -707,14 +718,14 @@
     window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
-      }, 2800);
+      }, 3200);
     });
 
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
       }
-    }, 4000);
+    }, 4500);
   </script>
 </body>
 </html>
