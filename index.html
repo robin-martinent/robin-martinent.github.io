@@ -3,13 +3,14 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Robin Martinent — Réalisateur & Monteur Vidéo | Portfolio</title>
+  <title>Robin Martinent — Réalisateur Monteur</title>
 
-  <!-- ===== SEO ===== -->
-  <meta name="description" content="Portfolio de Robin Martinent, réalisateur et monteur vidéo. Montage, motion design, illustration, création audiovisuelle. Disponible en alternance." />
-  <meta name="keywords" content="Robin Martinent, réalisateur, monteur vidéo, motion design, illustration, audiovisuel, Grenoble, alternance, portfolio" />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://martinent.github.io/" />
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+  <!-- ===== CSS EXTERNE ===== -->
+  <link rel="stylesheet" href="style.css" />
 
   <!-- ===== FAVICON ===== -->
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png" />
@@ -17,21 +18,10 @@
   <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png" />
   <link rel="manifest" href="favicon_io/site.webmanifest" />
   <link rel="shortcut icon" href="favicon_io/favicon.ico" />
-
-  <!-- ===== POLICES & STYLES ===== -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-  <link rel="stylesheet" href="style.css" />
-
-  <!-- Open Graph -->
-  <meta property="og:title" content="Robin Martinent — Réalisateur & Monteur Vidéo" />
-  <meta property="og:description" content="Portfolio de Robin Martinent, réalisateur et monteur vidéo." />
-  <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://martinent.github.io/" />
 </head>
 <body>
 
-  <!-- ===== ÉCRAN DE CHARGEMENT TYPOGRAPHIQUE ===== -->
+  <!-- ===== ÉCRAN DE CHARGEMENT ===== -->
   <div id="loader">
     <div class="loader-rm">
       <span class="loader-r">R</span>
@@ -60,7 +50,7 @@
 
   <!-- NAV -->
   <nav id="navbar">
-    <a href="#" class="nav-logo" aria-label="Accueil">Robin<span>.</span></a>
+    <a href="#" class="nav-logo">Robin<span>.</span></a>
     <ul class="nav-links">
       <li><a href="#portfolio">Portfolio</a></li>
       <li><a href="#competences">Compétences</a></li>
@@ -103,24 +93,24 @@
       <div class="carousel">
         <div class="carousel-track" id="track">
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy" title="Projet vidéo 1"></iframe>
+            <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy" title="Projet vidéo 2"></iframe>
+            <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy" title="Projet vidéo 3"></iframe>
+            <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy"></iframe>
           </div>
           <div class="carousel-slide">
-            <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy" title="Projet vidéo 4"></iframe>
+            <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy"></iframe>
           </div>
         </div>
       </div>
       <div class="carousel-controls">
         <div class="carousel-dots" id="dots"></div>
         <div class="carousel-arrows">
-          <button class="arrow" id="prev" aria-label="Précédent">&#8592;</button>
-          <button class="arrow" id="next" aria-label="Suivant">&#8594;</button>
+          <button class="arrow" id="prev">&#8592;</button>
+          <button class="arrow" id="next">&#8594;</button>
         </div>
       </div>
       <div class="carousel-label">
@@ -185,26 +175,31 @@
     <p class="section-label reveal">Mon parcours</p>
     <h2 class="section-title reveal">CV</h2>
     <div class="cv-grid">
+      <!-- ===== FORMATIONS ===== -->
       <div class="cv-col reveal">
         <h3>Formation</h3>
+
         <div class="cv-item">
           <div class="cv-item-title">Bachelor Réalisateur-Monteur</div>
           <div class="cv-item-sub">Studio M</div>
           <div class="cv-item-date">2025 - 2026</div>
           <div class="cv-desc"><strong>Montage vidéo</strong> · Motion design · Direction artistique · Gestion de projet audiovisuel · Réalisation de courts-métrages</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Licence MIASH</div>
           <div class="cv-item-sub">Grenoble IUT1</div>
           <div class="cv-item-date">2024 - 2025</div>
           <div class="cv-desc"><strong>Mathématiques</strong> · Informatique · Algorithmique · Analyse de données · Programmation Python</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">BUT MMI</div>
           <div class="cv-item-sub">Grenoble IUT1</div>
           <div class="cv-item-date">2023 - 2024</div>
           <div class="cv-desc"><strong>Multimédia</strong> · Communication · Design graphique · Développement web · Audiovisuel · UX/UI</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Bac STI2D option AC</div>
           <div class="cv-item-sub">Lycée Ferdinand Buisson</div>
@@ -212,26 +207,32 @@
           <div class="cv-desc"><strong>Sciences de l'ingénieur</strong> · Systèmes automatisés · Électronique · Architecture des systèmes · Projets techniques</div>
         </div>
       </div>
+
+      <!-- ===== EXPÉRIENCES ===== -->
       <div class="cv-col reveal">
         <h3>Expériences</h3>
+
         <div class="cv-item">
           <div class="cv-item-title">Monteur vidéo</div>
           <div class="cv-item-sub">Shaolin Shadow</div>
           <div class="cv-item-date">Mars 2026 · 5 semaines</div>
           <div class="cv-desc"><strong>Réalisation de showreels</strong> et best of d'événements dans le cadre d'un stage · Montage de clips et courts-métrages · Post-production</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Employé polyvalent</div>
           <div class="cv-item-sub">McDonald's</div>
           <div class="cv-item-date">Été 2025 · 1 mois</div>
           <div class="cv-desc"><strong>Job d'été</strong> · Accueil client · Préparation des commandes · Gestion du service · Travail en équipe</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Hydroguide</div>
           <div class="cv-item-sub">EDF</div>
           <div class="cv-item-date">Été 2024 · 2 mois</div>
           <div class="cv-desc"><strong>Job d'été</strong> · Garde de côtes · Sensibilisation aux dangers des barrages hydrauliques · Surveillance des zones</div>
         </div>
+
         <div class="cv-item">
           <div class="cv-item-title">Mise en rayon</div>
           <div class="cv-item-sub">Carrefour</div>
