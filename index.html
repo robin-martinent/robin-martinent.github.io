@@ -25,27 +25,19 @@
   <div id="loader">
     <div class="loader-container">
       <div class="loader-rm">
-        <!-- R → Robin -->
-        <div class="loader-word left">
-          <span class="letter">R</span>
-          <span class="rest">obin</span>
-        </div>
-
-        <!-- Point violet -->
+        <span class="loader-r">R</span>
         <span class="loader-dot">.</span>
-
-        <!-- M → Martinent -->
-        <div class="loader-word right">
-          <span class="letter">M</span>
-          <span class="rest">artinent</span>
-        </div>
+        <span class="loader-m">M</span>
       </div>
-      <!-- Sous-titre -->
-      <div class="loader-subtitle">Réalisateur Monteur</div>
+      <div class="loader-fullname" id="fullName">
+        <span class="left">Robin</span>
+        <span class="space"></span>
+        <span class="right">Martinent</span>
+      </div>
     </div>
   </div>
 
-  <!-- ===== CURSEUR PERSONNALISÉ ===== -->
+  <!-- ===== CURSEUR ===== -->
   <div class="hero-cursor-halo" id="cursorHalo"></div>
   <div class="hero-cursor-dot" id="cursorDot"></div>
   <div class="hero-cursor-trail" id="cursorTrail"></div>
@@ -344,7 +336,7 @@
     reveals.forEach(el => observer.observe(el));
 
     // ============================================================
-    // 4. GÉNÉRATEUR DE FUMÉE (plus opaque)
+    // 4. GÉNÉRATEUR DE FUMÉE
     // ============================================================
     const smokeContainer = document.getElementById('smokeContainer');
 
@@ -632,7 +624,7 @@
     });
 
     // ============================================================
-    // 9. CURSEUR FLUIDE AVEC REQUESTANIMATIONFRAME
+    // 9. CURSEUR FLUIDE
     // ============================================================
     const cursorHalo = document.getElementById('cursorHalo');
     const cursorDot = document.getElementById('cursorDot');
@@ -704,18 +696,18 @@
     }
 
     // ============================================================
-    // 10. LOADER TYPOGRAPHIQUE ÉLASTIQUE
+    // 10. LOADER
     // ============================================================
     const loader = document.getElementById('loader');
 
-    // Le loader se cache après 2.6s (le temps que l'animation se termine)
+    // Le loader disparaît après 2.8s
     window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
-      }, 2600);
+      }, 2800);
     });
 
-    // Sécurité : cacher au bout de 4s maximum
+    // Sécurité
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
