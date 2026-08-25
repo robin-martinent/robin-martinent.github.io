@@ -23,15 +23,25 @@
 
   <!-- ===== ÉCRAN DE CHARGEMENT ===== -->
   <div id="loader">
-    <div class="loader-rm">
-      <span class="loader-r">R</span>
-      <span class="loader-m">M</span>
-      <span class="loader-dot">.</span>
-    </div>
-    <div class="loader-fullname" id="fullName">
-      <span class="left">Robin</span>
-      <span class="space"></span>
-      <span class="right">Martinent</span>
+    <div class="loader-container">
+      <div class="loader-rm">
+        <!-- R → Robin -->
+        <div class="loader-word left">
+          <span class="letter">R</span>
+          <span class="rest">obin</span>
+        </div>
+
+        <!-- Point violet -->
+        <span class="loader-dot">.</span>
+
+        <!-- M → Martinent -->
+        <div class="loader-word right">
+          <span class="letter">M</span>
+          <span class="rest">artinent</span>
+        </div>
+      </div>
+      <!-- Sous-titre -->
+      <div class="loader-subtitle">Réalisateur Monteur</div>
     </div>
   </div>
 
@@ -697,18 +707,15 @@
     // 10. LOADER TYPOGRAPHIQUE ÉLASTIQUE
     // ============================================================
     const loader = document.getElementById('loader');
-    const fullName = document.getElementById('fullName');
 
-    setTimeout(() => {
-      fullName.classList.add('visible');
-    }, 1500);
-
+    // Le loader se cache après 2.6s (le temps que l'animation se termine)
     window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
       }, 2600);
     });
 
+    // Sécurité : cacher au bout de 4s maximum
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
