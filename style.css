@@ -1043,7 +1043,7 @@ footer p {
 }
 
 /* ============================================================
-   LOADER TYPOGRAPHIQUE ÉLASTIQUE (R + . + M avec rebonds)
+   LOADER — R M en blanc · point violet · Réalisateur Monteur
    ============================================================ */
 #loader {
   position: fixed;
@@ -1070,6 +1070,7 @@ footer p {
   justify-content: center;
 }
 
+/* ===== R M (blancs) . (violet) ===== */
 .loader-rm {
   display: flex;
   align-items: center;
@@ -1082,97 +1083,79 @@ footer p {
   line-height: 1;
 }
 
-/* ===== R (violet) ===== */
+/* R (blanc) */
 .loader-r {
   display: inline-block;
-  color: var(--accent);
+  color: var(--ink);
   opacity: 0;
   transform: scale(0.3) translateY(30px);
-  animation: popLetter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+  animation: popLetter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
-/* ===== M (blanc) ===== */
+/* M (blanc) */
 .loader-m {
   display: inline-block;
   color: var(--ink);
   opacity: 0;
   transform: scale(0.3) translateY(30px);
-  animation: popLetter 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
+  animation: popLetter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
 }
 
-/* ===== POINT VIOLET (entre R et M) ===== */
+/* Point (violet) */
 .loader-dot {
   display: inline-block;
   font-size: 70px;
   color: var(--accent);
   opacity: 0;
-  transform: scale(0.2) translateY(30px);
-  animation: popDot 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+  transform: scale(0.2) translateY(40px);
+  animation: popDot 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
 }
 
-/* ===== KEYFRAMES REBONDS ===== */
+/* ===== KEYFRAMES ===== */
 @keyframes popLetter {
   0% { opacity: 0; transform: scale(0.3) translateY(30px); }
-  60% { opacity: 1; transform: scale(1.15) translateY(-8px); }
-  80% { transform: scale(0.95) translateY(2px); }
+  55% { opacity: 1; transform: scale(1.2) translateY(-8px); }
+  75% { transform: scale(0.95) translateY(2px); }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
 @keyframes popDot {
   0% { opacity: 0; transform: scale(0.2) translateY(40px); }
-  40% { opacity: 1; transform: scale(1.4) translateY(-10px); }
-  60% { transform: scale(1.6) translateY(0); }
-  75% { transform: scale(0.9) translateY(0); }
-  90% { transform: scale(1.1) translateY(0); }
+  35% { opacity: 1; transform: scale(1.5) translateY(-12px); }
+  55% { transform: scale(1.7) translateY(0); }
+  70% { transform: scale(0.9) translateY(0); }
+  85% { transform: scale(1.1) translateY(0); }
   100% { opacity: 1; transform: scale(1) translateY(0); }
 }
 
-/* Pulsation du point après l'animation */
-.loader-dot {
-  animation: popDot 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards,
-             dotPulse 2s ease-in-out 1.5s infinite;
-}
-
-@keyframes dotPulse {
-  0%, 100% { transform: scale(1); opacity: 0.6; }
-  50% { transform: scale(1.3); opacity: 1; }
-}
-
-/* ===== NOM COMPLET ===== */
-.loader-fullname {
+/* ===== SOUS-TITRE ===== */
+.loader-subtitle {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
-  margin-top: 8px;
-  font-size: 20px;
+  gap: 6px;
+  margin-top: 20px;
+  font-size: 16px;
   font-weight: 400;
-  color: var(--muted);
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0;
-  transform: translateY(10px);
-  transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+  animation: fadeSubtitle 0.9s ease 1.4s forwards;
 }
 
-.loader-fullname.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.loader-fullname .left {
+.loader-subtitle .sub-accent {
   color: var(--accent);
-  font-weight: 600;
+  font-weight: 500;
 }
 
-.loader-fullname .right {
+.loader-subtitle .sub-white {
   color: var(--ink);
   font-weight: 400;
 }
 
-.loader-fullname .space {
-  display: inline-block;
-  width: 6px;
+@keyframes fadeSubtitle {
+  0% { opacity: 0; transform: translateY(12px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* ===== RESPONSIVE ===== */
@@ -1183,11 +1166,12 @@ footer p {
   .loader-dot {
     font-size: 44px;
   }
-  .loader-fullname {
-    font-size: 14px;
+  .loader-subtitle {
+    font-size: 12px;
+    margin-top: 14px;
+    gap: 4px;
   }
 }
-
 /* ============================================================
    RESPONSIVE (global)
    ============================================================ */
