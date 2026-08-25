@@ -1043,7 +1043,7 @@ footer p {
 }
 
 /* ============================================================
-   LOADER — R M en blanc · point violet · Réalisateur Monteur
+   LOADER — R→Robin / M→Martinent · point violet après M
    ============================================================ */
 #loader {
   position: fixed;
@@ -1070,12 +1070,11 @@ footer p {
   justify-content: center;
 }
 
-/* ===== R M (blancs) . (violet) ===== */
 .loader-rm {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 4px;
+  gap: 2px;
   font-weight: 700;
   font-size: 80px;
   color: var(--ink);
@@ -1083,40 +1082,71 @@ footer p {
   line-height: 1;
 }
 
-/* R (blanc) */
-.loader-r {
+.loader-word {
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+}
+
+.loader-word .letter {
   display: inline-block;
+  flex-shrink: 0;
+}
+
+.loader-word .rest {
+  display: inline-block;
+  overflow: hidden;
+  white-space: nowrap;
+  width: 0;
+}
+
+/* R → Robin (blanc) */
+.loader-word.left .letter {
   color: var(--ink);
-  opacity: 0;
-  transform: scale(0.3) translateY(30px);
   animation: popLetter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-/* M (blanc) */
-.loader-m {
-  display: inline-block;
-  color: var(--ink);
   opacity: 0;
   transform: scale(0.3) translateY(30px);
-  animation: popLetter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
 }
 
-/* Point (violet) */
+.loader-word.left .rest {
+  color: var(--ink);
+  animation: expandText 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+}
+
+/* M → Martinent (blanc) */
+.loader-word.right .letter {
+  color: var(--ink);
+  animation: popLetter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
+  opacity: 0;
+  transform: scale(0.3) translateY(30px);
+}
+
+.loader-word.right .rest {
+  color: var(--ink);
+  animation: expandText 1.0s cubic-bezier(0.34, 1.56, 0.64, 1) 0.65s forwards;
+}
+
+/* ===== POINT VIOLET (après M) ===== */
 .loader-dot {
   display: inline-block;
   font-size: 70px;
   color: var(--accent);
   opacity: 0;
-  transform: scale(0.2) translateY(40px);
-  animation: popDot 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+  transform: scale(0.2) translateY(30px);
+  animation: popDot 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.9s forwards;
 }
 
-/* ===== KEYFRAMES ===== */
 @keyframes popLetter {
   0% { opacity: 0; transform: scale(0.3) translateY(30px); }
   55% { opacity: 1; transform: scale(1.2) translateY(-8px); }
   75% { transform: scale(0.95) translateY(2px); }
   100% { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+@keyframes expandText {
+  0% { width: 0; opacity: 0; transform: scaleX(0.5); transform-origin: left center; }
+  40% { opacity: 1; transform: scaleX(1.05); }
+  100% { width: 100%; opacity: 1; transform: scaleX(1); }
 }
 
 @keyframes popDot {
@@ -1140,7 +1170,7 @@ footer p {
   letter-spacing: 0.08em;
   text-transform: uppercase;
   opacity: 0;
-  animation: fadeSubtitle 0.9s ease 1.4s forwards;
+  animation: fadeSubtitle 0.9s ease 1.8s forwards;
 }
 
 .loader-subtitle .sub-accent {
@@ -1172,6 +1202,7 @@ footer p {
     gap: 4px;
   }
 }
+
 /* ============================================================
    RESPONSIVE (global)
    ============================================================ */
