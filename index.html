@@ -28,13 +28,13 @@
       <!-- R → Robin (blanc) · M → Martinent (blanc) · point violet après M -->
       <div class="loader-rm">
         <!-- R (blanc) → Robin -->
-        <div class="loader-word left">
+        <div class="loader-word left" id="wordLeft">
           <span class="letter">R</span>
           <span class="rest">obin</span>
         </div>
 
         <!-- M (blanc) → Martinent -->
-        <div class="loader-word right">
+        <div class="loader-word right" id="wordRight">
           <span class="letter">M</span>
           <span class="rest">artinent</span>
         </div>
@@ -44,7 +44,7 @@
       </div>
 
       <!-- Sous-titre : Réalisateur (violet) Monteur (blanc) -->
-      <div class="loader-subtitle">
+      <div class="loader-subtitle" id="loaderSubtitle">
         <span class="sub-accent">Réalisateur</span>
         <span class="sub-white">Monteur</span>
       </div>
@@ -714,13 +714,32 @@
     // 10. LOADER
     // ============================================================
     const loader = document.getElementById('loader');
+    const wordLeft = document.getElementById('wordLeft');
+    const wordRight = document.getElementById('wordRight');
+    const subtitle = document.getElementById('loaderSubtitle');
 
+    // Expansion des mots après les rebonds
+    setTimeout(() => {
+      wordLeft.classList.add('expanded');
+    }, 850);
+
+    setTimeout(() => {
+      wordRight.classList.add('expanded');
+    }, 1000);
+
+    // Apparition du sous-titre
+    setTimeout(() => {
+      subtitle.classList.add('visible');
+    }, 1900);
+
+    // Disparition du loader
     window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
       }, 3200);
     });
 
+    // Sécurité
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
