@@ -718,7 +718,6 @@
     const wordRight = document.getElementById('wordRight');
     const subtitle = document.getElementById('loaderSubtitle');
 
-    // Expansion des mots après les rebonds
     setTimeout(() => {
       wordLeft.classList.add('expanded');
     }, 850);
@@ -727,19 +726,16 @@
       wordRight.classList.add('expanded');
     }, 1000);
 
-    // Apparition du sous-titre
     setTimeout(() => {
       subtitle.classList.add('visible');
     }, 1900);
 
-    // Disparition du loader
     window.addEventListener('load', () => {
       setTimeout(() => {
         loader.classList.add('hidden');
       }, 3200);
     });
 
-    // Sécurité
     setTimeout(() => {
       if (!loader.classList.contains('hidden')) {
         loader.classList.add('hidden');
