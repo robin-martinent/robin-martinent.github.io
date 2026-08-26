@@ -1075,7 +1075,7 @@ footer p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 1px; /* ← réduit à 1px */
+  gap: 0px; /* ← espace réduit à 0 */
   font-weight: 700;
   font-size: 80px;
   color: var(--ink);
@@ -1093,7 +1093,6 @@ footer p {
   display: inline-block;
   flex-shrink: 0;
   transform-origin: center;
-  margin-right: 1px; /* ← réduit l'espace entre la lettre et le reste */
 }
 
 .loader-word .rest {
@@ -1113,7 +1112,6 @@ footer p {
   transform: scale(0.3) translateY(30px);
 }
 
-/* R → Robin (blanc) */
 .loader-word.left .rest {
   color: var(--ink);
   width: 0;
@@ -1121,10 +1119,17 @@ footer p {
 }
 
 .loader-word.left.expanded .rest {
-  width: 4.8ch; /* ← augmente pour que "obin" ne soit pas coupé */
+  width: 4.2ch;
 }
 
 /* M → Martinent (blanc) */
+.loader-word.right .letter {
+  color: var(--ink);
+  animation: popLetter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
+  opacity: 0;
+  transform: scale(0.3) translateY(30px);
+}
+
 .loader-word.right .rest {
   color: var(--ink);
   width: 0;
@@ -1132,19 +1137,20 @@ footer p {
 }
 
 .loader-word.right.expanded .rest {
-  width: 8.2ch; /* ← augmente pour que "artinent" ne soit pas coupé */
+  width: 7.2ch;
 }
 
 /* ===== POINT VIOLET (après M) ===== */
 .loader-dot {
   display: inline-block;
-  font-size: 55px;
+  font-size: 60px; /* ← réduit de 70px à 60px */
   color: var(--accent);
-  margin-left: 2px; /* ← ajoute un petit espace après Martinent */
+  margin-left: 1px; /* ← petit espace après Martinent */
   opacity: 0;
   transform: scale(0.2) translateY(30px);
   animation: popDot 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
 }
+
 @keyframes popLetter {
   0% { opacity: 0; transform: scale(0.3) translateY(30px); }
   55% { opacity: 1; transform: scale(1.2) translateY(-8px); }
