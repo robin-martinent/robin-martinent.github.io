@@ -1075,7 +1075,7 @@ footer p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 0px; /* ← espace réduit à 0 */
+  gap: 0px;
   font-weight: 700;
   font-size: 80px;
   color: var(--ink);
@@ -1085,7 +1085,7 @@ footer p {
 
 .loader-word {
   display: flex;
-  align-items: center; 
+  align-items: center;
 }
 
 .loader-word .letter {
@@ -1123,7 +1123,7 @@ footer p {
 
 /* M → Martinent (blanc) */
 .loader-word.right .letter {
-  color: var(--ink); 
+  color: var(--ink);
   animation: popLetter 0.7s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
   opacity: 0;
   transform: scale(0.3) translateY(30px);
@@ -1142,10 +1142,9 @@ footer p {
 /* ===== POINT VIOLET (après M) ===== */
 .loader-dot {
   display: inline-block;
-  transform: translateY(-80px);
-  font-size: 70px; /* ← réduit de 70px à 60px */
+  font-size: 55px;
   color: var(--accent);
-  margin-left: 1px; /* ← petit espace après Martinent */
+  margin-left: 1px;
   opacity: 0;
   transform: scale(0.2) translateY(30px);
   animation: popDot 0.9s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
@@ -1180,7 +1179,7 @@ footer p {
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
-  transition-delay: 1s;
+  transition-delay: 1.9s;
 }
 
 .loader-subtitle.visible {
@@ -1204,7 +1203,7 @@ footer p {
     font-size: 50px;
   }
   .loader-dot {
-    font-size: 44px;
+    font-size: 40px;
   }
   .loader-subtitle {
     font-size: 12px;
@@ -1278,4 +1277,59 @@ footer p {
   .hero-cursor-dot::before {
     inset: -12px;
   }
+}
+
+/* ============================================================
+   CACHER LE CURSEUR PAR DÉFAUT
+   ============================================================ */
+* {
+  cursor: none !important;
+}
+
+/* ============================================================
+   RÉACTIVER LE CURSEUR "POINTER" SUR LES ÉLÉMENTS INTERACTIFS
+   ============================================================ */
+a,
+button,
+input,
+select,
+textarea,
+.btn-primary,
+.btn-ghost,
+.btn-rapport,
+.btn-copy,
+.nav-links a,
+.arrow,
+.dot,
+.carousel-arrows button,
+.hero-cta a,
+.contact-links a,
+.contact-links button,
+footer a {
+  cursor: pointer !important;
+}
+
+/* ============================================================
+   GARDER LE CURSEUR PAR DÉFAUT SUR LE TEXTE SÉLECTIONNABLE
+   ============================================================ */
+p,
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+span,
+li,
+blockquote,
+.reveal,
+.hero-sub,
+.section-label,
+.section-title,
+.loader-subtitle,
+.cv-item-title,
+.cv-item-sub,
+.cv-item-date,
+.cv-desc {
+  cursor: none !important;
 }
