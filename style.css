@@ -1075,7 +1075,7 @@ footer p {
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 2px;
+  gap: 0px;
   font-weight: 700;
   font-size: 80px;
   color: var(--ink);
