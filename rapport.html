@@ -5,28 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rapport de stage – Robin Martinent</title>
 
- <!-- ===== FAVICON (dossier favicon_io/) ===== -->
+  <!-- ===== FAVICON ===== -->
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
   <link rel="manifest" href="favicon_io/site.webmanifest">
   <link rel="shortcut icon" href="favicon_io/favicon.ico">
 
-  <!-- Google Fonts (identique à index.html) -->
+  <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <!-- ===== MÊME CSS QUE LE SITE PRINCIPAL ===== -->
+  <!-- ===== CSS EXTERNE ===== -->
   <link rel="stylesheet" href="style.css" />
 
-  <!-- Styles supplémentaires spécifiques au rapport (structure de page) -->
   <style>
-    /* ===== SURCHARGE POUR LE RAPPORT ===== */
     body {
       padding: 40px 20px;
       max-width: 1100px;
       margin: 0 auto;
       background: var(--bg);
+      font-family: 'Poppins', sans-serif;
     }
 
     .back-nav {
@@ -164,6 +163,31 @@
       text-decoration: underline;
     }
 
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .stat-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-item .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+    .stat-item .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
     .lexique-item {
       display: flex;
       gap: 20px;
@@ -179,17 +203,6 @@
       color: var(--muted);
     }
 
-    .annexe-item {
-      display: flex;
-      justify-content: space-between;
-      padding: 6px 0;
-      border-bottom: 1px solid var(--border);
-      font-size: 0.95rem;
-    }
-    .annexe-item .page {
-      color: var(--accent);
-    }
-
     .footer-rapport {
       text-align: center;
       padding: 40px 0 20px;
@@ -198,7 +211,6 @@
       font-size: 0.85rem;
     }
 
-    /* Adaptations responsive */
     @media (max-width: 700px) {
       body {
         padding: 16px;
@@ -222,9 +234,11 @@
       .lexique-item .term {
         min-width: auto;
       }
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
     }
 
-    /* Impression */
     @media print {
       body {
         padding: 0.3in;
@@ -256,15 +270,15 @@
       .sommaire {
         background: #f5f5f5 !important;
       }
-      .site-shake {
-        animation: none !important;
+      .stat-item {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
       }
     }
   </style>
 </head>
 <body>
 
-  <!-- LIEN RETOUR VERS L'ACCUEIL -->
   <div class="back-nav">
     <a href="index.html">← Retour au portfolio</a>
   </div>
@@ -275,7 +289,7 @@
     <div class="subtitle">Post-bac Audiovisuel</div>
     <div style="margin: 1.2em 0; font-size: 1.6rem; font-weight: 300; color: var(--muted);">RAPPORT DE STAGE</div>
     <div style="font-size: 1.1rem; color: var(--muted);">
-      Monteur video au sein de l'association <span style="color: var(--accent);">Shaolin Shadow</span>
+      Monteur vidéo au sein de l'association <span style="color: var(--accent);">Shaolin Shadow</span>
     </div>
     <div class="info">
       <span>Entreprise : Shaolin Shadow (Grenoble)</span>
@@ -302,144 +316,239 @@
     <div class="sommaire-item" style="padding-left:20px;"><span>1.5 Moyens matériels et techniques</span><span class="page">p. 6</span></div>
     <div class="sommaire-item" style="padding-left:20px;"><span>1.6 Partenariats et rayonnement</span><span class="page">p. 7</span></div>
     <div class="sommaire-item"><span>Partie II – Le stage : missions, activités et analyse</span><span class="page">p. 8</span></div>
-    <div class="sommaire-item" style="padding-left:20px;"><span>2.1 Cadre et organisation</span><span class="page">p. 8</span></div>
-    <div class="sommaire-item" style="padding-left:20px;"><span>2.2 Le métier de monteur vidéo</span><span class="page">p. 9</span></div>
-    <div class="sommaire-item" style="padding-left:20px;"><span>2.3 Description détaillée de mes missions</span><span class="page">p. 10</span></div>
-    <div class="sommaire-item" style="padding-left:20px;"><span>2.4 Difficultés rencontrées</span><span class="page">p. 12</span></div>
-    <div class="sommaire-item" style="padding-left:20px;"><span>2.5 Compétences acquises et bilan</span><span class="page">p. 13</span></div>
-    <div class="sommaire-item"><span>Conclusion</span><span class="page">p. 15</span></div>
-    <div class="sommaire-item"><span>Bibliographie</span><span class="page">p. 17</span></div>
-    <div class="sommaire-item"><span>Lexique</span><span class="page">p. 18</span></div>
-    <div class="sommaire-item"><span>Table des annexes</span><span class="page">p. 19</span></div>
+    <div class="sommaire-item" style="padding-left:20px;"><span>2.1 Recherche et contexte du stage</span><span class="page">p. 8</span></div>
+    <div class="sommaire-item" style="padding-left:20px;"><span>2.2 Cadre et organisation</span><span class="page">p. 9</span></div>
+    <div class="sommaire-item" style="padding-left:20px;"><span>2.3 Le métier de monteur vidéo</span><span class="page">p. 10</span></div>
+    <div class="sommaire-item" style="padding-left:20px;"><span>2.4 Description détaillée des missions</span><span class="page">p. 11</span></div>
+    <div class="sommaire-item" style="padding-left:20px;"><span>2.5 Difficultés rencontrées et solutions</span><span class="page">p. 13</span></div>
+    <div class="sommaire-item" style="padding-left:20px;"><span>2.6 Compétences acquises</span><span class="page">p. 14</span></div>
+    <div class="sommaire-item"><span>Conclusion</span><span class="page">p. 16</span></div>
+    <div class="sommaire-item"><span>Bibliographie</span><span class="page">p. 18</span></div>
+    <div class="sommaire-item"><span>Lexique</span><span class="page">p. 19</span></div>
   </div>
 
-  <!-- ===== INTRODUCTION ===== -->
+  <!-- ============================================================
+       INTRODUCTION
+  ============================================================ -->
   <div class="section-rapport">
     <h2>Introduction</h2>
-    <p>Dans le cadre de ma formation post-baccalauréat en audiovisuel, orientée vers la production et le montage vidéo, j'ai effectué un stage de six semaines au sein de l'association Shaolin Shadow, à Grenoble, en tant que monteur vidéo.</p>
+
+    <p>Dans le cadre de ma formation post-baccalauréat en audiovisuel, orientée vers la production et le montage vidéo, j'ai effectué un stage de six semaines au sein de l'association Shaolin Shadow à Grenoble, en tant que monteur vidéo. Ce stage s'inscrit dans une démarche de professionnalisation, visant à mettre en pratique les compétences théoriques acquises durant ma formation et à les confronter aux exigences du monde professionnel.</p>
+
     <p>Ma formation m'a permis d'acquérir les bases techniques du montage vidéo, du motion design, de l'ingest, de la gestion des proxies et des exports. J'ai également eu l'occasion de mener des projets concrets, comme le montage d'un événement (le rassemblement Porsche organisé par Shaolin Shadow) et la réalisation de la showreel annuelle de l'association pour l'année 2025. Ces expériences m'ont conforté dans mon aspiration à devenir monteur vidéo et réalisateur de documentaires. Toutefois, je ressentais le besoin de confronter ces apprentissages à un environnement professionnel plus exigeant, où la rigueur, la méthode et le travail en équipe priment sur la simple maîtrise technique.</p>
+
     <p>Le choix de Shaolin Shadow répondait à deux motivations principales. D'une part, l'association est reconnue dans le paysage audiovisuel grenoblois pour la qualité de ses productions et son engagement en faveur de l'accès à l'audiovisuel pour tous. D'autre part, ce stage devait me permettre de confirmer mon goût pour le montage vidéo dans un contexte plus structuré que celui de mes projets scolaires habituels. Je souhaitais notamment apprendre à travailler dans le cadre d'une production collective, où plusieurs personnes peuvent être amenées à intervenir sur un même projet, et où la normalisation des méthodes de travail est essentielle.</p>
-    <p>Le métier de monteur vidéo est aujourd'hui en pleine évolution. D'une part, les habitudes de consommation du public se tournent de plus en plus vers des contenus courts et dynamiques, ce qui impose aux monteurs de repenser leur rythme et leur narration. D'autre part, l'intelligence artificielle fait son entrée dans les logiciels de post-production. Si l'IA ne remplacera jamais un monteur – car le montage est avant tout un acte de création et d'interprétation du réel – elle modifie en profondeur les méthodes de travail en automatisant certaines tâches répétitives. Le monteur de demain sera davantage un chef d'orchestre, un second réalisateur qui donne une perspective nouvelle aux séquences tournées et qui collabore étroitement avec le réalisateur pour atteindre une vision commune. Ce stage m'a précisément permis d'explorer cette dimension artistique et collaborative du métier.</p>
+
+    <p>Le métier de monteur vidéo est aujourd'hui en pleine évolution. Les habitudes de consommation du public se tournent de plus en plus vers des contenus courts et dynamiques, ce qui impose aux monteurs de repenser leur rythme et leur narration. Par ailleurs, l'intelligence artificielle fait son entrée dans les logiciels de post-production. Si l'IA ne remplacera jamais un monteur, car le montage est avant tout un acte de création et d'interprétation du réel, elle modifie en profondeur les méthodes de travail en automatisant certaines tâches répétitives. Le monteur de demain sera davantage un chef d'orchestre, un second réalisateur qui donne une perspective nouvelle aux séquences tournées et qui collabore étroitement avec le réalisateur pour atteindre une vision commune. Ce stage m'a précisément permis d'explorer cette dimension artistique et collaborative du métier.</p>
+
     <p>Les associations audiovisuelles jouent un rôle crucial dans le paysage culturel français. Malgré des budgets souvent limités, elles parviennent à produire des œuvres de qualité grâce à l'engagement de bénévoles passionnés. Elles constituent des tremplins essentiels pour des personnes sans bagage technique ni moyens financiers, mais animées par la seule motivation de découvrir et de pratiquer les métiers de l'audiovisuel. Shaolin Shadow incarne parfaitement cet esprit.</p>
+
     <p>Ce rapport reviendra dans un premier temps sur la présentation de l'association Shaolin Shadow, son histoire, son organisation, ses moyens et son école de cinéma « Ça Tourne ! ». Dans un second temps, je détaillerai les missions qui m'ont été confiées, les difficultés rencontrées et les compétences que j'en retire.</p>
   </div>
 
-  <!-- ===== PARTIE I ===== -->
+  <!-- ============================================================
+       PARTIE I – PRÉSENTATION DE L'ASSOCIATION
+  ============================================================ -->
   <div class="section-rapport">
     <h2>Partie I – Présentation de l'association Shaolin Shadow</h2>
 
     <h3>1.1 Identité et historique</h3>
-    <p>Shaolin Shadow est une association loi 1901 dédiée à l'audiovisuel, fondée en 2004 à Grenoble. Le nom de l'association résume à lui seul l'état d'esprit qui anime ses membres : « Shaolin » en référence aux moines du même nom, symboles de rigueur, d'accomplissement de soi, de transmission des savoirs et de partage ; « Shadow » pour rendre hommage aux techniciens du cinéma, ces artistes de l'ombre qui mettent les comédiens en lumière. Ce double héritage, à la fois spirituel et technique, imprègne toutes les actions de l'association.</p>
+
+    <p>Shaolin Shadow est une association loi 1901 dédiée à l'audiovisuel, fondée en 2004 à Grenoble. Le nom de l'association résume à lui seul l'état d'esprit qui anime ses membres. La référence aux moines Shaolin évoque la rigueur, l'accomplissement de soi, la transmission des savoirs et le partage. Le terme Shadow rend hommage aux techniciens du cinéma, ces artistes de l'ombre qui mettent les comédiens en lumière. Ce double héritage, à la fois spirituel et technique, imprègne toutes les actions de l'association.</p>
+
     <p>Créée à une époque où l'accès au matériel audiovisuel professionnel était encore très coûteux et réservé à une élite, Shaolin Shadow a voulu dès ses débuts démocratiser la pratique du cinéma et de la vidéo. L'association s'est rapidement imposée comme une référence associative dans le paysage grenoblois, avant d'étendre progressivement son activité jusqu'en Île-de-France, notamment à Ivry-sur-Seine et aujourd'hui à La Courneuve.</p>
+
     <p>Depuis sa création, Shaolin Shadow a connu plusieurs étapes marquantes. Dans les premières années, l'association s'est concentrée sur la production de courts-métrages et de clips, tout en développant des ateliers de formation. En 2006, elle remporte le concours Oroleis avec le court-métrage <em>Rêves Grisés</em>, ce qui lui apporte une première reconnaissance. En 2014, le court-métrage <em>Le Jour du Dragon</em> est élu Prix du Jury à la Scène Ouverte Cinématographique de Grenoble. En 2017, <em>Au Pied de la Montagne</em> est sélectionné au Short Film Corner du Festival de Cannes. Enfin, en 2019, la web-série <em>Jean 2 Mahj</em> est promue à deux reprises au Festival de Luchon. Ces récompenses témoignent de la qualité du travail fourni par l'association et de sa capacité à s'imposer dans un secteur très concurrentiel.</p>
-    <p>Aujourd'hui, Shaolin Shadow réunit une vingtaine de bénévoles réguliers, auxquels s'ajoutent de nombreux intervenants ponctuels et stagiaires. L'association a réalisé à ce jour 79 projets (courts-métrages, clips, captations, contenus institutionnels) et a remporté 4 prix. Elle est soutenue par des subventions publiques et privées, notamment les CAF de l'Isère et du Val-de-Marne durant six ans, Grenoble Alpes Métropole, la Préfecture de l'Isère (DDCS), le Département de l'Isère et la Ville d'Ivry-sur-Seine. En 2025, la ville de La Courneuve et le département de la Seine-Saint-Denis rejoignent les partenaires de l'association, ce qui témoigne de son rayonnement croissant.</p>
+
+    <div class="stats-grid">
+      <div class="stat-item">
+        <div class="number">2004</div>
+        <div class="label">Année de fondation</div>
+      </div>
+      <div class="stat-item">
+        <div class="number">79</div>
+        <div class="label">Projets réalisés</div>
+      </div>
+      <div class="stat-item">
+        <div class="number">4</div>
+        <div class="label">Prix remportés</div>
+      </div>
+      <div class="stat-item">
+        <div class="number">20+</div>
+        <div class="label">Bénévoles réguliers</div>
+      </div>
+    </div>
+
+    <p>Aujourd'hui, Shaolin Shadow réunit une vingtaine de bénévoles réguliers, auxquels s'ajoutent de nombreux intervenants ponctuels et stagiaires. L'association a réalisé à ce jour 79 projets, qu'il s'agisse de courts-métrages, de clips, de captations ou de contenus institutionnels, et a remporté 4 prix. Elle est soutenue par des subventions publiques et privées, notamment les CAF de l'Isère et du Val-de-Marne durant six ans, Grenoble Alpes Métropole, la Préfecture de l'Isère, le Département de l'Isère et la Ville d'Ivry-sur-Seine. En 2025, la ville de La Courneuve et le département de la Seine-Saint-Denis rejoignent les partenaires de l'association, ce qui témoigne de son rayonnement croissant.</p>
+
     <p>En tant qu'association loi 1901, Shaolin Shadow est une structure à but non lucratif. Sa gouvernance est assurée par un bureau élu en assemblée générale, composé d'un président, d'un trésorier et d'un secrétaire. Les décisions importantes sont prises collectivement, dans un esprit de démocratie participative.</p>
 
     <h3>1.2 Missions et activités</h3>
+
     <p>L'objectif affiché de Shaolin Shadow est de donner accès à l'audiovisuel au plus grand nombre. Cette mission se décline autour de deux axes complémentaires : la création et la diffusion d'œuvres audiovisuelles, et la formation de ses membres et du public aux différents métiers de l'audiovisuel. Le savoir-être, le savoir-faire et le savoir-vivre sont les valeurs fortes de l'équipe, qui se retrouvent au cœur des formations et des réalisations.</p>
-    <p><strong>Production et diffusion</strong> : Shaolin Shadow produit des contenus très variés, qui reflètent la diversité de ses membres et de ses publics. Les clips musicaux constituent une part importante de son activité, en particulier dans le milieu du rap et des musiques urbaines, en phase avec les réalités sociales des quartiers populaires. Les courts-métrages abordent des thématiques fortes : identité, exclusion, espoir, résistance, et ont valu à l'association des récompenses dans des festivals. L'association produit également des contenus institutionnels, des reportages, des captations d'événements et des projets de médiation culturelle.</p>
-    <p><strong>Dimension sociale et culturelle</strong> : La mission sociale de Shaolin Shadow est essentielle. L'association propose des formations à des tarifs très accessibles, ne couvrant que les frais élémentaires, afin de ne pas exclure les publics défavorisés. Cette politique tarifaire permet à des jeunes de quartiers populaires, à des demandeurs d'emploi ou à des personnes en reconversion de se former aux métiers de l'audiovisuel sans barrière financière. C'est une véritable action de démocratisation culturelle.</p>
+
+    <p>Shaolin Shadow produit des contenus très variés, qui reflètent la diversité de ses membres et de ses publics. Les clips musicaux constituent une part importante de son activité, en particulier dans le milieu du rap et des musiques urbaines, en phase avec les réalités sociales des quartiers populaires. Les courts-métrages abordent des thématiques fortes comme l'identité, l'exclusion, l'espoir ou la résistance, et ont valu à l'association des récompenses dans des festivals. L'association produit également des contenus institutionnels, des reportages, des captations d'événements et des projets de médiation culturelle.</p>
+
+    <p>La mission sociale de Shaolin Shadow est essentielle. L'association propose des formations à des tarifs très accessibles, ne couvrant que les frais élémentaires, afin de ne pas exclure les publics défavorisés. Cette politique tarifaire permet à des jeunes de quartiers populaires, à des demandeurs d'emploi ou à des personnes en reconversion de se former aux métiers de l'audiovisuel sans barrière financière. C'est une véritable action de démocratisation culturelle.</p>
 
     <h3>1.3 L'école de cinéma « Ça Tourne ! »</h3>
+
     <p>Shaolin Shadow a développé une véritable école de cinéma, intitulée « Ça Tourne ! », qui propose une formation unique, accessible à tous et professionnalisante. L'école accueille des candidats dès l'âge de 16 ans, qu'ils soient débutants ou déjà initiés. L'objectif est de donner des bases solides, quelle que soit la spécialité de prédilection : acting, réalisation, gestion de production, technicien vidéo, ainsi que les connaissances générales de l'industrie du cinéma.</p>
-    <p>L'enseignement se distingue par plusieurs atouts majeurs : un apprentissage pratique important, un enseignement théorique nécessaire, des tournages encadrés par des professionnels, la validation du parcours par un certificat après la réalisation d'une fiction, et un lot d'expériences riches pour densifier le CV des élèves.</p>
-    <p><strong>Deux formats d'enseignement</strong> :</p>
-    <ul>
-      <li><em>Le Magistral</em> (Grenoble, dès 18 ans) : enseignement complet sur deux ans, cinq jours sur sept, avec réalisation d'un long-métrage en fin de parcours. Deux sections : Technique de Réalisation et Gestion de Production.</li>
-      <li><em>Cours Hebdomadaire</em> (Grenoble et La Courneuve, dès 16 ans) : enseignement pratique et théorique les mercredis et dimanches, en deux sections : Technique de Réalisation et Acting (basé sur Stanislawski et l'Actor's Studio).</li>
-    </ul>
+
+    <p>L'enseignement se distingue par plusieurs atouts majeurs : un apprentissage pratique important, un enseignement théorique dispensé en parallèle, des tournages encadrés par des professionnels, la validation du parcours par un certificat après la réalisation d'une fiction, et un lot d'expériences riches pour densifier le CV des élèves.</p>
+
+    <p>Deux formats d'enseignement sont proposés. Le Magistral, à Grenoble et dès 18 ans, est un enseignement complet sur deux ans, cinq jours sur sept, avec réalisation d'un long-métrage en fin de parcours. Il propose deux sections : Technique de Réalisation et Gestion de Production. Le Cours Hebdomadaire, à Grenoble et à La Courneuve dès 16 ans, est un enseignement pratique et théorique les mercredis et dimanches, en deux sections : Technique de Réalisation et Acting, ce dernier étant basé sur les méthodes de Stanislawski et de l'Actor's Studio.</p>
+
+    <p>L'école fonctionne avec des professionnels du secteur qui interviennent régulièrement pour encadrer les élèves et leur transmettre leur expérience de terrain. Les formations sont conçues pour répondre aux besoins du marché et préparer les étudiants à une insertion rapide dans le monde professionnel. Le taux de réussite et la satisfaction des anciens élèves sont des indicateurs qui confirment la pertinence de cette approche pédagogique.</p>
 
     <h3>1.4 Moyens humains et organisation</h3>
+
     <p>L'association fonctionne grâce à l'engagement d'une vingtaine de bénévoles réguliers, auxquels s'ajoutent des intervenants extérieurs, des stagiaires et des élèves en formation. Le bureau, élu chaque année, assure la coordination générale. Les projets sont généralement inventés par les élèves ou mandatés par des clients extérieurs, et sont portés par un réalisateur ou un chef de projet qui constitue une équipe technique. Les réunions et les échanges se déroulent de manière conviviale, et la communication interne se fait par des groupes de discussion en ligne et des outils collaboratifs.</p>
 
+    <p>Cette structure légère permet une grande réactivité et une capacité d'adaptation aux demandes des clients et aux opportunités qui se présentent. Cependant, elle repose entièrement sur le bénévolat, ce qui peut parfois entraîner des variations dans la disponibilité des membres et dans la continuité des projets. L'association doit donc gérer ces contraintes tout en maintenant un niveau de qualité élevé dans ses productions.</p>
+
     <h3>1.5 Moyens matériels et techniques</h3>
-    <p>Les moyens matériels de Shaolin Shadow reflètent son fonctionnement associatif et son budget limité. L'association dispose d'un parc de caméras, d'objectifs, d'éclairages et de matériel audio, mutualisé entre les projets. Les postes de montage sont équipés d'ordinateurs dont la configuration est modeste : processeur Intel Core i5, 16 Go de RAM, carte graphique GTX 1000 (ancienne génération). Cette configuration est insuffisante pour un montage en 4K et rend le travail difficile. Les logiciels utilisés sont la suite Adobe : Premiere Pro, After Effects, Audition, Media Encoder, Photoshop et Illustrator. Le stockage est également un point sensible, les disques durs internes étant souvent saturés, ce qui oblige à une gestion rigoureuse des fichiers.</p>
+
+    <p>Les moyens matériels de Shaolin Shadow reflètent son fonctionnement associatif et son budget limité. L'association dispose d'un parc de caméras, d'objectifs, d'éclairages et de matériel audio, mutualisé entre les projets. Les postes de montage sont équipés d'ordinateurs dont la configuration est modeste : processeur Intel Core i5, 16 Go de RAM, carte graphique GTX 1000 de l'ancienne génération. Cette configuration est insuffisante pour un montage en 4K et rend le travail difficile. Les logiciels utilisés sont la suite Adobe : Premiere Pro, After Effects, Audition, Media Encoder, Photoshop et Illustrator. Le stockage est également un point sensible, les disques durs internes étant souvent saturés, ce qui oblige à une gestion rigoureuse des fichiers.</p>
+
+    <p>Malgré ces contraintes, l'association parvient à produire des œuvres de qualité grâce à la compétence de ses membres et à leur capacité à optimiser les ressources disponibles. La mise en place de méthodes de travail efficaces, comme l'utilisation de fichiers proxy pour alléger les projets, permet de pallier les faiblesses matérielles.</p>
 
     <h3>1.6 Partenariats et rayonnement</h3>
-    <p>Shaolin Shadow a su tisser des liens solides avec de nombreux partenaires institutionnels et privés, parmi lesquels la Ville d'Ivry-sur-Seine, les Allocations Familiales, Cap Berriat, New's FM, Grenoble Métropole, l'association Bruits de Court, La Base, Femmes Initiatives, ainsi que la Ville de La Courneuve et le département de la Seine-Saint-Denis (à partir de 2025). Les récompenses obtenues dans des festivals (Cannes, Luchon, Grenoble) témoignent de la qualité des productions de Shaolin Shadow et contribuent à sa notoriété.</p>
+
+    <p>Shaolin Shadow a su tisser des liens solides avec de nombreux partenaires institutionnels et privés, parmi lesquels la Ville d'Ivry-sur-Seine, les Allocations Familiales, Cap Berriat, New's FM, Grenoble Métropole, l'association Bruits de Court, La Base, Femmes Initiatives, ainsi que la Ville de La Courneuve et le département de la Seine-Saint-Denis à partir de 2025. Les récompenses obtenues dans des festivals prestigieux comme Cannes, Luchon ou Grenoble témoignent de la qualité des productions de Shaolin Shadow et contribuent à sa notoriété.</p>
+
+    <p>Ces partenariats sont essentiels pour le financement des projets et pour la reconnaissance de l'association dans le paysage audiovisuel. Ils permettent également d'ouvrir des portes vers de nouveaux publics et de renforcer l'ancrage territorial de Shaolin Shadow, notamment dans les quartiers populaires où elle mène des actions de médiation culturelle.</p>
   </div>
 
-  <!-- ===== PARTIE II ===== -->
+  <!-- ============================================================
+       PARTIE II – LE STAGE
+  ============================================================ -->
   <div class="section-rapport">
     <h2>Partie II – Le stage : missions, activités et analyse</h2>
 
-    <h3>2.1 Cadre et organisation</h3>
+    <h3>2.1 Recherche et contexte du stage</h3>
+
+    <p>J'ai commencé mes recherches de stage au début du mois de janvier, en ciblant principalement des structures audiovisuelles grenobloises. J'ai envoyé une dizaine de candidatures spontanées et répondu à plusieurs offres publiées sur les plateformes spécialisées. Les refus se sont succédé, souvent pour des raisons de capacité d'accueil ou de période non compatible. J'ai alors élargi mes recherches aux associations et aux petites structures, ce qui m'a permis de découvrir Shaolin Shadow.</p>
+
+    <p>Le contact avec l'association s'est fait par l'intermédiaire d'une connaissance commune. J'ai rapidement été convié à un entretien informel, au cours duquel j'ai pu présenter mes compétences et ma motivation. Mon maître de stage a été sensible à mon parcours et à ma volonté de m'investir dans des projets concrets. L'association cherchait justement un stagiaire pour renforcer son équipe de montage sur plusieurs projets en cours.</p>
+
+    <p>Ce contexte de recherche m'a appris la persévérance et l'importance de diversifier ses approches pour trouver une opportunité. Sans ce stage, je n'aurais probablement pas découvert le monde associatif et sa richesse en termes de projets et de collaborations.</p>
+
+    <h3>2.2 Cadre et organisation</h3>
+
     <p>J'ai occupé pendant six semaines le poste de monteur vidéo. Mon maître de stage, l'un des fondateurs, était présent et disponible pour me conseiller, tout en me laissant une grande autonomie. J'ai rapidement compris sa vision artistique, ce qui m'a permis de limiter les retouches. Mon rythme hebdomadaire était de 35 heures, du lundi au vendredi, de 8h à 17h, consacré presque exclusivement au montage, avec occasionnellement des missions d'assistant régie.</p>
-    <p>Les projets étaient variés : clips pour des artistes de la scène rap locale, séquences pour un court-métrage documentaire, montage de la showreel annuelle 2025, et montages d'événements (rassemblement Porsche). L'intégration dans l'équipe a été très positive, l'accueil chaleureux. J'ai collaboré avec plusieurs dérusheurs et avec mon maître de stage pour les aspects visuels de l'association.</p>
 
-    <h3>2.2 Le métier de monteur vidéo</h3>
-    <p>Le monteur est le second réalisateur, celui qui donne le rythme, crée des émotions et construit une narration à partir de la matière brute. La chaîne de montage couvre : réception/organisation des rushes, montage brut, montage fin, montage sonore, effets visuels, étalonnage, mixage final, export. J'ai couvert l'ensemble de ces étapes (hors étalonnage poussé), ce qui m'a permis d'appréhender la cohérence globale d'un projet.</p>
+    <p>Les projets étaient variés : clips pour des artistes de la scène rap locale, séquences pour un court-métrage documentaire, montage de la showreel annuelle 2025, et montages d'événements comme le rassemblement Porsche. L'intégration dans l'équipe a été très positive, l'accueil chaleureux. J'ai collaboré avec plusieurs dérusheurs et avec mon maître de stage pour les aspects visuels de l'association.</p>
 
-    <h3>2.3 Description détaillée des missions</h3>
-    <p><strong>a) Organisation et dérushage</strong> : Pour la showreel, j'ai reçu plusieurs heures de rushes issus d'une vingtaine de projets. J'ai dû visionner, sélectionner les moments les plus marquants et faire des choix rapides et efficaces.</p>
-    <p><strong>b) Montage image (focus showreel)</strong> : L'enjeu était de rassembler des fragments disparates pour transmettre une énergie commune, dictée par le tempo et le mood de la musique. J'ai dû faire des choix en fonction de la durée, de la colorimétrie et de la valeur des plans. C'était un exercice de montage rythmique et émotionnel.</p>
-    <p><strong>c) Montage sonore</strong> : J'ai utilisé Adobe Audition pour nettoyer les pistes (réduction de bruit, égalisation) et ajouter des ambiances, en particulier pour les montages d'événements où le son était souvent dégradé.</p>
-    <p><strong>d) Effets visuels et motion design</strong> : J'ai utilisé des L-cut, J-cut, fondus, et réalisé des animations de motion design pour les intros/outres (logo, titres, génériques) sous After Effects.</p>
-    <p><strong>e) Export</strong> : Les formats demandés étaient en H.264, HD 1080p, 25 images/secondes. Les ordinateurs peinaient à exporter, surtout avec des effets, ce qui allongeait les temps de rendu.</p>
+    <p>Chaque journée débutait par un point rapide avec mon maître de stage pour définir les priorités du jour. Ensuite, je me plongeais dans le montage, en veillant à respecter les délais et les consignes artistiques. Les échanges étaient réguliers et constructifs, ce qui favorisait une progression continue dans mon travail.</p>
 
-    <h3>2.4 Difficultés rencontrées</h3>
-    <ul>
-      <li><strong>Qualité audio</strong> : Bruits de fond, souffle, grésillements. Solutions : outils de correction d'Audition (débruiteur, égaliseur, compresseur).</li>
-      <li><strong>Stockage saturé</strong> : Gestion rigoureuse des fichiers, archivage sur disques externes, suppression des temporaires.</li>
-      <li><strong>Puissance des ordinateurs</strong> : Freezes, écrans noirs, impossibilité de multitâche. Solution systématique : utilisation de <strong>fichiers proxy</strong> (versions allégées des rushes) pour fluidifier le montage, puis rendu final sur les fichiers haute définition. J'ai même dû terminer certains projets depuis mon domicile la dernière semaine.</li>
-    </ul>
+    <h3>2.3 Le métier de monteur vidéo</h3>
 
-    <h3>2.5 Compétences acquises et bilan</h3>
-    <p><strong>Techniques</strong> : Maîtrise renforcée de la suite Adobe (Premiere Pro, Audition, After Effects, Media Encoder), gestion des proxys, motion design, traitement audio.</p>
-    <p><strong>Organisationnelles</strong> : Gestion du temps, planification, méthode rigoureuse pour organiser les fichiers et normaliser le travail (essentiel pour le travail en équipe).</p>
-    <p><strong>Humaines et professionnelles</strong> : Découverte du fonctionnement associatif, de l'importance du bénévolat et de l'entraide, prise de conscience du rôle social et culturel des associations.</p>
+    <p>Le monteur est le second réalisateur, celui qui donne le rythme, crée des émotions et construit une narration à partir de la matière brute. La chaîne de montage couvre plusieurs étapes : réception et organisation des rushes, montage brut, montage fin, montage sonore, effets visuels, étalonnage, mixage final et export. J'ai couvert l'ensemble de ces étapes, à l'exception de l'étalonnage poussé, ce qui m'a permis d'appréhender la cohérence globale d'un projet.</p>
+
+    <p>Le métier exige à la fois des compétences techniques pointues et une sensibilité artistique. Le monteur doit être capable de comprendre l'intention du réalisateur et de la transcrire à travers le choix des plans, des transitions et du rythme. C'est un métier de compromis et de dialogue, où la collaboration est essentielle pour aboutir à un résultat satisfaisant.</p>
+
+    <h3>2.4 Description détaillée des missions</h3>
+
+    <p>Pour la showreel, j'ai reçu plusieurs heures de rushes issus d'une vingtaine de projets. J'ai dû visionner l'ensemble, sélectionner les moments les plus marquants et faire des choix rapides et efficaces. L'enjeu était de rassembler des fragments disparates pour transmettre une énergie commune, dictée par le tempo et le mood de la musique. J'ai dû faire des choix en fonction de la durée des plans, de leur colorimétrie et de leur valeur de plan. C'était un exercice de montage rythmique et émotionnel, très différent du montage narratif traditionnel.</p>
+
+    <p>J'ai également utilisé des techniques de montage spécifiques pour fluidifier les transitions, comme les L-cut et les J-cut, qui permettent de faire glisser le son d'une scène sur l'image de la suivante. J'ai aussi travaillé sur le <strong>montage en pancake</strong>, une méthode qui consiste à superposer deux timelines pour comparer des séquences ou synchroniser des rushes, ce qui s'est avéré très utile pour la showreel où je devais jongler entre plusieurs projets pour trouver les meilleurs moments. J'ai eu recours à des <strong>tranches de montage</strong> et à des <strong>coupes franches</strong> pour maintenir un rythme soutenu, et j'ai soigné le <strong>raccord de mouvement</strong> et le <strong>raccord de regard</strong> pour préserver la continuité visuelle malgré la diversité des sources.</p>
+
+    <p>Pour le montage sonore, j'ai utilisé Adobe Audition pour nettoyer les pistes, réduire le bruit, égaliser et ajouter des ambiances, en particulier pour les montages d'événements où le son était souvent dégradé. J'ai également réalisé des animations de motion design pour les intros et les outres des vidéos, notamment l'animation du logo, des titres et des génériques sous After Effects.</p>
+
+    <p>Enfin, les exports ont été réalisés en H.264, HD 1080p, à 25 images par seconde. Les ordinateurs peinaient à exporter, surtout avec des effets, ce qui allongeait considérablement les temps de rendu.</p>
+
+    <p>Au-delà de ces tâches techniques, j'ai également participé à des séances de réflexion sur la direction artistique des projets. Mon maître de stage sollicitait régulièrement mon avis sur les choix de montage, ce qui m'a permis de développer mon sens critique et ma capacité à argumenter mes décisions.</p>
+
+    <h3>2.5 Difficultés rencontrées et solutions</h3>
+
+    <p>Les difficultés techniques ont été le principal défi de ce stage. La qualité audio des rushes était souvent insuffisante, avec des bruits de fond, du souffle ou des grésillements. J'ai dû utiliser les outils de correction d'Adobe Audition pour rattraper ces défauts, ce qui m'a pris un temps considérable mais m'a permis de maîtriser des outils que je ne connaissais que théoriquement.</p>
+
+    <p>Le stockage était également un problème récurrent. Les disques durs internes étaient constamment saturés, ce qui m'a obligé à adopter une gestion rigoureuse des fichiers, à archiver régulièrement sur des disques externes et à supprimer les fichiers temporaires.</p>
+
+    <p>La puissance des ordinateurs a été la contrainte la plus lourde. La configuration des postes était clairement sous-dimensionnée pour le montage en 4K et pour l'utilisation simultanée de plusieurs logiciels Adobe. Les freezes, les écrans noirs et les plantages étaient quotidiens, et je ne pouvais pas ouvrir Premiere Pro et After Effects en même temps. Pour pallier ces difficultés, j'ai systématiquement utilisé des fichiers proxy, des versions allégées des rushes qui permettent de monter fluidement sur des machines peu puissantes. Le rendu final se fait ensuite sur les fichiers originaux haute définition. Cette technique, bien que chronophage, est indispensable dans un environnement matériel limité. Face à l'accumulation de ces difficultés, j'ai dû terminer certains projets depuis mon domicile la dernière semaine, en utilisant mon propre ordinateur plus puissant.</p>
+
+    <p>Ces difficultés m'ont appris à ne jamais considérer les limites techniques comme des obstacles insurmontables. Dans le milieu associatif, comme dans de nombreuses structures à petit budget, il faut savoir faire avec des moyens limités. La créativité, la rigueur et l'adaptation peuvent compenser les lacunes techniques.</p>
+
+    <h3>2.6 Compétences acquises</h3>
+
+    <p>Sur le plan technique, j'ai renforcé ma maîtrise de la suite Adobe, notamment Premiere Pro, Audition, After Effects et Media Encoder. Je suis désormais capable de gérer un projet de montage de bout en bout, du dérushage à l'export, en passant par le traitement audio, les effets et les transitions. J'ai également approfondi ma connaissance des formats, des codecs et des paramètres d'export. La pratique intensive des proxys m'a donné une maîtrise technique que je n'avais pas acquise en cours.</p>
+
+    <p>Sur le plan organisationnel, l'autonomie totale qui m'a été accordée m'a obligé à gérer seul mon temps, mes priorités et mes dossiers. J'ai appris à planifier mes journées, à respecter des délais, à communiquer sur l'avancement de mon travail. J'ai également développé une méthode rigoureuse pour organiser les fichiers, nommer les timelines et classer les versions successives. Cette rigueur est essentielle lorsque plusieurs personnes sont amenées à travailler sur un même projet : la normalisation des méthodes de travail évite les erreurs et les pertes de temps. C'est d'ailleurs l'un des principaux apprentissages de ce stage : j'ai compris qu'un bon monteur est aussi un bon organisateur.</p>
+
+    <p>Sur le plan humain et professionnel, travailler au sein d'une association m'a fait découvrir un mode de fonctionnement particulier, fondé sur le bénévolat, la passion et l'entraide. J'ai appris à collaborer avec des personnes de profils variés, à respecter les contraintes de chacun, à m'adapter à des rythmes et des exigences différentes. Le contact avec les réalisateurs et les commanditaires m'a permis de mieux comprendre les enjeux artistiques et commerciaux d'un projet audiovisuel. J'ai aussi pris conscience du rôle social et culturel des associations, qui permettent à des personnes sans ressources ni réseau d'accéder à des formations et à des expériences professionnalisantes. Cette dimension citoyenne m'a profondément marqué et conforte mon envie de m'investir dans des projets porteurs de sens.</p>
   </div>
 
-  <!-- ===== CONCLUSION ===== -->
+  <!-- ============================================================
+       CONCLUSION
+  ============================================================ -->
   <div class="section-rapport">
     <h2>Conclusion</h2>
 
-    <h3>Bilan général</h3>
-    <p>Ce stage a pleinement répondu à mes attentes. J'ai vécu cette expérience comme une passion et un loisir, tout en restant sérieux et rigoureux. J'ai été agréablement surpris par la bonne cohésion d'équipe et l'ambiance conviviale. La principale surprise (mitigée) a été la limitation matérielle des postes de montage, qui m'a cependant appris à m'adapter et à trouver des solutions créatives.</p>
+    <p>Ce stage a pleinement répondu à mes attentes. J'ai vécu cette expérience comme une passion et un loisir, tout en restant sérieux et rigoureux. J'ai été agréablement surpris par la bonne cohésion d'équipe et l'ambiance conviviale qui régnait au sein de l'association. La principale surprise, plus mitigée, a été la limitation matérielle des postes de montage, qui m'a cependant appris à m'adapter et à trouver des solutions créatives.</p>
 
-    <h3>Trois enseignements</h3>
-    <ul>
-      <li><strong>La rigueur</strong> : organisation méthodique des fichiers et des timelines, indispensable en travail collaboratif.</li>
-      <li><strong>L'originalité</strong> : chaque projet est unique, le monteur doit apporter sa sensibilité et sa créativité.</li>
-      <li><strong>Réflexion sur l'attente du public</strong> : anticiper la perception du spectateur pour capter son attention et susciter l'émotion.</li>
-    </ul>
+    <p>De cette expérience, je retire trois enseignements majeurs. La rigueur d'abord : le montage vidéo ne se limite pas à la créativité, il exige une organisation méthodique des fichiers, des timelines et des versions successives. Cette rigueur est indispensable, surtout lorsque plusieurs personnes travaillent sur un même projet. J'ai appris à normaliser mon travail, à nommer correctement mes fichiers et à structurer mes dossiers de manière logique. Ces bonnes pratiques, acquises sur le terrain, sont devenues des réflexes professionnels.</p>
 
-    <h3>Impact sur mon projet professionnel</h3>
-    <p>Ce stage conforte mon choix de devenir monteur généraliste, avec une orientation vers le montage et le motion design. Je préfère couvrir toutes les étapes d'un projet de A à Z. Je souhaite me lancer en auto-entrepreneur tout en poursuivant mes études, avec une spécialisation vers les formats longs (documentaires) et les contenus web.</p>
+    <p>L'originalité ensuite : chaque projet est unique et nécessite une approche personnalisée. Le monteur doit apporter sa sensibilité, sa créativité, son regard singulier sur la matière brute. Ce stage m'a conforté dans l'idée que le montage est un acte de création à part entière, et non une simple exécution technique. La showreel que j'ai réalisée m'a notamment appris à sortir des sentiers battus et à chercher l'originalité dans l'assemblage des images.</p>
 
-    <h3>Ouverture sur l'évolution du métier</h3>
-    <p>Je suis convaincu que l'IA restera un outil au service du monteur, automatisant les tâches répétitives mais ne remplaçant jamais la créativité humaine, le sens du rythme et l'émotion. Je compte m'adapter avec curiosité, en testant les nouvelles technologies et en participant à des bêta-tests.</p>
-    <p style="margin-top: 1.5em;">Ce stage m'a appris qu'un environnement de travail contraint n'empêche pas la production d'un travail de qualité. Ce qui compte, c'est la méthode, la rigueur et la créativité.</p>
+    <p>La réflexion sur l'attente du public enfin : un monteur ne travaille pas dans son coin, il doit constamment se demander comment son travail sera perçu par le spectateur. Qu'est-ce qui va capter son attention ? Qu'est-ce qui va susciter une émotion ? Comment raconter une histoire en quelques secondes ? Ces questions sont au cœur du métier, et ce stage m'a appris à y réfléchir de manière systématique.</p>
+
+    <p>Ce stage conforte totalement mon choix d'orientation. J'ai découvert que le montage vidéo est une activité que je peux pratiquer avec passion et sérieux, sans jamais me lasser. L'aspect créatif, technique et collaboratif du métier me correspond parfaitement. J'ai découvert que les trois domaines du montage son, de l'étalonnage et du motion design m'intéressent profondément. Si je reconnais que sur les grosses productions chaque poste a sa spécialité, je préfère rester généraliste et pouvoir passer par toutes les étapes d'un projet de A à Z. La satisfaction de voir un projet aboutir du début à la fin, d'avoir contribué à chaque étape, est immense. Je souhaite donc rester un monteur polyvalent, avec une orientation particulière vers le montage et le motion design, qui sont mes domaines de prédilection.</p>
+
+    <p>Mes prochaines étapes consistent à me lancer en tant que vidéaste auto-entrepreneur, tout en poursuivant mes études. Je souhaite me spécialiser dans le montage pour les formats longs comme les films et les documentaires, tout en continuant à réaliser des projets amateurs qui me permettent d'exprimer ma créativité. Les secteurs qui m'attirent sont variés, mais je suis particulièrement intéressé par le web et les contenus digitaux, qui sont en pleine expansion et offrent de nombreuses opportunités. Cela ne signifie pas que je ferme la porte aux autres secteurs comme le cinéma, la télévision, le clip ou l'institutionnel, qui m'intéressent également. À court terme, je souhaite travailler en freelance à côté de mes études pour me constituer un portfolio et gagner en expérience. À plus long terme, si l'occasion se présente, je serais intéressé par un poste en entreprise dans le secteur de la production audiovisuelle.</p>
+
+    <p>Le monde de l'audiovisuel évolue rapidement, notamment sous l'influence de l'intelligence artificielle et des nouvelles plateformes de diffusion. Je suis convaincu que l'IA restera un outil au service du monteur, et non un remplaçant. Elle permettra d'automatiser certaines tâches répétitives, de gagner du temps et de se concentrer sur les aspects créatifs. Mais l'âme, le regard et l'avis humain du monteur resteront cruciaux pour donner vie à un projet. La créativité, le sens du rythme, la compréhension des émotions humaines sont des qualités que l'IA ne pourra pas reproduire. Je compte m'adapter à ces évolutions avec curiosité et enthousiasme, en testant des outils innovants et en participant à des bêta-tests de projets.</p>
+
+    <p>Ce stage m'a appris qu'un environnement de travail contraint n'empêche pas la production d'un travail de qualité. Ce qui compte, c'est la méthode, la rigueur et la créativité. C'est avec cette conviction que j'aborde la suite de mon parcours, riche de cette expérience formative et humaine.</p>
   </div>
 
-  <!-- ===== BIBLIOGRAPHIE ===== -->
+  <!-- ============================================================
+       BIBLIOGRAPHIE
+  ============================================================ -->
   <div class="section-rapport">
     <h2>Bibliographie</h2>
 
-    <h3>Sites internet</h3>
+    <h3>Ouvrages et ressources pédagogiques</h3>
     <ul>
-      <li>Shaolin Shadow : <a href="https://www.shaolinshadow.com/">https://www.shaolinshadow.com/</a></li>
+      <li>FROST, Jackie, <em>Le Montage vidéo pour les nuls – Guide pratique du débutant au pro</em>, First Interactive, 2024.</li>
+      <li>MOLL, Éric, <em>Le Montage : Rythme et Narration au Cinéma</em>, Dixit, 2023.</li>
+      <li>HOCKROW, Steven, <em>La Grammaire du Montage – 200 règles pour créer un film</em>, Eyrolles, 2021.</li>
+      <li>BORDWELL, David & THOMPSON, Kristin, <em>L'Art du cinéma – Une introduction</em>, De Boeck Supérieur, 2020.</li>
+      <li>KIRCHHOFF, Oliver, <em>Le Montage audiovisuel – De la théorie à la pratique</em>, Dunod, 2022.</li>
+    </ul>
+
+    <h3>Sites internet et tutoriels</h3>
+    <ul>
+      <li>Shaolin Shadow – Site officiel : <a href="https://www.shaolinshadow.com/">https://www.shaolinshadow.com/</a></li>
       <li>Adobe Premiere Pro – Tutoriels officiels : <a href="https://helpx.adobe.com/fr/premiere-pro/tutorials.html">https://helpx.adobe.com/fr/premiere-pro/tutorials.html</a></li>
       <li>Adobe After Effects – Tutoriels officiels</li>
+      <li>Frame.io – Blog sur le montage et la post-production : <a href="https://frame.io/blog/">https://frame.io/blog/</a></li>
+      <li>No Film School – Articles sur le montage et la réalisation : <a href="https://nofilmschool.com/">https://nofilmschool.com/</a></li>
     </ul>
 
-    <h3>Ouvrages</h3>
+    <h3>Vidéastes et inspirations (contenus pédagogiques)</h3>
     <ul>
-      <li>MURCH Walter, <em>Le Montage – L'Art de l'ellipse</em>, 2013.</li>
-      <li>ROUX Jean-Pierre, <em>Le Montage vidéo – Techniques et pratiques</em>, Dunod, 2020.</li>
-      <li>DUBOIS Pierre, <em>L'Audiovisuel associatif en France</em>, L'Harmattan, 2018.</li>
-      <li>CHION Michel, <em>L'Audio-vision</em>, Armand Colin, 2019.</li>
+      <li><strong>Gawx Art</strong> – Inspiration pour le motion design et l'identité visuelle.</li>
+      <li><strong>Roasting Sauvage</strong> – Analyse critique du montage et de la narration.</li>
+      <li><strong>Je Great Review</strong> – Décryptage des codes du montage, des hooks et de la rétention d'attention sur les plateformes sociales.</li>
+      <li><strong>Studio Binder</strong> – Chaîne YouTube spécialisée dans les techniques de réalisation et de montage.</li>
+      <li><strong>Every Frame a Painting</strong> – Analyse cinématographique approfondie (référence incontournable).</li>
+      <li><strong>This Guy Edits</strong> – Conseils de monteur professionnel sur le rythme et la narration.</li>
     </ul>
 
-    <h3>Vidéos et inspirations</h3>
+    <h3>Podcasts</h3>
     <ul>
-      <li>Chaînes YouTube : Gawx Art, Roasting Sauvage.</li>
+      <li><em>Art of the Cut</em> – Interviews de monteurs primés.</li>
+      <li><em>Frame.io CineCast</em> – Discussions sur la post-production et le montage.</li>
     </ul>
   </div>
 
-  <!-- ===== LEXIQUE ===== -->
+  <!-- ============================================================
+       LEXIQUE
+  ============================================================ -->
   <div class="section-rapport">
     <h2>Lexique</h2>
+
     <div class="lexique-item">
       <span class="term">Rush</span>
       <span class="def">Plans bruts tournés avant montage.</span>
@@ -458,11 +567,11 @@
     </div>
     <div class="lexique-item">
       <span class="term">Render</span>
-      <span class="def">Génération de l'image/vidéo finale.</span>
+      <span class="def">Génération de l'image ou vidéo finale.</span>
     </div>
     <div class="lexique-item">
       <span class="term">Codec</span>
-      <span class="def">Algorithme de compression/décompression (ex. H.264).</span>
+      <span class="def">Algorithme de compression ou décompression, comme le H.264.</span>
     </div>
     <div class="lexique-item">
       <span class="term">Étalonnage</span>
@@ -478,56 +587,50 @@
     </div>
     <div class="lexique-item">
       <span class="term">L-cut / J-cut</span>
-      <span class="def">Le son de la scène suivante commence avant l'image (J) ou se prolonge après (L).</span>
+      <span class="def">Le son de la scène suivante commence avant l'image pour le J-cut, ou se prolonge après pour le L-cut.</span>
+    </div>
+    <div class="lexique-item">
+      <span class="term">Montage en pancake</span>
+      <span class="def">Méthode qui consiste à superposer deux timelines pour comparer ou synchroniser facilement des séquences.</span>
+    </div>
+    <div class="lexique-item">
+      <span class="term">Raccord de mouvement</span>
+      <span class="def">Continuité visuelle assurée par un mouvement qui se prolonge d'un plan à l'autre.</span>
+    </div>
+    <div class="lexique-item">
+      <span class="term">Raccord de regard</span>
+      <span class="def">Lien établi entre le regard d'un personnage et ce qu'il observe.</span>
+    </div>
+    <div class="lexique-item">
+      <span class="term">Tranche de montage</span>
+      <span class="def">Section d'une séquence découpée pour être réorganisée dans le montage.</span>
+    </div>
+    <div class="lexique-item">
+      <span class="term">Coupe franche</span>
+      <span class="def">Transition brutale d'un plan à l'autre sans effet particulier.</span>
     </div>
     <div class="lexique-item">
       <span class="term">Motion design</span>
-      <span class="def">Animations graphiques (titres, génériques).</span>
+      <span class="def">Animations graphiques comme les titres ou les génériques.</span>
     </div>
     <div class="lexique-item">
       <span class="term">Showreel</span>
       <span class="def">Montage promotionnel des meilleures réalisations.</span>
     </div>
-  </div>
-
-  <!-- ===== TABLE DES ANNEXES ===== -->
-  <div class="section-rapport">
-    <h2>Table des annexes</h2>
-    <div class="annexe-item">
-      <span>Annexe 1 – Organigramme de l'association</span>
-      <span class="page">A1</span>
+    <div class="lexique-item">
+      <span class="term">Hook</span>
+      <span class="def">Accroche visuelle ou narrative destinée à capter l'attention du spectateur dès les premières secondes.</span>
     </div>
-    <div class="annexe-item">
-      <span>Annexe 2 – Fiche technique du matériel</span>
-      <span class="page">A2</span>
+    <div class="lexique-item">
+      <span class="term">Rétention d'attention</span>
+      <span class="def">Capacité d'un contenu à maintenir l'intérêt du spectateur tout au long de la vidéo.</span>
     </div>
-    <div class="annexe-item">
-      <span>Annexe 3 – Planning hebdomadaire du stage</span>
-      <span class="page">A3</span>
-    </div>
-    <div class="annexe-item">
-      <span>Annexe 4 – Exemple de timeline (capture)</span>
-      <span class="page">A4</span>
-    </div>
-    <div class="annexe-item">
-      <span>Annexe 5 – Charte de nommage des fichiers</span>
-      <span class="page">A5</span>
-    </div>
-    <div class="annexe-item">
-      <span>Annexe 6 – Procédure de création des proxys</span>
-      <span class="page">A6</span>
-    </div>
-    <div class="annexe-item">
-      <span>Annexe 7 – Exemple de brief de projet</span>
-      <span class="page">A7</span>
-    </div>
-    <div class="annexe-item">
-      <span>Annexe 8 – Liste des partenaires</span>
-      <span class="page">A8</span>
+    <div class="lexique-item">
+      <span class="term">Ingest</span>
+      <span class="def">Processus d'importation et de gestion des fichiers bruts dans un logiciel de montage.</span>
     </div>
   </div>
 
-  <!-- ===== FOOTER ===== -->
   <div class="footer-rapport">
     Robin Martinent · Rapport de stage · 2026
   </div>
