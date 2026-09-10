@@ -21,425 +21,430 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-  /* ============================================================
-     RAPPORT — STYLES D'ÉCRAN
-     ============================================================ */
-  body {
-    padding: 40px 20px;
-    max-width: 1100px;
-    margin: 0 auto;
-    background: var(--bg);
-    font-family: 'Poppins', sans-serif;
-  }
-
-  .back-nav {
-    margin-bottom: 30px;
-    font-size: 14px;
-  }
-  .back-nav a {
-    color: var(--accent);
-    text-decoration: none;
-    border: 1px solid var(--border);
-    padding: 8px 18px;
-    border-radius: 30px;
-    transition: all 0.2s;
-  }
-  .back-nav a:hover {
-    background: var(--accent);
-    color: #fff;
-    border-color: var(--accent);
-  }
-
-  .cover {
-    text-align: center;
-    padding: 60px 36px;
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    margin-bottom: 40px;
-  }
-  .cover h1 {
-    font-size: 3.2rem;
-    margin-bottom: 0.2em;
-    color: var(--ink);
-  }
-  .cover .subtitle {
-    font-size: 1.3rem;
-    color: var(--muted);
-    font-weight: 300;
-  }
-  .cover .info {
-    margin-top: 1.5em;
-    font-size: 1rem;
-    color: var(--muted);
-  }
-  .cover .info span {
-    display: inline-block;
-    margin: 0 16px;
-  }
-
-  .remerciements {
-    background: var(--bg2);
-    border-left: 4px solid var(--accent);
-    padding: 24px 30px;
-    border-radius: 0 12px 12px 0;
-    margin-bottom: 40px;
-  }
-  .remerciements h2 {
-    margin-top: 0;
-    border-bottom: none;
-    color: var(--accent);
-    font-size: 1.3rem;
-  }
-
-  .sommaire {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 4px 30px;
-    background: var(--bg2);
-    border-radius: 12px;
-    padding: 24px 30px;
-    margin-bottom: 40px;
-    border: 1px solid var(--border);
-  }
-  .sommaire .title {
-    grid-column: 1 / -1;
-    font-weight: 600;
-    color: var(--accent);
-    margin-bottom: 8px;
-  }
-  .sommaire-item {
-    display: flex;
-    justify-content: space-between;
-    padding: 4px 0;
-    font-size: 0.95rem;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-  }
-  .sommaire-item .page {
-    color: var(--accent);
-    font-weight: 500;
-  }
-
-  .section-rapport {
-    background: var(--bg2);
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    padding: 32px 36px;
-    margin-bottom: 40px;
-  }
-  .section-rapport h2 {
-    font-size: 2.0rem;
-    margin: 0 0 0.8em;
-    border-bottom: 1px solid var(--border);
-    padding-bottom: 0.3em;
-    color: var(--accent);
-  }
-  .section-rapport h3 {
-    font-size: 1.4rem;
-    margin: 1.5em 0 0.5em;
-    color: var(--ink);
-  }
-  .section-rapport h4 {
-    font-size: 1.1rem;
-    margin: 1.2em 0 0.3em;
-    color: var(--ink);
-    font-weight: 500;
-  }
-  .section-rapport p {
-    margin: 0 0 1em;
-    color: var(--ink);
-    line-height: 1.8;
-  }
-  .section-rapport ul,
-  .section-rapport ol {
-    padding-left: 24px;
-    color: var(--muted);
-  }
-  .section-rapport li {
-    padding: 4px 0;
-  }
-  .section-rapport a {
-    color: var(--accent);
-    text-decoration: none;
-  }
-  .section-rapport a:hover {
-    text-decoration: underline;
-  }
-
-  .stats-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
-    gap: 16px;
-    margin: 20px 0;
-  }
-  .stat-item {
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-  }
-  .stat-item .number {
-    font-size: 2rem;
-    font-weight: 700;
-    color: var(--accent);
-    line-height: 1.2;
-  }
-  .stat-item .label {
-    font-size: 12px;
-    color: var(--muted);
-    margin-top: 4px;
-  }
-
-  .illustration {
-    margin: 30px 0;
-    text-align: center;
-  }
-  .illustration img {
-    max-width: 100%;
-    border-radius: 12px;
-    border: 1px solid var(--border);
-    box-shadow: 0 4px 20px rgba(0,0,0,0.3);
-  }
-  .illustration .legende {
-    margin-top: 10px;
-    font-size: 13px;
-    color: var(--muted);
-    font-style: italic;
-    line-height: 1.6;
-  }
-  .illustration .legende strong {
-    color: var(--accent);
-    font-style: normal;
-  }
-
-  .lexique-item {
-    display: flex;
-    gap: 20px;
-    padding: 8px 0;
-    border-bottom: 1px solid var(--border);
-  }
-  .lexique-item .term {
-    font-weight: 600;
-    min-width: 140px;
-    color: var(--accent);
-  }
-  .lexique-item .def {
-    color: var(--muted);
-  }
-
-  .footer-rapport {
-    text-align: center;
-    padding: 40px 0 20px;
-    border-top: 1px solid var(--border);
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-
-  @media (max-width: 700px) {
+    /* ============================================================
+       STYLES D'ÉCRAN
+       ============================================================ */
     body {
-      padding: 16px;
-    }
-    .section-rapport {
-      padding: 20px;
-    }
-    .cover {
       padding: 40px 20px;
+      max-width: 1100px;
+      margin: 0 auto;
+      background: var(--bg);
+      font-family: 'Poppins', sans-serif;
+    }
+
+    .back-nav {
+      margin-bottom: 30px;
+      font-size: 14px;
+    }
+    .back-nav a {
+      color: var(--accent);
+      text-decoration: none;
+      border: 1px solid var(--border);
+      padding: 8px 18px;
+      border-radius: 30px;
+      transition: all 0.2s;
+    }
+    .back-nav a:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .cover {
+      text-align: center;
+      padding: 60px 36px;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      margin-bottom: 40px;
     }
     .cover h1 {
-      font-size: 2.4rem;
+      font-size: 3.2rem;
+      margin-bottom: 0.2em;
+      color: var(--ink);
     }
-    .sommaire {
-      grid-template-columns: 1fr;
+    .cover .subtitle {
+      font-size: 1.3rem;
+      color: var(--muted);
+      font-weight: 300;
     }
-    .lexique-item {
-      flex-direction: column;
-      gap: 4px;
+    .cover .info {
+      margin-top: 1.5em;
+      font-size: 1rem;
+      color: var(--muted);
     }
-    .lexique-item .term {
-      min-width: auto;
-    }
-    .stats-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-
-  /* ============================================================
-     IMPRESSION
-     ============================================================ */
-  @media print {
-    /* ---- Format de page ---- */
-    @page {
-      size: A4 portrait;
-      margin: 1.8cm 1.5cm 1.5cm 1.5cm;
-
-      /* Numérotation automatique des pages en bas à droite */
-      @bottom-right {
-        content: counter(page);
-        font-family: 'Poppins', sans-serif;
-        font-size: 10pt;
-        color: #555;
-      }
-      @bottom-left {
-        content: "Rapport de stage – Robin Martinent";
-        font-family: 'Poppins', sans-serif;
-        font-size: 9pt;
-        color: #888;
-      }
-    }
-
-    /* ---- Réinitialiser les couleurs pour l'impression ---- */
-    :root {
-      --bg: #fff;
-      --bg2: #fafafa;
-      --ink: #111;
-      --muted: #555;
-      --border: #ddd;
-      --accent: #5b2bff;
-    }
-
-    body {
-      padding: 0;
-      background: #fff;
-      color: #111;
-      font-size: 11pt;
-      line-height: 1.5;
-      max-width: 100%;
-    }
-
-    /* ---- Cacher les éléments inutiles ---- */
-    .back-nav {
-      display: none !important;
-    }
-
-    /* ---- Gestion des sauts de page ---- */
-    .section-rapport {
-      page-break-inside: auto;
-      break-inside: auto;
-      background: #fafafa !important;
-      border-color: #ccc !important;
-      padding: 18px 22px !important;
-      margin-bottom: 0 !important;
-      border-radius: 8px !important;
-    }
-
-    .cover {
-      page-break-after: always;
-      background: #f5f5f5 !important;
-      border-color: #ccc !important;
+    .cover .info span {
+      display: inline-block;
+      margin: 0 16px;
     }
 
     .remerciements {
-      page-break-after: always;
-      background: #fafafa !important;
+      background: var(--bg2);
+      border-left: 4px solid var(--accent);
+      padding: 24px 30px;
+      border-radius: 0 12px 12px 0;
+      margin-bottom: 40px;
+    }
+    .remerciements h2 {
+      margin-top: 0;
+      border-bottom: none;
+      color: var(--accent);
+      font-size: 1.3rem;
     }
 
     .sommaire {
-      page-break-after: always;
-      background: #f5f5f5 !important;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4px 30px;
+      background: var(--bg2);
+      border-radius: 12px;
+      padding: 24px 30px;
+      margin-bottom: 40px;
+      border: 1px solid var(--border);
+    }
+    .sommaire .title {
+      grid-column: 1 / -1;
+      font-weight: 600;
+      color: var(--accent);
+      margin-bottom: 8px;
+    }
+    .sommaire-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 4px 0;
+      font-size: 0.95rem;
+      color: var(--muted);
+      border-bottom: 1px solid var(--border);
+    }
+    .sommaire-item .page {
+      color: var(--accent);
+      font-weight: 500;
     }
 
-    /* ---- Éviter de couper les titres ---- */
-    .section-rapport h2,
-    .section-rapport h3,
-    .section-rapport h4 {
-      page-break-after: avoid;
-      break-after: avoid;
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    /* ---- Éviter de couper les paragraphes ---- */
-    .section-rapport p {
-      orphans: 3;
-      widows: 3;
-    }
-
-    /* ---- Éviter de couper les illustrations ---- */
-    .illustration {
-      page-break-inside: avoid;
-      break-inside: avoid;
-      page-break-before: auto;
-      margin: 20px 0;
-    }
-
-    .illustration img {
-      border-color: #ccc !important;
-      box-shadow: none !important;
-      max-width: 100%;
-    }
-
-    .illustration .legende {
-      color: #555 !important;
-      font-size: 10pt;
-    }
-
-    /* ---- Éviter de couper les stats ---- */
-    .stats-grid {
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    .stat-item {
-      background: #f5f5f5 !important;
-      border-color: #ccc !important;
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    /* ---- Éviter de couper les encadrés de lexique ---- */
-    .lexique-item {
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    /* ---- Éviter de couper les listes ---- */
-    ul, ol {
-      page-break-inside: auto;
-    }
-
-    li {
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
-
-    /* ---- Éviter les veuves et orphelines ---- */
-    p, li {
-      orphans: 3;
-      widows: 3;
-    }
-
-    /* ---- Réduire les marges inutiles ---- */
     .section-rapport {
-      margin-top: 0 !important;
-      margin-bottom: 0 !important;
+      background: var(--bg2);
+      border: 1px solid var(--border);
+      border-radius: 16px;
+      padding: 32px 36px;
+      margin-bottom: 40px;
     }
-
-    /* ---- Empêcher les sauts avant les titres H3/H4 ---- */
-    .section-rapport h3,
+    .section-rapport h2 {
+      font-size: 2.0rem;
+      margin: 0 0 0.8em;
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 0.3em;
+      color: var(--accent);
+    }
+    .section-rapport h3 {
+      font-size: 1.4rem;
+      margin: 1.5em 0 0.5em;
+      color: var(--ink);
+    }
     .section-rapport h4 {
-      page-break-before: avoid;
-      break-before: avoid;
+      font-size: 1.1rem;
+      margin: 1.2em 0 0.3em;
+      color: var(--ink);
+      font-weight: 500;
     }
-
-    /* ---- Garder les liens visibles ---- */
-    a {
-      color: #5b2bff !important;
+    .section-rapport p {
+      margin: 0 0 1em;
+      color: var(--ink);
+      line-height: 1.8;
+    }
+    .section-rapport ul,
+    .section-rapport ol {
+      padding-left: 24px;
+      color: var(--muted);
+    }
+    .section-rapport li {
+      padding: 4px 0;
+    }
+    .section-rapport a {
+      color: var(--accent);
       text-decoration: none;
     }
-  }
+    .section-rapport a:hover {
+      text-decoration: underline;
+    }
 
-  /* ============================================================
-     RÉACTIVER LE CURSEUR PAR DÉFAUT SUR LE RAPPORT
-     ============================================================ */
-  body * {
-    cursor: auto !important;
-  }
-  body {
-    cursor: default !important;
-  }
-</style>
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+      gap: 16px;
+      margin: 20px 0;
+    }
+    .stat-item {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      text-align: center;
+    }
+    .stat-item .number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.2;
+    }
+    .stat-item .label {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .illustration {
+      margin: 30px 0;
+      text-align: center;
+    }
+    .illustration img {
+      max-width: 100%;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .illustration .legende {
+      margin-top: 10px;
+      font-size: 13px;
+      color: var(--muted);
+      font-style: italic;
+      line-height: 1.6;
+    }
+    .illustration .legende strong {
+      color: var(--accent);
+      font-style: normal;
+    }
+
+    .lexique-item {
+      display: flex;
+      gap: 20px;
+      padding: 8px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .lexique-item .term {
+      font-weight: 600;
+      min-width: 140px;
+      color: var(--accent);
+    }
+    .lexique-item .def {
+      color: var(--muted);
+    }
+
+    .footer-rapport {
+      text-align: center;
+      padding: 40px 0 20px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    @media (max-width: 700px) {
+      body {
+        padding: 16px;
+      }
+      .section-rapport {
+        padding: 20px;
+      }
+      .cover {
+        padding: 40px 20px;
+      }
+      .cover h1 {
+        font-size: 2.4rem;
+      }
+      .sommaire {
+        grid-template-columns: 1fr;
+      }
+      .lexique-item {
+        flex-direction: column;
+        gap: 4px;
+      }
+      .lexique-item .term {
+        min-width: auto;
+      }
+      .stats-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+    }
+
+    /* ============================================================
+       IMPRESSION
+       ============================================================ */
+    @media print {
+      /* ---- Format de page ---- */
+      @page {
+        size: A4 portrait;
+        margin: 1.8cm 1.5cm 1.5cm 1.5cm;
+
+        /* Numérotation en bas à droite */
+        @bottom-right {
+          content: counter(page);
+          font-family: 'Poppins', sans-serif;
+          font-size: 10pt;
+          color: #555;
+        }
+        @bottom-left {
+          content: "Rapport de stage – Robin Martinent";
+          font-family: 'Poppins', sans-serif;
+          font-size: 9pt;
+          color: #888;
+        }
+      }
+
+      /* ---- Réinitialiser les couleurs pour l'impression ---- */
+      :root {
+        --bg: #fff;
+        --bg2: #fafafa;
+        --ink: #111;
+        --muted: #555;
+        --border: #ddd;
+        --accent: #5b2bff;
+      }
+
+      body {
+        padding: 0;
+        background: #fff;
+        color: #111;
+        font-size: 11pt;
+        line-height: 1.5;
+        max-width: 100%;
+      }
+
+      /* ---- Cacher les éléments inutiles ---- */
+      .back-nav {
+        display: none !important;
+      }
+
+      /* ---- Réinitialiser le compteur de page à l'introduction ---- */
+      #introduction {
+        counter-reset: page 1;
+      }
+
+      /* ---- Gestion des sauts de page ---- */
+      .section-rapport {
+        page-break-inside: auto;
+        break-inside: auto;
+        background: #fafafa !important;
+        border-color: #ccc !important;
+        padding: 18px 22px !important;
+        margin-bottom: 0 !important;
+        border-radius: 8px !important;
+      }
+
+      .cover {
+        page-break-after: always;
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+      }
+
+      .remerciements {
+        page-break-after: always;
+        background: #fafafa !important;
+      }
+
+      .sommaire {
+        page-break-after: always;
+        background: #f5f5f5 !important;
+      }
+
+      /* ---- Éviter de couper les titres ---- */
+      .section-rapport h2,
+      .section-rapport h3,
+      .section-rapport h4 {
+        page-break-after: avoid;
+        break-after: avoid;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* ---- Éviter de couper les paragraphes ---- */
+      .section-rapport p {
+        orphans: 3;
+        widows: 3;
+      }
+
+      /* ---- Éviter de couper les illustrations ---- */
+      .illustration {
+        page-break-inside: avoid;
+        break-inside: avoid;
+        page-break-before: auto;
+        margin: 20px 0;
+      }
+
+      .illustration img {
+        border-color: #ccc !important;
+        box-shadow: none !important;
+        max-width: 100%;
+      }
+
+      .illustration .legende {
+        color: #555 !important;
+        font-size: 10pt;
+      }
+
+      /* ---- Éviter de couper les stats ---- */
+      .stats-grid {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      .stat-item {
+        background: #f5f5f5 !important;
+        border-color: #ccc !important;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* ---- Éviter de couper les encadrés de lexique ---- */
+      .lexique-item {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* ---- Éviter de couper les listes ---- */
+      ul, ol {
+        page-break-inside: auto;
+      }
+
+      li {
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
+
+      /* ---- Éviter les veuves et orphelines ---- */
+      p, li {
+        orphans: 3;
+        widows: 3;
+      }
+
+      /* ---- Réduire les marges inutiles ---- */
+      .section-rapport {
+        margin-top: 0 !important;
+        margin-bottom: 0 !important;
+      }
+
+      /* ---- Empêcher les sauts avant les titres H3/H4 ---- */
+      .section-rapport h3,
+      .section-rapport h4 {
+        page-break-before: avoid;
+        break-before: avoid;
+      }
+
+      /* ---- Garder les liens visibles ---- */
+      a {
+        color: #5b2bff !important;
+        text-decoration: none;
+      }
+    }
+
+    /* ============================================================
+       RÉACTIVER LE CURSEUR PAR DÉFAUT SUR LE RAPPORT
+       ============================================================ */
+    body * {
+      cursor: auto !important;
+    }
+    body {
+      cursor: default !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -450,7 +455,7 @@
   <!-- ===== PAGE DE COUVERTURE ===== -->
   <div class="cover">
     <h1>Robin <span style="color: var(--accent);">Martinent</span></h1>
-    <div class="subtitle">Post-bac Audiovisuel</div>
+    <div class="subtitle">1ère année Bachelor Réalisateur Monteur</div>
     <div style="margin: 1.2em 0; font-size: 1.6rem; font-weight: 300; color: var(--muted);">RAPPORT DE STAGE</div>
     <div style="font-size: 1.1rem; color: var(--muted);">
       Monteur vidéo au sein de l'association <span style="color: var(--accent);">Shaolin Shadow</span>
@@ -494,7 +499,7 @@
   <!-- ============================================================
        INTRODUCTION
   ============================================================ -->
-  <div class="section-rapport">
+  <div class="section-rapport" id="introduction">
     <h2>Introduction</h2>
 
     <p>Dans le cadre de ma formation post-baccalauréat en audiovisuel, orientée vers la production et le montage vidéo, j'ai effectué un stage de six semaines au sein de l'association Shaolin Shadow à Grenoble, en tant que monteur vidéo. Ce stage s'inscrit dans une démarche de professionnalisation, visant à mettre en pratique les compétences théoriques acquises durant ma formation et à les confronter aux exigences du monde professionnel.</p>
