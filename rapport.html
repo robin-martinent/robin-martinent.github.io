@@ -167,21 +167,30 @@
       text-decoration: underline;
     }
 
+    /* ============================================================
+       STATISTIQUES — DESIGN INNOVANT (pas de fond gris à l'impression)
+       ============================================================ */
     .stats-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
       gap: 16px;
-      margin: 20px 0;
+      margin: 24px 0;
     }
     .stat-item {
-      background: var(--bg);
-      border: 1px solid var(--border);
-      border-radius: 12px;
-      padding: 16px;
+      position: relative;
+      padding: 20px 16px 16px;
       text-align: center;
+      border: 2px solid var(--accent);
+      border-radius: 0;
+      background: transparent;
+      clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
+      transition: transform 0.2s;
+    }
+    .stat-item:hover {
+      transform: translateY(-4px);
     }
     .stat-item .number {
-      font-size: 2rem;
+      font-size: 2.2rem;
       font-weight: 700;
       color: var(--accent);
       line-height: 1.2;
@@ -189,7 +198,29 @@
     .stat-item .label {
       font-size: 12px;
       color: var(--muted);
-      margin-top: 4px;
+      margin-top: 6px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    /* Variation 2 : bordure épaisse en bas */
+    .stat-item:nth-child(2) {
+      border: none;
+      border-bottom: 4px solid var(--accent);
+      clip-path: none;
+      padding-bottom: 20px;
+    }
+    /* Variation 3 : double bordure */
+    .stat-item:nth-child(3) {
+      border: none;
+      border-top: 3px solid var(--accent);
+      border-bottom: 3px solid var(--accent);
+      clip-path: none;
+    }
+    /* Variation 4 : coin coupé */
+    .stat-item:nth-child(4) {
+      border: 2px solid var(--accent);
+      clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
+      background: linear-gradient(135deg, rgba(91,43,255,0.05) 0%, transparent 50%);
     }
 
     .illustration {
@@ -266,15 +297,12 @@
     }
 
     /* ============================================================
-       IMPRESSION
+       IMPRESSION — SANS FOND GRIS, SANS COUPURES
        ============================================================ */
     @media print {
-      /* ---- Format de page ---- */
       @page {
         size: A4 portrait;
         margin: 1.8cm 1.5cm 1.5cm 1.5cm;
-
-        /* Numérotation en bas à droite */
         @bottom-right {
           content: counter(page);
           font-family: 'Poppins', sans-serif;
@@ -289,10 +317,9 @@
         }
       }
 
-      /* ---- Réinitialiser les couleurs pour l'impression ---- */
       :root {
         --bg: #fff;
-        --bg2: #fafafa;
+        --bg2: #fff;
         --ink: #111;
         --muted: #555;
         --border: #ddd;
@@ -301,29 +328,35 @@
 
       body {
         padding: 0;
-        background: #fff;
+        background: #fff !important;
         color: #111;
         font-size: 11pt;
         line-height: 1.5;
         max-width: 100%;
       }
 
-      /* ---- Cacher les éléments inutiles ---- */
       .back-nav {
         display: none !important;
       }
 
-      /* ---- Réinitialiser le compteur de page à l'introduction ---- */
       #introduction {
         counter-reset: page 1;
       }
 
-      /* ---- Gestion des sauts de page ---- */
+      /* ---- Fonds transparents à l'impression ---- */
+      .section-rapport,
+      .cover,
+      .remerciements,
+      .sommaire,
+      .stat-item,
+      .illustration img {
+        background: #fff !important;
+        border-color: #ddd !important;
+      }
+
       .section-rapport {
         page-break-inside: auto;
         break-inside: auto;
-        background: #fafafa !important;
-        border-color: #ccc !important;
         padding: 18px 22px !important;
         margin-bottom: 0 !important;
         border-radius: 8px !important;
@@ -331,21 +364,14 @@
 
       .cover {
         page-break-after: always;
-        background: #f5f5f5 !important;
-        border-color: #ccc !important;
       }
-
       .remerciements {
         page-break-after: always;
-        background: #fafafa !important;
       }
-
       .sommaire {
         page-break-after: always;
-        background: #f5f5f5 !important;
       }
 
-      /* ---- Éviter de couper les titres ---- */
       .section-rapport h2,
       .section-rapport h3,
       .section-rapport h4 {
@@ -355,17 +381,14 @@
         break-inside: avoid;
       }
 
-      /* ---- Éviter de couper les paragraphes ---- */
       .section-rapport p {
         orphans: 3;
         widows: 3;
       }
 
-      /* ---- Éviter de couper les illustrations ---- */
       .illustration {
         page-break-inside: avoid;
         break-inside: avoid;
-        page-break-before: auto;
         margin: 20px 0;
       }
 
@@ -380,55 +403,45 @@
         font-size: 10pt;
       }
 
-      /* ---- Éviter de couper les stats ---- */
       .stats-grid {
         page-break-inside: avoid;
         break-inside: avoid;
       }
 
       .stat-item {
-        background: #f5f5f5 !important;
-        border-color: #ccc !important;
-        page-break-inside: avoid;
-        break-inside: avoid;
+        border-color: #5b2bff !important;
+        clip-path: none !important; /* Supprimer les clip-path à l'impression pour éviter les artefacts */
+        background: #fff !important;
       }
 
-      /* ---- Éviter de couper les encadrés de lexique ---- */
       .lexique-item {
         page-break-inside: avoid;
         break-inside: avoid;
       }
 
-      /* ---- Éviter de couper les listes ---- */
       ul, ol {
         page-break-inside: auto;
       }
-
       li {
         page-break-inside: avoid;
         break-inside: avoid;
       }
-
-      /* ---- Éviter les veuves et orphelines ---- */
       p, li {
         orphans: 3;
         widows: 3;
       }
 
-      /* ---- Réduire les marges inutiles ---- */
       .section-rapport {
         margin-top: 0 !important;
         margin-bottom: 0 !important;
       }
 
-      /* ---- Empêcher les sauts avant les titres H3/H4 ---- */
       .section-rapport h3,
       .section-rapport h4 {
         page-break-before: avoid;
         break-before: avoid;
       }
 
-      /* ---- Garder les liens visibles ---- */
       a {
         color: #5b2bff !important;
         text-decoration: none;
@@ -502,9 +515,9 @@
   <div class="section-rapport" id="introduction">
     <h2>Introduction</h2>
 
-    <p>Dans le cadre de ma formation post-baccalauréat en audiovisuel, orientée vers la production et le montage vidéo, j'ai effectué un stage de six semaines au sein de l'association Shaolin Shadow à Grenoble, en tant que monteur vidéo. Ce stage s'inscrit dans une démarche de professionnalisation, visant à mettre en pratique les compétences théoriques acquises durant ma formation et à les confronter aux exigences du monde professionnel.</p>
+    <p>Dans le cadre de mon Bachelor Réalisateur Monteur, orienté vers la production et le montage vidéo, j'ai effectué un stage de six semaines au sein de l'association Shaolin Shadow à Grenoble, en tant que monteur vidéo. Ce stage s'inscrit dans une démarche de professionnalisation, visant à mettre en pratique les compétences théoriques acquises durant ma formation et à les confronter aux exigences du monde professionnel.</p>
 
-    <p>Ma formation m'a permis d'acquérir les bases techniques du montage vidéo, du motion design, de l'ingest, de la gestion des proxies et des exports. J'ai également eu l'occasion de mener des projets concrets, comme le montage d'un événement (le rassemblement Porsche organisé par Shaolin Shadow) et la réalisation de la showreel annuelle de l'association pour l'année 2025. Ces expériences m'ont conforté dans mon aspiration à devenir monteur vidéo et réalisateur de documentaires. Toutefois, je ressentais le besoin de confronter ces apprentissages à un environnement professionnel plus exigeant, où la rigueur, la méthode et le travail en équipe priment sur la simple maîtrise technique.</p>
+    <p>Ma formation m'a permis d'acquérir les bases techniques du montage vidéo, du motion design, de l'ingest, de la gestion des proxys et des exports. J'ai également eu l'occasion de mener des projets concrets, comme le montage d'un événement (le rassemblement Porsche organisé par Shaolin Shadow) et la réalisation de la showreel annuelle de l'association pour l'année 2025. Ces expériences m'ont conforté dans mon aspiration à devenir monteur vidéo et réalisateur de documentaires. Toutefois, je ressentais le besoin de confronter ces apprentissages à un environnement professionnel plus exigeant, où la rigueur, la méthode et le travail en équipe priment sur la simple maîtrise technique.</p>
 
     <p>Le choix de Shaolin Shadow répondait à deux motivations principales. D'une part, l'association est reconnue dans le paysage audiovisuel grenoblois pour la qualité de ses productions et son engagement en faveur de l'accès à l'audiovisuel pour tous. D'autre part, ce stage devait me permettre de confirmer mon goût pour le montage vidéo dans un contexte plus structuré que celui de mes projets scolaires habituels. Je souhaitais notamment apprendre à travailler dans le cadre d'une production collective, où plusieurs personnes peuvent être amenées à intervenir sur un même projet, et où la normalisation des méthodes de travail est essentielle.</p>
 
@@ -617,6 +630,8 @@
 
     <p>Le métier exige à la fois des compétences techniques pointues et une sensibilité artistique. Le monteur doit être capable de comprendre l'intention du réalisateur et de la transcrire à travers le choix des plans, des transitions et du rythme. C'est un métier de compromis et de dialogue, où la collaboration est essentielle pour aboutir à un résultat satisfaisant.</p>
 
+    <p>Pour parfaire ma compréhension du métier, j'ai étudié les théories de plusieurs grands monteurs. Sergei Eisenstein, dans <em>Forme du film</em>, développe le concept de « montage des attractions », où l'alternance de motifs crée un choc chez le spectateur et une visée thématique[reference:0]. Edward Dmytryk, dans <em>Sur le montage filmique</em>, insiste sur la règle fondamentale : « jamais de coupe sans raison positive »[reference:1]. Enfin, Walter Murch, dans <em>À l'œil nu</em>, propose sa « Règle des Six », où l'émotion prime sur tout le reste[reference:2]. Ces lectures ont profondément influencé ma pratique.</p>
+
     <h3>2.4 Description détaillée des missions</h3>
 
     <p>Parmi les projets qui m'ont été confiés, deux m'ont particulièrement marqué par leur nature et les compétences qu'ils ont mobilisées.</p>
@@ -626,6 +641,8 @@
     <p>Pour la showreel annuelle de l'association, mon maître de stage m'a demandé de réaliser une animation différente pour chaque vidéo, en me laissant carte blanche sur le concept. J'ai choisi de créer un parchemin sur lequel apparaissaient les remerciements destinés aux associations partenaires, aux sponsors et aux différentes personnes ayant contribué au projet. Ce parchemin était ensuite consumé par les flammes, laissant apparaître le logo Shaolin Shadow, rouge incandescent, sur un fond de braises.</p>
 
     <p>Pour réaliser cette animation, j'ai utilisé After Effects. La difficulté principale a été de créer un effet de combustion réaliste et de faire en sorte que la transition entre le parchemin et le logo soit fluide et spectaculaire. J'ai notamment utilisé un effet de distorsion sur les bords du parchemin pour simuler la consumation, ainsi qu'un effet de lumière sur les braises pour donner de la profondeur à l'ensemble. Le résultat final, bien que plus impressionnant en vidéo qu'en capture d'écran, est une animation dont je suis particulièrement fier. Le rendu aurait été encore plus saisissant avec l'utilisation du plugin Deep Glow, que je n'avais pas sur l'ordinateur utilisé pour la capture.</p>
+
+    <p>J'ai également réalisé deux autres variantes pour des projets distincts. Pour une vidéo de présentation, j'ai animé le logo Shaolin Shadow en métal, sur lequel un rayon de lumière venait balayer la surface, créant un effet de brillance réaliste. Pour l'école « Ça Tourne ! », j'ai reproduit en 3D le clap du logo existant. L'animation montrait le clap se fermer en tournant sur lui-même, puis disparaître dans un flux d'encre. Ces exercices m'ont permis d'explorer différentes techniques de motion design, allant de la simulation de matières à la 3D.</p>
 
     <!-- ===== ILLUSTRATION 1 ===== -->
     <div class="illustration">
@@ -717,10 +734,11 @@
 
     <h3>Ouvrages et ressources pédagogiques</h3>
     <ul>
+      <li>EISENSTEIN, Sergei, <em>Forme du film</em>, 1949.</li>
+      <li>DMYTRYK, Edward, <em>Sur le montage filmique</em>, 1984.</li>
+      <li>MURCH, Walter, <em>À l'œil nu</em>, 2001.</li>
       <li>FROST, Jackie, <em>Le Montage vidéo pour les nuls – Guide pratique du débutant au pro</em>, First Interactive, 2024.</li>
-      <li>MOLL, Éric, <em>Le Montage : Rythme et Narration au Cinéma</em>, Dixit, 2023.</li>
       <li>HOCKROW, Steven, <em>La Grammaire du Montage – 200 règles pour créer un film</em>, Eyrolles, 2021.</li>
-      <li>BORDWELL, David & THOMPSON, Kristin, <em>L'Art du cinéma – Une introduction</em>, De Boeck Supérieur, 2020.</li>
       <li>KIRCHHOFF, Oliver, <em>Le Montage audiovisuel – De la théorie à la pratique</em>, Dunod, 2022.</li>
     </ul>
 
@@ -835,6 +853,14 @@
     <div class="lexique-item">
       <span class="term">Ingest</span>
       <span class="def">Processus d'importation et de gestion des fichiers bruts dans un logiciel de montage.</span>
+    </div>
+    <div class="lexique-item">
+      <span class="term">Montage des attractions</span>
+      <span class="def">Théorie d'Eisenstein où l'alternance de motifs crée un choc émotionnel et une visée thématique.</span>
+    </div>
+    <div class="lexique-item">
+      <span class="term">Règle des Six</span>
+      <span class="def">Théorie de Walter Murch classant les critères d'une bonne coupe : émotion, histoire, rythme, eye-trace, planéité, espace 3D.</span>
     </div>
   </div>
 
