@@ -10,25 +10,19 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://robin-martinent.github.io/" />
 
-  <!-- Open Graph -->
   <meta property="og:title" content="Robin Martinent · Monteur Vidéo & Réalisateur" />
-  <meta property="og:description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur. Montage, motion design, post-production. Disponible en alternance 2026." />
+  <meta property="og:description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur." />
   <meta property="og:image" content="https://robin-martinent.github.io/images/og-image.jpg" />
   <meta property="og:url" content="https://robin-martinent.github.io/" />
   <meta property="og:type" content="website" />
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Robin Martinent · Monteur Vidéo & Réalisateur" />
-  <meta name="twitter:description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur." />
-  <meta name="twitter:image" content="https://robin-martinent.github.io/images/og-image.jpg" />
 
-  <!-- FAVICON -->
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
   <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
   <link rel="manifest" href="favicon_io/site.webmanifest">
   <link rel="shortcut icon" href="favicon_io/favicon.ico">
 
-  <!-- Google Fonts : Poppins (titres) + Inter (corps) -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
@@ -36,6 +30,9 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
+
+  <!-- ===== GRAIN DE PELLICULE ===== -->
+  <div class="grain-overlay"></div>
 
   <!-- ===== LOADER ===== -->
   <div id="loader">
@@ -108,9 +105,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       À PROPOS
-  ============================================================ -->
+  <!-- À PROPOS -->
   <div class="section" id="about">
     <p class="section-label reveal">Qui je suis</p>
     <h2 class="section-title reveal">À propos</h2>
@@ -133,9 +128,7 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       PORTFOLIO
-  ============================================================ -->
+  <!-- PORTFOLIO -->
   <div class="section" id="portfolio">
     <p class="section-label reveal">Mes réalisations</p>
     <h2 class="section-title reveal">Portfolio</h2>
@@ -190,9 +183,7 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       COMPÉTENCES
-  ============================================================ -->
+  <!-- COMPÉTENCES -->
   <div class="section" id="competences">
     <p class="section-label reveal">Ce que je sais faire</p>
     <h2 class="section-title reveal">Compétences</h2>
@@ -241,9 +232,7 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       CV
-  ============================================================ -->
+  <!-- CV -->
   <div class="section" id="cv">
     <p class="section-label reveal">Mon parcours</p>
     <h2 class="section-title reveal">CV</h2>
@@ -305,9 +294,7 @@
     </div>
   </div>
 
-  <!-- ============================================================
-       CONTACT
-  ============================================================ -->
+  <!-- CONTACT -->
   <section class="contact-section" id="contact">
     <p class="section-label">Me contacter</p>
     <h2>On travaille ensemble ?</h2>
@@ -336,9 +323,7 @@
     </div>
   </section>
 
-  <!-- ============================================================
-       FOOTER
-  ============================================================ -->
+  <!-- FOOTER -->
   <footer>
     <div class="footer-left">
       <p>© 2026 Robin Martinent · Tous droits réservés</p>
@@ -352,6 +337,45 @@
       <p>Fait avec passion ✦</p>
     </div>
   </footer>
+
+  <!-- ===== TIMELINE EN BAS DE PAGE ===== -->
+  <div class="timeline-bar" id="timelineBar">
+    <div class="timeline-track" id="timelineTrack">
+      <div class="timeline-clip" data-target="#heroSection" data-label="Intro"></div>
+      <div class="timeline-clip" data-target="#about" data-label="À propos"></div>
+      <div class="timeline-clip" data-target="#portfolio" data-label="Portfolio"></div>
+      <div class="timeline-clip" data-target="#competences" data-label="Compétences"></div>
+      <div class="timeline-clip" data-target="#cv" data-label="CV"></div>
+      <div class="timeline-clip" data-target="#contact" data-label="Contact"></div>
+      <div class="timeline-playhead" id="timelinePlayhead"></div>
+    </div>
+    <div class="timeline-info">
+      <span class="timeline-section-name" id="timelineSectionName">Intro</span>
+      <span class="timeline-timecode" id="timecode">00:00:00:00</span>
+      <span class="timeline-hint">Tape <strong>MONTAGE</strong> 🎬</span>
+    </div>
+  </div>
+
+  <!-- ===== MODAL MINI-JEU ===== -->
+  <div class="game-modal" id="gameModal">
+    <div class="game-content">
+      <button class="game-close" id="gameClose" aria-label="Fermer">×</button>
+      <p class="game-label">Salle de montage</p>
+      <h2>Le défi du monteur</h2>
+      <p class="game-desc">Clique les rushes dans le bon ordre, de 1 à 5, le plus vite possible.</p>
+
+      <div class="game-stats">
+        <span>Temps : <strong id="gameTimer">0.00</strong>s</span>
+        <span>Erreurs : <strong id="gameErrors">0</strong></span>
+      </div>
+
+      <div class="game-board" id="gameBoard"></div>
+
+      <div class="game-result" id="gameResult"></div>
+
+      <button class="btn-primary" id="gameRestart">Rejouer</button>
+    </div>
+  </div>
 
   <!-- ============================================================
        JAVASCRIPT
@@ -444,12 +468,8 @@
     function startSmoke() {
       smokeContainer.classList.add('active');
       const count = 40 + Math.floor(Math.random() * 25);
-      for (let i = 0; i < count; i++) {
-        setTimeout(() => createSmoke(), i * 100);
-      }
-      for (let i = 0; i < 20; i++) {
-        setTimeout(() => createSmoke(), 2000 + i * 150);
-      }
+      for (let i = 0; i < count; i++) setTimeout(() => createSmoke(), i * 100);
+      for (let i = 0; i < 20; i++) setTimeout(() => createSmoke(), 2000 + i * 150);
     }
 
     function stopSmoke() {
@@ -496,11 +516,11 @@
         distortion.connect(gainNode);
         gainNode.connect(audioCtx.destination);
         source.start();
-      } catch (e) { console.log('Audio non disponible'); }
+      } catch (e) {}
     }
 
     // ============================================================
-    // 6. EXPLOSION COMPLÈTE
+    // 6. EXPLOSION
     // ============================================================
     let isExploding = false;
 
@@ -553,16 +573,9 @@
     const email = 'robin.martinent@gmail.com';
 
     const emailMessages = [
-      'Copié !',
-      'Double copie !',
-      'Triple copie !',
-      'Quadruple copie !',
-      'T\'as vraiment copié ?',
-      'Recopie au cas où...',
-      'Tu vas casser le bouton !',
-      'Arrête...',
-      'Ça va casser le site !',
-      'NOOOOOOONNNNN !!!!! 💥'
+      'Copié !', 'Double copie !', 'Triple copie !', 'Quadruple copie !',
+      'T\'as vraiment copié ?', 'Recopie au cas où...', 'Tu vas casser le bouton !',
+      'Arrête...', 'Ça va casser le site !', 'NOOOOOOONNNNN !!!!! 💥'
     ];
 
     const shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
@@ -618,16 +631,9 @@
     const phoneNumber = '0766740346';
 
     const phoneMessages = [
-      'Numéro copié !',
-      'J\'allais pas faire la même chose...',
-      'Mais si, je l\'ai fait.',
-      'T\'es têtu toi.',
-      'Bon, voilà, c\'est copié.',
-      'Tu veux que je le dise plus fort ?',
-      '07 66 74 03 46',
-      'Ça suffit maintenant.',
-      'Je t\'ai copié 9 fois.',
-      'T\'as gagné, j\'arrête.'
+      'Numéro copié !', 'J\'allais pas faire la même chose...', 'Mais si, je l\'ai fait.',
+      'T\'es têtu toi.', 'Bon, voilà, c\'est copié.', 'Tu veux que je le dise plus fort ?',
+      '07 66 74 03 46', 'Ça suffit maintenant.', 'Je t\'ai copié 9 fois.', 'T\'as gagné, j\'arrête.'
     ];
 
     const wobbleClasses = ['', 'wobble1', 'wobble2', 'wobble3', 'wobble4', 'wobble5'];
@@ -751,26 +757,268 @@
     }
 
     // ============================================================
-    // 10. LOADER — animations plus tôt, durée totale inchangée
+    // 10. LOADER
     // ============================================================
     const loader = document.getElementById('loader');
     const wordLeft = document.getElementById('wordLeft');
     const wordRight = document.getElementById('wordRight');
     const subtitle = document.getElementById('loaderSubtitle');
 
-    setTimeout(() => { wordLeft.classList.add('expanded'); }, 500);
-    setTimeout(() => { wordRight.classList.add('expanded'); }, 650);
-    setTimeout(() => { subtitle.classList.add('visible'); }, 1400);
+    setTimeout(() => wordLeft.classList.add('expanded'), 400);
+    setTimeout(() => wordRight.classList.add('expanded'), 550);
+    setTimeout(() => subtitle.classList.add('visible'), 1300);
 
     window.addEventListener('load', () => {
-      setTimeout(() => { loader.classList.add('hidden'); }, 3200);
+      setTimeout(() => loader.classList.add('hidden'), 3000);
     });
 
     setTimeout(() => {
-      if (!loader.classList.contains('hidden')) {
-        loader.classList.add('hidden');
+      if (!loader.classList.contains('hidden')) loader.classList.add('hidden');
+    }, 4200);
+
+    // ============================================================
+    // 11. TIMELINE EN BAS DE PAGE
+    // ============================================================
+    const timelineBar = document.getElementById('timelineBar');
+    const timelinePlayhead = document.getElementById('timelinePlayhead');
+    const timelineClips = document.querySelectorAll('.timeline-clip');
+    const timelineSectionName = document.getElementById('timelineSectionName');
+
+    function updateTimeline() {
+      const scrollTop = window.scrollY;
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+
+      // Déplace le playhead
+      timelinePlayhead.style.left = (progress * 100) + '%';
+
+      // Détermine la section active
+      const sections = ['#heroSection', '#about', '#portfolio', '#competences', '#cv', '#contact'];
+      let activeIndex = 0;
+      const viewportMiddle = scrollTop + window.innerHeight / 3;
+
+      sections.forEach((sel, i) => {
+        const el = document.querySelector(sel);
+        if (el && el.offsetTop <= viewportMiddle) {
+          activeIndex = i;
+        }
+      });
+
+      timelineClips.forEach((clip, i) => {
+        clip.classList.toggle('active', i === activeIndex);
+        clip.classList.toggle('passed', i < activeIndex);
+      });
+
+      timelineSectionName.textContent = timelineClips[activeIndex]?.dataset.label || 'Intro';
+    }
+
+    window.addEventListener('scroll', updateTimeline, { passive: true });
+    window.addEventListener('resize', updateTimeline);
+    updateTimeline();
+
+    // Clic sur un clip → aller à la section
+    timelineClips.forEach(clip => {
+      clip.addEventListener('click', () => {
+        const target = document.querySelector(clip.dataset.target);
+        if (target) {
+          window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+        }
+      });
+    });
+
+    // ============================================================
+    // 12. TIMECODE QUI DÉFILE (25 fps)
+    // ============================================================
+    const timecodeEl = document.getElementById('timecode');
+    let tcFrames = 0, tcSeconds = 0, tcMinutes = 0, tcHours = 0;
+
+    function pad(n) { return n.toString().padStart(2, '0'); }
+
+    setInterval(() => {
+      tcFrames++;
+      if (tcFrames >= 25) { tcFrames = 0; tcSeconds++; }
+      if (tcSeconds >= 60) { tcSeconds = 0; tcMinutes++; }
+      if (tcMinutes >= 60) { tcMinutes = 0; tcHours++; }
+      timecodeEl.textContent = `${pad(tcHours)}:${pad(tcMinutes)}:${pad(tcSeconds)}:${pad(tcFrames)}`;
+    }, 40);
+
+    // ============================================================
+    // 13. RACCOURCIS J / K / L (comme Premiere Pro)
+    // ============================================================
+    let autoScrollSpeed = 0; // 0 = pause, négatif = haut, positif = bas
+    let autoScrollRAF = null;
+
+    function autoScroll() {
+      if (autoScrollSpeed !== 0) {
+        window.scrollBy(0, autoScrollSpeed);
+        autoScrollRAF = requestAnimationFrame(autoScroll);
+      } else {
+        cancelAnimationFrame(autoScrollRAF);
       }
-    }, 4500);
+    }
+
+    let jCount = 0, lCount = 0;
+
+    document.addEventListener('keydown', (e) => {
+      // Ignore si on tape dans un input
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+
+      const key = e.key.toLowerCase();
+
+      if (key === 'l') {
+        lCount++;
+        jCount = 0;
+        autoScrollSpeed = Math.min(lCount, 4) * 3; // Vitesses : 3, 6, 9, 12
+        cancelAnimationFrame(autoScrollRAF);
+        autoScroll();
+        e.preventDefault();
+      } else if (key === 'j') {
+        jCount++;
+        lCount = 0;
+        autoScrollSpeed = -Math.min(jCount, 4) * 3;
+        cancelAnimationFrame(autoScrollRAF);
+        autoScroll();
+        e.preventDefault();
+      } else if (key === 'k') {
+        jCount = 0;
+        lCount = 0;
+        autoScrollSpeed = 0;
+        cancelAnimationFrame(autoScrollRAF);
+        e.preventDefault();
+      }
+    });
+
+    // Indicateur visuel du mode lecture
+    const playIndicator = document.createElement('div');
+    playIndicator.className = 'play-indicator';
+    playIndicator.textContent = '⏸';
+    document.body.appendChild(playIndicator);
+
+    setInterval(() => {
+      playIndicator.textContent = autoScrollSpeed === 0 ? '⏸' : (autoScrollSpeed > 0 ? '▶' + (autoScrollSpeed / 3) : '◀' + (Math.abs(autoScrollSpeed) / 3));
+      playIndicator.classList.toggle('active', autoScrollSpeed !== 0);
+    }, 100);
+
+    // ============================================================
+    // 14. MINI-JEU DE MONTAGE (easter egg)
+    // ============================================================
+    const gameModal = document.getElementById('gameModal');
+    const gameBoard = document.getElementById('gameBoard');
+    const gameTimerEl = document.getElementById('gameTimer');
+    const gameErrorsEl = document.getElementById('gameErrors');
+    const gameResult = document.getElementById('gameResult');
+    const gameClose = document.getElementById('gameClose');
+    const gameRestart = document.getElementById('gameRestart');
+
+    let gameActive = false;
+    let gameStartTime = 0;
+    let gameInterval = null;
+    let gameNext = 1;
+    let gameErrors = 0;
+
+    // Easter egg : taper "MONTAGE"
+    let typed = '';
+    document.addEventListener('keydown', (e) => {
+      if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+      typed += e.key.toLowerCase();
+      if (typed.length > 10) typed = typed.slice(-10);
+      if (typed.includes('montage')) {
+        typed = '';
+        openGame();
+      }
+    });
+
+    function openGame() {
+      gameModal.classList.add('active');
+      startGame();
+    }
+
+    function closeGame() {
+      gameModal.classList.remove('active');
+      gameActive = false;
+      if (gameInterval) clearInterval(gameInterval);
+    }
+
+    function startGame() {
+      gameActive = true;
+      gameNext = 1;
+      gameErrors = 0;
+      gameErrorsEl.textContent = '0';
+      gameResult.textContent = '';
+      gameResult.className = 'game-result';
+      gameStartTime = performance.now();
+
+      // Crée 5 rushes dans un ordre aléatoire
+      const numbers = [1, 2, 3, 4, 5];
+      const shuffled = numbers.slice().sort(() => Math.random() - 0.5);
+
+      gameBoard.innerHTML = '';
+      shuffled.forEach(num => {
+        const clip = document.createElement('div');
+        clip.className = 'game-clip';
+        clip.dataset.num = num;
+        clip.textContent = num;
+
+        // Couleurs variées pour chaque clip
+        const hue = (num - 1) * 60 + 240; // Violet → Bleu → Cyan → Vert → Jaune
+        clip.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 45%), hsl(${hue}, 70%, 30%))`;
+
+        clip.addEventListener('click', () => handleClipClick(clip, num));
+        gameBoard.appendChild(clip);
+      });
+
+      // Timer
+      if (gameInterval) clearInterval(gameInterval);
+      gameInterval = setInterval(() => {
+        if (!gameActive) return;
+        const elapsed = (performance.now() - gameStartTime) / 1000;
+        gameTimerEl.textContent = elapsed.toFixed(2);
+      }, 50);
+    }
+
+    function handleClipClick(clip, num) {
+      if (!gameActive || clip.classList.contains('done')) return;
+
+      if (num === gameNext) {
+        clip.classList.add('done');
+        clip.textContent = '✓';
+        gameNext++;
+
+        if (gameNext > 5) {
+          // Gagné !
+          gameActive = false;
+          clearInterval(gameInterval);
+          const elapsed = (performance.now() - gameStartTime) / 1000;
+
+          let message = '';
+          if (elapsed < 2 && gameErrors === 0) message = '🏆 Parfait ! Monteur de génie.';
+          else if (elapsed < 3.5 && gameErrors <= 1) message = '🎬 Excellent montage !';
+          else if (elapsed < 5) message = '👍 Bon rythme, continue comme ça !';
+          else message = '😅 Un peu lent, mais c\'est monté !';
+
+          gameResult.textContent = message + ` (${elapsed.toFixed(2)}s · ${gameErrors} erreur${gameErrors > 1 ? 's' : ''})`;
+          gameResult.classList.add('success');
+        }
+      } else {
+        // Erreur
+        gameErrors++;
+        gameErrorsEl.textContent = gameErrors;
+        clip.classList.add('error');
+        setTimeout(() => clip.classList.remove('error'), 400);
+      }
+    }
+
+    gameClose.addEventListener('click', closeGame);
+    gameRestart.addEventListener('click', startGame);
+    gameModal.addEventListener('click', (e) => {
+      if (e.target === gameModal) closeGame();
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && gameModal.classList.contains('active')) {
+        closeGame();
+      }
+    });
   </script>
 </body>
 </html>
