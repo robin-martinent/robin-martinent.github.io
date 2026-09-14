@@ -352,7 +352,7 @@
     <div class="timeline-info">
       <span class="timeline-section-name" id="timelineSectionName">Intro</span>
       <span class="timeline-timecode" id="timecode">00:00:00:00</span>
-      <span class="timeline-hint">Tape <strong>MONTAGE</strong> 🎬</span>
+      <span class="timeline-hint">&nbsp;</span>
     </div>
   </div>
 
@@ -779,44 +779,66 @@
     // ============================================================
     // 11. TIMELINE EN BAS DE PAGE
     // ============================================================
-    const timelineBar = document.getElementById('timelineBar');
     const timelinePlayhead = document.getElementById('timelinePlayhead');
     const timelineClips = document.querySelectorAll('.timeline-clip');
     const timelineSectionName = document.getElementById('timelineSectionName');
 
-    function updateTimeline() {
-      const scrollTop = window.scrollY;
-      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
-      const progress = docHeight > 0 ? Math.min(scrollTop / docHeight, 1) : 0;
+    const sectionSelectors = ['#heroSection', '#about', '#portfolio', '#competences', '#cv', '#contact'];
 
-      // Déplace le playhead
-      timelinePlayhead.style.left = (progress * 100) + '%';
+    // Calcule la position de chaque clip en fonction de la vraie position des sections
+    function layoutTimeline() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
 
-      // Détermine la section active
-      const sections = ['#heroSection', '#about', '#portfolio', '#competences', '#cv', '#contact'];
-      let activeIndex = 0;
-      const viewportMiddle = scrollTop + window.innerHeight / 3;
-
-      sections.forEach((sel, i) => {
-        const el = document.querySelector(sel);
-        if (el && el.offsetTop <= viewportMiddle) {
-          activeIndex = i;
+      const positions = [];
+      sectionSelectors.forEach((sel) => {
+        const section = document.querySelector(sel);
+        if (!section) {
+          positions.push(0);
+          return;
         }
+        const startPx = section.offsetTop;
+        const startPct = Math.min(startPx / maxScroll, 1) * 100;
+        positions.push(startPct);
       });
+      positions.push(100);
 
       timelineClips.forEach((clip, i) => {
-        clip.classList.toggle('active', i === activeIndex);
-        clip.classList.toggle('passed', i < activeIndex);
+        const left = positions[i];
+        const right = positions[i + 1];
+        clip.style.left = left + '%';
+        clip.style.width = Math.max(right - left, 0) + '%';
+      });
+    }
+
+    // Met à jour le playhead et le nom de section
+    function updateTimeline() {
+      const scrollTop = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
+
+      const progress = Math.min(scrollTop / maxScroll, 1);
+      const playheadPct = progress * 100;
+
+      timelinePlayhead.style.left = playheadPct + '%';
+
+      let activeIndex = 0;
+      timelineClips.forEach((clip, i) => {
+        const left = parseFloat(clip.style.left) || 0;
+        const width = parseFloat(clip.style.width) || 0;
+        const isActive = playheadPct >= left && playheadPct < left + width;
+        const isPassed = playheadPct >= left + width;
+
+        clip.classList.toggle('active', isActive);
+        clip.classList.toggle('passed', isPassed);
+
+        if (isActive) activeIndex = i;
       });
 
       timelineSectionName.textContent = timelineClips[activeIndex]?.dataset.label || 'Intro';
     }
 
-    window.addEventListener('scroll', updateTimeline, { passive: true });
-    window.addEventListener('resize', updateTimeline);
-    updateTimeline();
-
-    // Clic sur un clip → aller à la section
+    // Clic sur un clip → scroll vers la section
     timelineClips.forEach(clip => {
       clip.addEventListener('click', () => {
         const target = document.querySelector(clip.dataset.target);
@@ -825,6 +847,19 @@
         }
       });
     });
+
+    // Init + recalcul
+    window.addEventListener('load', () => {
+      layoutTimeline();
+      updateTimeline();
+    });
+    window.addEventListener('resize', () => {
+      layoutTimeline();
+      updateTimeline();
+    });
+    window.addEventListener('scroll', updateTimeline, { passive: true });
+    layoutTimeline();
+    updateTimeline();
 
     // ============================================================
     // 12. TIMECODE QUI DÉFILE (25 fps)
@@ -843,9 +878,10 @@
     }, 40);
 
     // ============================================================
-    // 13. RACCOURCIS J / K / L (comme Premiere Pro)
+    // 13. RACCOURCIS J / K / L (vitesse fixe 3x)
     // ============================================================
-    let autoScrollSpeed = 0; // 0 = pause, négatif = haut, positif = bas
+    const AUTO_SCROLL_SPEED = 9;
+    let autoScrollSpeed = 0;
     let autoScrollRAF = null;
 
     function autoScroll() {
@@ -857,47 +893,41 @@
       }
     }
 
-    let jCount = 0, lCount = 0;
-
     document.addEventListener('keydown', (e) => {
-      // Ignore si on tape dans un input
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
 
       const key = e.key.toLowerCase();
 
       if (key === 'l') {
-        lCount++;
-        jCount = 0;
-        autoScrollSpeed = Math.min(lCount, 4) * 3; // Vitesses : 3, 6, 9, 12
+        autoScrollSpeed = AUTO_SCROLL_SPEED;
         cancelAnimationFrame(autoScrollRAF);
         autoScroll();
         e.preventDefault();
       } else if (key === 'j') {
-        jCount++;
-        lCount = 0;
-        autoScrollSpeed = -Math.min(jCount, 4) * 3;
+        autoScrollSpeed = -AUTO_SCROLL_SPEED;
         cancelAnimationFrame(autoScrollRAF);
         autoScroll();
         e.preventDefault();
       } else if (key === 'k') {
-        jCount = 0;
-        lCount = 0;
         autoScrollSpeed = 0;
         cancelAnimationFrame(autoScrollRAF);
         e.preventDefault();
       }
     });
 
-    // Indicateur visuel du mode lecture
     const playIndicator = document.createElement('div');
     playIndicator.className = 'play-indicator';
-    playIndicator.textContent = '⏸';
+    playIndicator.textContent = '';
     document.body.appendChild(playIndicator);
 
     setInterval(() => {
-      playIndicator.textContent = autoScrollSpeed === 0 ? '⏸' : (autoScrollSpeed > 0 ? '▶' + (autoScrollSpeed / 3) : '◀' + (Math.abs(autoScrollSpeed) / 3));
-      playIndicator.classList.toggle('active', autoScrollSpeed !== 0);
-    }, 100);
+      if (autoScrollSpeed === 0) {
+        playIndicator.classList.remove('active');
+      } else {
+        playIndicator.classList.add('active');
+        playIndicator.textContent = autoScrollSpeed > 0 ? '▶ 3x' : '◀ 3x';
+      }
+    }, 80);
 
     // ============================================================
     // 14. MINI-JEU DE MONTAGE (easter egg)
@@ -916,7 +946,6 @@
     let gameNext = 1;
     let gameErrors = 0;
 
-    // Easter egg : taper "MONTAGE"
     let typed = '';
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
@@ -948,7 +977,6 @@
       gameResult.className = 'game-result';
       gameStartTime = performance.now();
 
-      // Crée 5 rushes dans un ordre aléatoire
       const numbers = [1, 2, 3, 4, 5];
       const shuffled = numbers.slice().sort(() => Math.random() - 0.5);
 
@@ -959,15 +987,13 @@
         clip.dataset.num = num;
         clip.textContent = num;
 
-        // Couleurs variées pour chaque clip
-        const hue = (num - 1) * 60 + 240; // Violet → Bleu → Cyan → Vert → Jaune
+        const hue = (num - 1) * 60 + 240;
         clip.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 45%), hsl(${hue}, 70%, 30%))`;
 
         clip.addEventListener('click', () => handleClipClick(clip, num));
         gameBoard.appendChild(clip);
       });
 
-      // Timer
       if (gameInterval) clearInterval(gameInterval);
       gameInterval = setInterval(() => {
         if (!gameActive) return;
@@ -985,7 +1011,6 @@
         gameNext++;
 
         if (gameNext > 5) {
-          // Gagné !
           gameActive = false;
           clearInterval(gameInterval);
           const elapsed = (performance.now() - gameStartTime) / 1000;
@@ -1000,7 +1025,6 @@
           gameResult.classList.add('success');
         }
       } else {
-        // Erreur
         gameErrors++;
         gameErrorsEl.textContent = gameErrors;
         clip.classList.add('error');
