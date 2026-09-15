@@ -22,9 +22,11 @@
 
   <style>
     /* ============================================================
-       STYLES D'ÉCRAN
+       OVERRIDE LOCAL : contraste renforcé sur le rapport
        ============================================================ */
     body {
+      --muted: #b4b4bc;
+      --ink: #f5f5f7;
       padding: 40px 20px;
       max-width: 1100px;
       margin: 0 auto;
@@ -32,6 +34,9 @@
       font-family: 'Poppins', sans-serif;
     }
 
+    /* ============================================================
+       NAV RETOUR
+       ============================================================ */
     .back-nav {
       margin-bottom: 30px;
       font-size: 14px;
@@ -50,6 +55,9 @@
       border-color: var(--accent);
     }
 
+    /* ============================================================
+       PAGE DE COUVERTURE
+       ============================================================ */
     .cover {
       text-align: center;
       padding: 60px 36px;
@@ -57,27 +65,91 @@
       border: 1px solid var(--border);
       border-radius: 16px;
       margin-bottom: 40px;
+      position: relative;
+      overflow: hidden;
+    }
+    .cover::before {
+      content: '';
+      position: absolute;
+      top: -50%; left: 50%;
+      transform: translateX(-50%);
+      width: 500px; height: 500px;
+      background: radial-gradient(circle, rgba(91,43,255,0.12) 0%, transparent 70%);
+      pointer-events: none;
     }
     .cover h1 {
       font-size: 3.2rem;
       margin-bottom: 0.2em;
       color: var(--ink);
+      position: relative;
     }
     .cover .subtitle {
-      font-size: 1.3rem;
-      color: var(--muted);
+      font-size: 1.15rem;
+      color: #d8d8de;
+      font-weight: 400;
+      letter-spacing: 0.02em;
+      position: relative;
+    }
+    .cover .subtitle strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+    .cover .rapport-title {
+      margin: 1.4em 0 1em;
+      font-size: 1.5rem;
       font-weight: 300;
+      letter-spacing: 0.35em;
+      color: var(--ink);
+      text-transform: uppercase;
+      position: relative;
+    }
+    .cover .rapport-title::before,
+    .cover .rapport-title::after {
+      content: '';
+      display: inline-block;
+      width: 40px;
+      height: 1px;
+      background: var(--accent);
+      vertical-align: middle;
+      margin: 0 16px;
+      opacity: 0.6;
+    }
+    .cover .subject {
+      font-size: 1.05rem;
+      color: #d8d8de;
+      position: relative;
+    }
+    .cover .subject span {
+      color: var(--accent);
+      font-weight: 500;
     }
     .cover .info {
-      margin-top: 1.5em;
-      font-size: 1rem;
-      color: var(--muted);
+      margin-top: 1.8em;
+      font-size: 0.95rem;
+      color: #c8c8d0;
+      display: flex;
+      justify-content: center;
+      gap: 8px 28px;
+      flex-wrap: wrap;
+      position: relative;
     }
     .cover .info span {
-      display: inline-block;
-      margin: 0 16px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .cover .info span::before {
+      content: '';
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+      border-radius: 50%;
+      flex-shrink: 0;
     }
 
+    /* ============================================================
+       REMERCIEMENTS
+       ============================================================ */
     .remerciements {
       background: var(--bg2);
       border-left: 4px solid var(--accent);
@@ -91,7 +163,14 @@
       color: var(--accent);
       font-size: 1.3rem;
     }
+    .remerciements p {
+      color: var(--ink);
+      line-height: 1.8;
+    }
 
+    /* ============================================================
+       SOMMAIRE
+       ============================================================ */
     .sommaire {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -113,7 +192,7 @@
       justify-content: space-between;
       padding: 4px 0;
       font-size: 0.95rem;
-      color: var(--muted);
+      color: var(--ink);
       border-bottom: 1px solid var(--border);
     }
     .sommaire-item .page {
@@ -121,6 +200,9 @@
       font-weight: 500;
     }
 
+    /* ============================================================
+       SECTIONS DU RAPPORT
+       ============================================================ */
     .section-rapport {
       background: var(--bg2);
       border: 1px solid var(--border);
@@ -154,7 +236,7 @@
     .section-rapport ul,
     .section-rapport ol {
       padding-left: 24px;
-      color: var(--muted);
+      color: var(--ink);
     }
     .section-rapport li {
       padding: 4px 0;
@@ -168,7 +250,7 @@
     }
 
     /* ============================================================
-       STATISTIQUES — DESIGN INNOVANT (pas de fond gris à l'impression)
+       STATS GRID
        ============================================================ */
     .stats-grid {
       display: grid;
@@ -186,9 +268,7 @@
       clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
       transition: transform 0.2s;
     }
-    .stat-item:hover {
-      transform: translateY(-4px);
-    }
+    .stat-item:hover { transform: translateY(-4px); }
     .stat-item .number {
       font-size: 2.2rem;
       font-weight: 700;
@@ -197,32 +277,337 @@
     }
     .stat-item .label {
       font-size: 12px;
-      color: var(--muted);
+      color: var(--ink);
       margin-top: 6px;
       text-transform: uppercase;
       letter-spacing: 0.08em;
+      opacity: 0.85;
     }
-    /* Variation 2 : bordure épaisse en bas */
     .stat-item:nth-child(2) {
       border: none;
       border-bottom: 4px solid var(--accent);
       clip-path: none;
       padding-bottom: 20px;
     }
-    /* Variation 3 : double bordure */
     .stat-item:nth-child(3) {
       border: none;
       border-top: 3px solid var(--accent);
       border-bottom: 3px solid var(--accent);
       clip-path: none;
     }
-    /* Variation 4 : coin coupé */
     .stat-item:nth-child(4) {
       border: 2px solid var(--accent);
       clip-path: polygon(0 0, 85% 0, 100% 15%, 100% 100%, 0 100%);
-      background: linear-gradient(135deg, rgba(91,43,255,0.05) 0%, transparent 50%);
+      background: linear-gradient(135deg, rgba(91,43,255,0.06) 0%, transparent 50%);
     }
 
+    /* ============================================================
+       FRISE CHRONOLOGIQUE
+       ============================================================ */
+    .timeline-hist {
+      position: relative;
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      margin: 36px 0 44px;
+      padding: 30px 10px 0;
+      flex-wrap: wrap;
+    }
+    .timeline-hist-line {
+      position: absolute;
+      left: 10px;
+      right: 10px;
+      top: 22px;
+      height: 2px;
+      background: linear-gradient(90deg, transparent, var(--accent) 10%, var(--accent) 90%, transparent);
+    }
+    .timeline-hist-item {
+      position: relative;
+      flex: 1;
+      min-width: 100px;
+      text-align: center;
+      padding-top: 28px;
+    }
+    .timeline-hist-dot {
+      position: absolute;
+      top: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: var(--accent);
+      border: 3px solid var(--bg2);
+      box-shadow: 0 0 0 2px var(--accent), 0 0 12px var(--accent-glow);
+      z-index: 2;
+    }
+    .timeline-hist-year {
+      font-weight: 700;
+      color: var(--accent);
+      font-size: 1rem;
+      margin-bottom: 4px;
+    }
+    .timeline-hist-label {
+      font-size: 0.78rem;
+      line-height: 1.4;
+      color: var(--ink);
+      opacity: 0.9;
+    }
+
+    /* ============================================================
+       DUO-BLOCK
+       ============================================================ */
+    .duo-block {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 18px;
+      margin: 28px 0;
+    }
+    .duo-item {
+      padding: 20px 22px;
+      border-left: 3px solid var(--accent);
+      background: rgba(91,43,255,0.05);
+      border-radius: 0 10px 10px 0;
+    }
+    .duo-item h4 {
+      margin-top: 0 !important;
+      color: var(--accent) !important;
+      font-size: 0.85rem !important;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 8px !important;
+    }
+    .duo-item p {
+      font-size: 0.92rem;
+      line-height: 1.7;
+      margin-bottom: 0 !important;
+    }
+
+    /* ============================================================
+       QUOTE-BLOCK
+       ============================================================ */
+    .quote-block {
+      display: flex;
+      gap: 20px;
+      align-items: flex-start;
+      margin: 28px 0;
+      padding: 24px 28px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, rgba(91,43,255,0.08), rgba(91,43,255,0.02));
+      border-left: 4px solid var(--accent);
+    }
+    .quote-block .quote-icon {
+      font-size: 48px;
+      line-height: 1;
+      color: var(--accent);
+      font-family: Georgia, serif;
+      flex-shrink: 0;
+      opacity: 0.7;
+    }
+    .quote-block .quote-text {
+      font-style: italic;
+      line-height: 1.75;
+      color: var(--ink);
+      margin: 0;
+    }
+    .quote-block .quote-author {
+      display: block;
+      margin-top: 10px;
+      font-style: normal;
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      letter-spacing: 0.02em;
+    }
+
+    /* ============================================================
+       KEY-FIGS
+       ============================================================ */
+    .key-figs {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 14px;
+      margin: 28px 0;
+    }
+    .key-fig {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 16px 20px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+    }
+    .key-fig-icon {
+      font-size: 26px;
+      flex-shrink: 0;
+      filter: drop-shadow(0 0 8px rgba(91,43,255,0.35));
+    }
+    .key-fig-text { display: flex; flex-direction: column; }
+    .key-fig-number {
+      font-size: 1.35rem;
+      font-weight: 700;
+      color: var(--accent);
+      line-height: 1.1;
+    }
+    .key-fig-label {
+      font-size: 0.78rem;
+      color: var(--ink);
+      opacity: 0.8;
+      margin-top: 2px;
+    }
+
+    /* ============================================================
+       DONUT
+       ============================================================ */
+    .chart-block {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 36px;
+      align-items: center;
+      margin: 32px 0;
+      padding: 28px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+    }
+    .chart-block .chart-title {
+      grid-column: 1 / -1;
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 6px;
+    }
+    .donut {
+      width: 200px;
+      height: 200px;
+      border-radius: 50%;
+      background: conic-gradient(
+        #5b2bff 0deg 144deg,
+        #8a6bff 144deg 234deg,
+        #b8a3ff 234deg 306deg,
+        #e0d6ff 306deg 360deg
+      );
+      position: relative;
+      margin: 0 auto;
+      box-shadow: 0 0 30px rgba(91,43,255,0.15);
+    }
+    .donut::after {
+      content: '';
+      position: absolute;
+      inset: 44px;
+      background: var(--bg2);
+      border-radius: 50%;
+      border: 1px solid var(--border);
+    }
+    .donut-center {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      z-index: 2;
+      text-align: center;
+    }
+    .donut-center strong {
+      color: var(--accent);
+      font-size: 1.6rem;
+      font-weight: 700;
+      line-height: 1;
+    }
+    .donut-center span {
+      color: var(--ink);
+      font-size: 0.72rem;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      opacity: 0.7;
+      margin-top: 4px;
+    }
+    .donut-legend {
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+    }
+    .donut-legend-item {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.9rem;
+    }
+    .donut-legend-swatch {
+      width: 16px;
+      height: 16px;
+      border-radius: 4px;
+      flex-shrink: 0;
+    }
+    .donut-legend-label {
+      flex: 1;
+      color: var(--ink);
+    }
+    .donut-legend-value {
+      font-weight: 700;
+      color: var(--accent);
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================================
+       BARRES
+       ============================================================ */
+    .bars {
+      margin: 32px 0;
+      padding: 28px;
+      border-radius: 14px;
+      border: 1px solid var(--border);
+      background: rgba(255,255,255,0.015);
+    }
+    .bars-title {
+      font-size: 0.82rem;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    .bar-row {
+      display: grid;
+      grid-template-columns: 160px 1fr 70px;
+      gap: 16px;
+      align-items: center;
+      margin-bottom: 16px;
+    }
+    .bar-row:last-child { margin-bottom: 0; }
+    .bar-label {
+      font-size: 0.88rem;
+      color: var(--ink);
+      font-weight: 500;
+    }
+    .bar-track {
+      height: 16px;
+      background: rgba(91,43,255,0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), #8a6bff);
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(91,43,255,0.35);
+    }
+    .bar-value {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 700;
+      text-align: right;
+      font-variant-numeric: tabular-nums;
+    }
+
+    /* ============================================================
+       ILLUSTRATIONS
+       ============================================================ */
     .illustration {
       margin: 30px 0;
       text-align: center;
@@ -236,7 +621,8 @@
     .illustration .legende {
       margin-top: 10px;
       font-size: 13px;
-      color: var(--muted);
+      color: var(--ink);
+      opacity: 0.8;
       font-style: italic;
       line-height: 1.6;
     }
@@ -245,6 +631,9 @@
       font-style: normal;
     }
 
+    /* ============================================================
+       LEXIQUE
+       ============================================================ */
     .lexique-item {
       display: flex;
       gap: 20px;
@@ -257,47 +646,47 @@
       color: var(--accent);
     }
     .lexique-item .def {
-      color: var(--muted);
+      color: var(--ink);
+      opacity: 0.9;
     }
 
+    /* ============================================================
+       FOOTER RAPPORT
+       ============================================================ */
     .footer-rapport {
       text-align: center;
       padding: 40px 0 20px;
       border-top: 1px solid var(--border);
-      color: var(--muted);
+      color: var(--ink);
+      opacity: 0.7;
       font-size: 0.85rem;
     }
 
+    /* ============================================================
+       RESPONSIVE
+       ============================================================ */
     @media (max-width: 700px) {
-      body {
-        padding: 16px;
-      }
-      .section-rapport {
-        padding: 20px;
-      }
-      .cover {
-        padding: 40px 20px;
-      }
-      .cover h1 {
-        font-size: 2.4rem;
-      }
-      .sommaire {
-        grid-template-columns: 1fr;
-      }
-      .lexique-item {
-        flex-direction: column;
-        gap: 4px;
-      }
-      .lexique-item .term {
-        min-width: auto;
-      }
-      .stats-grid {
-        grid-template-columns: 1fr 1fr;
-      }
+      body { padding: 16px; }
+      .section-rapport { padding: 20px; }
+      .cover { padding: 40px 20px; }
+      .cover h1 { font-size: 2.4rem; }
+      .cover .rapport-title { font-size: 1.1rem; letter-spacing: 0.2em; }
+      .cover .rapport-title::before,
+      .cover .rapport-title::after { width: 20px; margin: 0 8px; }
+      .sommaire { grid-template-columns: 1fr; }
+      .lexique-item { flex-direction: column; gap: 4px; }
+      .lexique-item .term { min-width: auto; }
+      .stats-grid { grid-template-columns: 1fr 1fr; }
+      .duo-block { grid-template-columns: 1fr; }
+      .chart-block { grid-template-columns: 1fr; }
+      .bar-row { grid-template-columns: 110px 1fr 55px; gap: 10px; }
+      .bar-label { font-size: 0.78rem; }
+      .timeline-hist { padding-top: 20px; }
+      .timeline-hist-item { min-width: 70px; }
     }
 
     /* ============================================================
-       IMPRESSION — SANS FOND GRIS, SANS COUPURES
+       IMPRESSION — CONTRASTE MAXIMAL
        ============================================================ */
     @media print {
       @page {
@@ -307,52 +696,62 @@
           content: counter(page);
           font-family: 'Poppins', sans-serif;
           font-size: 10pt;
-          color: #555;
+          color: #333;
         }
         @bottom-left {
           content: "Rapport de stage – Robin Martinent";
           font-family: 'Poppins', sans-serif;
           font-size: 9pt;
-          color: #888;
+          color: #444;
         }
       }
 
       :root {
         --bg: #fff;
         --bg2: #fff;
-        --ink: #111;
-        --muted: #555;
-        --border: #ddd;
-        --accent: #5b2bff;
+        --ink: #000;
+        --muted: #222;
+        --border: #b8b8b8;
+        --accent: #3a1ab8;
+      }
+      body {
+        --muted: #222;
+        --ink: #000;
       }
 
       body {
         padding: 0;
         background: #fff !important;
-        color: #111;
+        color: #000;
         font-size: 11pt;
         line-height: 1.5;
         max-width: 100%;
       }
 
-      .back-nav {
-        display: none !important;
-      }
+      .back-nav { display: none !important; }
 
-      #introduction {
-        counter-reset: page 1;
-      }
+      #introduction { counter-reset: page 1; }
 
-      /* ---- Fonds transparents à l'impression ---- */
       .section-rapport,
       .cover,
       .remerciements,
       .sommaire,
       .stat-item,
+      .duo-item,
+      .quote-block,
+      .key-fig,
+      .chart-block,
+      .bars,
       .illustration img {
         background: #fff !important;
-        border-color: #ddd !important;
+        border-color: #b8b8b8 !important;
+        box-shadow: none !important;
       }
+
+      .cover::before { display: none !important; }
+      .cover .subtitle,
+      .cover .subject,
+      .cover .info { color: #222 !important; }
 
       .section-rapport {
         page-break-inside: auto;
@@ -362,15 +761,9 @@
         border-radius: 8px !important;
       }
 
-      .cover {
-        page-break-after: always;
-      }
-      .remerciements {
-        page-break-after: always;
-      }
-      .sommaire {
-        page-break-after: always;
-      }
+      .cover { page-break-after: always; }
+      .remerciements { page-break-after: always; }
+      .sommaire { page-break-after: always; }
 
       .section-rapport h2,
       .section-rapport h3,
@@ -379,11 +772,60 @@
         break-after: avoid;
         page-break-inside: avoid;
         break-inside: avoid;
+        color: #000 !important;
       }
+      .section-rapport h2 { color: #3a1ab8 !important; }
+      .section-rapport h4 { color: #000 !important; }
 
-      .section-rapport p {
-        orphans: 3;
-        widows: 3;
+      .section-rapport p { color: #000 !important; }
+      .section-rapport ul,
+      .section-rapport ol,
+      .section-rapport li { color: #000 !important; }
+
+      .section-rapport p { orphans: 3; widows: 3; }
+
+      .duo-item h4 { color: #3a1ab8 !important; }
+      .duo-item p { color: #000 !important; }
+
+      .quote-block {
+        border-left-color: #3a1ab8 !important;
+        background: #f7f5ff !important;
+      }
+      .quote-block .quote-text { color: #000 !important; }
+      .quote-block .quote-author { color: #3a1ab8 !important; }
+
+      .key-fig-number { color: #3a1ab8 !important; }
+      .key-fig-label { color: #222 !important; }
+
+      .donut { box-shadow: none !important; }
+      .donut::after {
+        background: #fff !important;
+        border-color: #b8b8b8 !important;
+      }
+      .donut-center strong { color: #3a1ab8 !important; }
+      .donut-center span { color: #222 !important; }
+      .donut-legend-label { color: #000 !important; }
+      .donut-legend-value { color: #3a1ab8 !important; }
+
+      .bar-track {
+        background: #eceaff !important;
+        border: 1px solid #b8b8b8;
+      }
+      .bar-fill { box-shadow: none !important; }
+      .bar-label { color: #000 !important; }
+      .bar-value { color: #3a1ab8 !important; }
+      .bars-title { color: #3a1ab8 !important; }
+      .chart-block .chart-title { color: #3a1ab8 !important; }
+
+      .timeline-hist-dot {
+        background: #3a1ab8 !important;
+        border-color: #fff !important;
+        box-shadow: 0 0 0 2px #3a1ab8 !important;
+      }
+      .timeline-hist-year { color: #3a1ab8 !important; }
+      .timeline-hist-label { color: #000 !important; }
+      .timeline-hist-line {
+        background: linear-gradient(90deg, transparent, #3a1ab8 10%, #3a1ab8 90%, transparent) !important;
       }
 
       .illustration {
@@ -391,72 +833,60 @@
         break-inside: avoid;
         margin: 20px 0;
       }
-
       .illustration img {
-        border-color: #ccc !important;
-        box-shadow: none !important;
+        border-color: #b8b8b8 !important;
         max-width: 100%;
       }
+      .illustration .legende { color: #222 !important; font-size: 10pt; }
+      .illustration .legende strong { color: #3a1ab8 !important; }
 
-      .illustration .legende {
-        color: #555 !important;
-        font-size: 10pt;
-      }
-
-      .stats-grid {
+      .stats-grid,
+      .duo-block,
+      .key-figs,
+      .chart-block,
+      .bars,
+      .quote-block {
         page-break-inside: avoid;
         break-inside: avoid;
       }
 
+      .timeline-hist { page-break-inside: avoid; break-inside: avoid; }
+
       .stat-item {
-        border-color: #5b2bff !important;
-        clip-path: none !important; /* Supprimer les clip-path à l'impression pour éviter les artefacts */
+        border-color: #3a1ab8 !important;
+        clip-path: none !important;
         background: #fff !important;
       }
+      .stat-item .number { color: #3a1ab8 !important; }
+      .stat-item .label { color: #222 !important; opacity: 1 !important; }
 
       .lexique-item {
         page-break-inside: avoid;
         break-inside: avoid;
       }
+      .lexique-item .term { color: #3a1ab8 !important; }
+      .lexique-item .def { color: #000 !important; opacity: 1 !important; }
 
-      ul, ol {
-        page-break-inside: auto;
-      }
-      li {
-        page-break-inside: avoid;
-        break-inside: avoid;
-      }
-      p, li {
-        orphans: 3;
-        widows: 3;
-      }
+      .sommaire-item { color: #000 !important; }
+      .sommaire-item .page { color: #3a1ab8 !important; }
+      .sommaire .title { color: #3a1ab8 !important; }
 
-      .section-rapport {
-        margin-top: 0 !important;
-        margin-bottom: 0 !important;
-      }
+      ul, ol { page-break-inside: auto; }
+      li { page-break-inside: avoid; break-inside: avoid; }
+      p, li { orphans: 3; widows: 3; }
 
+      .section-rapport { margin-top: 0 !important; margin-bottom: 0 !important; }
       .section-rapport h3,
       .section-rapport h4 {
         page-break-before: avoid;
         break-before: avoid;
       }
 
-      a {
-        color: #5b2bff !important;
-        text-decoration: none;
-      }
+      a { color: #3a1ab8 !important; text-decoration: none; }
     }
 
-    /* ============================================================
-       RÉACTIVER LE CURSEUR PAR DÉFAUT SUR LE RAPPORT
-       ============================================================ */
-    body * {
-      cursor: auto !important;
-    }
-    body {
-      cursor: default !important;
-    }
+    body * { cursor: auto !important; }
+    body { cursor: default !important; }
   </style>
 </head>
 <body>
@@ -468,15 +898,15 @@
   <!-- ===== PAGE DE COUVERTURE ===== -->
   <div class="cover">
     <h1>Robin <span style="color: var(--accent);">Martinent</span></h1>
-    <div class="subtitle">1ère année Bachelor Réalisateur Monteur</div>
-    <div style="margin: 1.2em 0; font-size: 1.6rem; font-weight: 300; color: var(--muted);">RAPPORT DE STAGE</div>
-    <div style="font-size: 1.1rem; color: var(--muted);">
-      Monteur vidéo au sein de l'association <span style="color: var(--accent);">Shaolin Shadow</span>
+    <div class="subtitle">1<sup>ère</sup> année · <strong>Bachelor Réalisateur Monteur</strong></div>
+    <div class="rapport-title">Rapport de Stage</div>
+    <div class="subject">
+      Monteur vidéo au sein de l'association <span>Shaolin Shadow</span>
     </div>
     <div class="info">
-      <span>Entreprise : Shaolin Shadow (Grenoble)</span>
-      <span>Durée : 6 semaines</span>
-      <span>Année scolaire 2025-2026</span>
+      <span>Shaolin Shadow · Grenoble</span>
+      <span>6 semaines</span>
+      <span>2025 – 2026</span>
     </div>
   </div>
 
@@ -519,6 +949,37 @@
 
     <p>Ma formation m'a permis d'acquérir les bases techniques du montage vidéo, du motion design, de l'ingest, de la gestion des proxys et des exports. J'ai également eu l'occasion de mener des projets concrets, comme le montage d'un événement (le rassemblement Porsche organisé par Shaolin Shadow) et la réalisation de la showreel annuelle de l'association pour l'année 2025. Ces expériences m'ont conforté dans mon aspiration à devenir monteur vidéo et réalisateur de documentaires. Toutefois, je ressentais le besoin de confronter ces apprentissages à un environnement professionnel plus exigeant, où la rigueur, la méthode et le travail en équipe priment sur la simple maîtrise technique.</p>
 
+    <div class="key-figs">
+      <div class="key-fig">
+        <div class="key-fig-icon">📅</div>
+        <div class="key-fig-text">
+          <div class="key-fig-number">6 semaines</div>
+          <div class="key-fig-label">Durée du stage</div>
+        </div>
+      </div>
+      <div class="key-fig">
+        <div class="key-fig-icon">🎬</div>
+        <div class="key-fig-text">
+          <div class="key-fig-number">4 projets</div>
+          <div class="key-fig-label">Réalisés / finalisés</div>
+        </div>
+      </div>
+      <div class="key-fig">
+        <div class="key-fig-icon">⏱️</div>
+        <div class="key-fig-text">
+          <div class="key-fig-number">35 h / sem.</div>
+          <div class="key-fig-label">Lundi au vendredi</div>
+        </div>
+      </div>
+      <div class="key-fig">
+        <div class="key-fig-icon">🎓</div>
+        <div class="key-fig-text">
+          <div class="key-fig-number">25 fps</div>
+          <div class="key-fig-label">Sortie HD 1080p</div>
+        </div>
+      </div>
+    </div>
+
     <p>Le choix de Shaolin Shadow répondait à deux motivations principales. D'une part, l'association est reconnue dans le paysage audiovisuel grenoblois pour la qualité de ses productions et son engagement en faveur de l'accès à l'audiovisuel pour tous. D'autre part, ce stage devait me permettre de confirmer mon goût pour le montage vidéo dans un contexte plus structuré que celui de mes projets scolaires habituels. Je souhaitais notamment apprendre à travailler dans le cadre d'une production collective, où plusieurs personnes peuvent être amenées à intervenir sur un même projet, et où la normalisation des méthodes de travail est essentielle.</p>
 
     <p>Le métier de monteur vidéo est aujourd'hui en pleine évolution. Les habitudes de consommation du public se tournent de plus en plus vers des contenus courts et dynamiques, ce qui impose aux monteurs de repenser leur rythme et leur narration. Par ailleurs, l'intelligence artificielle fait son entrée dans les logiciels de post-production. Si l'IA ne remplacera jamais un monteur, car le montage est avant tout un acte de création et d'interprétation du réel, elle modifie en profondeur les méthodes de travail en automatisant certaines tâches répétitives. Le monteur de demain sera davantage un chef d'orchestre, un second réalisateur qui donne une perspective nouvelle aux séquences tournées et qui collabore étroitement avec le réalisateur pour atteindre une vision commune. Ce stage m'a précisément permis d'explorer cette dimension artistique et collaborative du métier.</p>
@@ -540,7 +1001,43 @@
 
     <p>Créée à une époque où l'accès au matériel audiovisuel professionnel était encore très coûteux et réservé à une élite, Shaolin Shadow a voulu dès ses débuts démocratiser la pratique du cinéma et de la vidéo. L'association s'est rapidement imposée comme une référence associative dans le paysage grenoblois, avant d'étendre progressivement son activité jusqu'en Île-de-France, notamment à Ivry-sur-Seine et aujourd'hui à La Courneuve.</p>
 
-    <p>Depuis sa création, Shaolin Shadow a connu plusieurs étapes marquantes. Dans les premières années, l'association s'est concentrée sur la production de courts-métrages et de clips, tout en développant des ateliers de formation. En 2006, elle remporte le concours Oroleis avec le court-métrage <em>Rêves Grisés</em>, ce qui lui apporte une première reconnaissance. En 2014, le court-métrage <em>Le Jour du Dragon</em> est élu Prix du Jury à la Scène Ouverte Cinématographique de Grenoble. En 2017, <em>Au Pied de la Montagne</em> est sélectionné au Short Film Corner du Festival de Cannes. Enfin, en 2019, la web-série <em>Jean 2 Mahj</em> est promue à deux reprises au Festival de Luchon. Ces récompenses témoignent de la qualité du travail fourni par l'association et de sa capacité à s'imposer dans un secteur très concurrentiel.</p>
+    <p>Depuis sa création, Shaolin Shadow a connu plusieurs étapes marquantes. Dans les premières années, l'association s'est concentrée sur la production de courts-métrages et de clips, tout en développant des ateliers de formation.</p>
+
+    <div class="timeline-hist">
+      <div class="timeline-hist-line"></div>
+      <div class="timeline-hist-item">
+        <div class="timeline-hist-dot"></div>
+        <div class="timeline-hist-year">2004</div>
+        <div class="timeline-hist-label">Fondation à Grenoble</div>
+      </div>
+      <div class="timeline-hist-item">
+        <div class="timeline-hist-dot"></div>
+        <div class="timeline-hist-year">2006</div>
+        <div class="timeline-hist-label">Prix Oroleis<br><em>Rêves Grisés</em></div>
+      </div>
+      <div class="timeline-hist-item">
+        <div class="timeline-hist-dot"></div>
+        <div class="timeline-hist-year">2014</div>
+        <div class="timeline-hist-label">Prix du Jury<br><em>Le Jour du Dragon</em></div>
+      </div>
+      <div class="timeline-hist-item">
+        <div class="timeline-hist-dot"></div>
+        <div class="timeline-hist-year">2017</div>
+        <div class="timeline-hist-label">Sélection Cannes<br><em>Au Pied de la Montagne</em></div>
+      </div>
+      <div class="timeline-hist-item">
+        <div class="timeline-hist-dot"></div>
+        <div class="timeline-hist-year">2019</div>
+        <div class="timeline-hist-label">Festival de Luchon<br><em>Jean 2 Mahj</em></div>
+      </div>
+      <div class="timeline-hist-item">
+        <div class="timeline-hist-dot"></div>
+        <div class="timeline-hist-year">2025</div>
+        <div class="timeline-hist-label">Nouveaux partenaires<br>(La Courneuve · 93)</div>
+      </div>
+    </div>
+
+    <p>Ces récompenses témoignent de la qualité du travail fourni par l'association et de sa capacité à s'imposer dans un secteur très concurrentiel.</p>
 
     <div class="stats-grid">
       <div class="stat-item">
@@ -569,7 +1066,51 @@
 
     <p>L'objectif affiché de Shaolin Shadow est de donner accès à l'audiovisuel au plus grand nombre. Cette mission se décline autour de deux axes complémentaires : la création et la diffusion d'œuvres audiovisuelles, et la formation de ses membres et du public aux différents métiers de l'audiovisuel. Le savoir-être, le savoir-faire et le savoir-vivre sont les valeurs fortes de l'équipe, qui se retrouvent au cœur des formations et des réalisations.</p>
 
+    <div class="duo-block">
+      <div class="duo-item">
+        <h4>Axe 1 — Création</h4>
+        <p>Production et diffusion d'œuvres audiovisuelles : clips, courts-métrages, captations, contenus institutionnels et reportages. Chaque projet est porté par un réalisateur ou un chef de projet, avec une équipe technique dédiée.</p>
+      </div>
+      <div class="duo-item">
+        <h4>Axe 2 — Formation</h4>
+        <p>Transmission des savoirs aux membres et au public, via l'école « Ça Tourne ! » et des ateliers accessibles. Objectif : rendre l'audiovisuel accessible à tous, sans barrière financière ni prérequis technique.</p>
+      </div>
+    </div>
+
     <p>Shaolin Shadow produit des contenus très variés, qui reflètent la diversité de ses membres et de ses publics. Les clips musicaux constituent une part importante de son activité, en particulier dans le milieu du rap et des musiques urbaines, en phase avec les réalités sociales des quartiers populaires. Les courts-métrages abordent des thématiques fortes comme l'identité, l'exclusion, l'espoir ou la résistance, et ont valu à l'association des récompenses dans des festivals. L'association produit également des contenus institutionnels, des reportages, des captations d'événements et des projets de médiation culturelle.</p>
+
+    <div class="chart-block">
+      <div class="chart-title">Répartition indicative des productions</div>
+      <div style="position: relative;">
+        <div class="donut"></div>
+        <div class="donut-center">
+          <strong>79</strong>
+          <span>projets</span>
+        </div>
+      </div>
+      <div class="donut-legend">
+        <div class="donut-legend-item">
+          <span class="donut-legend-swatch" style="background:#5b2bff;"></span>
+          <span class="donut-legend-label">Clips musicaux</span>
+          <span class="donut-legend-value">~40 %</span>
+        </div>
+        <div class="donut-legend-item">
+          <span class="donut-legend-swatch" style="background:#8a6bff;"></span>
+          <span class="donut-legend-label">Courts-métrages</span>
+          <span class="donut-legend-value">~25 %</span>
+        </div>
+        <div class="donut-legend-item">
+          <span class="donut-legend-swatch" style="background:#b8a3ff;"></span>
+          <span class="donut-legend-label">Captations / événements</span>
+          <span class="donut-legend-value">~20 %</span>
+        </div>
+        <div class="donut-legend-item">
+          <span class="donut-legend-swatch" style="background:#e0d6ff;"></span>
+          <span class="donut-legend-label">Institutionnel / médiation</span>
+          <span class="donut-legend-value">~15 %</span>
+        </div>
+      </div>
+    </div>
 
     <p>La mission sociale de Shaolin Shadow est essentielle. L'association propose des formations à des tarifs très accessibles, ne couvrant que les frais élémentaires, afin de ne pas exclure les publics défavorisés. Cette politique tarifaire permet à des jeunes de quartiers populaires, à des demandeurs d'emploi ou à des personnes en reconversion de se former aux métiers de l'audiovisuel sans barrière financière. C'est une véritable action de démocratisation culturelle.</p>
 
@@ -580,6 +1121,30 @@
     <p>L'enseignement se distingue par plusieurs atouts majeurs : un apprentissage pratique important, un enseignement théorique dispensé en parallèle, des tournages encadrés par des professionnels, la validation du parcours par un certificat après la réalisation d'une fiction, et un lot d'expériences riches pour densifier le CV des élèves.</p>
 
     <p>Deux formats d'enseignement sont proposés. Le Magistral, à Grenoble et dès 18 ans, est un enseignement complet sur deux ans, cinq jours sur sept, avec réalisation d'un long-métrage en fin de parcours. Il propose deux sections : Technique de Réalisation et Gestion de Production. Le Cours Hebdomadaire, à Grenoble et à La Courneuve dès 16 ans, est un enseignement pratique et théorique les mercredis et dimanches, en deux sections : Technique de Réalisation et Acting, ce dernier étant basé sur les méthodes de Stanislawski et de l'Actor's Studio.</p>
+
+    <div class="bars">
+      <div class="bars-title">Répartition indicative des bénévoles par pôle</div>
+      <div class="bar-row">
+        <div class="bar-label">Production / tournage</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 35%;"></div></div>
+        <div class="bar-value">35 %</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Post-production</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 30%;"></div></div>
+        <div class="bar-value">30 %</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Formation / école</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 20%;"></div></div>
+        <div class="bar-value">20 %</div>
+      </div>
+      <div class="bar-row">
+        <div class="bar-label">Administration</div>
+        <div class="bar-track"><div class="bar-fill" style="width: 15%;"></div></div>
+        <div class="bar-value">15 %</div>
+      </div>
+    </div>
 
     <p>L'école fonctionne avec des professionnels du secteur qui interviennent régulièrement pour encadrer les élèves et leur transmettre leur expérience de terrain. Les formations sont conçues pour répondre aux besoins du marché et préparer les étudiants à une insertion rapide dans le monde professionnel. Le taux de réussite et la satisfaction des anciens élèves sont des indicateurs qui confirment la pertinence de cette approche pédagogique.</p>
 
@@ -630,7 +1195,33 @@
 
     <p>Le métier exige à la fois des compétences techniques pointues et une sensibilité artistique. Le monteur doit être capable de comprendre l'intention du réalisateur et de la transcrire à travers le choix des plans, des transitions et du rythme. C'est un métier de compromis et de dialogue, où la collaboration est essentielle pour aboutir à un résultat satisfaisant.</p>
 
-    <p>Pour parfaire ma compréhension du métier, j'ai étudié les théories de plusieurs grands monteurs. Sergei Eisenstein, dans <em>Forme du film</em>, développe le concept de « montage des attractions », où l'alternance de motifs crée un choc chez le spectateur et une visée thématique[reference:0]. Edward Dmytryk, dans <em>Sur le montage filmique</em>, insiste sur la règle fondamentale : « jamais de coupe sans raison positive »[reference:1]. Enfin, Walter Murch, dans <em>À l'œil nu</em>, propose sa « Règle des Six », où l'émotion prime sur tout le reste[reference:2]. Ces lectures ont profondément influencé ma pratique.</p>
+    <p>Pour parfaire ma compréhension du métier, j'ai étudié les théories de plusieurs grands monteurs :</p>
+
+    <div class="quote-block">
+      <div class="quote-icon">"</div>
+      <div>
+        <p class="quote-text">Le montage des attractions consiste à assembler des images-chocs qui, mises bout à bout, produisent un effet thématique et émotionnel chez le spectateur.</p>
+        <span class="quote-author">— Sergei Eisenstein, <em>Forme du film</em> (1949)</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-icon">"</div>
+      <div>
+        <p class="quote-text">Jamais de coupe sans raison positive. Chaque plan doit justifier sa présence par rapport à celui qui le précède et à celui qui le suit.</p>
+        <span class="quote-author">— Edward Dmytryk, <em>Sur le montage filmique</em> (1984)</span>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <div class="quote-icon">"</div>
+      <div>
+        <p class="quote-text">Ma règle des Six classe les critères d'une bonne coupe : l'émotion d'abord, puis l'histoire, le rythme, l'eye-trace, la planéité et enfin l'espace 3D. L'émotion prime sur tout le reste.</p>
+        <span class="quote-author">— Walter Murch, <em>À l'œil nu</em> (2001)</span>
+      </div>
+    </div>
+
+    <p>Ces lectures ont profondément influencé ma pratique.</p>
 
     <h3>2.4 Description détaillée des missions</h3>
 
@@ -644,7 +1235,6 @@
 
     <p>J'ai également réalisé deux autres variantes pour des projets distincts. Pour une vidéo de présentation, j'ai animé le logo Shaolin Shadow en métal, sur lequel un rayon de lumière venait balayer la surface, créant un effet de brillance réaliste. Pour l'école « Ça Tourne ! », j'ai reproduit en 3D le clap du logo existant. L'animation montrait le clap se fermer en tournant sur lui-même, puis disparaître dans un flux d'encre. Ces exercices m'ont permis d'explorer différentes techniques de motion design, allant de la simulation de matières à la 3D.</p>
 
-    <!-- ===== ILLUSTRATION 1 ===== -->
     <div class="illustration">
       <img src="images/outro-showreel.png" alt="Animation d'outro showreel Shaolin Shadow" />
       <div class="legende">
@@ -660,7 +1250,6 @@
 
     <p>Mon travail a débuté par la synchronisation des pistes audio, une étape délicate car les prises de son provenaient de sources multiples. J'ai ensuite procédé au dérushage complet des rushes, découpant les passages les plus pertinents pour le montage final. Pour faciliter cette étape, j'ai utilisé un système de codage par couleurs dans DaVinci Resolve : chaque couleur correspondait à un type de contenu (interview, plan de coupe, discours, moments clés). Cette méthode m'a permis de visualiser rapidement la structure du projet et d'identifier les séquences à conserver.</p>
 
-    <!-- ===== ILLUSTRATION 2 ===== -->
     <div class="illustration">
       <img src="images/timeline-porsche.png" alt="Timeline DaVinci Resolve – Rassemblement Porsche" />
       <div class="legende">
@@ -711,11 +1300,25 @@
 
     <p>Ce stage a pleinement répondu à mes attentes. J'ai vécu cette expérience comme une passion et un loisir, tout en restant sérieux et rigoureux. J'ai été agréablement surpris par la bonne cohésion d'équipe et l'ambiance conviviale qui régnait au sein de l'association. La principale surprise, plus mitigée, a été la limitation matérielle des postes de montage, qui m'a cependant appris à m'adapter et à trouver des solutions créatives.</p>
 
-    <p>De cette expérience, je retire trois enseignements majeurs. La rigueur d'abord : le montage vidéo ne se limite pas à la créativité, il exige une organisation méthodique des fichiers, des timelines et des versions successives. Cette rigueur est indispensable, surtout lorsque plusieurs personnes travaillent sur un même projet. J'ai appris à normaliser mon travail, à nommer correctement mes fichiers et à structurer mes dossiers de manière logique. Ces bonnes pratiques, acquises sur le terrain, sont devenues des réflexes professionnels.</p>
+    <p>De cette expérience, je retire trois enseignements majeurs :</p>
 
-    <p>L'originalité ensuite : chaque projet est unique et nécessite une approche personnalisée. Le monteur doit apporter sa sensibilité, sa créativité, son regard singulier sur la matière brute. Ce stage m'a conforté dans l'idée que le montage est un acte de création à part entière, et non une simple exécution technique. La showreel que j'ai réalisée m'a notamment appris à sortir des sentiers battus et à chercher l'originalité dans l'assemblage des images.</p>
+    <div class="duo-block">
+      <div class="duo-item">
+        <h4>01 · La rigueur</h4>
+        <p>Le montage vidéo ne se limite pas à la créativité : il exige une organisation méthodique des fichiers, des timelines et des versions. Une bonne normalisation évite les erreurs quand plusieurs personnes travaillent sur un même projet.</p>
+      </div>
+      <div class="duo-item">
+        <h4>02 · L'originalité</h4>
+        <p>Chaque projet est unique et nécessite une approche personnalisée. Le monteur apporte sa sensibilité et son regard singulier. Le montage est un acte de création à part entière, pas une simple exécution technique.</p>
+      </div>
+    </div>
 
-    <p>La réflexion sur l'attente du public enfin : un monteur ne travaille pas dans son coin, il doit constamment se demander comment son travail sera perçu par le spectateur. Qu'est-ce qui va capter son attention ? Qu'est-ce qui va susciter une émotion ? Comment raconter une histoire en quelques secondes ? Ces questions sont au cœur du métier, et ce stage m'a appris à y réfléchir de manière systématique.</p>
+    <div class="duo-block" style="grid-template-columns: 1fr; margin-top: -10px;">
+      <div class="duo-item">
+        <h4>03 · L'attente du public</h4>
+        <p>Un monteur ne travaille pas dans son coin : il doit constamment se demander comment son travail sera perçu. Qu'est-ce qui capte l'attention ? Qu'est-ce qui suscite une émotion ? Comment raconter une histoire en quelques secondes ? Ces questions sont au cœur du métier.</p>
+      </div>
+    </div>
 
     <p>Ce stage conforte totalement mon choix d'orientation. J'ai découvert que le montage vidéo est une activité que je peux pratiquer avec passion et sérieux, sans jamais me lasser. L'aspect créatif, technique et collaboratif du métier me correspond parfaitement. J'ai découvert que les trois domaines du montage son, de l'étalonnage et du motion design m'intéressent profondément. Si je reconnais que sur les grosses productions chaque poste a sa spécialité, je préfère rester généraliste et pouvoir passer par toutes les étapes d'un projet de A à Z. La satisfaction de voir un projet aboutir du début à la fin, d'avoir contribué à chaque étape, est immense. Je souhaite donc rester un monteur polyvalent, avec une orientation particulière vers le montage et le motion design, qui sont mes domaines de prédilection.</p>
 
