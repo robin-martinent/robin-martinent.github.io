@@ -18,9 +18,6 @@
   <link rel="stylesheet" href="style.css" />
 
   <style>
-    /* ============================================================
-       OVERRIDE LOCAL : contraste renforcé sur le rapport
-       ============================================================ */
     body {
       --muted: #b4b4bc;
       --ink: #f5f5f7;
@@ -41,11 +38,7 @@
       border-radius: 30px;
       transition: all 0.2s;
     }
-    .back-nav a:hover {
-      background: var(--accent);
-      color: #fff;
-      border-color: var(--accent);
-    }
+    .back-nav a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
 
     /* COUVERTURE */
     .cover {
@@ -116,11 +109,7 @@
       flex-wrap: wrap;
       position: relative;
     }
-    .cover .info span {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-    }
+    .cover .info span { display: inline-flex; align-items: center; gap: 8px; }
     .cover .info span::before {
       content: '';
       width: 6px; height: 6px;
@@ -137,12 +126,7 @@
       border-radius: 0 12px 12px 0;
       margin-bottom: 40px;
     }
-    .remerciements h2 {
-      margin-top: 0;
-      border-bottom: none;
-      color: var(--accent);
-      font-size: 1.3rem;
-    }
+    .remerciements h2 { margin-top: 0; border-bottom: none; color: var(--accent); font-size: 1.3rem; }
     .remerciements p { color: var(--ink); line-height: 1.8; }
 
     /* SOMMAIRE */
@@ -187,22 +171,9 @@
       padding-bottom: 0.3em;
       color: var(--accent);
     }
-    .section-rapport h3 {
-      font-size: 1.4rem;
-      margin: 1.5em 0 0.5em;
-      color: var(--ink);
-    }
-    .section-rapport h4 {
-      font-size: 1.1rem;
-      margin: 1.2em 0 0.3em;
-      color: var(--ink);
-      font-weight: 500;
-    }
-    .section-rapport p {
-      margin: 0 0 1em;
-      color: var(--ink);
-      line-height: 1.8;
-    }
+    .section-rapport h3 { font-size: 1.4rem; margin: 1.5em 0 0.5em; color: var(--ink); }
+    .section-rapport h4 { font-size: 1.1rem; margin: 1.2em 0 0.3em; color: var(--ink); font-weight: 500; }
+    .section-rapport p { margin: 0 0 1em; color: var(--ink); line-height: 1.8; }
     .section-rapport ul,
     .section-rapport ol { padding-left: 24px; color: var(--ink); }
     .section-rapport li { padding: 4px 0; }
@@ -221,7 +192,6 @@
       padding: 20px 16px 16px;
       text-align: center;
       border: 2px solid var(--accent);
-      border-radius: 0;
       background: transparent;
       clip-path: polygon(0 0, 100% 0, 100% 85%, 85% 100%, 0 100%);
       transition: transform 0.2s;
@@ -290,11 +260,11 @@
       top: -20px;
       left: 50%;
       transform: translateX(-50%);
-      width: 0; height: 0;
-      border: 9px solid var(--accent);
+      width: 18px;
+      height: 18px;
+      background: var(--accent);
       border-radius: 50%;
       z-index: 2;
-      background: transparent;
     }
     .timeline-hist-year {
       font-weight: 700;
@@ -330,11 +300,7 @@
       letter-spacing: 0.1em;
       margin-bottom: 8px !important;
     }
-    .duo-item p {
-      font-size: 0.92rem;
-      line-height: 1.7;
-      margin-bottom: 0 !important;
-    }
+    .duo-item p { font-size: 0.92rem; line-height: 1.7; margin-bottom: 0 !important; }
 
     /* QUOTE-BLOCK */
     .quote-block {
@@ -406,7 +372,7 @@
       margin-top: 2px;
     }
 
-    /* DONUT SVG */
+    /* DONUT — CSS conic-gradient + print-color-adjust */
     .chart-block {
       display: grid;
       grid-template-columns: 240px 1fr;
@@ -427,16 +393,40 @@
       font-weight: 600;
       margin-bottom: 6px;
     }
-    .donut-container {
+    .donut-wrap {
       position: relative;
       width: 200px;
       height: 200px;
       margin: 0 auto;
     }
-    .donut-svg {
+    .donut {
       width: 200px;
       height: 200px;
-      display: block;
+      border-radius: 50%;
+      background: conic-gradient(
+        #7a52ff 0deg 90deg,
+        #5b2bff 90deg 144deg,
+        #9d82ff 144deg 180deg,
+        #8a6bff 180deg 234deg,
+        #c8b8ff 234deg 252deg,
+        #b8a3ff 252deg 306deg,
+        #ebe5ff 306deg 324deg,
+        #e0d6ff 324deg 360deg
+      );
+      position: relative;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+      color-adjust: exact;
+    }
+    .donut::after {
+      content: '';
+      position: absolute;
+      inset: 44px;
+      background: var(--bg2);
+      border-radius: 50%;
+      border: 1px solid var(--border);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
     .donut-center {
       position: absolute;
@@ -449,12 +439,7 @@
       text-align: center;
       pointer-events: none;
     }
-    .donut-center strong {
-      color: var(--accent);
-      font-size: 1.6rem;
-      font-weight: 700;
-      line-height: 1;
-    }
+    .donut-center strong { color: var(--accent); font-size: 1.6rem; font-weight: 700; line-height: 1; }
     .donut-center span {
       color: var(--ink);
       font-size: 0.72rem;
@@ -463,11 +448,7 @@
       opacity: 0.7;
       margin-top: 4px;
     }
-    .donut-legend {
-      display: flex;
-      flex-direction: column;
-      gap: 14px;
-    }
+    .donut-legend { display: flex; flex-direction: column; gap: 14px; }
     .donut-legend-item {
       display: flex;
       align-items: center;
@@ -479,6 +460,8 @@
       height: 16px;
       border-radius: 4px;
       flex-shrink: 0;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
     .donut-legend-label { flex: 1; color: var(--ink); }
     .donut-legend-value {
@@ -487,7 +470,7 @@
       font-variant-numeric: tabular-nums;
     }
 
-    /* BARRES SVG */
+    /* BARRES — CSS pur, extrémité arrondie parfaite */
     .bars {
       margin: 32px 0;
       padding: 28px;
@@ -516,11 +499,22 @@
       color: var(--ink);
       font-weight: 500;
     }
-    .bar-svg {
-      width: 100%;
+    .bar-track {
       height: 16px;
-      display: block;
-      overflow: visible;
+      background: rgba(91,43,255,0.08);
+      border-radius: 8px;
+      overflow: hidden;
+      position: relative;
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
+    }
+    .bar-fill {
+      height: 100%;
+      background: linear-gradient(90deg, #5b2bff, #8a6bff);
+      border-radius: 8px;
+      box-shadow: 0 0 12px rgba(91,43,255,0.35);
+      -webkit-print-color-adjust: exact;
+      print-color-adjust: exact;
     }
     .bar-value {
       font-size: 0.85rem;
@@ -590,11 +584,10 @@
       .bar-row { grid-template-columns: 110px 1fr 55px; gap: 10px; }
       .bar-label { font-size: 0.78rem; }
       .timeline-hist { padding-top: 26px; }
-      .timeline-hist-dot { border-width: 7px; top: -16px; }
       .timeline-hist-item { min-width: 70px; }
     }
 
-    /* IMPRESSION — CONTRASTE MAXIMAL */
+    /* IMPRESSION */
     @media print {
       @page {
         size: A4 portrait;
@@ -623,6 +616,13 @@
       }
       body { --muted: #222; --ink: #000; }
 
+      /* ==== FORCE TOUS LES FONDS À S'IMPRIMER ==== */
+      * {
+        -webkit-print-color-adjust: exact !important;
+        print-color-adjust: exact !important;
+        color-adjust: exact !important;
+      }
+
       body {
         padding: 0;
         background: #fff !important;
@@ -635,19 +635,35 @@
       .back-nav { display: none !important; }
       #introduction { counter-reset: page 1; }
 
+      /* Fonds des sections */
       .section-rapport,
       .cover,
       .remerciements,
       .sommaire,
-      .stat-item,
-      .duo-item,
-      .quote-block,
-      .key-fig,
       .chart-block,
-      .bars {
+      .bars,
+      .key-fig {
         background: #fff !important;
         border-color: #b8b8b8 !important;
         box-shadow: none !important;
+      }
+
+      /* LE FOND DU DONUT RESTE VISIBLE */
+      .donut::after {
+        background: #fff !important;
+      }
+
+      /* LE FOND DES BARRES RESTE VISIBLE */
+      .bar-track {
+        background: #eceaff !important;
+      }
+
+      /* Le remplaçant du duo-item garde son fond léger */
+      .duo-item {
+        background: #f5f2ff !important;
+      }
+      .quote-block {
+        background: #f7f5ff !important;
       }
 
       .cover::before { display: none !important; }
@@ -686,10 +702,7 @@
       .duo-item h4 { color: #3a1ab8 !important; }
       .duo-item p { color: #000 !important; }
 
-      .quote-block {
-        border-left-color: #3a1ab8 !important;
-        background: #f7f5ff !important;
-      }
+      .quote-block { border-left-color: #3a1ab8 !important; }
       .quote-block .quote-text { color: #000 !important; }
       .quote-block .quote-author { color: #3a1ab8 !important; }
 
@@ -706,13 +719,10 @@
       .bars-title { color: #3a1ab8 !important; }
       .chart-block .chart-title { color: #3a1ab8 !important; }
 
-      .timeline-hist-dot { border-color: #3a1ab8 !important; }
+      .timeline-hist-dot { background: #3a1ab8 !important; }
       .timeline-hist-year { color: #3a1ab8 !important; }
       .timeline-hist-label { color: #000 !important; }
-      .timeline-hist-line {
-        border-top-color: #3a1ab8 !important;
-        opacity: 1 !important;
-      }
+      .timeline-hist-line { border-top-color: #3a1ab8 !important; opacity: 1 !important; }
 
       .illustration {
         page-break-inside: avoid;
@@ -959,45 +969,11 @@
 
     <p>Shaolin Shadow produit des contenus très variés, qui reflètent la diversité de ses membres et de ses publics. Les clips musicaux constituent une part importante de son activité, en particulier dans le milieu du rap et des musiques urbaines, en phase avec les réalités sociales des quartiers populaires. Les courts-métrages abordent des thématiques fortes comme l'identité, l'exclusion, l'espoir ou la résistance, et ont valu à l'association des récompenses dans des festivals. L'association produit également des contenus institutionnels, des reportages, des captations d'événements et des projets de médiation culturelle.</p>
 
-    <!-- ===== DONUT EN SVG ===== -->
+    <!-- ===== DONUT ===== -->
     <div class="chart-block">
       <div class="chart-title">Répartition indicative des productions</div>
-      <div class="donut-container">
-        <svg class="donut-svg" viewBox="0 0 42 42" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="donutGrad1" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#7a52ff"/>
-              <stop offset="100%" stop-color="#5b2bff"/>
-            </linearGradient>
-            <linearGradient id="donutGrad2" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#9d82ff"/>
-              <stop offset="100%" stop-color="#8a6bff"/>
-            </linearGradient>
-            <linearGradient id="donutGrad3" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#c8b8ff"/>
-              <stop offset="100%" stop-color="#b8a3ff"/>
-            </linearGradient>
-            <linearGradient id="donutGrad4" x1="0%" y1="0%" x2="100%" y2="100%">
-              <stop offset="0%" stop-color="#ebe5ff"/>
-              <stop offset="100%" stop-color="#e0d6ff"/>
-            </linearGradient>
-          </defs>
-          <!-- Fond du donut (anneau vide léger) -->
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="rgba(91,43,255,0.08)" stroke-width="6"/>
-          <!-- Segments : chaque dasharray est en unités de circonférence (100) -->
-          <!-- Segment 1 : 40 % - clips musicaux -->
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="url(#donutGrad1)" stroke-width="6"
-                  stroke-dasharray="40 60" stroke-dashoffset="25" stroke-linecap="butt"/>
-          <!-- Segment 2 : 25 % - courts-métrages -->
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="url(#donutGrad2)" stroke-width="6"
-                  stroke-dasharray="25 75" stroke-dashoffset="-15" stroke-linecap="butt"/>
-          <!-- Segment 3 : 20 % - captations -->
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="url(#donutGrad3)" stroke-width="6"
-                  stroke-dasharray="20 80" stroke-dashoffset="-40" stroke-linecap="butt"/>
-          <!-- Segment 4 : 15 % - institutionnel -->
-          <circle cx="21" cy="21" r="15.9155" fill="none" stroke="url(#donutGrad4)" stroke-width="6"
-                  stroke-dasharray="15 85" stroke-dashoffset="-60" stroke-linecap="butt"/>
-        </svg>
+      <div class="donut-wrap">
+        <div class="donut"></div>
         <div class="donut-center">
           <strong>79</strong>
           <span>projets</span>
@@ -1037,67 +1013,31 @@
 
     <p>Deux formats d'enseignement sont proposés. Le Magistral, à Grenoble et dès 18 ans, est un enseignement complet sur deux ans, cinq jours sur sept, avec réalisation d'un long-métrage en fin de parcours. Il propose deux sections : Technique de Réalisation et Gestion de Production. Le Cours Hebdomadaire, à Grenoble et à La Courneuve dès 16 ans, est un enseignement pratique et théorique les mercredis et dimanches, en deux sections : Technique de Réalisation et Acting, ce dernier étant basé sur les méthodes de Stanislawski et de l'Actor's Studio.</p>
 
-    <!-- ===== BARRES EN SVG ===== -->
+    <!-- ===== BARRES ===== -->
     <div class="bars">
       <div class="bars-title">Répartition indicative des bénévoles par pôle</div>
 
       <div class="bar-row">
         <div class="bar-label">Production / tournage</div>
-        <svg class="bar-svg" viewBox="0 0 100 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="barGrad1" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#5b2bff"/>
-              <stop offset="100%" stop-color="#8a6bff"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="100" height="16" rx="8" fill="rgba(91,43,255,0.08)"/>
-          <rect x="0" y="0" width="35" height="16" rx="8" fill="url(#barGrad1)"/>
-        </svg>
+        <div class="bar-track"><div class="bar-fill" style="width: 35%;"></div></div>
         <div class="bar-value">35 %</div>
       </div>
 
       <div class="bar-row">
         <div class="bar-label">Post-production</div>
-        <svg class="bar-svg" viewBox="0 0 100 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="barGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#5b2bff"/>
-              <stop offset="100%" stop-color="#8a6bff"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="100" height="16" rx="8" fill="rgba(91,43,255,0.08)"/>
-          <rect x="0" y="0" width="30" height="16" rx="8" fill="url(#barGrad2)"/>
-        </svg>
+        <div class="bar-track"><div class="bar-fill" style="width: 30%;"></div></div>
         <div class="bar-value">30 %</div>
       </div>
 
       <div class="bar-row">
         <div class="bar-label">Formation / école</div>
-        <svg class="bar-svg" viewBox="0 0 100 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="barGrad3" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#5b2bff"/>
-              <stop offset="100%" stop-color="#8a6bff"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="100" height="16" rx="8" fill="rgba(91,43,255,0.08)"/>
-          <rect x="0" y="0" width="20" height="16" rx="8" fill="url(#barGrad3)"/>
-        </svg>
+        <div class="bar-track"><div class="bar-fill" style="width: 20%;"></div></div>
         <div class="bar-value">20 %</div>
       </div>
 
       <div class="bar-row">
         <div class="bar-label">Administration</div>
-        <svg class="bar-svg" viewBox="0 0 100 16" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <linearGradient id="barGrad4" x1="0%" y1="0%" x2="100%" y2="0%">
-              <stop offset="0%" stop-color="#5b2bff"/>
-              <stop offset="100%" stop-color="#8a6bff"/>
-            </linearGradient>
-          </defs>
-          <rect x="0" y="0" width="100" height="16" rx="8" fill="rgba(91,43,255,0.08)"/>
-          <rect x="0" y="0" width="15" height="16" rx="8" fill="url(#barGrad4)"/>
-        </svg>
+        <div class="bar-track"><div class="bar-fill" style="width: 15%;"></div></div>
         <div class="bar-value">15 %</div>
       </div>
     </div>
