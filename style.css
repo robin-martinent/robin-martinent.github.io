@@ -1,4 +1,4 @@
-/* VERSION 3 — auroral sombre, sans stries */
+/* VERSION 4 — auroral ralenti, dot pattern, typo Poppins + Kaushan Script */
 
 /* ============================================================
    RESET & BASE
@@ -19,6 +19,7 @@
   --border: rgba(255, 255, 255, 0.07);
   --font-heading: 'Poppins', sans-serif;
   --font-body: 'Inter', sans-serif;
+  --font-script: 'Kaushan Script', cursive;
 }
 
 html {
@@ -42,8 +43,7 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
 /* ============================================================
-   FOND AURORAL — v3
-   Sombre, quelques flashs brefs de lumière, aucune strie.
+   FOND AURORAL — v4 (ralenti)
    ============================================================ */
 
 .auroral-bg {
@@ -68,7 +68,7 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
 
   filter: blur(80px);
   opacity: 0;
-  animation: auroralPulse 18s ease-in-out infinite;
+  animation: auroralPulse 45s ease-in-out infinite;
   will-change: transform, opacity;
 }
 
@@ -85,8 +85,8 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
 
   filter: blur(90px);
   opacity: 0;
-  animation: auroralPulseAlt 24s ease-in-out infinite;
-  animation-delay: -8s;
+  animation: auroralPulseAlt 60s ease-in-out infinite;
+  animation-delay: -20s;
   will-change: transform, opacity;
 }
 
@@ -129,7 +129,7 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
   height: 300%;
   pointer-events: none;
   z-index: 9998;
-  opacity: 0.06;
+  opacity: 0.08;
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
   animation: grainAnim 0.6s steps(6) infinite;
   mix-blend-mode: overlay;
@@ -147,6 +147,22 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
   80%  { transform: translate(3%, 35%); }
   90%  { transform: translate(-10%, 10%); }
   100% { transform: translate(0, 0); }
+}
+
+/* ============================================================
+   DOT PATTERN (grille de points en overlay)
+   ============================================================ */
+.dot-overlay {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 9997;
+  opacity: 0.55;
+  background-image: radial-gradient(circle, rgba(255, 255, 255, 0.09) 1px, transparent 1.4px);
+  background-size: 26px 26px;
+  background-position: 0 0;
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 20%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, #000 20%, transparent 95%);
 }
 
 /* ============================================================
@@ -530,19 +546,39 @@ nav.scrolled { padding: 14px 52px; }
   max-width: 1140px;
   margin: 0 auto;
 }
+
+/* Label de section — Kaushan Script en pastille bordée
+   (Sloop n'étant pas libre de droits, Kaushan Script est
+   l'équivalent Google Fonts le plus proche visuellement.) */
 .section-label {
-  font-size: 11px;
-  font-weight: 500;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
+  font-family: var(--font-script);
+  font-size: 22px;
+  font-weight: 400;
+  letter-spacing: 0.01em;
+  text-transform: none;
   color: var(--accent);
-  margin-bottom: 14px;
+  display: inline-block;
+  padding: 6px 22px;
+  border: 1px solid rgba(91, 43, 255, 0.45);
+  border-radius: 100px;
+  background: rgba(91, 43, 255, 0.07);
+  margin-bottom: 22px;
+  rotate: -2deg;
+  box-shadow: 0 0 24px rgba(91, 43, 255, 0.12);
 }
+
+/* Titre principal — Poppins agrandi, dégradé vertical subtil */
 .section-title {
-  font-size: clamp(26px, 3vw, 40px);
+  font-size: clamp(34px, 4.5vw, 58px);
   font-weight: 700;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
+  line-height: 1.05;
   margin-bottom: 60px;
+  background: linear-gradient(180deg, #ffffff 0%, #b8b8c0 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
 }
 
 /* ============================================================
@@ -1394,6 +1430,10 @@ footer p { font-size: 12px; color: var(--muted); }
   .game-content h2 { font-size: 1.4rem; }
   .game-board { grid-template-columns: repeat(5, 1fr); gap: 6px; }
   .game-clip { font-size: 18px; }
+
+  .section-label { font-size: 18px; padding: 5px 18px; }
+  .section-title { font-size: clamp(28px, 8vw, 40px); }
+  .dot-overlay { background-size: 20px 20px; opacity: 0.4; }
 }
 
 /* ============================================================
