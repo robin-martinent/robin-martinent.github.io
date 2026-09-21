@@ -27,6 +27,14 @@
 </head>
 <body>
 
+  <!-- ===== FOND ANIMÉ ===== -->
+  <div class="bg-base" aria-hidden="true"></div>
+  <div class="bg-grid" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
+  <div class="bg-orb bg-orb-3" aria-hidden="true"></div>
+  <div class="bg-vignette" aria-hidden="true"></div>
+
   <div class="scanlines" aria-hidden="true"></div>
   <div class="noise" aria-hidden="true"></div>
 
@@ -866,7 +874,7 @@
     });
 
     // ============================================================
-    // 11. CHROME BUTTON — shader WebGL liquid metal
+    // 11. CHROME BUTTON — shader WebGL
     // ============================================================
     var VERT = [
       'attribute vec2 a;',
@@ -996,13 +1004,14 @@
       this.gl = this.canvas.getContext('webgl', { antialias: true, alpha: false, premultipliedAlpha: false });
       if (!this.gl) {
         this.canvas.style.display = 'none';
+        btn.classList.add('no-webgl');
         return;
       }
 
       var gl = this.gl;
       var vs = createShader(gl, gl.VERTEX_SHADER, VERT);
       var fs = createShader(gl, gl.FRAGMENT_SHADER, FRAG);
-      if (!vs || !fs) { this.canvas.style.display = 'none'; return; }
+      if (!vs || !fs) { this.canvas.style.display = 'none'; btn.classList.add('no-webgl'); return; }
 
       var prog = gl.createProgram();
       gl.attachShader(prog, vs);
@@ -1011,6 +1020,7 @@
       if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
         console.warn('Program link error:', gl.getProgramInfoLog(prog));
         this.canvas.style.display = 'none';
+        btn.classList.add('no-webgl');
         return;
       }
       this.prog = prog;
@@ -1034,9 +1044,8 @@
       this.resize();
       var self = this;
 
-      var resizeObs = null;
       if (typeof ResizeObserver !== 'undefined') {
-        resizeObs = new ResizeObserver(function() { self.resize(); });
+        var resizeObs = new ResizeObserver(function() { self.resize(); });
         resizeObs.observe(btn);
       } else {
         window.addEventListener('resize', function() { self.resize(); });
@@ -1089,7 +1098,7 @@
       var btns = document.querySelectorAll('[data-chrome]');
       btns.forEach(function(btn) {
         try { new ChromeButton(btn); }
-        catch (e) { console.warn('ChromeButton init failed', e); }
+        catch (e) { console.warn('ChromeButton init failed', e); btn.classList.add('no-webgl'); }
       });
     }
 
@@ -1100,7 +1109,7 @@
     }
 
     // ============================================================
-    // 12. HOLO CARDS — tracking du pointeur pour effet foil
+    // 12. HOLO CARDS
     // ============================================================
     var holoCards = document.querySelectorAll('.skill-card.holo');
 
