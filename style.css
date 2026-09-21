@@ -1,7 +1,6 @@
 /* ============================================================
-   ROBIN MARTINENT — PORTFOLIO Y2K v8
-   Chrome WebGL buttons · Chrome text renforcé · Holo skill cards
-   Zéro dépendance externe.
+   ROBIN MARTINENT — PORTFOLIO Y2K v9
+   Fond animé multicouche (grille + orbes + vignette)
    ============================================================ */
 
 *, *::before, *::after {
@@ -11,7 +10,7 @@
 }
 
 :root {
-  --bg: #050505;
+  --bg: #050508;
   --ink: #f5f5f5;
   --muted: #6b6b6b;
   --accent: #ff00ff;
@@ -34,59 +33,129 @@ html {
 
 body {
   font-family: var(--font-body);
-  background: var(--bg);
+  background: transparent;
   color: var(--ink);
   overflow-x: hidden;
   line-height: 1.5;
   font-size: 16px;
   position: relative;
+  min-height: 100vh;
 }
 
 /* ============================================================
-   FOND ANIMÉ — 2 lueurs qui dérivent lentement
+   FOND ANIMÉ — 4 couches
+   .bg-base      : dégradé de base
+   .bg-grid      : grille qui dérive
+   .bg-orb       : 3 orbes lumineux flottants
+   .bg-vignette  : assombrit les bords
    ============================================================ */
-body::before {
-  content: '';
+
+.bg-base {
   position: fixed;
-  inset: -25%;
-  z-index: -2;
+  inset: 0;
+  z-index: -10;
+  pointer-events: none;
+  background:
+    radial-gradient(ellipse 100% 60% at 50% 0%, #0a0018 0%, #050510 40%, #000 100%),
+    linear-gradient(180deg, #000 0%, #050008 50%, #000 100%);
+}
+
+.bg-grid {
+  position: fixed;
+  inset: -10%;
+  width: 120%;
+  height: 120%;
+  z-index: -9;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.055) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.055) 1px, transparent 1px);
+  background-size: 70px 70px;
+  animation: gridDrift 60s linear infinite;
+  mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, #000 20%, transparent 95%);
+  -webkit-mask-image: radial-gradient(ellipse 90% 90% at 50% 50%, #000 20%, transparent 95%);
+}
+
+@keyframes gridDrift {
+  0%   { transform: translate(0, 0); }
+  100% { transform: translate(70px, 70px); }
+}
+
+.bg-orb {
+  position: fixed;
+  border-radius: 50%;
+  z-index: -8;
+  pointer-events: none;
+  filter: blur(60px);
+  will-change: transform;
+  opacity: 0.85;
+}
+
+.bg-orb-1 {
+  width: 700px;
+  height: 700px;
+  top: -15%;
+  left: -12%;
+  background: radial-gradient(circle,
+    rgba(120, 40, 255, 0.55) 0%,
+    rgba(90, 20, 200, 0.30) 35%,
+    transparent 70%);
+  animation: orbFloat1 32s ease-in-out infinite alternate;
+}
+
+.bg-orb-2 {
+  width: 620px;
+  height: 620px;
+  top: 45%;
+  right: -14%;
+  background: radial-gradient(circle,
+    rgba(255, 0, 200, 0.45) 0%,
+    rgba(200, 0, 160, 0.22) 35%,
+    transparent 70%);
+  animation: orbFloat2 40s ease-in-out infinite alternate;
+}
+
+.bg-orb-3 {
+  width: 520px;
+  height: 520px;
+  bottom: -18%;
+  left: 30%;
+  background: radial-gradient(circle,
+    rgba(60, 180, 255, 0.35) 0%,
+    rgba(40, 120, 200, 0.18) 40%,
+    transparent 72%);
+  animation: orbFloat3 46s ease-in-out infinite alternate;
+}
+
+@keyframes orbFloat1 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(120px, 90px) scale(1.15); }
+  100% { transform: translate(-60px, 160px) scale(1.05); }
+}
+
+@keyframes orbFloat2 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(-160px, -100px) scale(1.2); }
+  100% { transform: translate(80px, -140px) scale(1.08); }
+}
+
+@keyframes orbFloat3 {
+  0%   { transform: translate(0, 0) scale(1); }
+  50%  { transform: translate(180px, -80px) scale(1.18); }
+  100% { transform: translate(-120px, 60px) scale(1.05); }
+}
+
+.bg-vignette {
+  position: fixed;
+  inset: 0;
+  z-index: -7;
   pointer-events: none;
   background: radial-gradient(
-    ellipse 55% 45% at 25% 30%,
-    rgba(91, 43, 255, 0.45),
-    rgba(91, 43, 255, 0.10) 45%,
-    transparent 70%
+    ellipse 100% 100% at 50% 50%,
+    transparent 40%,
+    rgba(0, 0, 0, 0.5) 85%,
+    rgba(0, 0, 0, 0.75) 100%
   );
-  animation: bgDrift1 26s ease-in-out infinite alternate;
-  filter: blur(50px);
-}
-
-body::after {
-  content: '';
-  position: fixed;
-  inset: -25%;
-  z-index: -2;
-  pointer-events: none;
-  background: radial-gradient(
-    ellipse 50% 40% at 75% 70%,
-    rgba(255, 0, 255, 0.30),
-    rgba(255, 0, 255, 0.08) 45%,
-    transparent 70%
-  );
-  animation: bgDrift2 34s ease-in-out infinite alternate;
-  filter: blur(55px);
-}
-
-@keyframes bgDrift1 {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0.55; }
-  50%  { transform: translate(12%, 8%) scale(1.15); opacity: 0.85; }
-  100% { transform: translate(-8%, 14%) scale(1.08); opacity: 0.65; }
-}
-
-@keyframes bgDrift2 {
-  0%   { transform: translate(0, 0) scale(1); opacity: 0.45; }
-  50%  { transform: translate(-14%, -10%) scale(1.2); opacity: 0.75; }
-  100% { transform: translate(8%, -12%) scale(1.1); opacity: 0.55; }
 }
 
 h1, h2, h3, h4, .nav-logo, .section-title, .btn-98 {
@@ -304,7 +373,7 @@ h1, h2, h3, h4, .nav-logo, .section-title, .btn-98 {
 }
 
 /* ============================================================
-   CHROME BUTTON — WebGL liquid metal
+   CHROME BUTTON
    ============================================================ */
 .btn-98.chrome-btn {
   background: #0a0a12;
@@ -357,7 +426,6 @@ h1, h2, h3, h4, .nav-logo, .section-title, .btn-98 {
   mix-blend-mode: multiply;
 }
 
-/* Fallback si WebGL indispo : cache le canvas et remet le style plat */
 .btn-98.chrome-btn.no-webgl .chrome-canvas { display: none; }
 .btn-98.chrome-btn.no-webgl {
   background: linear-gradient(180deg, #fff 0%, #aaa 50%, #333 100%);
@@ -639,9 +707,6 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   perspective: 1200px;
 }
 
-/* ============================================================
-   TITRES HERO — révélation cascade
-   ============================================================ */
 .hero-title {
   font-size: clamp(64px, 12vw, 180px);
   line-height: 0.92;
@@ -671,10 +736,6 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   }
 }
 
-/* ============================================================
-   CHROME — bande blanche dure à 50% (le secret du vrai chrome)
-   + shimmer qui balaye
-   ============================================================ */
 .chrome {
   background-image:
     linear-gradient(110deg,
@@ -726,9 +787,6 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   72%           { background-position: 200% 0, 0 0; }
 }
 
-/* ============================================================
-   SOUS-TITRE
-   ============================================================ */
 .hero-sub {
   font-family: var(--font-brut);
   font-size: 18px;
@@ -930,7 +988,7 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
 }
 
 /* ============================================================
-   SKILLS — avec effet holo (carte Pokémon)
+   SKILLS
    ============================================================ */
 .skills-grid {
   display: grid;
@@ -956,13 +1014,11 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
     transform 0.2s ease-out;
 }
 
-/* Base du contenu qui doit rester au-dessus */
 .skill-card > * {
   position: relative;
   z-index: 2;
 }
 
-/* Overlay holographique */
 .skill-card.holo::after {
   content: '';
   position: absolute;
@@ -983,7 +1039,6 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   mix-blend-mode: color-dodge;
 }
 
-/* Fines stries iridescentes qui bougent avec le pointeur */
 .skill-card.holo::before {
   content: '';
   position: absolute;
@@ -999,8 +1054,6 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
       rgba(255, 255, 255, 0.10) 8px 9px,
       transparent 9px 18px
     );
-  background-position:
-    calc(var(--mx, 50%) * 1) calc(var(--my, 50%) * 1);
   mix-blend-mode: overlay;
 }
 
@@ -1234,6 +1287,9 @@ footer {
   border-top: 1px solid var(--border);
   position: relative;
   z-index: 2;
+  background: rgba(5, 5, 8, 0.5);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
 }
 footer p {
   font-family: var(--font-body);
@@ -1493,7 +1549,8 @@ footer p {
   .contact-secondary { flex-direction: column; align-items: stretch; }
   .explosion-text { font-size: 60px; }
 
-  body::before, body::after { filter: blur(35px); }
+  .bg-orb { filter: blur(40px); }
+  .bg-orb-1, .bg-orb-2, .bg-orb-3 { opacity: 0.7; }
 }
 
 /* ============================================================
