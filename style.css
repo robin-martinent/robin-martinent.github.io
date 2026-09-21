@@ -1,3 +1,5 @@
+/* VERSION 3 — auroral sombre, sans stries */
+
 /* ============================================================
    RESET & BASE
    ============================================================ */
@@ -19,7 +21,6 @@
   --font-body: 'Inter', sans-serif;
 }
 
-/* Fond sur <html> pour laisser l'auroral (z-index -1) visible */
 html {
   background: var(--bg);
   scroll-behavior: smooth;
@@ -41,9 +42,8 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
 
 /* ============================================================
-   FOND AURORAL
-   Sombre, avec des lueurs qui apparaissent par intermittence.
-   Pas de lignes diagonales. CSS pur, aucun JavaScript.
+   FOND AURORAL — v3
+   Sombre, quelques flashs brefs de lumière, aucune strie.
    ============================================================ */
 
 .auroral-bg {
@@ -63,12 +63,12 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
   height: 130%;
 
   background:
-    radial-gradient(ellipse 45% 30% at 20% 30%, rgba(91, 43, 255, 0.40), transparent 65%),
-    radial-gradient(ellipse 40% 25% at 75% 60%, rgba(130, 70, 255, 0.22), transparent 65%);
+    radial-gradient(ellipse 50% 35% at 20% 30%, rgba(91, 43, 255, 0.55), transparent 62%),
+    radial-gradient(ellipse 45% 30% at 75% 60%, rgba(130, 70, 255, 0.35), transparent 62%);
 
-  filter: blur(90px);
+  filter: blur(80px);
   opacity: 0;
-  animation: auroralPulse 22s ease-in-out infinite;
+  animation: auroralPulse 18s ease-in-out infinite;
   will-change: transform, opacity;
 }
 
@@ -80,67 +80,43 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
   height: 130%;
 
   background:
-    radial-gradient(ellipse 35% 25% at 70% 25%, rgba(110, 150, 255, 0.22), transparent 68%),
-    radial-gradient(ellipse 30% 22% at 35% 75%, rgba(90, 200, 255, 0.14), transparent 68%);
+    radial-gradient(ellipse 40% 30% at 70% 25%, rgba(110, 150, 255, 0.35), transparent 65%),
+    radial-gradient(ellipse 35% 28% at 35% 75%, rgba(90, 200, 255, 0.25), transparent 65%);
 
-  filter: blur(100px);
+  filter: blur(90px);
   opacity: 0;
-  animation: auroralPulseAlt 28s ease-in-out infinite;
-  animation-delay: -9s;
+  animation: auroralPulseAlt 24s ease-in-out infinite;
+  animation-delay: -8s;
   will-change: transform, opacity;
 }
 
 @keyframes auroralPulse {
   0%, 100% { opacity: 0;    transform: translate3d(0, 0, 0) scale(1); }
-  8%       { opacity: 0.85; transform: translate3d(-1%, 1%, 0) scale(1.04); }
-  18%      { opacity: 0.10; transform: translate3d(-2%, 2%, 0) scale(1.01); }
-  38%      { opacity: 0.60; transform: translate3d(1%, -1%, 0) scale(1.06); }
-  52%      { opacity: 0.05; transform: translate3d(2%, 0, 0) scale(1); }
-  70%      { opacity: 0.70; transform: translate3d(-1%, -2%, 0) scale(1.05); }
-  86%      { opacity: 0.08; transform: translate3d(0, 1%, 0) scale(1.02); }
+  10%      { opacity: 0.95; transform: translate3d(-1%, 1%, 0) scale(1.04); }
+  22%      { opacity: 0.15; transform: translate3d(-2%, 2%, 0) scale(1.01); }
+  42%      { opacity: 0.70; transform: translate3d(1%, -1%, 0) scale(1.06); }
+  56%      { opacity: 0.08; transform: translate3d(2%, 0, 0) scale(1); }
+  74%      { opacity: 0.80; transform: translate3d(-1%, -2%, 0) scale(1.05); }
+  88%      { opacity: 0.10; transform: translate3d(0, 1%, 0) scale(1.02); }
 }
 
 @keyframes auroralPulseAlt {
   0%, 100% { opacity: 0;    transform: translate3d(0, 0, 0) scale(1); }
-  14%      { opacity: 0.50; transform: translate3d(1%, -2%, 0) scale(1.06); }
-  30%      { opacity: 0.06; transform: translate3d(2%, -3%, 0) scale(1.01); }
-  48%      { opacity: 0.55; transform: translate3d(-2%, 2%, 0) scale(1.08); }
-  64%      { opacity: 0.08; transform: translate3d(-3%, 3%, 0) scale(1.02); }
-  82%      { opacity: 0.40; transform: translate3d(1%, -1%, 0) scale(1.04); }
-}
-
-/* Thème DUSK (optionnel, plus chaud) */
-.auroral-dusk::before {
-  background:
-    radial-gradient(ellipse 45% 30% at 22% 30%, rgba(255, 120, 80, 0.30), transparent 65%),
-    radial-gradient(ellipse 40% 25% at 78% 62%, rgba(180, 60, 180, 0.22), transparent 65%);
-}
-.auroral-dusk::after {
-  background:
-    radial-gradient(ellipse 35% 25% at 70% 25%, rgba(255, 180, 100, 0.18), transparent 68%),
-    radial-gradient(ellipse 30% 22% at 35% 75%, rgba(255, 80, 40, 0.14), transparent 68%);
-}
-
-/* Thème WARM (optionnel, plus chaud encore) */
-.auroral-warm::before {
-  background:
-    radial-gradient(ellipse 45% 30% at 18% 28%, rgba(255, 140, 60, 0.32), transparent 65%),
-    radial-gradient(ellipse 40% 25% at 72% 60%, rgba(220, 60, 120, 0.22), transparent 65%);
-}
-.auroral-warm::after {
-  background:
-    radial-gradient(ellipse 35% 25% at 68% 25%, rgba(255, 200, 80, 0.20), transparent 68%),
-    radial-gradient(ellipse 30% 22% at 38% 72%, rgba(255, 80, 40, 0.14), transparent 68%);
+  16%      { opacity: 0.60; transform: translate3d(1%, -2%, 0) scale(1.06); }
+  32%      { opacity: 0.08; transform: translate3d(2%, -3%, 0) scale(1.01); }
+  50%      { opacity: 0.65; transform: translate3d(-2%, 2%, 0) scale(1.08); }
+  66%      { opacity: 0.10; transform: translate3d(-3%, 3%, 0) scale(1.02); }
+  84%      { opacity: 0.50; transform: translate3d(1%, -1%, 0) scale(1.04); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .auroral-bg::before { animation: none; opacity: 0.35; }
-  .auroral-bg::after  { animation: none; opacity: 0.20; }
+  .auroral-bg::before { animation: none; opacity: 0.40; }
+  .auroral-bg::after  { animation: none; opacity: 0.25; }
 }
 
 @media (max-width: 768px) {
-  .auroral-bg::before { filter: blur(60px); }
-  .auroral-bg::after  { filter: blur(70px); }
+  .auroral-bg::before { filter: blur(55px); }
+  .auroral-bg::after  { filter: blur(65px); }
 }
 
 /* ============================================================
@@ -818,8 +794,7 @@ nav.scrolled { padding: 14px 52px; }
 }
 
 /* ============================================================
-   FOOTER
-   Même fond que .contact-section pour raccorder visuellement
+   FOOTER — raccord avec .contact-section
    ============================================================ */
 footer {
   padding: 28px 52px 100px;
