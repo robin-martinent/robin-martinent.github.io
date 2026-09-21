@@ -104,12 +104,16 @@
   <!-- ===== HERO ===== -->
   <section class="hero" id="heroSection">
     <div class="hero-grid-bg" aria-hidden="true"></div>
+
+    <!-- Zdog canvas 3D chrome -->
+    <div class="zdog-wrap zdog-hero" id="zdogHero" aria-hidden="true"></div>
+
     <div class="hero-inner">
       <div class="hero-glitch-wrap">
-        <h1 class="hero-title" data-text="RÉALISATEUR">
+        <h1 class="hero-title rellax" data-rellax-speed="-2" data-text="RÉALISATEUR">
           <span class="chrome-text">RÉALISATEUR</span>
         </h1>
-        <h1 class="hero-title" data-text="MONTEUR">
+        <h1 class="hero-title rellax" data-rellax-speed="-1" data-text="MONTEUR">
           <span class="chrome-text accent">MONTEUR</span>
         </h1>
         <h1 class="hero-title" data-text="& CRÉATIF">
@@ -117,7 +121,7 @@
         </h1>
       </div>
       <p class="hero-sub">
-        Montage vidéo · Motion design · Illustration · Dev web.<br>
+        <span class="typed-prefix">Je suis </span><span id="typed" class="typed-target"></span><br>
         Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
       </p>
       <div class="hero-cta">
@@ -183,7 +187,7 @@
           <p class="section-label reveal">// 02 — MES RÉALISATIONS</p>
           <h2 class="section-title reveal">PORTFOLIO</h2>
 
-          <div class="carousel-wrap reveal">
+          <div class="carousel-wrap reveal" data-tilt data-tilt-max="4" data-tilt-speed="600" data-tilt-glare data-tilt-max-glare="0.15">
             <div class="carousel">
               <div class="carousel-track" id="track">
                 <div class="carousel-slide">
@@ -255,32 +259,32 @@
           <h2 class="section-title reveal">COMPÉTENCES</h2>
 
           <div class="skills-grid">
-            <div class="skill-card reveal">
+            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
               <div class="skill-icon">🎬</div>
               <h3>MONTAGE VIDÉO</h3>
               <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
             </div>
-            <div class="skill-card reveal">
+            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
               <div class="skill-icon">✨</div>
               <h3>MOTION DESIGN</h3>
               <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
             </div>
-            <div class="skill-card reveal">
+            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
               <div class="skill-icon">🎨</div>
               <h3>ILLUSTRATION</h3>
               <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
             </div>
-            <div class="skill-card reveal">
+            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
               <div class="skill-icon">🌐</div>
               <h3>DEV WEB</h3>
               <p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p>
             </div>
-            <div class="skill-card reveal">
+            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
               <div class="skill-icon">📷</div>
               <h3>RÉALISATION</h3>
               <p>Tournage, cadrage, son, gestion de plateau.</p>
             </div>
-            <div class="skill-card reveal">
+            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
               <div class="skill-icon">🖨️</div>
               <h3>IMPRESSION 3D</h3>
               <p>À l'aise avec le hardware, l'impression et le dépannage technique.</p>
@@ -399,6 +403,9 @@
           <h2 class="section-title">ON TRAVAILLE ENSEMBLE ?</h2>
           <p class="contact-sub">Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
 
+          <!-- Zdog chrome star décorative -->
+          <div class="zdog-wrap zdog-contact" id="zdogContact" aria-hidden="true"></div>
+
           <div class="contact-links">
             <button id="copyEmailBtn" class="btn-98 primary btn-copy">
               <span class="btn-text">📧 robin.martinent@gmail.com</span>
@@ -429,6 +436,7 @@
   <footer>
     <div class="footer-left">
       <p>© 2026 ROBIN MARTINENT — TOUS DROITS RÉSERVÉS</p>
+      <p class="footer-credits">Zdog · Vanilla-tilt · Rellax · Typed.js — MIT</p>
     </div>
     <div class="footer-center">
       <a href="mailto:robin.martinent@gmail.com">EMAIL</a>
@@ -470,6 +478,12 @@
       </div>
     </div>
   </div>
+
+  <!-- ===== LIBRAIRIES EXTERNES (CDN) ===== -->
+  <script src="https://unpkg.com/zdog@1.1.3/dist/zdog.dist.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/dist/typed.umd.js"></script>
 
   <script>
     // ============================================================
@@ -890,7 +904,7 @@
     }, 5000);
 
     // ============================================================
-    // 11. J / K / L SHORTCUTS (silencieux)
+    // 11. J / K / L SHORTCUTS
     // ============================================================
     const AUTO_SCROLL_SPEED = 9;
     let autoScrollSpeed = 0;
@@ -952,7 +966,7 @@
     schedulePaparazzi();
 
     // ============================================================
-    // 13. SPARKLES (rares)
+    // 13. SPARKLES
     // ============================================================
     const sparkles = document.getElementById('sparkles');
 
@@ -1081,6 +1095,212 @@
       if (e.key === 'Escape' && gameModal.classList.contains('active')) {
         closeGame();
       }
+    });
+
+    // ============================================================
+    // 15. VANILLA-TILT — 3D hover sur cards
+    // ============================================================
+    if (typeof VanillaTilt !== 'undefined') {
+      VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
+        max: 15,
+        speed: 400,
+        glare: true,
+        'max-glare': 0.25
+      });
+    }
+
+    // ============================================================
+    // 16. RELLAX — parallaxe légère au scroll
+    // ============================================================
+    if (typeof Rellax !== 'undefined') {
+      new Rellax('.rellax', {
+        speed: -2,
+        center: true,
+        wrapper: null,
+        round: true,
+        vertical: true,
+        horizontal: false
+      });
+    }
+
+    // ============================================================
+    // 17. TYPED.JS — machine à écrire
+    // ============================================================
+    if (typeof Typed !== 'undefined') {
+      new Typed('#typed', {
+        strings: [
+          'Monteur vidéo.',
+          'Réalisateur.',
+          'Motion designer.',
+          'Créatif.'
+        ],
+        typeSpeed: 55,
+        backSpeed: 30,
+        backDelay: 1600,
+        startDelay: 300,
+        loop: true,
+        showCursor: true,
+        cursorChar: '▮'
+      });
+    }
+
+    // ============================================================
+    // 18. ZDOG — objets 3D chrome
+    // ============================================================
+    function initZdogHero() {
+      if (typeof Zdog === 'undefined') return;
+      const el = document.getElementById('zdogHero');
+      if (!el) return;
+
+      const illo = new Zdog.Illustration({
+        element: el,
+        zoom: 1.1,
+        dragRotate: true,
+        onDragStart: () => { el.style.cursor = 'grabbing'; },
+        onDragEnd: () => { el.style.cursor = 'grab'; }
+      });
+
+      // Cube central — chrome palette
+      const cube = new Zdog.Box({
+        addTo: illo,
+        width: 90,
+        height: 90,
+        depth: 90,
+        color: '#d4d4d4',
+        topFace: '#ffffff',
+        bottomFace: '#4a4a4a',
+        leftFace: '#8a8a8a',
+        rightFace: '#b8b8b8',
+        frontFace: '#ffffff',
+        stroke: 1,
+        translate: { x: 0, y: 0, z: 0 }
+      });
+
+      // Deux satellites chromes
+      new Zdog.Box({
+        addTo: illo,
+        width: 40,
+        height: 40,
+        depth: 40,
+        color: '#b8b8b8',
+        topFace: '#ffffff',
+        bottomFace: '#2a2a2a',
+        leftFace: '#8a8a8a',
+        rightFace: '#d4d4d4',
+        frontFace: '#e8e8e8',
+        stroke: 1,
+        translate: { x: 90, y: -55, z: -20 }
+      });
+
+      new Zdog.Box({
+        addTo: illo,
+        width: 32,
+        height: 32,
+        depth: 32,
+        color: '#8a8a8a',
+        topFace: '#d4d4d4',
+        bottomFace: '#1a1a1a',
+        leftFace: '#555',
+        rightFace: '#a8a8a8',
+        frontFace: '#d4d4d4',
+        stroke: 1,
+        translate: { x: -85, y: 65, z: 30 }
+      });
+
+      // Étoile chromée 8 branches
+      const star = new Zdog.Shape({
+        addTo: illo,
+        stroke: 4,
+        color: '#ffffff',
+        path: [
+          { x: 0, y: -60 },
+          { x: 0, y: 60 }
+        ],
+        translate: { x: 0, y: 0, z: -80 }
+      });
+      new Zdog.Shape({
+        addTo: illo,
+        stroke: 4,
+        color: '#ffffff',
+        path: [
+          { x: -60, y: 0 },
+          { x: 60, y: 0 }
+        ],
+        translate: { x: 0, y: 0, z: -80 }
+      });
+
+      let t = 0;
+      function animate() {
+        t += 0.01;
+        illo.rotate.y += 0.008;
+        illo.rotate.x = Math.sin(t * 0.5) * 0.35 - 0.15;
+        illo.updateRenderGraph();
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      el.style.cursor = 'grab';
+    }
+
+    function initZdogContact() {
+      if (typeof Zdog === 'undefined') return;
+      const el = document.getElementById('zdogContact');
+      if (!el) return;
+
+      const illo = new Zdog.Illustration({
+        element: el,
+        zoom: 0.9,
+        dragRotate: true
+      });
+
+      // Anneau chrome
+      new Zdog.Ellipse({
+        addTo: illo,
+        diameter: 80,
+        quarters: 4,
+        stroke: 8,
+        color: '#d4d4d4',
+        translate: { z: 0 }
+      });
+
+      new Zdog.Ellipse({
+        addTo: illo,
+        diameter: 56,
+        quarters: 4,
+        stroke: 6,
+        color: '#ffffff',
+        translate: { z: -4 }
+      });
+
+      // Petit cube au centre
+      new Zdog.Box({
+        addTo: illo,
+        width: 26,
+        height: 26,
+        depth: 26,
+        color: '#ffffff',
+        topFace: '#ffffff',
+        bottomFace: '#555',
+        leftFace: '#a8a8a8',
+        rightFace: '#d4d4d4',
+        frontFace: '#ffffff',
+        stroke: 1
+      });
+
+      function animate() {
+        illo.rotate.y += 0.012;
+        illo.rotate.x = Math.sin(Date.now() * 0.001) * 0.2;
+        illo.updateRenderGraph();
+        requestAnimationFrame(animate);
+      }
+      animate();
+    }
+
+    window.addEventListener('load', () => {
+      setTimeout(() => {
+        initZdogHero();
+        initZdogContact();
+      }, 200);
     });
   </script>
 </body>
