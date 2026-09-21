@@ -31,6 +31,9 @@
 </head>
 <body>
 
+  <!-- ===== FOND AURORAL ===== -->
+  <div class="auroral-bg auroral-northern" aria-hidden="true"></div>
+
   <!-- ===== GRAIN DE PELLICULE ===== -->
   <div class="grain-overlay"></div>
 
@@ -785,7 +788,6 @@
 
     const sectionSelectors = ['#heroSection', '#about', '#portfolio', '#competences', '#cv', '#contact'];
 
-    // Calcule la position de chaque clip en fonction de la vraie position des sections
     function layoutTimeline() {
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
       if (maxScroll <= 0) return;
@@ -811,7 +813,6 @@
       });
     }
 
-    // Met à jour le playhead et le nom de section
     function updateTimeline() {
       const scrollTop = window.scrollY;
       const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
@@ -838,7 +839,6 @@
       timelineSectionName.textContent = timelineClips[activeIndex]?.dataset.label || 'Intro';
     }
 
-    // Clic sur un clip → scroll vers la section
     timelineClips.forEach(clip => {
       clip.addEventListener('click', () => {
         const target = document.querySelector(clip.dataset.target);
@@ -848,7 +848,6 @@
       });
     });
 
-    // Init + recalcul
     window.addEventListener('load', () => {
       layoutTimeline();
       updateTimeline();
