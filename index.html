@@ -27,73 +27,52 @@
 </head>
 <body>
 
-  <!-- ===== SHADERLABS BACKGROUND ===== -->
-  <div id="shader-bg" aria-hidden="true"></div>
-
-  <!-- ===== SCANLINES CRT ===== -->
+  <!-- SCANLINES -->
   <div class="scanlines" aria-hidden="true"></div>
 
-  <!-- ===== VHS NOISE ===== -->
-  <div class="vhs-noise" aria-hidden="true"></div>
+  <!-- NOISE -->
+  <div class="noise" aria-hidden="true"></div>
 
-  <!-- ===== PAPARAZZI FLASH ===== -->
-  <div class="paparazzi" id="paparazzi" aria-hidden="true"></div>
-
-  <!-- ===== SPARKLES ===== -->
-  <div class="sparkles" id="sparkles" aria-hidden="true"></div>
-
-  <!-- ===== PARTICLES ===== -->
-  <div id="particles-js" aria-hidden="true"></div>
-
-  <!-- ===== CHROME CURSOR ===== -->
+  <!-- CURSEUR CHROME -->
   <div class="cursor-halo" id="cursorHalo"></div>
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
 
-  <!-- ===== WIN98 LOADER ===== -->
+  <!-- LOADER -->
   <div id="loader">
-    <div class="win98-window loader-win">
-      <div class="win98-titlebar">
-        <span class="win98-icon">💾</span>
-        <span class="win98-title">RobinOS — Setup.exe</span>
-        <div class="win98-buttons">
-          <button class="win98-btn-min" aria-hidden="true">_</button>
-          <button class="win98-btn-max" aria-hidden="true">□</button>
-          <button class="win98-btn-close" aria-hidden="true">✕</button>
+    <div class="loader-win">
+      <div class="loader-titlebar">
+        <span class="loader-icon">💾</span>
+        <span class="loader-titlename">RobinOS — Setup.exe</span>
+        <div class="loader-buttons">
+          <span>_</span><span>□</span><span>✕</span>
         </div>
       </div>
-      <div class="win98-body">
+      <div class="loader-body">
         <div class="loader-logo">
-          <span class="loader-letter" id="wordLeft">R</span><span class="loader-rest" id="restLeft">obin</span>
-          <span class="loader-letter" id="wordRight">M</span><span class="loader-rest" id="restRight">artinent</span>
+          <span class="loader-letter">R</span><span class="loader-rest" id="restLeft">obin</span>
+          <span class="loader-letter">M</span><span class="loader-rest" id="restRight">artinent</span>
           <span class="loader-cursor">_</span>
         </div>
-        <div class="loader-progress-wrap">
-          <div class="loader-progress-label">Installation du portfolio...</div>
-          <div class="loader-progress-bar">
-            <div class="loader-progress-fill" id="loaderFill"></div>
-          </div>
-          <div class="loader-progress-pct" id="loaderPct">0%</div>
+        <div class="loader-label">Installation du portfolio...</div>
+        <div class="loader-bar">
+          <div class="loader-fill" id="loaderFill"></div>
         </div>
-        <div class="loader-subtitle" id="loaderSubtitle">▓ CHARGEMENT DES SHADERS ▓</div>
+        <div class="loader-pct" id="loaderPct">0%</div>
+        <div class="loader-sub" id="loaderSub">▓ CHARGEMENT ▓</div>
       </div>
     </div>
   </div>
 
-  <!-- ===== EXPLOSION OVERLAY ===== -->
-  <div class="explosion-overlay" id="explosionOverlay">
+  <!-- EXPLOSION -->
+  <div class="explosion" id="explosion">
     <div class="explosion-text" id="explosionText">💥 BOOM !</div>
   </div>
 
-  <!-- ===== SMOKE ===== -->
-  <div class="smoke-container" id="smokeContainer"></div>
-
-  <!-- ===== NAV ===== -->
+  <!-- NAV -->
   <nav id="navbar">
     <div class="nav-inner">
-      <a href="#" class="nav-logo">
-        <span class="logo-bracket">[</span> ROBIN MARTINENT <span class="logo-bracket">]</span>
-      </a>
+      <a href="#" class="nav-logo">[ ROBIN MARTINENT ]</a>
       <ul class="nav-links">
         <li><a href="#about">À PROPOS</a></li>
         <li><a href="#portfolio">PORTFOLIO</a></li>
@@ -101,30 +80,19 @@
         <li><a href="#cv">CV</a></li>
         <li><a href="#contact">CONTACT</a></li>
       </ul>
-      <div class="nav-status">
-        <span class="status-dot"></span>ONLINE
-      </div>
+      <div class="nav-status"><span class="status-dot"></span>ONLINE</div>
     </div>
   </nav>
 
-  <!-- ===== HERO ===== -->
+  <!-- HERO -->
   <section class="hero" id="heroSection">
-    <div class="hero-grid-bg" aria-hidden="true"></div>
-
+    <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-inner">
-      <div class="hero-glitch-wrap">
-        <h1 class="hero-title" data-text="RÉALISATEUR">
-          <span class="chrome-text split-text">RÉALISATEUR</span>
-        </h1>
-        <h1 class="hero-title" data-text="MONTEUR">
-          <span class="chrome-text accent split-text">MONTEUR</span>
-        </h1>
-        <h1 class="hero-title" data-text="& CRÉATIF">
-          <span class="chrome-text split-text">&amp; CRÉATIF</span>
-        </h1>
-      </div>
+      <h1 class="hero-title chrome">RÉALISATEUR</h1>
+      <h1 class="hero-title chrome magenta">MONTEUR</h1>
+      <h1 class="hero-title chrome">&amp; CRÉATIF</h1>
       <p class="hero-sub">
-        <span class="typed-prefix">Je suis </span><span id="typed" class="typed-target"></span><br>
+        <span class="typed-prefix">Je suis </span><span id="typed" class="typed-target"></span><span class="typed-cursor">▮</span><br>
         Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
       </p>
       <div class="hero-cta">
@@ -136,55 +104,36 @@
     </div>
   </section>
 
-  <!-- ===== À PROPOS ===== -->
+  <!-- À PROPOS -->
   <section class="section" id="about">
     <div class="section-inner">
-      <div class="win98-window">
+      <div class="win98">
         <div class="win98-titlebar">
-          <span class="win98-icon">📁</span>
+          <span>📁</span>
           <span class="win98-title">C:\Robin\about_me.txt</span>
-          <div class="win98-buttons">
-            <button class="win98-btn-min" aria-hidden="true">_</button>
-            <button class="win98-btn-max" aria-hidden="true">□</button>
-            <button class="win98-btn-close" aria-hidden="true">✕</button>
-          </div>
+          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
         </div>
         <div class="win98-body">
           <p class="section-label reveal">// 01 — QUI JE SUIS</p>
           <h2 class="section-title reveal">À PROPOS</h2>
           <div class="about-content reveal">
-            <p>
-              Je m'appelle <strong>Robin Martinent</strong>, j'ai 21 ans et je suis en première année de Bachelor Réalisateur Monteur.
-              Passionné par le montage vidéo et la narration, je cherche une alternance pour continuer à apprendre
-              en travaillant sur des projets concrets.
-            </p>
-            <p>
-              J'aime particulièrement le <strong>montage rythmique</strong>, le <strong>motion design</strong> et la <strong>post-production</strong>.
-              Mon objectif est de devenir monteur vidéo et réalisateur de documentaires, en alliant technique et sens du récit.
-              Ce stage chez Shaolin Shadow m'a permis de confirmer cette direction.
-            </p>
-            <p>
-              Je suis curieux, rigoureux et j'aime apprendre en faisant. J'accorde une grande importance à
-              l'organisation, au travail en équipe et à la qualité du rendu final.
-            </p>
+            <p>Je m'appelle <strong>Robin Martinent</strong>, j'ai 21 ans et je suis en première année de Bachelor Réalisateur Monteur. Passionné par le montage vidéo et la narration, je cherche une alternance pour continuer à apprendre en travaillant sur des projets concrets.</p>
+            <p>J'aime particulièrement le <strong>montage rythmique</strong>, le <strong>motion design</strong> et la <strong>post-production</strong>. Mon objectif est de devenir monteur vidéo et réalisateur de documentaires, en alliant technique et sens du récit. Ce stage chez Shaolin Shadow m'a permis de confirmer cette direction.</p>
+            <p>Je suis curieux, rigoureux et j'aime apprendre en faisant. J'accorde une grande importance à l'organisation, au travail en équipe et à la qualité du rendu final.</p>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <!-- ===== PORTFOLIO ===== -->
+  <!-- PORTFOLIO -->
   <section class="section" id="portfolio">
     <div class="section-inner">
-      <div class="win98-window">
+      <div class="win98">
         <div class="win98-titlebar">
-          <span class="win98-icon">🎬</span>
+          <span>🎬</span>
           <span class="win98-title">D:\Projects\portfolio.avi</span>
-          <div class="win98-buttons">
-            <button class="win98-btn-min" aria-hidden="true">_</button>
-            <button class="win98-btn-max" aria-hidden="true">□</button>
-            <button class="win98-btn-close" aria-hidden="true">✕</button>
-          </div>
+          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
         </div>
         <div class="win98-body">
           <p class="section-label reveal">// 02 — MES RÉALISATIONS</p>
@@ -244,54 +193,26 @@
     </div>
   </section>
 
-  <!-- ===== COMPÉTENCES ===== -->
+  <!-- COMPÉTENCES -->
   <section class="section" id="competences">
     <div class="section-inner">
-      <div class="win98-window">
+      <div class="win98">
         <div class="win98-titlebar">
-          <span class="win98-icon">⚙</span>
+          <span>⚙</span>
           <span class="win98-title">C:\Program Files\Skills.exe</span>
-          <div class="win98-buttons">
-            <button class="win98-btn-min" aria-hidden="true">_</button>
-            <button class="win98-btn-max" aria-hidden="true">□</button>
-            <button class="win98-btn-close" aria-hidden="true">✕</button>
-          </div>
+          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
         </div>
         <div class="win98-body">
           <p class="section-label reveal">// 03 — CE QUE JE SAIS FAIRE</p>
           <h2 class="section-title reveal">COMPÉTENCES</h2>
 
           <div class="skills-grid">
-            <div class="skill-card reveal">
-              <div class="skill-icon">🎬</div>
-              <h3>MONTAGE VIDÉO</h3>
-              <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
-            </div>
-            <div class="skill-card reveal">
-              <div class="skill-icon">✨</div>
-              <h3>MOTION DESIGN</h3>
-              <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
-            </div>
-            <div class="skill-card reveal">
-              <div class="skill-icon">🎨</div>
-              <h3>ILLUSTRATION</h3>
-              <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
-            </div>
-            <div class="skill-card reveal">
-              <div class="skill-icon">🌐</div>
-              <h3>DEV WEB</h3>
-              <p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p>
-            </div>
-            <div class="skill-card reveal">
-              <div class="skill-icon">📷</div>
-              <h3>RÉALISATION</h3>
-              <p>Tournage, cadrage, son, gestion de plateau.</p>
-            </div>
-            <div class="skill-card reveal">
-              <div class="skill-icon">🖨️</div>
-              <h3>IMPRESSION 3D</h3>
-              <p>À l'aise avec le hardware, l'impression et le dépannage technique.</p>
-            </div>
+            <div class="skill-card reveal"><div class="skill-icon">🎬</div><h3>MONTAGE VIDÉO</h3><p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p></div>
+            <div class="skill-card reveal"><div class="skill-icon">✨</div><h3>MOTION DESIGN</h3><p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p></div>
+            <div class="skill-card reveal"><div class="skill-icon">🎨</div><h3>ILLUSTRATION</h3><p>Affiches, visuels réseaux sociaux, identité visuelle.</p></div>
+            <div class="skill-card reveal"><div class="skill-icon">🌐</div><h3>DEV WEB</h3><p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p></div>
+            <div class="skill-card reveal"><div class="skill-icon">📷</div><h3>RÉALISATION</h3><p>Tournage, cadrage, son, gestion de plateau.</p></div>
+            <div class="skill-card reveal"><div class="skill-icon">🖨️</div><h3>IMPRESSION 3D</h3><p>À l'aise avec le hardware, l'impression et le dépannage technique.</p></div>
           </div>
 
           <div class="tools-list reveal">
@@ -310,18 +231,14 @@
     </div>
   </section>
 
-  <!-- ===== CV ===== -->
+  <!-- CV -->
   <section class="section" id="cv">
     <div class="section-inner">
-      <div class="win98-window">
+      <div class="win98">
         <div class="win98-titlebar">
-          <span class="win98-icon">📄</span>
+          <span>📄</span>
           <span class="win98-title">A:\CV_2026.doc</span>
-          <div class="win98-buttons">
-            <button class="win98-btn-min" aria-hidden="true">_</button>
-            <button class="win98-btn-max" aria-hidden="true">□</button>
-            <button class="win98-btn-close" aria-hidden="true">✕</button>
-          </div>
+          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
         </div>
         <div class="win98-body">
           <p class="section-label reveal">// 04 — MON PARCOURS</p>
@@ -388,18 +305,14 @@
     </div>
   </section>
 
-  <!-- ===== CONTACT ===== -->
+  <!-- CONTACT -->
   <section class="section" id="contact">
     <div class="section-inner">
-      <div class="win98-window">
+      <div class="win98">
         <div class="win98-titlebar">
-          <span class="win98-icon">✉</span>
+          <span>✉</span>
           <span class="win98-title">Outlook Express — Nouveau message</span>
-          <div class="win98-buttons">
-            <button class="win98-btn-min" aria-hidden="true">_</button>
-            <button class="win98-btn-max" aria-hidden="true">□</button>
-            <button class="win98-btn-close" aria-hidden="true">✕</button>
-          </div>
+          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
         </div>
         <div class="win98-body contact-body">
           <p class="section-label">// 05 — ME CONTACTER</p>
@@ -432,535 +345,154 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
+  <!-- FOOTER -->
   <footer>
-    <div class="footer-left">
-      <p>© 2026 ROBIN MARTINENT — TOUS DROITS RÉSERVÉS</p>
-      <p class="footer-credits">ShaderLabs · GSAP · Lenis · Typed.js · SplitType · tsParticles — MIT</p>
-    </div>
+    <div class="footer-left"><p>© 2026 ROBIN MARTINENT — TOUS DROITS RÉSERVÉS</p></div>
     <div class="footer-center">
       <a href="mailto:robin.martinent@gmail.com">EMAIL</a>
       <a href="https://www.linkedin.com/in/robin-martinent" target="_blank" rel="noopener">LINKEDIN</a>
       <a href="https://github.com/robin-martinent" target="_blank" rel="noopener">GITHUB</a>
     </div>
-    <div class="footer-right">
-      <p>FAIT AVEC PASSION ✦</p>
-    </div>
+    <div class="footer-right"><p>FAIT AVEC PASSION ✦</p></div>
   </footer>
 
-  <!-- ===== MINI-JEU MODAL ===== -->
+  <!-- MINI-JEU -->
   <div class="game-modal" id="gameModal">
-    <div class="win98-window game-win">
+    <div class="win98 game-win">
       <div class="win98-titlebar">
-        <span class="win98-icon">🎮</span>
+        <span>🎮</span>
         <span class="win98-title">montage.exe — Jeu</span>
-        <div class="win98-buttons">
-          <button class="win98-btn-min" aria-hidden="true">_</button>
-          <button class="win98-btn-max" aria-hidden="true">□</button>
-          <button class="win98-btn-close game-close" id="gameClose" aria-label="Fermer">✕</button>
-        </div>
+        <div class="win98-buttons"><span>_</span><span>□</span><span class="game-close" id="gameClose">✕</span></div>
       </div>
       <div class="win98-body game-body">
         <p class="game-label">▓ SALLE DE MONTAGE ▓</p>
         <h2>LE DÉFI DU MONTEUR</h2>
         <p class="game-desc">Clique les rushes dans le bon ordre, de 1 à 5, le plus vite possible.</p>
-
         <div class="game-stats">
           <span>TEMPS : <strong id="gameTimer">0.00</strong>s</span>
           <span>ERREURS : <strong id="gameErrors">0</strong></span>
         </div>
-
         <div class="game-board" id="gameBoard"></div>
-
         <div class="game-result" id="gameResult"></div>
-
         <button class="btn-98 primary" id="gameRestart">↻ REJOUER</button>
       </div>
     </div>
   </div>
 
-  <!-- ===== LIBRAIRIES EXTERNES (CDN) ===== -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/dist/typed.umd.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
-
   <script>
     // ============================================================
-    // 1. SHADERLABS BACKGROUND (Mesh Gradient)
+    // 1. NAV
     // ============================================================
-    (function initShader() {
-      const container = document.getElementById('shader-bg');
-      if (!container || typeof THREE === 'undefined') return;
-
-      const scene = new THREE.Scene();
-      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
-      camera.position.z = 1;
-
-      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
-      renderer.setSize(window.innerWidth, window.innerHeight);
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-      container.appendChild(renderer.domElement);
-
-      const uniforms = {
-        uTime: { value: 0 },
-        uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
-        uColor1: { value: new THREE.Color(0x1a0b2e) },
-        uColor2: { value: new THREE.Color(0x5b2bff) },
-        uColor3: { value: new THREE.Color(0xff00ff) },
-        uColor4: { value: new THREE.Color(0x000000) }
-      };
-
-      const vertexShader = `
-        varying vec2 vUv;
-        void main() {
-          vUv = uv;
-          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
-        }
-      `;
-
-      const fragmentShader = `
-        precision highp float;
-        varying vec2 vUv;
-        uniform float uTime;
-        uniform vec2 uResolution;
-        uniform vec3 uColor1;
-        uniform vec3 uColor2;
-        uniform vec3 uColor3;
-        uniform vec3 uColor4;
-
-        // Simplex noise 2D
-        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-        vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
-        vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
-
-        float snoise(vec2 v) {
-          const vec4 C = vec4(0.211324865405187, 0.366025403784439,
-                             -0.577350269189626, 0.024390243902439);
-          vec2 i  = floor(v + dot(v, C.yy));
-          vec2 x0 = v - i + dot(i, C.xx);
-          vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
-          vec4 x12 = x0.xyxy + C.xxzz;
-          x12.xy -= i1;
-          i = mod289(i);
-          vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
-                                + i.x + vec3(0.0, i1.x, 1.0));
-          vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
-          m = m * m;
-          m = m * m;
-          vec3 x = 2.0 * fract(p * C.www) - 1.0;
-          vec3 h = abs(x) - 0.5;
-          vec3 ox = floor(x + 0.5);
-          vec3 a0 = x - ox;
-          m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
-          vec3 g;
-          g.x  = a0.x  * x0.x  + h.x  * x0.y;
-          g.yz = a0.yz * x12.xz + h.yz * x12.yw;
-          return 130.0 * dot(m, g);
-        }
-
-        void main() {
-          vec2 uv = vUv;
-          float aspect = uResolution.x / uResolution.y;
-          vec2 p = uv;
-          p.x *= aspect;
-
-          float t = uTime * 0.08;
-
-          float n1 = snoise(p * 1.5 + vec2(t, t * 0.7));
-          float n2 = snoise(p * 2.2 - vec2(t * 0.5, t * 0.9));
-          float n3 = snoise(p * 3.0 + vec2(t * 1.2, -t * 0.4));
-          float n4 = snoise(p * 0.8 - vec2(t * 0.3, t * 0.6));
-
-          float blend1 = smoothstep(-0.5, 0.5, n1);
-          float blend2 = smoothstep(-0.4, 0.6, n2);
-          float blend3 = smoothstep(-0.6, 0.4, n3);
-          float blend4 = smoothstep(-0.3, 0.7, n4);
-
-          vec3 color = uColor4;
-          color = mix(color, uColor1, blend1 * 0.85);
-          color = mix(color, uColor2, blend2 * 0.55);
-          color = mix(color, uColor3, blend3 * 0.35);
-          color = mix(color, uColor4, blend4 * 0.6);
-
-          // Grain
-          float grain = fract(sin(dot(uv * uResolution, vec2(12.9898, 78.233))) * 43758.5453);
-          color += (grain - 0.5) * 0.025;
-
-          // Vignette
-          float vig = 1.0 - distance(uv, vec2(0.5)) * 1.1;
-          vig = clamp(vig, 0.0, 1.0);
-          color *= vig;
-
-          gl_FragColor = vec4(color, 1.0);
-        }
-      `;
-
-      const geometry = new THREE.PlaneGeometry(2, 2);
-      const material = new THREE.ShaderMaterial({
-        vertexShader,
-        fragmentShader,
-        uniforms
-      });
-      const mesh = new THREE.Mesh(geometry, material);
-      scene.add(mesh);
-
-      const clock = new THREE.Clock();
-
-      function animate() {
-        uniforms.uTime.value = clock.getElapsedTime();
-        renderer.render(scene, camera);
-        requestAnimationFrame(animate);
-      }
-      animate();
-
-      window.addEventListener('resize', () => {
-        const w = window.innerWidth;
-        const h = window.innerHeight;
-        renderer.setSize(w, h);
-        uniforms.uResolution.value.set(w, h);
-      });
-    })();
-
-    // ============================================================
-    // 2. LENIS SMOOTH SCROLL
-    // ============================================================
-    let lenis;
-    if (typeof Lenis !== 'undefined') {
-      lenis = new Lenis({
-        duration: 1.1,
-        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
-        smoothTouch: false
-      });
-
-      lenis.on('scroll', () => {
-        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
-      });
-
-      function raf(time) {
-        lenis.raf(time);
-        requestAnimationFrame(raf);
-      }
-      requestAnimationFrame(raf);
-    }
-
-    // ============================================================
-    // 3. NAV SHRINK
-    // ============================================================
-    const navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', () => {
+    var navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', function() {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
 
     // ============================================================
-    // 4. CAROUSEL
+    // 2. CAROUSEL
     // ============================================================
-    const titles = ['SHOWREEL SHAOLIN SHADOW 2025', 'CLIP RAP LOCAL', 'COURT-MÉTRAGE DOCUMENTAIRE', 'RASSEMBLEMENT PORSCHE'];
-    const track = document.getElementById('track');
-    const dotsContainer = document.getElementById('dots');
-    const curEl = document.getElementById('cur');
-    const titleEl = document.getElementById('slide-title');
-    let current = 0;
-    const total = 4;
+    var titles = ['SHOWREEL SHAOLIN SHADOW 2025', 'CLIP RAP LOCAL', 'COURT-MÉTRAGE DOCUMENTAIRE', 'RASSEMBLEMENT PORSCHE'];
+    var track = document.getElementById('track');
+    var dotsContainer = document.getElementById('dots');
+    var curEl = document.getElementById('cur');
+    var titleEl = document.getElementById('slide-title');
+    var current = 0;
+    var total = 4;
 
-    for (let i = 0; i < total; i++) {
-      const d = document.createElement('div');
-      d.className = 'dot' + (i === 0 ? ' active' : '');
-      d.addEventListener('click', () => goTo(i));
-      dotsContainer.appendChild(d);
+    for (var i = 0; i < total; i++) {
+      (function(idx) {
+        var d = document.createElement('div');
+        d.className = 'dot' + (idx === 0 ? ' active' : '');
+        d.addEventListener('click', function() { goTo(idx); });
+        dotsContainer.appendChild(d);
+      })(i);
     }
 
     function goTo(n) {
-      current = (n + total) % total;
+      current = ((n % total) + total) % total;
       track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
+      var dots = document.querySelectorAll('.dot');
+      for (var j = 0; j < dots.length; j++) {
+        dots[j].classList.toggle('active', j === current);
+      }
       curEl.textContent = current + 1;
       titleEl.textContent = titles[current];
     }
 
-    document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
-    document.getElementById('next').addEventListener('click', () => goTo(current + 1));
+    document.getElementById('prev').addEventListener('click', function() { goTo(current - 1); });
+    document.getElementById('next').addEventListener('click', function() { goTo(current + 1); });
 
-    let startX = 0;
-    track.addEventListener('touchstart', e => startX = e.touches[0].clientX, { passive: true });
-    track.addEventListener('touchend', e => {
-      const diff = startX - e.changedTouches[0].clientX;
+    var startX = 0;
+    track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
+    track.addEventListener('touchend', function(e) {
+      var diff = startX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
     });
 
     // ============================================================
-    // 5. SMOKE
+    // 3. REVEAL AU SCROLL
     // ============================================================
-    const smokeContainer = document.getElementById('smokeContainer');
-
-    function createSmoke() {
-      const particle = document.createElement('div');
-      particle.className = 'smoke-particle';
-      const size = 150 + Math.random() * 200;
-      const left = Math.random() * 100;
-      const duration = 5 + Math.random() * 4;
-      const delay = Math.random() * 2;
-      const opacity = 0.3 + Math.random() * 0.3;
-
-      particle.style.width = size + 'px';
-      particle.style.height = size + 'px';
-      particle.style.left = left + '%';
-      particle.style.animationDuration = duration + 's';
-      particle.style.animationDelay = delay + 's';
-      particle.style.opacity = opacity;
-      particle.style.background = 'radial-gradient(circle, rgba(220,220,220,' + opacity + ') 0%, rgba(180,180,180,' + (opacity * 0.4) + ') 40%, rgba(150,150,150,0) 80%)';
-      smokeContainer.appendChild(particle);
-
-      setTimeout(() => { particle.remove(); }, (duration + delay) * 1000 + 500);
-    }
-
-    function startSmoke() {
-      smokeContainer.classList.add('active');
-      const count = 40 + Math.floor(Math.random() * 25);
-      for (let i = 0; i < count; i++) setTimeout(() => createSmoke(), i * 100);
-      for (let i = 0; i < 20; i++) setTimeout(() => createSmoke(), 2000 + i * 150);
-    }
-
-    function stopSmoke() {
-      smokeContainer.classList.remove('active');
-      setTimeout(() => { smokeContainer.innerHTML = ''; }, 3000);
-    }
-
-    // ============================================================
-    // 6. BOOM SOUND
-    // ============================================================
-    function playExplosionSound() {
-      try {
-        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-        const bufferSize = audioCtx.sampleRate * 0.7;
-        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
-        const data = buffer.getChannelData(0);
-
-        for (let i = 0; i < bufferSize; i++) {
-          const t = i / audioCtx.sampleRate;
-          const envelope = Math.exp(-t * 5);
-          const square = Math.sign(Math.sin(2 * Math.PI * 80 * t));
-          const noise = (Math.random() * 2 - 1) * 0.3;
-          data[i] = (square * 0.6 + noise) * envelope;
-        }
-
-        const source = audioCtx.createBufferSource();
-        source.buffer = buffer;
-        const gainNode = audioCtx.createGain();
-        gainNode.gain.setValueAtTime(1.2, audioCtx.currentTime);
-        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
-
-        const distortion = audioCtx.createWaveShaper();
-        distortion.curve = (function() {
-          const samples = 44100;
-          const curve = new Float32Array(samples);
-          for (let i = 0; i < samples; i++) {
-            const x = (i / samples) * 2 - 1;
-            curve[i] = Math.tanh(x * 2) * 1.5;
+    var reveals = document.querySelectorAll('.reveal');
+    if ('IntersectionObserver' in window) {
+      var obs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            obs.unobserve(entry.target);
           }
-          return curve;
-        })();
-
-        source.connect(distortion);
-        distortion.connect(gainNode);
-        gainNode.connect(audioCtx.destination);
-        source.start();
-      } catch (e) {}
+        });
+      }, { threshold: 0.12 });
+      reveals.forEach(function(el) { obs.observe(el); });
+    } else {
+      reveals.forEach(function(el) { el.classList.add('visible'); });
     }
 
     // ============================================================
-    // 7. EXPLOSION
+    // 4. TYPED MANUEL
     // ============================================================
-    let isExploding = false;
+    var typedEl = document.getElementById('typed');
+    var typedWords = ['Monteur vidéo.', 'Réalisateur.', 'Motion designer.', 'Créatif.'];
+    var twIndex = 0, tcIndex = 0, typing = true, typedTimeout;
 
-    function triggerExplosion() {
-      if (isExploding) return;
-      isExploding = true;
-
-      const overlay = document.getElementById('explosionOverlay');
-      const textEl = document.getElementById('explosionText');
-      const body = document.body;
-
-      playExplosionSound();
-      startSmoke();
-      overlay.classList.add('active');
-      body.classList.add('site-shake');
-
-      const panicMessages = ['💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOOON', '💻 FUMÉE'];
-      textEl.textContent = panicMessages[Math.floor(Math.random() * panicMessages.length)];
-
-      setTimeout(() => {
-        body.classList.remove('site-shake');
-        document.body.classList.add('site-fadeout');
-        stopSmoke();
-
-        setTimeout(() => {
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-          document.body.classList.remove('site-fadeout');
-          document.body.classList.add('site-fadein');
-
-          copyBtn.classList.remove('copied');
-          copyBtn.style.animation = '';
-          emailFeedbackMsg.textContent = 'COPIÉ !';
-          emailClicks = 0;
-
-          overlay.classList.remove('active');
-
-          setTimeout(() => {
-            document.body.classList.remove('site-fadein');
-            isExploding = false;
-          }, 1000);
-        }, 800);
-      }, 1500);
+    function typeLoop() {
+      var word = typedWords[twIndex];
+      if (typing) {
+        tcIndex++;
+        typedEl.textContent = word.substring(0, tcIndex);
+        if (tcIndex === word.length) {
+          typing = false;
+          typedTimeout = setTimeout(typeLoop, 1600);
+          return;
+        }
+        typedTimeout = setTimeout(typeLoop, 55);
+      } else {
+        tcIndex--;
+        typedEl.textContent = word.substring(0, tcIndex);
+        if (tcIndex === 0) {
+          typing = true;
+          twIndex = (twIndex + 1) % typedWords.length;
+          typedTimeout = setTimeout(typeLoop, 400);
+          return;
+        }
+        typedTimeout = setTimeout(typeLoop, 30);
+      }
     }
+    if (typedEl) typeLoop();
 
     // ============================================================
-    // 8. EMAIL COPY BUTTON
+    // 5. CURSEUR CHROME
     // ============================================================
-    const copyBtn = document.getElementById('copyEmailBtn');
-    const emailFeedbackMsg = document.getElementById('emailFeedbackMsg');
-    const email = 'robin.martinent@gmail.com';
+    var cursorHalo = document.getElementById('cursorHalo');
+    var cursorDot = document.getElementById('cursorDot');
+    var cursorTrail = document.getElementById('cursorTrail');
 
-    const emailMessages = [
-      'COPIÉ !', 'X2 !', 'X3 !', 'X4 !',
-      'T\'AS VRAIMENT COPIÉ ?', 'RECOPIE...', 'TU VAS CASSER LE BOUTON !',
-      'ARRÊTE...', 'ÇA VA CASSER LE SITE !', 'NOOOOOOONNNNN !!!!! 💥'
-    ];
+    var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
+    var haloX = mouseX, haloY = mouseY;
+    var dotX = mouseX, dotY = mouseY;
+    var trailX = mouseX, trailY = mouseY;
+    var curVisible = false;
 
-    const shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
-    let emailClicks = 0;
-
-    copyBtn.addEventListener('click', async function(e) {
-      e.preventDefault();
-      if (isExploding) return;
-
-      try { await navigator.clipboard.writeText(email); }
-      catch {
-        const input = document.createElement('input');
-        input.value = email;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-      }
-
-      emailClicks++;
-      const index = Math.min(emailClicks - 1, emailMessages.length - 1);
-      emailFeedbackMsg.textContent = emailMessages[index];
-      this.classList.add('copied');
-
-      let level = 0;
-      if (emailClicks >= 10) level = 5;
-      else if (emailClicks >= 8) level = 4;
-      else if (emailClicks >= 6) level = 3;
-      else if (emailClicks >= 4) level = 2;
-      else if (emailClicks >= 2) level = 1;
-
-      if (level > 0 && level < shakeClasses.length) {
-        this.style.animation = shakeClasses[level] + ' 0.5s ease';
-        setTimeout(() => { this.style.animation = ''; }, 500);
-      }
-
-      if (emailClicks >= emailMessages.length) {
-        setTimeout(() => { triggerExplosion(); }, 400);
-        return;
-      }
-
-      setTimeout(() => {
-        this.classList.remove('copied');
-        if (emailClicks < emailMessages.length) emailFeedbackMsg.textContent = 'COPIÉ !';
-      }, 1800);
-    });
-
-    // ============================================================
-    // 9. PHONE COPY BUTTON
-    // ============================================================
-    const phoneBtn = document.getElementById('copyPhoneBtn');
-    const phoneFeedbackMsg = document.getElementById('phoneFeedbackMsg');
-    const phoneNumber = '0766740346';
-
-    const phoneMessages = [
-      'NUMÉRO COPIÉ !', 'J\'ALLAIS PAS FAIRE LA MÊME CHOSE...', 'MAIS SI, JE L\'AI FAIT.',
-      'T\'ES TÊTU TOI.', 'BON, VOILÀ, C\'EST COPIÉ.', 'TU VEUX QUE JE LE DISE PLUS FORT ?',
-      '07 66 74 03 46', 'ÇA SUFFIT MAINTENANT.', 'JE T\'AI COPIÉ 9 FOIS.', 'T\'AS GAGNÉ, J\'ARRÊTE.'
-    ];
-
-    const wobbleClasses = ['', 'wobble1', 'wobble2', 'wobble3', 'wobble4', 'wobble5'];
-    let phoneClicks = 0;
-    let isPhoneDone = false;
-
-    phoneBtn.addEventListener('click', async function(e) {
-      e.preventDefault();
-      if (isPhoneDone) return;
-
-      try { await navigator.clipboard.writeText(phoneNumber); }
-      catch {
-        const input = document.createElement('input');
-        input.value = phoneNumber;
-        document.body.appendChild(input);
-        input.select();
-        document.execCommand('copy');
-        document.body.removeChild(input);
-      }
-
-      phoneClicks++;
-      const index = Math.min(phoneClicks - 1, phoneMessages.length - 1);
-      phoneFeedbackMsg.textContent = phoneMessages[index];
-      this.classList.add('copied');
-
-      let wobbleLevel = 0;
-      if (phoneClicks >= 10) wobbleLevel = 5;
-      else if (phoneClicks >= 8) wobbleLevel = 4;
-      else if (phoneClicks >= 6) wobbleLevel = 3;
-      else if (phoneClicks >= 4) wobbleLevel = 2;
-      else if (phoneClicks >= 2) wobbleLevel = 1;
-
-      if (wobbleLevel > 0 && wobbleLevel < wobbleClasses.length) {
-        this.style.animation = wobbleClasses[wobbleLevel] + ' 0.6s ease';
-        setTimeout(() => { this.style.animation = ''; }, 600);
-      }
-
-      if (phoneClicks >= phoneMessages.length) {
-        isPhoneDone = true;
-        this.disabled = true;
-        this.style.borderColor = '#ff00ff';
-        this.style.color = '#ff00ff';
-        setTimeout(() => {
-          this.disabled = false;
-          this.classList.remove('copied');
-          this.style.borderColor = '';
-          this.style.color = '';
-          phoneFeedbackMsg.textContent = 'NUMÉRO COPIÉ !';
-          phoneClicks = 0;
-          isPhoneDone = false;
-        }, 3000);
-        return;
-      }
-
-      setTimeout(() => {
-        this.classList.remove('copied');
-        if (phoneClicks < phoneMessages.length) phoneFeedbackMsg.textContent = 'NUMÉRO COPIÉ !';
-      }, 1800);
-    });
-
-    // ============================================================
-    // 10. CHROME CURSOR
-    // ============================================================
-    const cursorHalo = document.getElementById('cursorHalo');
-    const cursorDot = document.getElementById('cursorDot');
-    const cursorTrail = document.getElementById('cursorTrail');
-
-    let mouseX = window.innerWidth / 2;
-    let mouseY = window.innerHeight / 2;
-    let haloX = mouseX, haloY = mouseY;
-    let dotX = mouseX, dotY = mouseY;
-    let trailX = mouseX, trailY = mouseY;
-    let isVisible = false;
-
-    function updateCursorPositions() {
+    function updateCursor() {
       haloX += (mouseX - haloX) * 0.14;
       haloY += (mouseY - haloY) * 0.14;
       dotX += (mouseX - dotX) * 0.28;
@@ -975,15 +507,14 @@
       cursorTrail.style.left = trailX + 'px';
       cursorTrail.style.top = trailY + 'px';
 
-      requestAnimationFrame(updateCursorPositions);
+      requestAnimationFrame(updateCursor);
     }
 
-    document.addEventListener('mousemove', (e) => {
+    document.addEventListener('mousemove', function(e) {
       mouseX = e.clientX;
       mouseY = e.clientY;
-
-      if (!isVisible) {
-        isVisible = true;
+      if (!curVisible) {
+        curVisible = true;
         cursorHalo.classList.add('visible');
         cursorDot.classList.add('visible');
         cursorTrail.classList.add('visible');
@@ -993,14 +524,14 @@
       }
     });
 
-    document.addEventListener('mouseleave', () => {
-      isVisible = false;
+    document.addEventListener('mouseleave', function() {
+      curVisible = false;
       cursorHalo.classList.remove('visible');
       cursorDot.classList.remove('visible');
       cursorTrail.classList.remove('visible');
     });
 
-    updateCursorPositions();
+    updateCursor();
 
     if (window.matchMedia('(pointer: coarse)').matches) {
       cursorHalo.style.display = 'none';
@@ -1009,72 +540,217 @@
     }
 
     // ============================================================
-    // 11. WIN98 LOADER
+    // 6. LOADER
     // ============================================================
-    const loader = document.getElementById('loader');
-    const restLeft = document.getElementById('restLeft');
-    const restRight = document.getElementById('restRight');
-    const loaderFill = document.getElementById('loaderFill');
-    const loaderPct = document.getElementById('loaderPct');
-    const subtitle = document.getElementById('loaderSubtitle');
+    var loader = document.getElementById('loader');
+    var restLeft = document.getElementById('restLeft');
+    var restRight = document.getElementById('restRight');
+    var loaderFill = document.getElementById('loaderFill');
+    var loaderPct = document.getElementById('loaderPct');
+    var loaderSub = document.getElementById('loaderSub');
 
-    const loaderSteps = [
-      '▓ CHARGEMENT DES SHADERS ▓',
-      '▓ COMPILATION WEBGL ▓',
+    var loaderSteps = [
+      '▓ CHARGEMENT DES DRIVERS ▓',
       '▓ MONTAGE DES RUSHES ▓',
       '▓ ÉTALONNAGE EN COURS ▓',
+      '▓ SYNCHRONISATION AUDIO ▓',
       '▓ COMPILATION DU PORTFOLIO ▓'
     ];
 
-    let progress = 0;
-    const progressInterval = setInterval(() => {
+    var progress = 0;
+    var progressInterval = setInterval(function() {
       progress += Math.random() * 8 + 2;
       if (progress > 100) progress = 100;
       loaderFill.style.width = progress + '%';
       loaderPct.textContent = Math.floor(progress) + '%';
-
-      const stepIdx = Math.min(Math.floor(progress / 22), loaderSteps.length - 1);
-      subtitle.textContent = loaderSteps[stepIdx];
-
+      var stepIdx = Math.min(Math.floor(progress / 22), loaderSteps.length - 1);
+      loaderSub.textContent = loaderSteps[stepIdx];
       if (progress >= 100) clearInterval(progressInterval);
     }, 180);
 
-    setTimeout(() => restLeft.classList.add('expanded'), 400);
-    setTimeout(() => restRight.classList.add('expanded'), 550);
+    setTimeout(function() { restLeft.classList.add('expanded'); }, 400);
+    setTimeout(function() { restRight.classList.add('expanded'); }, 550);
 
-    window.addEventListener('load', () => {
-      setTimeout(() => loader.classList.add('hidden'), 3600);
+    setTimeout(function() {
+      loader.classList.add('hidden');
+    }, 3600);
+
+    // ============================================================
+    // 7. COPIER EMAIL / TEL
+    // ============================================================
+    var copyBtn = document.getElementById('copyEmailBtn');
+    var emailFeedbackMsg = document.getElementById('emailFeedbackMsg');
+    var email = 'robin.martinent@gmail.com';
+    var emailMessages = [
+      'COPIÉ !', 'X2 !', 'X3 !', 'X4 !',
+      'T\'AS VRAIMENT COPIÉ ?', 'RECOPIE...', 'TU VAS CASSER LE BOUTON !',
+      'ARRÊTE...', 'ÇA VA CASSER LE SITE !', 'BOOM ! 💥'
+    ];
+    var shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
+    var emailClicks = 0;
+
+    copyBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (isExploding) return;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(email).catch(function() {});
+      }
+
+      emailClicks++;
+      var index = Math.min(emailClicks - 1, emailMessages.length - 1);
+      emailFeedbackMsg.textContent = emailMessages[index];
+      this.classList.add('copied');
+
+      var level = 0;
+      if (emailClicks >= 10) level = 5;
+      else if (emailClicks >= 8) level = 4;
+      else if (emailClicks >= 6) level = 3;
+      else if (emailClicks >= 4) level = 2;
+      else if (emailClicks >= 2) level = 1;
+
+      if (level > 0 && level < shakeClasses.length) {
+        this.style.animation = shakeClasses[level] + ' 0.5s ease';
+        (function(el) {
+          setTimeout(function() { el.style.animation = ''; }, 500);
+        })(this);
+      }
+
+      if (emailClicks >= emailMessages.length) {
+        setTimeout(triggerExplosion, 400);
+        return;
+      }
+
+      var self = this;
+      setTimeout(function() {
+        self.classList.remove('copied');
+        if (emailClicks < emailMessages.length) emailFeedbackMsg.textContent = 'COPIÉ !';
+      }, 1800);
     });
 
-    setTimeout(() => {
-      if (!loader.classList.contains('hidden')) loader.classList.add('hidden');
-    }, 5000);
+    var phoneBtn = document.getElementById('copyPhoneBtn');
+    var phoneFeedbackMsg = document.getElementById('phoneFeedbackMsg');
+    var phoneNumber = '0766740346';
+    var phoneMessages = [
+      'NUMÉRO COPIÉ !', 'J\'ALLAIS PAS FAIRE LA MÊME CHOSE...', 'MAIS SI, JE L\'AI FAIT.',
+      'T\'ES TÊTU TOI.', 'BON, VOILÀ, C\'EST COPIÉ.', 'TU VEUX QUE JE LE DISE PLUS FORT ?',
+      '07 66 74 03 46', 'ÇA SUFFIT MAINTENANT.', '9 FOIS.', 'T\'AS GAGNÉ, J\'ARRÊTE.'
+    ];
+    var wobbleClasses = ['', 'wobble1', 'wobble2', 'wobble3', 'wobble4', 'wobble5'];
+    var phoneClicks = 0;
+    var isPhoneDone = false;
+
+    phoneBtn.addEventListener('click', function(e) {
+      e.preventDefault();
+      if (isPhoneDone) return;
+
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(phoneNumber).catch(function() {});
+      }
+
+      phoneClicks++;
+      var index = Math.min(phoneClicks - 1, phoneMessages.length - 1);
+      phoneFeedbackMsg.textContent = phoneMessages[index];
+      this.classList.add('copied');
+
+      var wobbleLevel = 0;
+      if (phoneClicks >= 10) wobbleLevel = 5;
+      else if (phoneClicks >= 8) wobbleLevel = 4;
+      else if (phoneClicks >= 6) wobbleLevel = 3;
+      else if (phoneClicks >= 4) wobbleLevel = 2;
+      else if (phoneClicks >= 2) wobbleLevel = 1;
+
+      if (wobbleLevel > 0 && wobbleLevel < wobbleClasses.length) {
+        this.style.animation = wobbleClasses[wobbleLevel] + ' 0.6s ease';
+        (function(el) {
+          setTimeout(function() { el.style.animation = ''; }, 600);
+        })(this);
+      }
+
+      if (phoneClicks >= phoneMessages.length) {
+        isPhoneDone = true;
+        this.disabled = true;
+        this.style.borderColor = '#ff00ff';
+        this.style.color = '#ff00ff';
+        var self = this;
+        setTimeout(function() {
+          self.disabled = false;
+          self.classList.remove('copied');
+          self.style.borderColor = '';
+          self.style.color = '';
+          phoneFeedbackMsg.textContent = 'NUMÉRO COPIÉ !';
+          phoneClicks = 0;
+          isPhoneDone = false;
+        }, 3000);
+        return;
+      }
+
+      var self2 = this;
+      setTimeout(function() {
+        self2.classList.remove('copied');
+        if (phoneClicks < phoneMessages.length) phoneFeedbackMsg.textContent = 'NUMÉRO COPIÉ !';
+      }, 1800);
+    });
 
     // ============================================================
-    // 12. J / K / L SHORTCUTS
+    // 8. EXPLOSION
     // ============================================================
-    const AUTO_SCROLL_SPEED = 9;
-    let autoScrollSpeed = 0;
-    let autoScrollRAF = null;
+    var isExploding = false;
+
+    function triggerExplosion() {
+      if (isExploding) return;
+      isExploding = true;
+
+      var overlay = document.getElementById('explosion');
+      var textEl = document.getElementById('explosionText');
+
+      overlay.classList.add('active');
+      document.body.classList.add('site-shake');
+
+      var messages = ['💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOON', '💻 FUMÉE'];
+      textEl.textContent = messages[Math.floor(Math.random() * messages.length)];
+
+      setTimeout(function() {
+        document.body.classList.remove('site-shake');
+        document.body.classList.add('site-fadeout');
+
+        setTimeout(function() {
+          window.scrollTo(0, 0);
+          document.body.classList.remove('site-fadeout');
+          document.body.classList.add('site-fadein');
+          copyBtn.classList.remove('copied');
+          copyBtn.style.animation = '';
+          emailFeedbackMsg.textContent = 'COPIÉ !';
+          emailClicks = 0;
+          overlay.classList.remove('active');
+
+          setTimeout(function() {
+            document.body.classList.remove('site-fadein');
+            isExploding = false;
+          }, 1000);
+        }, 800);
+      }, 1500);
+    }
+
+    // ============================================================
+    // 9. J / K / L
+    // ============================================================
+    var AUTO_SCROLL_SPEED = 9;
+    var autoScrollSpeed = 0;
+    var autoScrollRAF = null;
 
     function autoScroll() {
       if (autoScrollSpeed !== 0) {
-        if (lenis) {
-          lenis.scrollTo(window.scrollY + autoScrollSpeed, { immediate: true });
-        } else {
-          window.scrollBy(0, autoScrollSpeed);
-        }
+        window.scrollBy(0, autoScrollSpeed);
         autoScrollRAF = requestAnimationFrame(autoScroll);
       } else {
         cancelAnimationFrame(autoScrollRAF);
       }
     }
 
-    document.addEventListener('keydown', (e) => {
+    document.addEventListener('keydown', function(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
-      const key = e.key.toLowerCase();
-
+      var key = e.key.toLowerCase();
       if (key === 'l') {
         autoScrollSpeed = AUTO_SCROLL_SPEED;
         cancelAnimationFrame(autoScrollRAF);
@@ -1093,72 +769,28 @@
     });
 
     // ============================================================
-    // 13. PAPARAZZI FLASH
+    // 10. MINI-JEU
     // ============================================================
-    const paparazzi = document.getElementById('paparazzi');
+    var gameModal = document.getElementById('gameModal');
+    var gameBoard = document.getElementById('gameBoard');
+    var gameTimerEl = document.getElementById('gameTimer');
+    var gameErrorsEl = document.getElementById('gameErrors');
+    var gameResult = document.getElementById('gameResult');
+    var gameClose = document.getElementById('gameClose');
+    var gameRestart = document.getElementById('gameRestart');
 
-    function flashPaparazzi() {
-      paparazzi.classList.add('flash');
-      setTimeout(() => paparazzi.classList.remove('flash'), 120);
-      setTimeout(() => {
-        paparazzi.classList.add('flash');
-        setTimeout(() => paparazzi.classList.remove('flash'), 80);
-      }, 180);
-    }
+    var gameActive = false;
+    var gameStartTime = 0;
+    var gameInterval = null;
+    var gameNext = 1;
+    var gameErrors = 0;
 
-    function schedulePaparazzi() {
-      const delay = 14000 + Math.random() * 20000;
-      setTimeout(() => {
-        flashPaparazzi();
-        schedulePaparazzi();
-      }, delay);
-    }
-
-    schedulePaparazzi();
-
-    // ============================================================
-    // 14. SPARKLES
-    // ============================================================
-    const sparkles = document.getElementById('sparkles');
-
-    function createSparkle() {
-      const s = document.createElement('div');
-      s.className = 'sparkle';
-      s.style.left = Math.random() * 100 + '%';
-      s.style.top = Math.random() * 100 + '%';
-      s.style.animationDuration = (2 + Math.random() * 1.5) + 's';
-      s.style.transform = 'scale(' + (0.4 + Math.random() * 0.6) + ')';
-      sparkles.appendChild(s);
-      setTimeout(() => s.remove(), 3500);
-    }
-
-    setInterval(() => {
-      if (document.visibilityState === 'visible') createSparkle();
-    }, 2400);
-
-    // ============================================================
-    // 15. MINI-GAME
-    // ============================================================
-    const gameModal = document.getElementById('gameModal');
-    const gameBoard = document.getElementById('gameBoard');
-    const gameTimerEl = document.getElementById('gameTimer');
-    const gameErrorsEl = document.getElementById('gameErrors');
-    const gameResult = document.getElementById('gameResult');
-    const gameClose = document.getElementById('gameClose');
-    const gameRestart = document.getElementById('gameRestart');
-
-    let gameActive = false;
-    let gameStartTime = 0;
-    let gameInterval = null;
-    let gameNext = 1;
-    let gameErrors = 0;
-
-    let typed = '';
-    document.addEventListener('keydown', (e) => {
+    var typed = '';
+    document.addEventListener('keydown', function(e) {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       typed += e.key.toLowerCase();
       if (typed.length > 10) typed = typed.slice(-10);
-      if (typed.includes('montage')) {
+      if (typed.indexOf('montage') !== -1) {
         typed = '';
         openGame();
       }
@@ -1184,47 +816,42 @@
       gameResult.className = 'game-result';
       gameStartTime = performance.now();
 
-      const numbers = [1, 2, 3, 4, 5];
-      const shuffled = numbers.slice().sort(() => Math.random() - 0.5);
+      var numbers = [1, 2, 3, 4, 5];
+      var shuffled = numbers.slice().sort(function() { return Math.random() - 0.5; });
 
       gameBoard.innerHTML = '';
-      shuffled.forEach(num => {
-        const clip = document.createElement('div');
+      shuffled.forEach(function(num) {
+        var clip = document.createElement('div');
         clip.className = 'game-clip';
         clip.dataset.num = num;
         clip.textContent = num;
-
-        clip.addEventListener('click', () => handleClipClick(clip, num));
+        clip.addEventListener('click', function() { handleClipClick(clip, num); });
         gameBoard.appendChild(clip);
       });
 
       if (gameInterval) clearInterval(gameInterval);
-      gameInterval = setInterval(() => {
+      gameInterval = setInterval(function() {
         if (!gameActive) return;
-        const elapsed = (performance.now() - gameStartTime) / 1000;
+        var elapsed = (performance.now() - gameStartTime) / 1000;
         gameTimerEl.textContent = elapsed.toFixed(2);
       }, 50);
     }
 
     function handleClipClick(clip, num) {
       if (!gameActive || clip.classList.contains('done')) return;
-
       if (num === gameNext) {
         clip.classList.add('done');
         clip.textContent = '✓';
         gameNext++;
-
         if (gameNext > 5) {
           gameActive = false;
           clearInterval(gameInterval);
-          const elapsed = (performance.now() - gameStartTime) / 1000;
-
-          let message = '';
-          if (elapsed < 2 && gameErrors === 0) message = '🏆 PARFAIT ! MONTEUR DE GÉNIE.';
-          else if (elapsed < 3.5 && gameErrors <= 1) message = '🎬 EXCELLENT MONTAGE !';
+          var elapsed = (performance.now() - gameStartTime) / 1000;
+          var message = '';
+          if (elapsed < 2 && gameErrors === 0) message = '🏆 PARFAIT !';
+          else if (elapsed < 3.5 && gameErrors <= 1) message = '🎬 EXCELLENT !';
           else if (elapsed < 5) message = '👍 BON RYTHME !';
-          else message = '😅 UN PEU LENT, MAIS C\'EST MONTÉ !';
-
+          else message = '😅 C\'EST MONTÉ !';
           gameResult.textContent = message + ' (' + elapsed.toFixed(2) + 's · ' + gameErrors + ' erreur' + (gameErrors > 1 ? 's' : '') + ')';
           gameResult.classList.add('success');
         }
@@ -1232,188 +859,19 @@
         gameErrors++;
         gameErrorsEl.textContent = gameErrors;
         clip.classList.add('error');
-        setTimeout(() => clip.classList.remove('error'), 400);
+        setTimeout(function() { clip.classList.remove('error'); }, 400);
       }
     }
 
     gameClose.addEventListener('click', closeGame);
     gameRestart.addEventListener('click', startGame);
-    gameModal.addEventListener('click', (e) => {
+    gameModal.addEventListener('click', function(e) {
       if (e.target === gameModal) closeGame();
     });
 
-    document.addEventListener('keydown', (e) => {
-      if (e.key === 'Escape' && gameModal.classList.contains('active')) {
-        closeGame();
-      }
+    document.addEventListener('keydown', function(e) {
+      if (e.key === 'Escape' && gameModal.classList.contains('active')) closeGame();
     });
-
-    // ============================================================
-    // 16. TYPED.JS
-    // ============================================================
-    if (typeof Typed !== 'undefined') {
-      new Typed('#typed', {
-        strings: [
-          'Monteur vidéo.',
-          'Réalisateur.',
-          'Motion designer.',
-          'Créatif.'
-        ],
-        typeSpeed: 55,
-        backSpeed: 30,
-        backDelay: 1600,
-        startDelay: 300,
-        loop: true,
-        showCursor: true,
-        cursorChar: '▮'
-      });
-    }
-
-    // ============================================================
-    // 17. SPLITTYPE + GSAP SCROLLTRIGGER
-    // ============================================================
-    if (typeof SplitType !== 'undefined' && typeof gsap !== 'undefined') {
-      const splitTexts = document.querySelectorAll('.split-text');
-      splitTexts.forEach((el) => {
-        const split = new SplitType(el, { types: 'chars, words' });
-        gsap.from(split.chars, {
-          opacity: 0,
-          y: 60,
-          rotateX: -90,
-          stagger: 0.03,
-          duration: 0.9,
-          ease: 'power3.out',
-          delay: 2.8
-        });
-      });
-    }
-
-    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
-      gsap.registerPlugin(ScrollTrigger);
-
-      // Reveal sections on scroll
-      document.querySelectorAll('.reveal').forEach((el) => {
-        gsap.from(el, {
-          scrollTrigger: {
-            trigger: el,
-            start: 'top 85%',
-            toggleActions: 'play none none none'
-          },
-          opacity: 0,
-          y: 60,
-          duration: 0.9,
-          ease: 'power3.out'
-        });
-      });
-
-      // Skill cards — stagger reveal
-      gsap.from('.skill-card', {
-        scrollTrigger: {
-          trigger: '.skills-grid',
-          start: 'top 80%'
-        },
-        opacity: 0,
-        y: 80,
-        rotateY: -15,
-        stagger: 0.12,
-        duration: 0.8,
-        ease: 'power3.out'
-      });
-
-      // CV items — slide from left
-      gsap.from('.cv-item', {
-        scrollTrigger: {
-          trigger: '.cv-grid',
-          start: 'top 75%'
-        },
-        opacity: 0,
-        x: -50,
-        stagger: 0.08,
-        duration: 0.7,
-        ease: 'power2.out'
-      });
-
-      // Win98 windows — scale in
-      gsap.from('.win98-window', {
-        scrollTrigger: {
-          trigger: '.win98-window',
-          start: 'top 85%'
-        },
-        opacity: 0,
-        scale: 0.95,
-        duration: 0.6,
-        ease: 'power2.out'
-      });
-
-      // Parallax on hero title
-      gsap.to('.hero-title:nth-child(1)', {
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1
-        },
-        y: -80,
-        ease: 'none'
-      });
-
-      gsap.to('.hero-title:nth-child(3)', {
-        scrollTrigger: {
-          trigger: '.hero',
-          start: 'top top',
-          end: 'bottom top',
-          scrub: 1
-        },
-        y: 80,
-        ease: 'none'
-      });
-
-      ScrollTrigger.refresh();
-    }
-
-    // ============================================================
-    // 18. TSPARTICLES
-    // ============================================================
-    if (typeof tsParticles !== 'undefined') {
-      tsParticles.load('particles-js', {
-        fpsLimit: 60,
-        particles: {
-          number: { value: 40, density: { enable: true, value_area: 900 } },
-          color: { value: ['#ffffff', '#8a8a8a', '#ff00ff'] },
-          shape: { type: 'circle' },
-          opacity: {
-            value: 0.4,
-            random: true,
-            anim: { enable: true, speed: 0.5, opacity_min: 0.1 }
-          },
-          size: {
-            value: 2.5,
-            random: true,
-            anim: { enable: true, speed: 1.5, size_min: 0.5 }
-          },
-          move: {
-            enable: true,
-            speed: 0.8,
-            direction: 'none',
-            random: true,
-            straight: false,
-            out_mode: 'out'
-          }
-        },
-        interactivity: {
-          detect_on: 'canvas',
-          events: {
-            onhover: { enable: true, mode: 'bubble' },
-            onclick: { enable: false },
-            resize: true
-          },
-          modes: {
-            bubble: { distance: 120, size: 3.5, duration: 2, opacity: 0.6 }
-          }
-        },
-        retina_detect: true
-      });
-    }
   </script>
 </body>
 </html>
