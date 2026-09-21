@@ -4,13 +4,13 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>ROBIN MARTINENT ▓ MONTEUR ▓ RÉALISATEUR</title>
+  <title>Robin Martinent · Monteur Vidéo & Réalisateur</title>
 
-  <meta name="description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur. Disponible en alternance 2026." />
+  <meta name="description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur. Montage, motion design, post-production. Disponible en alternance 2026." />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://robin-martinent.github.io/" />
 
-  <meta property="og:title" content="ROBIN MARTINENT · MONTEUR · RÉALISATEUR" />
+  <meta property="og:title" content="Robin Martinent · Monteur Vidéo & Réalisateur" />
   <meta property="og:description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur." />
   <meta property="og:image" content="https://robin-martinent.github.io/images/og-image.jpg" />
   <meta property="og:url" content="https://robin-martinent.github.io/" />
@@ -23,480 +23,702 @@
   <link rel="manifest" href="favicon_io/site.webmanifest">
   <link rel="shortcut icon" href="favicon_io/favicon.ico">
 
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Kaushan+Script&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet" />
+
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ===== FOND ANIMÉ ===== -->
-  <div class="bg-base" aria-hidden="true"></div>
-  <div class="bg-grid" aria-hidden="true"></div>
-  <div class="bg-orb bg-orb-1" aria-hidden="true"></div>
-  <div class="bg-orb bg-orb-2" aria-hidden="true"></div>
-  <div class="bg-orb bg-orb-3" aria-hidden="true"></div>
-  <div class="bg-vignette" aria-hidden="true"></div>
+  <!-- ===== FOND AURORAL ===== -->
+  <div class="auroral-bg auroral-northern" aria-hidden="true"></div>
 
-  <div class="scanlines" aria-hidden="true"></div>
-  <div class="noise" aria-hidden="true"></div>
+  <!-- ===== GRAIN DE PELLICULE ===== -->
+  <div class="grain-overlay"></div>
 
-  <div class="cursor-halo" id="cursorHalo"></div>
-  <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-trail" id="cursorTrail"></div>
+  <!-- ===== MOTIF DE POINTS ===== -->
+  <div class="dot-overlay" aria-hidden="true"></div>
 
+  <!-- ===== LOADER ===== -->
   <div id="loader">
-    <div class="loader-win">
-      <div class="loader-titlebar">
-        <span class="loader-icon">💾</span>
-        <span class="loader-titlename">RobinOS — Setup.exe</span>
-        <div class="loader-buttons">
-          <span>_</span><span>□</span><span>✕</span>
+    <div class="loader-container">
+      <div class="loader-rm">
+        <div class="loader-word left" id="wordLeft">
+          <span class="letter">R</span>
+          <span class="rest">obin</span>
         </div>
+        <div class="loader-word right" id="wordRight">
+          <span class="letter">M</span>
+          <span class="rest">artinent</span>
+        </div>
+        <span class="loader-dot">.</span>
       </div>
-      <div class="loader-body">
-        <div class="loader-logo">
-          <span class="loader-letter">R</span><span class="loader-rest" id="restLeft">obin</span>
-          <span class="loader-letter">M</span><span class="loader-rest" id="restRight">artinent</span>
-          <span class="loader-cursor">_</span>
-        </div>
-        <div class="loader-label">Installation du portfolio...</div>
-        <div class="loader-bar">
-          <div class="loader-fill" id="loaderFill"></div>
-        </div>
-        <div class="loader-pct" id="loaderPct">0%</div>
-        <div class="loader-sub" id="loaderSub">▓ COMPILATION DES SHADERS ▓</div>
+      <div class="loader-subtitle" id="loaderSubtitle">
+        <span class="sub-accent">Réalisateur</span>
+        <span class="sub-white">Monteur</span>
       </div>
     </div>
   </div>
 
-  <div class="explosion" id="explosion">
+  <!-- ===== CURSEUR ===== -->
+  <div class="hero-cursor-halo" id="cursorHalo"></div>
+  <div class="hero-cursor-dot" id="cursorDot"></div>
+  <div class="hero-cursor-trail" id="cursorTrail"></div>
+
+  <!-- OVERLAY EXPLOSION -->
+  <div class="explosion-overlay" id="explosionOverlay">
     <div class="explosion-text" id="explosionText">💥 BOOM !</div>
   </div>
 
+  <!-- FUMÉE -->
+  <div class="smoke-container" id="smokeContainer"></div>
+
+  <!-- NAV -->
   <nav id="navbar">
-    <div class="nav-inner">
-      <a href="#" class="nav-logo">[ ROBIN MARTINENT ]</a>
-      <ul class="nav-links">
-        <li><a href="#about">À PROPOS</a></li>
-        <li><a href="#portfolio">PORTFOLIO</a></li>
-        <li><a href="#competences">SKILLS</a></li>
-        <li><a href="#cv">CV</a></li>
-        <li><a href="#contact">CONTACT</a></li>
-      </ul>
-      <div class="nav-status"><span class="status-dot"></span>ONLINE</div>
-    </div>
+    <a href="#" class="nav-logo">Robin<span>.</span></a>
+    <ul class="nav-links">
+      <li><a href="#about">À propos</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#competences">Compétences</a></li>
+      <li><a href="#cv">CV</a></li>
+      <li><a href="rapport.html">Rapport 2026</a></li>
+      <li><a href="#contact">Contact</a></li>
+    </ul>
   </nav>
 
+  <!-- HERO -->
   <section class="hero" id="heroSection">
-    <div class="hero-grid" aria-hidden="true"></div>
-    <div class="hero-inner">
-      <h1 class="hero-title chrome">RÉALISATEUR</h1>
-      <h1 class="hero-title chrome magenta">MONTEUR</h1>
-      <h1 class="hero-title chrome">&amp; CRÉATIF</h1>
-      <p class="hero-sub">
-        <span class="typed-prefix">Je suis </span><span id="typed" class="typed-target"></span><span class="typed-cursor">▮</span><br>
-        Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
+    <div class="hero-bg-glow"></div>
+    <div class="hero-bg-glow2"></div>
+    <div class="hero-tag">Disponible en alternance 2 ans · Rentrée 2026</div>
+    <h1>
+      <span class="light">Réalisateur</span><br />
+      <span class="accent">Monteur</span><br />
+      <span class="light">& Créatif</span>
+    </h1>
+    <p class="hero-sub">
+      Montage vidéo, motion design, illustration, dev web. Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
+    </p>
+    <div class="hero-cta">
+      <a href="#portfolio" class="btn-primary">Voir mes projets</a>
+      <a href="#contact" class="btn-ghost">Me contacter</a>
+      <a href="rapport.html" class="btn-rapport">📄 Rapport de stage 2026</a>
+    </div>
+    <div class="scroll-hint">
+      <div class="scroll-line"></div>
+      Scroll
+    </div>
+  </section>
+
+  <!-- À PROPOS -->
+  <div class="section" id="about">
+    <p class="section-label reveal">Qui je suis</p>
+    <h2 class="section-title reveal">À propos</h2>
+    <div class="about-content reveal">
+      <p>
+        Je m'appelle Robin Martinent, j'ai 21 ans et je suis en première année de Bachelor Réalisateur Monteur.
+        Passionné par le montage vidéo et la narration, je cherche une alternance pour continuer à apprendre
+        en travaillant sur des projets concrets.
       </p>
-      <div class="hero-cta">
-        <a href="#portfolio" class="btn-98 primary chrome-btn" data-chrome>
-          <canvas class="chrome-canvas" aria-hidden="true"></canvas>
-          <span class="chrome-label">▶ VOIR MES PROJETS</span>
-        </a>
-        <a href="#contact" class="btn-98">▣ ME CONTACTER</a>
-        <a href="rapport.html" class="btn-98">▤ RAPPORT 2026</a>
-      </div>
-      <div class="hero-badge">EST. 2004 — ALTERNANCE 2026</div>
+      <p>
+        J'aime particulièrement le montage rythmique, le motion design et la post-production. Mon objectif
+        est de devenir monteur vidéo et réalisateur de documentaires, en alliant technique et sens du récit.
+        Ce stage chez Shaolin Shadow m'a permis de confirmer cette direction et de découvrir le milieu associatif,
+        sa richesse humaine et ses contraintes matérielles.
+      </p>
+      <p>
+        Je suis curieux, rigoureux et j'aime apprendre en faisant. J'accorde une grande importance à
+        l'organisation, au travail en équipe et à la qualité du rendu final.
+      </p>
     </div>
-  </section>
+  </div>
 
-  <section class="section" id="about">
-    <div class="section-inner">
-      <div class="win98">
-        <div class="win98-titlebar">
-          <span>📁</span>
-          <span class="win98-title">C:\Robin\about_me.txt</span>
-          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
-        </div>
-        <div class="win98-body">
-          <p class="section-label reveal">// 01 — QUI JE SUIS</p>
-          <h2 class="section-title reveal">À PROPOS</h2>
-          <div class="about-content reveal">
-            <p>Je m'appelle <strong>Robin Martinent</strong>, j'ai 21 ans et je suis en première année de Bachelor Réalisateur Monteur. Passionné par le montage vidéo et la narration, je cherche une alternance pour continuer à apprendre en travaillant sur des projets concrets.</p>
-            <p>J'aime particulièrement le <strong>montage rythmique</strong>, le <strong>motion design</strong> et la <strong>post-production</strong>. Mon objectif est de devenir monteur vidéo et réalisateur de documentaires, en alliant technique et sens du récit. Ce stage chez Shaolin Shadow m'a permis de confirmer cette direction.</p>
-            <p>Je suis curieux, rigoureux et j'aime apprendre en faisant. J'accorde une grande importance à l'organisation, au travail en équipe et à la qualité du rendu final.</p>
+  <!-- PORTFOLIO -->
+  <div class="section" id="portfolio">
+    <p class="section-label reveal">Mes réalisations</p>
+    <h2 class="section-title reveal">Portfolio</h2>
+    <div class="carousel-wrap reveal">
+      <div class="carousel">
+        <div class="carousel-track" id="track">
+          <div class="carousel-slide">
+            <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy"></iframe>
+            <div class="project-info">
+              <h3>Showreel Shaolin Shadow 2025</h3>
+              <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
+              <p class="project-desc">Montage rythmique de la showreel annuelle : sélection des meilleurs moments de l'année, synchronisation avec la musique et création de l'animation d'outro.</p>
+            </div>
           </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="portfolio">
-    <div class="section-inner">
-      <div class="win98">
-        <div class="win98-titlebar">
-          <span>🎬</span>
-          <span class="win98-title">D:\Projects\portfolio.avi</span>
-          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
-        </div>
-        <div class="win98-body">
-          <p class="section-label reveal">// 02 — MES RÉALISATIONS</p>
-          <h2 class="section-title reveal">PORTFOLIO</h2>
-
-          <div class="carousel-wrap reveal">
-            <div class="carousel">
-              <div class="carousel-track" id="track">
-                <div class="carousel-slide">
-                  <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy"></iframe>
-                  <div class="project-info">
-                    <h3>SHOWREEL SHAOLIN SHADOW 2025</h3>
-                    <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
-                    <p class="project-desc">Montage rythmique de la showreel annuelle : sélection des meilleurs moments de l'année, synchronisation avec la musique et création de l'animation d'outro.</p>
-                  </div>
-                </div>
-                <div class="carousel-slide">
-                  <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy"></iframe>
-                  <div class="project-info">
-                    <h3>CLIP RAP LOCAL</h3>
-                    <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
-                    <p class="project-desc">Montage d'un clip musical pour un artiste de la scène rap grenobloise. Travail sur le rythme, les transitions et la colorimétrie.</p>
-                  </div>
-                </div>
-                <div class="carousel-slide">
-                  <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy"></iframe>
-                  <div class="project-info">
-                    <h3>COURT-MÉTRAGE DOCUMENTAIRE</h3>
-                    <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
-                    <p class="project-desc">Montage de séquences documentaires : dérushage, structuration narrative, calage son et étalonnage léger.</p>
-                  </div>
-                </div>
-                <div class="carousel-slide">
-                  <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy"></iframe>
-                  <div class="project-info">
-                    <h3>RASSEMBLEMENT PORSCHE</h3>
-                    <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
-                    <p class="project-desc">Montage d'un événement automobile pour la recherche de sponsors. Synchronisation de deux caméras, dérushage et montage final.</p>
-                  </div>
-                </div>
-              </div>
+          <div class="carousel-slide">
+            <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy"></iframe>
+            <div class="project-info">
+              <h3>Clip rap local</h3>
+              <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
+              <p class="project-desc">Montage d'un clip musical pour un artiste de la scène rap grenobloise. Travail sur le rythme, les transitions et la colorimétrie.</p>
             </div>
-            <div class="carousel-controls">
-              <div class="carousel-dots" id="dots"></div>
-              <div class="carousel-arrows">
-                <button class="btn-98 arrow-btn" id="prev">◀</button>
-                <button class="btn-98 arrow-btn" id="next">▶</button>
-              </div>
+          </div>
+          <div class="carousel-slide">
+            <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy"></iframe>
+            <div class="project-info">
+              <h3>Court-métrage documentaire</h3>
+              <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
+              <p class="project-desc">Montage de séquences documentaires : dérushage, structuration narrative, calage son et étalonnage léger.</p>
             </div>
-            <div class="carousel-label">
-              <span id="slide-title">SHOWREEL SHAOLIN SHADOW 2025</span>
-              <div class="carousel-counter">[ <em id="cur">1</em> / 4 ]</div>
+          </div>
+          <div class="carousel-slide">
+            <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy"></iframe>
+            <div class="project-info">
+              <h3>Rassemblement Porsche</h3>
+              <p class="project-meta">Monteur · Shaolin Shadow · 2025</p>
+              <p class="project-desc">Montage d'un événement automobile pour la recherche de sponsors. Synchronisation de deux caméras, dérushage et montage final.</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="competences">
-    <div class="section-inner">
-      <div class="win98">
-        <div class="win98-titlebar">
-          <span>⚙</span>
-          <span class="win98-title">C:\Program Files\Skills.exe</span>
-          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
-        </div>
-        <div class="win98-body">
-          <p class="section-label reveal">// 03 — CE QUE JE SAIS FAIRE</p>
-          <h2 class="section-title reveal">COMPÉTENCES</h2>
-
-          <div class="skills-grid">
-            <div class="skill-card holo reveal"><div class="skill-icon">🎬</div><h3>MONTAGE VIDÉO</h3><p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p></div>
-            <div class="skill-card holo reveal"><div class="skill-icon">✨</div><h3>MOTION DESIGN</h3><p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p></div>
-            <div class="skill-card holo reveal"><div class="skill-icon">🎨</div><h3>ILLUSTRATION</h3><p>Affiches, visuels réseaux sociaux, identité visuelle.</p></div>
-            <div class="skill-card holo reveal"><div class="skill-icon">🌐</div><h3>DEV WEB</h3><p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p></div>
-            <div class="skill-card holo reveal"><div class="skill-icon">📷</div><h3>RÉALISATION</h3><p>Tournage, cadrage, son, gestion de plateau.</p></div>
-            <div class="skill-card holo reveal"><div class="skill-icon">🖨️</div><h3>IMPRESSION 3D</h3><p>À l'aise avec le hardware, l'impression et le dépannage technique.</p></div>
-          </div>
-
-          <div class="tools-list reveal">
-            <span class="tool-tag">Premiere Pro</span>
-            <span class="tool-tag">After Effects</span>
-            <span class="tool-tag">DaVinci Resolve</span>
-            <span class="tool-tag">Audition</span>
-            <span class="tool-tag">Illustrator</span>
-            <span class="tool-tag">Photoshop</span>
-            <span class="tool-tag">Canva</span>
-            <span class="tool-tag">HTML / CSS</span>
-            <span class="tool-tag">JavaScript</span>
-          </div>
+      <div class="carousel-controls">
+        <div class="carousel-dots" id="dots"></div>
+        <div class="carousel-arrows">
+          <button class="arrow" id="prev">&#8592;</button>
+          <button class="arrow" id="next">&#8594;</button>
         </div>
       </div>
-    </div>
-  </section>
-
-  <section class="section" id="cv">
-    <div class="section-inner">
-      <div class="win98">
-        <div class="win98-titlebar">
-          <span>📄</span>
-          <span class="win98-title">A:\CV_2026.doc</span>
-          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
-        </div>
-        <div class="win98-body">
-          <p class="section-label reveal">// 04 — MON PARCOURS</p>
-          <h2 class="section-title reveal">CV</h2>
-
-          <div class="cv-grid">
-            <div class="cv-col reveal">
-              <h3>▸ FORMATION</h3>
-              <div class="cv-item">
-                <div class="cv-item-title">Bachelor Réalisateur-Monteur</div>
-                <div class="cv-item-sub">Studio M</div>
-                <div class="cv-item-date">2025 - 2026</div>
-                <div class="cv-desc">Montage vidéo · Motion design · Direction artistique · Gestion de projet audiovisuel · Réalisation de courts-métrages</div>
-              </div>
-              <div class="cv-item">
-                <div class="cv-item-title">Licence MIASH</div>
-                <div class="cv-item-sub">Grenoble IUT1</div>
-                <div class="cv-item-date">2024 - 2025</div>
-                <div class="cv-desc">Mathématiques · Informatique · Algorithmique · Analyse de données · Programmation Python</div>
-              </div>
-              <div class="cv-item">
-                <div class="cv-item-title">BUT MMI</div>
-                <div class="cv-item-sub">Grenoble IUT1</div>
-                <div class="cv-item-date">2023 - 2024</div>
-                <div class="cv-desc">Multimédia · Communication · Design graphique · Développement web · Audiovisuel · UX/UI</div>
-              </div>
-              <div class="cv-item">
-                <div class="cv-item-title">Bac STI2D option AC</div>
-                <div class="cv-item-sub">Lycée Ferdinand Buisson</div>
-                <div class="cv-item-date">2023</div>
-                <div class="cv-desc">Sciences de l'ingénieur · Systèmes automatisés · Électronique · Architecture des systèmes · Projets techniques</div>
-              </div>
-            </div>
-            <div class="cv-col reveal">
-              <h3>▸ EXPÉRIENCES</h3>
-              <div class="cv-item">
-                <div class="cv-item-title">Monteur vidéo</div>
-                <div class="cv-item-sub">Shaolin Shadow</div>
-                <div class="cv-item-date">Mars 2026 · 5 semaines</div>
-                <div class="cv-desc">Réalisation de showreels et best of d'événements dans le cadre d'un stage · Montage de clips et courts-métrages · Post-production</div>
-              </div>
-              <div class="cv-item">
-                <div class="cv-item-title">Employé polyvalent</div>
-                <div class="cv-item-sub">McDonald's</div>
-                <div class="cv-item-date">Été 2025 · 1 mois</div>
-                <div class="cv-desc">Job d'été · Accueil client · Préparation des commandes · Gestion du service · Travail en équipe</div>
-              </div>
-              <div class="cv-item">
-                <div class="cv-item-title">Hydroguide</div>
-                <div class="cv-item-sub">EDF</div>
-                <div class="cv-item-date">Été 2024 · 2 mois</div>
-                <div class="cv-desc">Job d'été · Garde de côtes · Sensibilisation aux dangers des barrages hydrauliques · Surveillance des zones</div>
-              </div>
-              <div class="cv-item">
-                <div class="cv-item-title">Mise en rayon</div>
-                <div class="cv-item-sub">Carrefour</div>
-                <div class="cv-item-date">Été 2023 · 1 mois</div>
-                <div class="cv-desc">Job d'été · Remplissage des rayons · Gestion des stocks · Réapprovisionnement · Organisation</div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <section class="section" id="contact">
-    <div class="section-inner">
-      <div class="win98">
-        <div class="win98-titlebar">
-          <span>✉</span>
-          <span class="win98-title">Outlook Express — Nouveau message</span>
-          <div class="win98-buttons"><span>_</span><span>□</span><span>✕</span></div>
-        </div>
-        <div class="win98-body contact-body">
-          <p class="section-label">// 05 — ME CONTACTER</p>
-          <h2 class="section-title">ON TRAVAILLE ENSEMBLE ?</h2>
-          <p class="contact-sub">Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
-
-          <div class="contact-links">
-            <button id="copyEmailBtn" class="btn-98 primary chrome-btn btn-copy" data-chrome>
-              <canvas class="chrome-canvas" aria-hidden="true"></canvas>
-              <span class="chrome-label btn-text">📧 robin.martinent@gmail.com</span>
-              <span class="btn-feedback" id="emailFeedback">
-                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                <span id="emailFeedbackMsg">COPIÉ !</span>
-              </span>
-            </button>
-            <button id="copyPhoneBtn" class="btn-98 btn-copy">
-              <span class="btn-text">📞 07 66 74 03 46</span>
-              <span class="btn-feedback" id="phoneFeedback">
-                <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-                <span id="phoneFeedbackMsg">COPIÉ !</span>
-              </span>
-            </button>
-          </div>
-
-          <div class="contact-secondary">
-            <a href="cv.pdf" class="btn-98" target="_blank">▤ TÉLÉCHARGER CV.PDF</a>
-            <a href="https://www.linkedin.com/in/robin-martinent" class="btn-98" target="_blank" rel="noopener">▣ LINKEDIN</a>
-          </div>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  <footer>
-    <div class="footer-left">
-      <p>© 2026 ROBIN MARTINENT — TOUS DROITS RÉSERVÉS</p>
-      <p class="footer-credits">Shader chrome custom · Vanilla JS · Zéro dépendance</p>
-    </div>
-    <div class="footer-center">
-      <a href="mailto:robin.martinent@gmail.com">EMAIL</a>
-      <a href="https://www.linkedin.com/in/robin-martinent" target="_blank" rel="noopener">LINKEDIN</a>
-      <a href="https://github.com/robin-martinent" target="_blank" rel="noopener">GITHUB</a>
-    </div>
-    <div class="footer-right"><p>FAIT AVEC PASSION ✦</p></div>
-  </footer>
-
-  <div class="game-modal" id="gameModal">
-    <div class="win98 game-win">
-      <div class="win98-titlebar">
-        <span>🎮</span>
-        <span class="win98-title">montage.exe — Jeu</span>
-        <div class="win98-buttons"><span>_</span><span>□</span><span class="game-close" id="gameClose">✕</span></div>
-      </div>
-      <div class="win98-body game-body">
-        <p class="game-label">▓ SALLE DE MONTAGE ▓</p>
-        <h2>LE DÉFI DU MONTEUR</h2>
-        <p class="game-desc">Clique les rushes dans le bon ordre, de 1 à 5, le plus vite possible.</p>
-        <div class="game-stats">
-          <span>TEMPS : <strong id="gameTimer">0.00</strong>s</span>
-          <span>ERREURS : <strong id="gameErrors">0</strong></span>
-        </div>
-        <div class="game-board" id="gameBoard"></div>
-        <div class="game-result" id="gameResult"></div>
-        <button class="btn-98 primary" id="gameRestart">↻ REJOUER</button>
+      <div class="carousel-label">
+        <span id="slide-title">Showreel Shaolin Shadow 2025</span>
+        <div class="carousel-counter"><em id="cur">1</em> / 4</div>
       </div>
     </div>
   </div>
 
+  <!-- COMPÉTENCES -->
+  <div class="section" id="competences">
+    <p class="section-label reveal">Ce que je sais faire</p>
+    <h2 class="section-title reveal">Compétences</h2>
+    <div class="skills-grid">
+      <div class="skill-card reveal">
+        <div class="skill-icon">🎬</div>
+        <h3>Montage vidéo</h3>
+        <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">✨</div>
+        <h3>Motion design</h3>
+        <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🎨</div>
+        <h3>Illustration & graphisme</h3>
+        <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🌐</div>
+        <h3>Dev web</h3>
+        <p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">📷</div>
+        <h3>Réalisation</h3>
+        <p>Tournage, cadrage, son, gestion de plateau.</p>
+      </div>
+      <div class="skill-card reveal">
+        <div class="skill-icon">🖨️</div>
+        <h3>Impression 3D résine</h3>
+        <p>À l'aise avec le hardware, l'impression et le dépannage technique.</p>
+      </div>
+    </div>
+    <div class="tools-list reveal">
+      <span class="tool-tag">Premiere Pro</span>
+      <span class="tool-tag">After Effects</span>
+      <span class="tool-tag">DaVinci Resolve</span>
+      <span class="tool-tag">Audition</span>
+      <span class="tool-tag">Illustrator</span>
+      <span class="tool-tag">Photoshop</span>
+      <span class="tool-tag">Canva</span>
+      <span class="tool-tag">HTML / CSS</span>
+      <span class="tool-tag">JavaScript</span>
+    </div>
+  </div>
+
+  <!-- CV -->
+  <div class="section" id="cv">
+    <p class="section-label reveal">Mon parcours</p>
+    <h2 class="section-title reveal">CV</h2>
+    <div class="cv-grid">
+      <div class="cv-col reveal">
+        <h3>Formation</h3>
+        <div class="cv-item">
+          <div class="cv-item-title">Bachelor Réalisateur-Monteur</div>
+          <div class="cv-item-sub">Studio M</div>
+          <div class="cv-item-date">2025 - 2026</div>
+          <div class="cv-desc">Montage vidéo · Motion design · Direction artistique · Gestion de projet audiovisuel · Réalisation de courts-métrages</div>
+        </div>
+        <div class="cv-item">
+          <div class="cv-item-title">Licence MIASH</div>
+          <div class="cv-item-sub">Grenoble IUT1</div>
+          <div class="cv-item-date">2024 - 2025</div>
+          <div class="cv-desc">Mathématiques · Informatique · Algorithmique · Analyse de données · Programmation Python</div>
+        </div>
+        <div class="cv-item">
+          <div class="cv-item-title">BUT MMI</div>
+          <div class="cv-item-sub">Grenoble IUT1</div>
+          <div class="cv-item-date">2023 - 2024</div>
+          <div class="cv-desc">Multimédia · Communication · Design graphique · Développement web · Audiovisuel · UX/UI</div>
+        </div>
+        <div class="cv-item">
+          <div class="cv-item-title">Bac STI2D option AC</div>
+          <div class="cv-item-sub">Lycée Ferdinand Buisson</div>
+          <div class="cv-item-date">2023</div>
+          <div class="cv-desc">Sciences de l'ingénieur · Systèmes automatisés · Électronique · Architecture des systèmes · Projets techniques</div>
+        </div>
+      </div>
+      <div class="cv-col reveal">
+        <h3>Expériences</h3>
+        <div class="cv-item">
+          <div class="cv-item-title">Monteur vidéo</div>
+          <div class="cv-item-sub">Shaolin Shadow</div>
+          <div class="cv-item-date">Mars 2026 · 5 semaines</div>
+          <div class="cv-desc">Réalisation de showreels et best of d'événements dans le cadre d'un stage · Montage de clips et courts-métrages · Post-production</div>
+        </div>
+        <div class="cv-item">
+          <div class="cv-item-title">Employé polyvalent</div>
+          <div class="cv-item-sub">McDonald's</div>
+          <div class="cv-item-date">Été 2025 · 1 mois</div>
+          <div class="cv-desc">Job d'été · Accueil client · Préparation des commandes · Gestion du service · Travail en équipe</div>
+        </div>
+        <div class="cv-item">
+          <div class="cv-item-title">Hydroguide</div>
+          <div class="cv-item-sub">EDF</div>
+          <div class="cv-item-date">Été 2024 · 2 mois</div>
+          <div class="cv-desc">Job d'été · Garde de côtes · Sensibilisation aux dangers des barrages hydrauliques · Surveillance des zones</div>
+        </div>
+        <div class="cv-item">
+          <div class="cv-item-title">Mise en rayon</div>
+          <div class="cv-item-sub">Carrefour</div>
+          <div class="cv-item-date">Été 2023 · 1 mois</div>
+          <div class="cv-desc">Job d'été · Remplissage des rayons · Gestion des stocks · Réapprovisionnement · Organisation</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CONTACT -->
+  <section class="contact-section" id="contact">
+    <p class="section-label">Me contacter</p>
+    <h2>On travaille ensemble ?</h2>
+    <p>Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
+
+    <div class="contact-links">
+      <button id="copyEmailBtn" class="btn-primary btn-copy">
+        <span class="btn-text">robin.martinent@gmail.com</span>
+        <span class="btn-feedback" id="emailFeedback">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="emailFeedbackMsg">Copié !</span>
+        </span>
+      </button>
+      <button id="copyPhoneBtn" class="btn-ghost btn-copy">
+        <span class="btn-text">07 66 74 03 46</span>
+        <span class="btn-feedback" id="phoneFeedback">
+          <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+          <span id="phoneFeedbackMsg">Copié !</span>
+        </span>
+      </button>
+    </div>
+
+    <div class="contact-secondary">
+      <a href="cv.pdf" class="btn-rapport" target="_blank">Télécharger mon CV (PDF)</a>
+      <a href="https://www.linkedin.com/in/robin-martinent" class="btn-ghost" target="_blank" rel="noopener">LinkedIn</a>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="footer-left">
+      <p>© 2026 Robin Martinent · Tous droits réservés</p>
+    </div>
+    <div class="footer-center">
+      <a href="mailto:robin.martinent@gmail.com">Email</a>
+      <a href="https://www.linkedin.com/in/robin-martinent" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/robin-martinent" target="_blank" rel="noopener">GitHub</a>
+    </div>
+    <div class="footer-right">
+      <p>Fait avec passion ✦</p>
+    </div>
+  </footer>
+
+  <!-- ===== TIMELINE EN BAS DE PAGE ===== -->
+  <div class="timeline-bar" id="timelineBar">
+    <div class="timeline-track" id="timelineTrack">
+      <div class="timeline-clip" data-target="#heroSection" data-label="Intro"></div>
+      <div class="timeline-clip" data-target="#about" data-label="À propos"></div>
+      <div class="timeline-clip" data-target="#portfolio" data-label="Portfolio"></div>
+      <div class="timeline-clip" data-target="#competences" data-label="Compétences"></div>
+      <div class="timeline-clip" data-target="#cv" data-label="CV"></div>
+      <div class="timeline-clip" data-target="#contact" data-label="Contact"></div>
+      <div class="timeline-playhead" id="timelinePlayhead"></div>
+    </div>
+    <div class="timeline-info">
+      <span class="timeline-section-name" id="timelineSectionName">Intro</span>
+      <span class="timeline-timecode" id="timecode">00:00:00:00</span>
+      <span class="timeline-hint">&nbsp;</span>
+    </div>
+  </div>
+
+  <!-- ===== MODAL MINI-JEU ===== -->
+  <div class="game-modal" id="gameModal">
+    <div class="game-content">
+      <button class="game-close" id="gameClose" aria-label="Fermer">×</button>
+      <p class="game-label">Salle de montage</p>
+      <h2>Le défi du monteur</h2>
+      <p class="game-desc">Clique les rushes dans le bon ordre, de 1 à 5, le plus vite possible.</p>
+
+      <div class="game-stats">
+        <span>Temps : <strong id="gameTimer">0.00</strong>s</span>
+        <span>Erreurs : <strong id="gameErrors">0</strong></span>
+      </div>
+
+      <div class="game-board" id="gameBoard"></div>
+
+      <div class="game-result" id="gameResult"></div>
+
+      <button class="btn-primary" id="gameRestart">Rejouer</button>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       JAVASCRIPT
+       ============================================================ -->
   <script>
     // ============================================================
-    // 1. NAV
+    // 1. NAV SHRINK
     // ============================================================
-    var navbar = document.getElementById('navbar');
-    window.addEventListener('scroll', function() {
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
       navbar.classList.toggle('scrolled', window.scrollY > 60);
     });
 
     // ============================================================
     // 2. CAROUSEL
     // ============================================================
-    var titles = ['SHOWREEL SHAOLIN SHADOW 2025', 'CLIP RAP LOCAL', 'COURT-MÉTRAGE DOCUMENTAIRE', 'RASSEMBLEMENT PORSCHE'];
-    var track = document.getElementById('track');
-    var dotsContainer = document.getElementById('dots');
-    var curEl = document.getElementById('cur');
-    var titleEl = document.getElementById('slide-title');
-    var current = 0;
-    var total = 4;
+    const titles = ['Showreel Shaolin Shadow 2025', 'Clip rap local', 'Court-métrage documentaire', 'Rassemblement Porsche'];
+    const track = document.getElementById('track');
+    const dotsContainer = document.getElementById('dots');
+    const curEl = document.getElementById('cur');
+    const titleEl = document.getElementById('slide-title');
+    let current = 0;
+    const total = 4;
 
-    for (var i = 0; i < total; i++) {
-      (function(idx) {
-        var d = document.createElement('div');
-        d.className = 'dot' + (idx === 0 ? ' active' : '');
-        d.addEventListener('click', function() { goTo(idx); });
-        dotsContainer.appendChild(d);
-      })(i);
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('div');
+      d.className = 'dot' + (i === 0 ? ' active' : '');
+      d.addEventListener('click', () => goTo(i));
+      dotsContainer.appendChild(d);
     }
 
     function goTo(n) {
-      current = ((n % total) + total) % total;
+      current = (n + total) % total;
       track.style.transform = 'translateX(-' + (current * 100) + '%)';
-      var dots = document.querySelectorAll('.dot');
-      for (var j = 0; j < dots.length; j++) {
-        dots[j].classList.toggle('active', j === current);
-      }
+      document.querySelectorAll('.dot').forEach((d, i) => d.classList.toggle('active', i === current));
       curEl.textContent = current + 1;
       titleEl.textContent = titles[current];
     }
 
-    document.getElementById('prev').addEventListener('click', function() { goTo(current - 1); });
-    document.getElementById('next').addEventListener('click', function() { goTo(current + 1); });
+    document.getElementById('prev').addEventListener('click', () => goTo(current - 1));
+    document.getElementById('next').addEventListener('click', () => goTo(current + 1));
 
-    var startX = 0;
-    track.addEventListener('touchstart', function(e) { startX = e.touches[0].clientX; }, { passive: true });
-    track.addEventListener('touchend', function(e) {
-      var diff = startX - e.changedTouches[0].clientX;
+    let startX = 0;
+    track.addEventListener('touchstart', e => startX = e.touches[0].clientX, { passive: true });
+    track.addEventListener('touchend', e => {
+      const diff = startX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 40) goTo(diff > 0 ? current + 1 : current - 1);
     });
 
     // ============================================================
-    // 3. REVEAL AU SCROLL
+    // 3. SCROLL REVEAL
     // ============================================================
-    var reveals = document.querySelectorAll('.reveal');
-    if ('IntersectionObserver' in window) {
-      var obs = new IntersectionObserver(function(entries) {
-        entries.forEach(function(entry) {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            obs.unobserve(entry.target);
+    const reveals = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry, i) => {
+        if (entry.isIntersecting) {
+          setTimeout(() => entry.target.classList.add('visible'), i * 80);
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    reveals.forEach(el => observer.observe(el));
+
+    // ============================================================
+    // 4. GÉNÉRATEUR DE FUMÉE
+    // ============================================================
+    const smokeContainer = document.getElementById('smokeContainer');
+
+    function createSmoke() {
+      const particle = document.createElement('div');
+      particle.className = 'smoke-particle';
+      const size = 150 + Math.random() * 200;
+      const left = Math.random() * 100;
+      const duration = 5 + Math.random() * 4;
+      const delay = Math.random() * 2;
+      const opacity = 0.3 + Math.random() * 0.3;
+
+      particle.style.width = size + 'px';
+      particle.style.height = size + 'px';
+      particle.style.left = left + '%';
+      particle.style.animationDuration = duration + 's';
+      particle.style.animationDelay = delay + 's';
+      particle.style.opacity = opacity;
+      particle.style.background = 'radial-gradient(circle, rgba(220,220,220,' + opacity + ') 0%, rgba(180,180,180,' + (opacity * 0.4) + ') 40%, rgba(150,150,150,0) 80%)';
+      smokeContainer.appendChild(particle);
+
+      setTimeout(() => { particle.remove(); }, (duration + delay) * 1000 + 500);
+    }
+
+    function startSmoke() {
+      smokeContainer.classList.add('active');
+      const count = 40 + Math.floor(Math.random() * 25);
+      for (let i = 0; i < count; i++) setTimeout(() => createSmoke(), i * 100);
+      for (let i = 0; i < 20; i++) setTimeout(() => createSmoke(), 2000 + i * 150);
+    }
+
+    function stopSmoke() {
+      smokeContainer.classList.remove('active');
+      setTimeout(() => { smokeContainer.innerHTML = ''; }, 3000);
+    }
+
+    // ============================================================
+    // 5. BOOM (SON)
+    // ============================================================
+    function playExplosionSound() {
+      try {
+        const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
+        const bufferSize = audioCtx.sampleRate * 0.7;
+        const buffer = audioCtx.createBuffer(1, bufferSize, audioCtx.sampleRate);
+        const data = buffer.getChannelData(0);
+
+        for (let i = 0; i < bufferSize; i++) {
+          const t = i / audioCtx.sampleRate;
+          const envelope = Math.exp(-t * 5);
+          const square = Math.sign(Math.sin(2 * Math.PI * 80 * t));
+          const noise = (Math.random() * 2 - 1) * 0.3;
+          data[i] = (square * 0.6 + noise) * envelope;
+        }
+
+        const source = audioCtx.createBufferSource();
+        source.buffer = buffer;
+        const gainNode = audioCtx.createGain();
+        gainNode.gain.setValueAtTime(1.2, audioCtx.currentTime);
+        gainNode.gain.exponentialRampToValueAtTime(0.001, audioCtx.currentTime + 0.8);
+
+        const distortion = audioCtx.createWaveShaper();
+        distortion.curve = (function() {
+          const samples = 44100;
+          const curve = new Float32Array(samples);
+          for (let i = 0; i < samples; i++) {
+            const x = (i / samples) * 2 - 1;
+            curve[i] = Math.tanh(x * 2) * 1.5;
           }
-        });
-      }, { threshold: 0.12 });
-      reveals.forEach(function(el) { obs.observe(el); });
-    } else {
-      reveals.forEach(function(el) { el.classList.add('visible'); });
+          return curve;
+        })();
+
+        source.connect(distortion);
+        distortion.connect(gainNode);
+        gainNode.connect(audioCtx.destination);
+        source.start();
+      } catch (e) {}
     }
 
     // ============================================================
-    // 4. TYPED
+    // 6. EXPLOSION
     // ============================================================
-    var typedEl = document.getElementById('typed');
-    var typedWords = ['Monteur vidéo.', 'Réalisateur.', 'Motion designer.', 'Créatif.'];
-    var twIndex = 0, tcIndex = 0, typing = true;
+    let isExploding = false;
 
-    function typeLoop() {
-      var word = typedWords[twIndex];
-      if (typing) {
-        tcIndex++;
-        typedEl.textContent = word.substring(0, tcIndex);
-        if (tcIndex === word.length) {
-          typing = false;
-          setTimeout(typeLoop, 1600);
-          return;
-        }
-        setTimeout(typeLoop, 55);
-      } else {
-        tcIndex--;
-        typedEl.textContent = word.substring(0, tcIndex);
-        if (tcIndex === 0) {
-          typing = true;
-          twIndex = (twIndex + 1) % typedWords.length;
-          setTimeout(typeLoop, 400);
-          return;
-        }
-        setTimeout(typeLoop, 30);
+    function triggerExplosion() {
+      if (isExploding) return;
+      isExploding = true;
+
+      const overlay = document.getElementById('explosionOverlay');
+      const textEl = document.getElementById('explosionText');
+      const body = document.body;
+
+      playExplosionSound();
+      startSmoke();
+      overlay.classList.add('active');
+      body.classList.add('site-shake');
+
+      const panicMessages = ['💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOOON', '💻 FUMÉE'];
+      textEl.textContent = panicMessages[Math.floor(Math.random() * panicMessages.length)];
+
+      setTimeout(() => {
+        body.classList.remove('site-shake');
+        document.body.classList.add('site-fadeout');
+        stopSmoke();
+
+        setTimeout(() => {
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+          document.body.classList.remove('site-fadeout');
+          document.body.classList.add('site-fadein');
+
+          copyBtn.classList.remove('copied');
+          copyBtn.style.animation = '';
+          emailFeedbackMsg.textContent = 'Copié !';
+          emailClicks = 0;
+
+          overlay.classList.remove('active');
+
+          setTimeout(() => {
+            document.body.classList.remove('site-fadein');
+            isExploding = false;
+          }, 1000);
+        }, 800);
+      }, 1500);
+    }
+
+    // ============================================================
+    // 7. BOUTON EMAIL
+    // ============================================================
+    const copyBtn = document.getElementById('copyEmailBtn');
+    const emailFeedbackMsg = document.getElementById('emailFeedbackMsg');
+    const email = 'robin.martinent@gmail.com';
+
+    const emailMessages = [
+      'Copié !', 'Double copie !', 'Triple copie !', 'Quadruple copie !',
+      'T\'as vraiment copié ?', 'Recopie au cas où...', 'Tu vas casser le bouton !',
+      'Arrête...', 'Ça va casser le site !', 'NOOOOOOONNNNN !!!!! 💥'
+    ];
+
+    const shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
+    let emailClicks = 0;
+
+    copyBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      if (isExploding) return;
+
+      try { await navigator.clipboard.writeText(email); }
+      catch {
+        const input = document.createElement('input');
+        input.value = email;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
       }
-    }
-    if (typedEl) setTimeout(typeLoop, 4200);
+
+      emailClicks++;
+      const index = Math.min(emailClicks - 1, emailMessages.length - 1);
+      emailFeedbackMsg.textContent = emailMessages[index];
+      this.classList.add('copied');
+
+      let level = 0;
+      if (emailClicks >= 10) level = 5;
+      else if (emailClicks >= 8) level = 4;
+      else if (emailClicks >= 6) level = 3;
+      else if (emailClicks >= 4) level = 2;
+      else if (emailClicks >= 2) level = 1;
+
+      if (level > 0 && level < shakeClasses.length) {
+        this.style.animation = shakeClasses[level] + ' 0.5s ease';
+        setTimeout(() => { this.style.animation = ''; }, 500);
+      }
+
+      if (emailClicks >= emailMessages.length) {
+        setTimeout(() => { triggerExplosion(); }, 400);
+        return;
+      }
+
+      setTimeout(() => {
+        this.classList.remove('copied');
+        if (emailClicks < emailMessages.length) emailFeedbackMsg.textContent = 'Copié !';
+      }, 1800);
+    });
 
     // ============================================================
-    // 5. CURSEUR CHROME
+    // 8. BOUTON TÉLÉPHONE
     // ============================================================
-    var cursorHalo = document.getElementById('cursorHalo');
-    var cursorDot = document.getElementById('cursorDot');
-    var cursorTrail = document.getElementById('cursorTrail');
+    const phoneBtn = document.getElementById('copyPhoneBtn');
+    const phoneFeedbackMsg = document.getElementById('phoneFeedbackMsg');
+    const phoneNumber = '0766740346';
 
-    var mouseX = window.innerWidth / 2, mouseY = window.innerHeight / 2;
-    var haloX = mouseX, haloY = mouseY;
-    var dotX = mouseX, dotY = mouseY;
-    var trailX = mouseX, trailY = mouseY;
-    var curVisible = false;
+    const phoneMessages = [
+      'Numéro copié !', 'J\'allais pas faire la même chose...', 'Mais si, je l\'ai fait.',
+      'T\'es têtu toi.', 'Bon, voilà, c\'est copié.', 'Tu veux que je le dise plus fort ?',
+      '07 66 74 03 46', 'Ça suffit maintenant.', 'Je t\'ai copié 9 fois.', 'T\'as gagné, j\'arrête.'
+    ];
 
-    function updateCursor() {
-      haloX += (mouseX - haloX) * 0.14;
-      haloY += (mouseY - haloY) * 0.14;
-      dotX += (mouseX - dotX) * 0.28;
-      dotY += (mouseY - dotY) * 0.28;
+    const wobbleClasses = ['', 'wobble1', 'wobble2', 'wobble3', 'wobble4', 'wobble5'];
+    let phoneClicks = 0;
+    let isPhoneDone = false;
+
+    phoneBtn.addEventListener('click', async function(e) {
+      e.preventDefault();
+      if (isPhoneDone) return;
+
+      try { await navigator.clipboard.writeText(phoneNumber); }
+      catch {
+        const input = document.createElement('input');
+        input.value = phoneNumber;
+        document.body.appendChild(input);
+        input.select();
+        document.execCommand('copy');
+        document.body.removeChild(input);
+      }
+
+      phoneClicks++;
+      const index = Math.min(phoneClicks - 1, phoneMessages.length - 1);
+      phoneFeedbackMsg.textContent = phoneMessages[index];
+      this.classList.add('copied');
+
+      let wobbleLevel = 0;
+      if (phoneClicks >= 10) wobbleLevel = 5;
+      else if (phoneClicks >= 8) wobbleLevel = 4;
+      else if (phoneClicks >= 6) wobbleLevel = 3;
+      else if (phoneClicks >= 4) wobbleLevel = 2;
+      else if (phoneClicks >= 2) wobbleLevel = 1;
+
+      if (wobbleLevel > 0 && wobbleLevel < wobbleClasses.length) {
+        this.style.animation = wobbleClasses[wobbleLevel] + ' 0.6s ease';
+        setTimeout(() => { this.style.animation = ''; }, 600);
+      }
+
+      if (phoneClicks >= phoneMessages.length) {
+        isPhoneDone = true;
+        this.disabled = true;
+        this.style.borderColor = '#ff6b6b';
+        this.style.color = '#ff6b6b';
+        setTimeout(() => {
+          this.disabled = false;
+          this.classList.remove('copied');
+          this.style.borderColor = '';
+          this.style.color = '';
+          phoneFeedbackMsg.textContent = 'Numéro copié !';
+          phoneClicks = 0;
+          isPhoneDone = false;
+        }, 3000);
+        return;
+      }
+
+      setTimeout(() => {
+        this.classList.remove('copied');
+        if (phoneClicks < phoneMessages.length) phoneFeedbackMsg.textContent = 'Numéro copié !';
+      }, 1800);
+    });
+
+    // ============================================================
+    // 9. CURSEUR FLUIDE
+    // ============================================================
+    const cursorHalo = document.getElementById('cursorHalo');
+    const cursorDot = document.getElementById('cursorDot');
+    const cursorTrail = document.getElementById('cursorTrail');
+
+    let mouseX = window.innerWidth / 2;
+    let mouseY = window.innerHeight / 2;
+    let haloX = mouseX, haloY = mouseY;
+    let dotX = mouseX, dotY = mouseY;
+    let trailX = mouseX, trailY = mouseY;
+    let isVisible = false;
+
+    function updateCursorPositions() {
+      haloX += (mouseX - haloX) * 0.12;
+      haloY += (mouseY - haloY) * 0.12;
+      dotX += (mouseX - dotX) * 0.25;
+      dotY += (mouseY - dotY) * 0.25;
       trailX += (mouseX - trailX) * 0.06;
       trailY += (mouseY - trailY) * 0.06;
 
@@ -507,14 +729,15 @@
       cursorTrail.style.left = trailX + 'px';
       cursorTrail.style.top = trailY + 'px';
 
-      requestAnimationFrame(updateCursor);
+      requestAnimationFrame(updateCursorPositions);
     }
 
-    document.addEventListener('mousemove', function(e) {
+    document.addEventListener('mousemove', (e) => {
       mouseX = e.clientX;
       mouseY = e.clientY;
-      if (!curVisible) {
-        curVisible = true;
+
+      if (!isVisible) {
+        isVisible = true;
         cursorHalo.classList.add('visible');
         cursorDot.classList.add('visible');
         cursorTrail.classList.add('visible');
@@ -524,14 +747,14 @@
       }
     });
 
-    document.addEventListener('mouseleave', function() {
-      curVisible = false;
+    document.addEventListener('mouseleave', () => {
+      isVisible = false;
       cursorHalo.classList.remove('visible');
       cursorDot.classList.remove('visible');
       cursorTrail.classList.remove('visible');
     });
 
-    updateCursor();
+    updateCursorPositions();
 
     if (window.matchMedia('(pointer: coarse)').matches) {
       cursorHalo.style.display = 'none';
@@ -540,204 +763,128 @@
     }
 
     // ============================================================
-    // 6. LOADER
+    // 10. LOADER
     // ============================================================
-    var loader = document.getElementById('loader');
-    var restLeft = document.getElementById('restLeft');
-    var restRight = document.getElementById('restRight');
-    var loaderFill = document.getElementById('loaderFill');
-    var loaderPct = document.getElementById('loaderPct');
-    var loaderSub = document.getElementById('loaderSub');
+    const loader = document.getElementById('loader');
+    const wordLeft = document.getElementById('wordLeft');
+    const wordRight = document.getElementById('wordRight');
+    const subtitle = document.getElementById('loaderSubtitle');
 
-    var loaderSteps = [
-      '▓ COMPILATION DES SHADERS ▓',
-      '▓ MONTAGE DES RUSHES ▓',
-      '▓ ÉTALONNAGE EN COURS ▓',
-      '▓ SYNCHRONISATION AUDIO ▓',
-      '▓ COMPILATION DU PORTFOLIO ▓'
-    ];
+    setTimeout(() => wordLeft.classList.add('expanded'), 400);
+    setTimeout(() => wordRight.classList.add('expanded'), 550);
+    setTimeout(() => subtitle.classList.add('visible'), 1300);
 
-    var progress = 0;
-    var progressInterval = setInterval(function() {
-      progress += Math.random() * 8 + 2;
-      if (progress > 100) progress = 100;
-      loaderFill.style.width = progress + '%';
-      loaderPct.textContent = Math.floor(progress) + '%';
-      var stepIdx = Math.min(Math.floor(progress / 22), loaderSteps.length - 1);
-      loaderSub.textContent = loaderSteps[stepIdx];
-      if (progress >= 100) clearInterval(progressInterval);
-    }, 180);
-
-    setTimeout(function() { restLeft.classList.add('expanded'); }, 400);
-    setTimeout(function() { restRight.classList.add('expanded'); }, 550);
-
-    setTimeout(function() {
-      loader.classList.add('hidden');
-    }, 2600);
-
-    // ============================================================
-    // 7. COPIER EMAIL / TEL
-    // ============================================================
-    var copyBtn = document.getElementById('copyEmailBtn');
-    var emailFeedbackMsg = document.getElementById('emailFeedbackMsg');
-    var email = 'robin.martinent@gmail.com';
-    var emailMessages = [
-      'COPIÉ !', 'X2 !', 'X3 !', 'X4 !',
-      'T\'AS VRAIMENT COPIÉ ?', 'RECOPIE...', 'TU VAS CASSER LE BOUTON !',
-      'ARRÊTE...', 'ÇA VA CASSER LE SITE !', 'BOOM ! 💥'
-    ];
-    var shakeClasses = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
-    var emailClicks = 0;
-
-    copyBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (isExploding) return;
-
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(email).catch(function() {});
-      }
-
-      emailClicks++;
-      var index = Math.min(emailClicks - 1, emailMessages.length - 1);
-      emailFeedbackMsg.textContent = emailMessages[index];
-      this.classList.add('copied');
-
-      var level = 0;
-      if (emailClicks >= 10) level = 5;
-      else if (emailClicks >= 8) level = 4;
-      else if (emailClicks >= 6) level = 3;
-      else if (emailClicks >= 4) level = 2;
-      else if (emailClicks >= 2) level = 1;
-
-      if (level > 0 && level < shakeClasses.length) {
-        this.style.animation = shakeClasses[level] + ' 0.5s ease';
-        (function(el) {
-          setTimeout(function() { el.style.animation = ''; }, 500);
-        })(this);
-      }
-
-      if (emailClicks >= emailMessages.length) {
-        setTimeout(triggerExplosion, 400);
-        return;
-      }
-
-      var self = this;
-      setTimeout(function() {
-        self.classList.remove('copied');
-        if (emailClicks < emailMessages.length) emailFeedbackMsg.textContent = 'COPIÉ !';
-      }, 1800);
+    window.addEventListener('load', () => {
+      setTimeout(() => loader.classList.add('hidden'), 3000);
     });
 
-    var phoneBtn = document.getElementById('copyPhoneBtn');
-    var phoneFeedbackMsg = document.getElementById('phoneFeedbackMsg');
-    var phoneNumber = '0766740346';
-    var phoneMessages = [
-      'NUMÉRO COPIÉ !', 'J\'ALLAIS PAS FAIRE LA MÊME CHOSE...', 'MAIS SI, JE L\'AI FAIT.',
-      'T\'ES TÊTU TOI.', 'BON, VOILÀ, C\'EST COPIÉ.', 'TU VEUX QUE JE LE DISE PLUS FORT ?',
-      '07 66 74 03 46', 'ÇA SUFFIT MAINTENANT.', '9 FOIS.', 'T\'AS GAGNÉ, J\'ARRÊTE.'
-    ];
-    var wobbleClasses = ['', 'wobble1', 'wobble2', 'wobble3', 'wobble4', 'wobble5'];
-    var phoneClicks = 0;
-    var isPhoneDone = false;
-
-    phoneBtn.addEventListener('click', function(e) {
-      e.preventDefault();
-      if (isPhoneDone) return;
-
-      if (navigator.clipboard) {
-        navigator.clipboard.writeText(phoneNumber).catch(function() {});
-      }
-
-      phoneClicks++;
-      var index = Math.min(phoneClicks - 1, phoneMessages.length - 1);
-      phoneFeedbackMsg.textContent = phoneMessages[index];
-      this.classList.add('copied');
-
-      var wobbleLevel = 0;
-      if (phoneClicks >= 10) wobbleLevel = 5;
-      else if (phoneClicks >= 8) wobbleLevel = 4;
-      else if (phoneClicks >= 6) wobbleLevel = 3;
-      else if (phoneClicks >= 4) wobbleLevel = 2;
-      else if (phoneClicks >= 2) wobbleLevel = 1;
-
-      if (wobbleLevel > 0 && wobbleLevel < wobbleClasses.length) {
-        this.style.animation = wobbleClasses[wobbleLevel] + ' 0.6s ease';
-        (function(el) {
-          setTimeout(function() { el.style.animation = ''; }, 600);
-        })(this);
-      }
-
-      if (phoneClicks >= phoneMessages.length) {
-        isPhoneDone = true;
-        this.disabled = true;
-        this.style.borderColor = '#ff00ff';
-        this.style.color = '#ff00ff';
-        var self = this;
-        setTimeout(function() {
-          self.disabled = false;
-          self.classList.remove('copied');
-          self.style.borderColor = '';
-          self.style.color = '';
-          phoneFeedbackMsg.textContent = 'NUMÉRO COPIÉ !';
-          phoneClicks = 0;
-          isPhoneDone = false;
-        }, 3000);
-        return;
-      }
-
-      var self2 = this;
-      setTimeout(function() {
-        self2.classList.remove('copied');
-        if (phoneClicks < phoneMessages.length) phoneFeedbackMsg.textContent = 'NUMÉRO COPIÉ !';
-      }, 1800);
-    });
+    setTimeout(() => {
+      if (!loader.classList.contains('hidden')) loader.classList.add('hidden');
+    }, 4200);
 
     // ============================================================
-    // 8. EXPLOSION
+    // 11. TIMELINE EN BAS DE PAGE
     // ============================================================
-    var isExploding = false;
+    const timelinePlayhead = document.getElementById('timelinePlayhead');
+    const timelineClips = document.querySelectorAll('.timeline-clip');
+    const timelineSectionName = document.getElementById('timelineSectionName');
 
-    function triggerExplosion() {
-      if (isExploding) return;
-      isExploding = true;
+    const sectionSelectors = ['#heroSection', '#about', '#portfolio', '#competences', '#cv', '#contact'];
 
-      var overlay = document.getElementById('explosion');
-      var textEl = document.getElementById('explosionText');
+    function layoutTimeline() {
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
 
-      overlay.classList.add('active');
-      document.body.classList.add('site-shake');
+      const positions = [];
+      sectionSelectors.forEach((sel) => {
+        const section = document.querySelector(sel);
+        if (!section) {
+          positions.push(0);
+          return;
+        }
+        const startPx = section.offsetTop;
+        const startPct = Math.min(startPx / maxScroll, 1) * 100;
+        positions.push(startPct);
+      });
+      positions.push(100);
 
-      var messages = ['💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOON', '💻 FUMÉE'];
-      textEl.textContent = messages[Math.floor(Math.random() * messages.length)];
-
-      setTimeout(function() {
-        document.body.classList.remove('site-shake');
-        document.body.classList.add('site-fadeout');
-
-        setTimeout(function() {
-          window.scrollTo(0, 0);
-          document.body.classList.remove('site-fadeout');
-          document.body.classList.add('site-fadein');
-          copyBtn.classList.remove('copied');
-          copyBtn.style.animation = '';
-          emailFeedbackMsg.textContent = 'COPIÉ !';
-          emailClicks = 0;
-          overlay.classList.remove('active');
-
-          setTimeout(function() {
-            document.body.classList.remove('site-fadein');
-            isExploding = false;
-          }, 1000);
-        }, 800);
-      }, 1500);
+      timelineClips.forEach((clip, i) => {
+        const left = positions[i];
+        const right = positions[i + 1];
+        clip.style.left = left + '%';
+        clip.style.width = Math.max(right - left, 0) + '%';
+      });
     }
 
+    function updateTimeline() {
+      const scrollTop = window.scrollY;
+      const maxScroll = document.documentElement.scrollHeight - window.innerHeight;
+      if (maxScroll <= 0) return;
+
+      const progress = Math.min(scrollTop / maxScroll, 1);
+      const playheadPct = progress * 100;
+
+      timelinePlayhead.style.left = playheadPct + '%';
+
+      let activeIndex = 0;
+      timelineClips.forEach((clip, i) => {
+        const left = parseFloat(clip.style.left) || 0;
+        const width = parseFloat(clip.style.width) || 0;
+        const isActive = playheadPct >= left && playheadPct < left + width;
+        const isPassed = playheadPct >= left + width;
+
+        clip.classList.toggle('active', isActive);
+        clip.classList.toggle('passed', isPassed);
+
+        if (isActive) activeIndex = i;
+      });
+
+      timelineSectionName.textContent = timelineClips[activeIndex]?.dataset.label || 'Intro';
+    }
+
+    timelineClips.forEach(clip => {
+      clip.addEventListener('click', () => {
+        const target = document.querySelector(clip.dataset.target);
+        if (target) {
+          window.scrollTo({ top: target.offsetTop, behavior: 'smooth' });
+        }
+      });
+    });
+
+    window.addEventListener('load', () => {
+      layoutTimeline();
+      updateTimeline();
+    });
+    window.addEventListener('resize', () => {
+      layoutTimeline();
+      updateTimeline();
+    });
+    window.addEventListener('scroll', updateTimeline, { passive: true });
+    layoutTimeline();
+    updateTimeline();
+
     // ============================================================
-    // 9. J / K / L
+    // 12. TIMECODE QUI DÉFILE (25 fps)
     // ============================================================
-    var AUTO_SCROLL_SPEED = 9;
-    var autoScrollSpeed = 0;
-    var autoScrollRAF = null;
+    const timecodeEl = document.getElementById('timecode');
+    let tcFrames = 0, tcSeconds = 0, tcMinutes = 0, tcHours = 0;
+
+    function pad(n) { return n.toString().padStart(2, '0'); }
+
+    setInterval(() => {
+      tcFrames++;
+      if (tcFrames >= 25) { tcFrames = 0; tcSeconds++; }
+      if (tcSeconds >= 60) { tcSeconds = 0; tcMinutes++; }
+      if (tcMinutes >= 60) { tcMinutes = 0; tcHours++; }
+      timecodeEl.textContent = `${pad(tcHours)}:${pad(tcMinutes)}:${pad(tcSeconds)}:${pad(tcFrames)}`;
+    }, 40);
+
+    // ============================================================
+    // 13. RACCOURCIS J / K / L (vitesse fixe 3x)
+    // ============================================================
+    const AUTO_SCROLL_SPEED = 9;
+    let autoScrollSpeed = 0;
+    let autoScrollRAF = null;
 
     function autoScroll() {
       if (autoScrollSpeed !== 0) {
@@ -748,9 +895,11 @@
       }
     }
 
-    document.addEventListener('keydown', function(e) {
+    document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-      var key = e.key.toLowerCase();
+
+      const key = e.key.toLowerCase();
+
       if (key === 'l') {
         autoScrollSpeed = AUTO_SCROLL_SPEED;
         cancelAnimationFrame(autoScrollRAF);
@@ -768,29 +917,43 @@
       }
     });
 
-    // ============================================================
-    // 10. MINI-JEU
-    // ============================================================
-    var gameModal = document.getElementById('gameModal');
-    var gameBoard = document.getElementById('gameBoard');
-    var gameTimerEl = document.getElementById('gameTimer');
-    var gameErrorsEl = document.getElementById('gameErrors');
-    var gameResult = document.getElementById('gameResult');
-    var gameClose = document.getElementById('gameClose');
-    var gameRestart = document.getElementById('gameRestart');
+    const playIndicator = document.createElement('div');
+    playIndicator.className = 'play-indicator';
+    playIndicator.textContent = '';
+    document.body.appendChild(playIndicator);
 
-    var gameActive = false;
-    var gameStartTime = 0;
-    var gameInterval = null;
-    var gameNext = 1;
-    var gameErrors = 0;
+    setInterval(() => {
+      if (autoScrollSpeed === 0) {
+        playIndicator.classList.remove('active');
+      } else {
+        playIndicator.classList.add('active');
+        playIndicator.textContent = autoScrollSpeed > 0 ? '▶ 3x' : '◀ 3x';
+      }
+    }, 80);
 
-    var typed = '';
-    document.addEventListener('keydown', function(e) {
+    // ============================================================
+    // 14. MINI-JEU DE MONTAGE (easter egg)
+    // ============================================================
+    const gameModal = document.getElementById('gameModal');
+    const gameBoard = document.getElementById('gameBoard');
+    const gameTimerEl = document.getElementById('gameTimer');
+    const gameErrorsEl = document.getElementById('gameErrors');
+    const gameResult = document.getElementById('gameResult');
+    const gameClose = document.getElementById('gameClose');
+    const gameRestart = document.getElementById('gameRestart');
+
+    let gameActive = false;
+    let gameStartTime = 0;
+    let gameInterval = null;
+    let gameNext = 1;
+    let gameErrors = 0;
+
+    let typed = '';
+    document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       typed += e.key.toLowerCase();
       if (typed.length > 10) typed = typed.slice(-10);
-      if (typed.indexOf('montage') !== -1) {
+      if (typed.includes('montage')) {
         typed = '';
         openGame();
       }
@@ -816,321 +979,71 @@
       gameResult.className = 'game-result';
       gameStartTime = performance.now();
 
-      var numbers = [1, 2, 3, 4, 5];
-      var shuffled = numbers.slice().sort(function() { return Math.random() - 0.5; });
+      const numbers = [1, 2, 3, 4, 5];
+      const shuffled = numbers.slice().sort(() => Math.random() - 0.5);
 
       gameBoard.innerHTML = '';
-      shuffled.forEach(function(num) {
-        var clip = document.createElement('div');
+      shuffled.forEach(num => {
+        const clip = document.createElement('div');
         clip.className = 'game-clip';
         clip.dataset.num = num;
         clip.textContent = num;
-        clip.addEventListener('click', function() { handleClipClick(clip, num); });
+
+        const hue = (num - 1) * 60 + 240;
+        clip.style.background = `linear-gradient(135deg, hsl(${hue}, 70%, 45%), hsl(${hue}, 70%, 30%))`;
+
+        clip.addEventListener('click', () => handleClipClick(clip, num));
         gameBoard.appendChild(clip);
       });
 
       if (gameInterval) clearInterval(gameInterval);
-      gameInterval = setInterval(function() {
+      gameInterval = setInterval(() => {
         if (!gameActive) return;
-        var elapsed = (performance.now() - gameStartTime) / 1000;
+        const elapsed = (performance.now() - gameStartTime) / 1000;
         gameTimerEl.textContent = elapsed.toFixed(2);
       }, 50);
     }
 
     function handleClipClick(clip, num) {
       if (!gameActive || clip.classList.contains('done')) return;
+
       if (num === gameNext) {
         clip.classList.add('done');
         clip.textContent = '✓';
         gameNext++;
+
         if (gameNext > 5) {
           gameActive = false;
           clearInterval(gameInterval);
-          var elapsed = (performance.now() - gameStartTime) / 1000;
-          var message = '';
-          if (elapsed < 2 && gameErrors === 0) message = '🏆 PARFAIT !';
-          else if (elapsed < 3.5 && gameErrors <= 1) message = '🎬 EXCELLENT !';
-          else if (elapsed < 5) message = '👍 BON RYTHME !';
-          else message = '😅 C\'EST MONTÉ !';
-          gameResult.textContent = message + ' (' + elapsed.toFixed(2) + 's · ' + gameErrors + ' erreur' + (gameErrors > 1 ? 's' : '') + ')';
+          const elapsed = (performance.now() - gameStartTime) / 1000;
+
+          let message = '';
+          if (elapsed < 2 && gameErrors === 0) message = '🏆 Parfait ! Monteur de génie.';
+          else if (elapsed < 3.5 && gameErrors <= 1) message = '🎬 Excellent montage !';
+          else if (elapsed < 5) message = '👍 Bon rythme, continue comme ça !';
+          else message = '😅 Un peu lent, mais c\'est monté !';
+
+          gameResult.textContent = message + ` (${elapsed.toFixed(2)}s · ${gameErrors} erreur${gameErrors > 1 ? 's' : ''})`;
           gameResult.classList.add('success');
         }
       } else {
         gameErrors++;
         gameErrorsEl.textContent = gameErrors;
         clip.classList.add('error');
-        setTimeout(function() { clip.classList.remove('error'); }, 400);
+        setTimeout(() => clip.classList.remove('error'), 400);
       }
     }
 
     gameClose.addEventListener('click', closeGame);
     gameRestart.addEventListener('click', startGame);
-    gameModal.addEventListener('click', function(e) {
+    gameModal.addEventListener('click', (e) => {
       if (e.target === gameModal) closeGame();
     });
 
-    document.addEventListener('keydown', function(e) {
-      if (e.key === 'Escape' && gameModal.classList.contains('active')) closeGame();
-    });
-
-    // ============================================================
-    // 11. CHROME BUTTON — shader WebGL
-    // ============================================================
-    var VERT = [
-      'attribute vec2 a;',
-      'varying vec2 vUv;',
-      'void main() {',
-      '  vUv = a * 0.5 + 0.5;',
-      '  gl_Position = vec4(a, 0.0, 1.0);',
-      '}'
-    ].join('\n');
-
-    var FRAG = [
-      'precision highp float;',
-      'varying vec2 vUv;',
-      'uniform float uTime;',
-      'uniform vec2 uResolution;',
-      'uniform float uHover;',
-      '',
-      'vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }',
-      'vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }',
-      'vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }',
-      'vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }',
-      '',
-      'float snoise(vec3 v) {',
-      '  const vec2 C = vec2(1.0/6.0, 1.0/3.0);',
-      '  const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);',
-      '  vec3 i  = floor(v + dot(v, C.yyy));',
-      '  vec3 x0 = v - i + dot(i, C.xxx);',
-      '  vec3 g = step(x0.yzx, x0.xyz);',
-      '  vec3 l = 1.0 - g;',
-      '  vec3 i1 = min(g.xyz, l.zxy);',
-      '  vec3 i2 = max(g.xyz, l.zxy);',
-      '  vec3 x1 = x0 - i1 + C.xxx;',
-      '  vec3 x2 = x0 - i2 + C.yyy;',
-      '  vec3 x3 = x0 - D.yyy;',
-      '  i = mod289(i);',
-      '  vec4 p = permute(permute(permute(',
-      '    i.z + vec4(0.0, i1.z, i2.z, 1.0))',
-      '    + i.y + vec4(0.0, i1.y, i2.y, 1.0))',
-      '    + i.x + vec4(0.0, i1.x, i2.x, 1.0));',
-      '  float n_ = 0.142857142857;',
-      '  vec3 ns = n_ * D.wyz - D.xzx;',
-      '  vec4 j = p - 49.0 * floor(p * ns.z * ns.z);',
-      '  vec4 x_ = floor(j * ns.z);',
-      '  vec4 y_ = floor(j - 7.0 * x_);',
-      '  vec4 x = x_ * ns.x + ns.yyyy;',
-      '  vec4 y = y_ * ns.x + ns.yyyy;',
-      '  vec4 h = 1.0 - abs(x) - abs(y);',
-      '  vec4 b0 = vec4(x.xy, y.xy);',
-      '  vec4 b1 = vec4(x.zw, y.zw);',
-      '  vec4 s0 = floor(b0) * 2.0 + 1.0;',
-      '  vec4 s1 = floor(b1) * 2.0 + 1.0;',
-      '  vec4 sh = -step(h, vec4(0.0));',
-      '  vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;',
-      '  vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;',
-      '  vec3 p0 = vec3(a0.xy, h.x);',
-      '  vec3 p1 = vec3(a0.zw, h.y);',
-      '  vec3 p2 = vec3(a1.xy, h.z);',
-      '  vec3 p3 = vec3(a1.zw, h.w);',
-      '  vec4 norm = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));',
-      '  p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;',
-      '  vec4 m = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);',
-      '  m = m * m;',
-      '  return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));',
-      '}',
-      '',
-      'void main() {',
-      '  vec2 uv = vUv;',
-      '  float aspect = uResolution.x / uResolution.y;',
-      '  vec2 p = vec2(uv.x * aspect, uv.y);',
-      '  float t = uTime * 0.35;',
-      '',
-      '  float n1 = snoise(vec3(p * 2.2, t));',
-      '  float n2 = snoise(vec3(p * 3.5 + 5.0, t * 0.7));',
-      '  float n3 = snoise(vec3(p * 1.4 - 3.0, t * 1.3));',
-      '',
-      '  vec2 warp = vec2(n1, n2) * 0.14;',
-      '  vec2 sp = p + warp;',
-      '',
-      '  float band = sp.y * 3.2 + n3 * 1.6;',
-      '  float sky = sin(band * 1.8) * 0.5 + 0.5;',
-      '',
-      '  vec3 skyCol = vec3(1.0, 1.0, 1.05);',
-      '  vec3 midCol = vec3(0.70, 0.70, 0.76);',
-      '  vec3 groundCol = vec3(0.02, 0.02, 0.06);',
-      '',
-      '  vec3 col = mix(groundCol, midCol, smoothstep(0.05, 0.55, sky));',
-      '  col = mix(col, skyCol, smoothstep(0.55, 0.95, sky));',
-      '',
-      '  float spec = pow(smoothstep(0.80, 0.98, sky), 4.0);',
-      '  col += vec3(1.0) * spec;',
-      '',
-      '  vec2 center = vec2(0.5 * aspect, 0.5);',
-      '  float d = length(p - center);',
-      '  float rim = smoothstep(0.35, 0.75, d);',
-      '  col += vec3(1.0, 0.0, 1.0) * rim * (0.32 + uHover * 0.20);',
-      '  col += vec3(0.35, 0.15, 1.0) * (1.0 - rim) * 0.10;',
-      '',
-      '  float scan = sin(uv.y * uResolution.y * 0.5) * 0.035;',
-      '  col -= scan;',
-      '',
-      '  gl_FragColor = vec4(col, 1.0);',
-      '}'
-    ].join('\n');
-
-    function createShader(gl, type, src) {
-      var s = gl.createShader(type);
-      gl.shaderSource(s, src);
-      gl.compileShader(s);
-      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
-        console.warn('Shader compile error:', gl.getShaderInfoLog(s));
-        return null;
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && gameModal.classList.contains('active')) {
+        closeGame();
       }
-      return s;
-    }
-
-    function ChromeButton(btn) {
-      this.btn = btn;
-      this.canvas = btn.querySelector('.chrome-canvas');
-      this.time = Math.random() * 1000;
-      this.hover = 0;
-      this.hoverTarget = 0;
-      this.visible = true;
-      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
-
-      if (!this.canvas) return;
-
-      this.gl = this.canvas.getContext('webgl', { antialias: true, alpha: false, premultipliedAlpha: false });
-      if (!this.gl) {
-        this.canvas.style.display = 'none';
-        btn.classList.add('no-webgl');
-        return;
-      }
-
-      var gl = this.gl;
-      var vs = createShader(gl, gl.VERTEX_SHADER, VERT);
-      var fs = createShader(gl, gl.FRAGMENT_SHADER, FRAG);
-      if (!vs || !fs) { this.canvas.style.display = 'none'; btn.classList.add('no-webgl'); return; }
-
-      var prog = gl.createProgram();
-      gl.attachShader(prog, vs);
-      gl.attachShader(prog, fs);
-      gl.linkProgram(prog);
-      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
-        console.warn('Program link error:', gl.getProgramInfoLog(prog));
-        this.canvas.style.display = 'none';
-        btn.classList.add('no-webgl');
-        return;
-      }
-      this.prog = prog;
-      gl.useProgram(prog);
-
-      this.uTime = gl.getUniformLocation(prog, 'uTime');
-      this.uRes = gl.getUniformLocation(prog, 'uResolution');
-      this.uHover = gl.getUniformLocation(prog, 'uHover');
-
-      var buf = gl.createBuffer();
-      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
-      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
-        -1, -1,  1, -1, -1, 1,
-        -1, 1,   1, -1,  1, 1
-      ]), gl.STATIC_DRAW);
-
-      var aLoc = gl.getAttribLocation(prog, 'a');
-      gl.enableVertexAttribArray(aLoc);
-      gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
-
-      this.resize();
-      var self = this;
-
-      if (typeof ResizeObserver !== 'undefined') {
-        var resizeObs = new ResizeObserver(function() { self.resize(); });
-        resizeObs.observe(btn);
-      } else {
-        window.addEventListener('resize', function() { self.resize(); });
-      }
-
-      btn.addEventListener('mouseenter', function() { self.hoverTarget = 1; });
-      btn.addEventListener('mouseleave', function() { self.hoverTarget = 0; });
-
-      if (typeof IntersectionObserver !== 'undefined') {
-        var io = new IntersectionObserver(function(entries) {
-          self.visible = entries[0].isIntersecting;
-        }, { threshold: 0.05 });
-        io.observe(btn);
-      }
-
-      this.loop();
-    }
-
-    ChromeButton.prototype.resize = function() {
-      var r = this.btn.getBoundingClientRect();
-      if (r.width === 0 || r.height === 0) return;
-      this.canvas.width = Math.max(1, Math.round(r.width * this.dpr));
-      this.canvas.height = Math.max(1, Math.round(r.height * this.dpr));
-      this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
-    };
-
-    ChromeButton.prototype.loop = function() {
-      var self = this;
-      function frame() {
-        if (self.visible) {
-          self.time += 0.016;
-          self.hover += (self.hoverTarget - self.hover) * 0.08;
-          self.render();
-        }
-        requestAnimationFrame(frame);
-      }
-      frame();
-    };
-
-    ChromeButton.prototype.render = function() {
-      var gl = this.gl;
-      gl.useProgram(this.prog);
-      gl.uniform1f(this.uTime, this.time);
-      gl.uniform2f(this.uRes, this.canvas.width, this.canvas.height);
-      gl.uniform1f(this.uHover, this.hover);
-      gl.drawArrays(gl.TRIANGLES, 0, 6);
-    };
-
-    function initChromeButtons() {
-      var btns = document.querySelectorAll('[data-chrome]');
-      btns.forEach(function(btn) {
-        try { new ChromeButton(btn); }
-        catch (e) { console.warn('ChromeButton init failed', e); btn.classList.add('no-webgl'); }
-      });
-    }
-
-    if (document.readyState === 'complete') {
-      initChromeButtons();
-    } else {
-      window.addEventListener('load', initChromeButtons);
-    }
-
-    // ============================================================
-    // 12. HOLO CARDS
-    // ============================================================
-    var holoCards = document.querySelectorAll('.skill-card.holo');
-
-    holoCards.forEach(function(card) {
-      card.addEventListener('pointermove', function(e) {
-        var r = card.getBoundingClientRect();
-        var x = ((e.clientX - r.left) / r.width) * 100;
-        var y = ((e.clientY - r.top) / r.height) * 100;
-        card.style.setProperty('--mx', x + '%');
-        card.style.setProperty('--my', y + '%');
-
-        var rx = ((e.clientY - r.top) / r.height - 0.5) * -8;
-        var ry = ((e.clientX - r.left) / r.width - 0.5) * 8;
-        card.style.setProperty('--rx', rx.toFixed(2) + 'deg');
-        card.style.setProperty('--ry', ry.toFixed(2) + 'deg');
-      });
-
-      card.addEventListener('pointerleave', function() {
-        card.style.setProperty('--rx', '0deg');
-        card.style.setProperty('--ry', '0deg');
-      });
     });
   </script>
 </body>
