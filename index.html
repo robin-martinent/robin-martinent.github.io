@@ -27,6 +27,9 @@
 </head>
 <body>
 
+  <!-- ===== SHADERLABS BACKGROUND ===== -->
+  <div id="shader-bg" aria-hidden="true"></div>
+
   <!-- ===== SCANLINES CRT ===== -->
   <div class="scanlines" aria-hidden="true"></div>
 
@@ -38,6 +41,9 @@
 
   <!-- ===== SPARKLES ===== -->
   <div class="sparkles" id="sparkles" aria-hidden="true"></div>
+
+  <!-- ===== PARTICLES ===== -->
+  <div id="particles-js" aria-hidden="true"></div>
 
   <!-- ===== CHROME CURSOR ===== -->
   <div class="cursor-halo" id="cursorHalo"></div>
@@ -69,7 +75,7 @@
           </div>
           <div class="loader-progress-pct" id="loaderPct">0%</div>
         </div>
-        <div class="loader-subtitle" id="loaderSubtitle">▓ CHARGEMENT DES DRIVERS VIDÉO ▓</div>
+        <div class="loader-subtitle" id="loaderSubtitle">▓ CHARGEMENT DES SHADERS ▓</div>
       </div>
     </div>
   </div>
@@ -105,19 +111,16 @@
   <section class="hero" id="heroSection">
     <div class="hero-grid-bg" aria-hidden="true"></div>
 
-    <!-- Zdog canvas 3D chrome -->
-    <div class="zdog-wrap zdog-hero" id="zdogHero" aria-hidden="true"></div>
-
     <div class="hero-inner">
       <div class="hero-glitch-wrap">
-        <h1 class="hero-title rellax" data-rellax-speed="-2" data-text="RÉALISATEUR">
-          <span class="chrome-text">RÉALISATEUR</span>
+        <h1 class="hero-title" data-text="RÉALISATEUR">
+          <span class="chrome-text split-text">RÉALISATEUR</span>
         </h1>
-        <h1 class="hero-title rellax" data-rellax-speed="-1" data-text="MONTEUR">
-          <span class="chrome-text accent">MONTEUR</span>
+        <h1 class="hero-title" data-text="MONTEUR">
+          <span class="chrome-text accent split-text">MONTEUR</span>
         </h1>
         <h1 class="hero-title" data-text="& CRÉATIF">
-          <span class="chrome-text">&amp; CRÉATIF</span>
+          <span class="chrome-text split-text">&amp; CRÉATIF</span>
         </h1>
       </div>
       <p class="hero-sub">
@@ -187,7 +190,7 @@
           <p class="section-label reveal">// 02 — MES RÉALISATIONS</p>
           <h2 class="section-title reveal">PORTFOLIO</h2>
 
-          <div class="carousel-wrap reveal" data-tilt data-tilt-max="4" data-tilt-speed="600" data-tilt-glare data-tilt-max-glare="0.15">
+          <div class="carousel-wrap reveal">
             <div class="carousel">
               <div class="carousel-track" id="track">
                 <div class="carousel-slide">
@@ -259,32 +262,32 @@
           <h2 class="section-title reveal">COMPÉTENCES</h2>
 
           <div class="skills-grid">
-            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
+            <div class="skill-card reveal">
               <div class="skill-icon">🎬</div>
               <h3>MONTAGE VIDÉO</h3>
               <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
             </div>
-            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
+            <div class="skill-card reveal">
               <div class="skill-icon">✨</div>
               <h3>MOTION DESIGN</h3>
               <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
             </div>
-            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
+            <div class="skill-card reveal">
               <div class="skill-icon">🎨</div>
               <h3>ILLUSTRATION</h3>
               <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
             </div>
-            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
+            <div class="skill-card reveal">
               <div class="skill-icon">🌐</div>
               <h3>DEV WEB</h3>
               <p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p>
             </div>
-            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
+            <div class="skill-card reveal">
               <div class="skill-icon">📷</div>
               <h3>RÉALISATION</h3>
               <p>Tournage, cadrage, son, gestion de plateau.</p>
             </div>
-            <div class="skill-card reveal" data-tilt data-tilt-max="12" data-tilt-speed="500" data-tilt-glare data-tilt-max-glare="0.25">
+            <div class="skill-card reveal">
               <div class="skill-icon">🖨️</div>
               <h3>IMPRESSION 3D</h3>
               <p>À l'aise avec le hardware, l'impression et le dépannage technique.</p>
@@ -403,9 +406,6 @@
           <h2 class="section-title">ON TRAVAILLE ENSEMBLE ?</h2>
           <p class="contact-sub">Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
 
-          <!-- Zdog chrome star décorative -->
-          <div class="zdog-wrap zdog-contact" id="zdogContact" aria-hidden="true"></div>
-
           <div class="contact-links">
             <button id="copyEmailBtn" class="btn-98 primary btn-copy">
               <span class="btn-text">📧 robin.martinent@gmail.com</span>
@@ -436,7 +436,7 @@
   <footer>
     <div class="footer-left">
       <p>© 2026 ROBIN MARTINENT — TOUS DROITS RÉSERVÉS</p>
-      <p class="footer-credits">Zdog · Vanilla-tilt · Rellax · Typed.js — MIT</p>
+      <p class="footer-credits">ShaderLabs · GSAP · Lenis · Typed.js · SplitType · tsParticles — MIT</p>
     </div>
     <div class="footer-center">
       <a href="mailto:robin.martinent@gmail.com">EMAIL</a>
@@ -448,7 +448,7 @@
     </div>
   </footer>
 
-  <!-- ===== MINI-JEU MODAL (Win98) ===== -->
+  <!-- ===== MINI-JEU MODAL ===== -->
   <div class="game-modal" id="gameModal">
     <div class="win98-window game-win">
       <div class="win98-titlebar">
@@ -480,14 +480,175 @@
   </div>
 
   <!-- ===== LIBRAIRIES EXTERNES (CDN) ===== -->
-  <script src="https://unpkg.com/zdog@1.1.3/dist/zdog.dist.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/vanilla-tilt@1.8.1/dist/vanilla-tilt.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/rellax@1.12.1/rellax.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3.12.5/dist/ScrollTrigger.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@studio-freight/lenis@1.0.42/dist/lenis.min.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.12/dist/typed.umd.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/split-type@0.3.4/umd/index.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
 
   <script>
     // ============================================================
-    // 1. NAV SHRINK
+    // 1. SHADERLABS BACKGROUND (Mesh Gradient)
+    // ============================================================
+    (function initShader() {
+      const container = document.getElementById('shader-bg');
+      if (!container || typeof THREE === 'undefined') return;
+
+      const scene = new THREE.Scene();
+      const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0.1, 10);
+      camera.position.z = 1;
+
+      const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: false });
+      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      container.appendChild(renderer.domElement);
+
+      const uniforms = {
+        uTime: { value: 0 },
+        uResolution: { value: new THREE.Vector2(window.innerWidth, window.innerHeight) },
+        uColor1: { value: new THREE.Color(0x1a0b2e) },
+        uColor2: { value: new THREE.Color(0x5b2bff) },
+        uColor3: { value: new THREE.Color(0xff00ff) },
+        uColor4: { value: new THREE.Color(0x000000) }
+      };
+
+      const vertexShader = `
+        varying vec2 vUv;
+        void main() {
+          vUv = uv;
+          gl_Position = projectionMatrix * modelViewMatrix * vec4(position, 1.0);
+        }
+      `;
+
+      const fragmentShader = `
+        precision highp float;
+        varying vec2 vUv;
+        uniform float uTime;
+        uniform vec2 uResolution;
+        uniform vec3 uColor1;
+        uniform vec3 uColor2;
+        uniform vec3 uColor3;
+        uniform vec3 uColor4;
+
+        // Simplex noise 2D
+        vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec2 mod289(vec2 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }
+        vec3 permute(vec3 x) { return mod289(((x * 34.0) + 1.0) * x); }
+
+        float snoise(vec2 v) {
+          const vec4 C = vec4(0.211324865405187, 0.366025403784439,
+                             -0.577350269189626, 0.024390243902439);
+          vec2 i  = floor(v + dot(v, C.yy));
+          vec2 x0 = v - i + dot(i, C.xx);
+          vec2 i1 = (x0.x > x0.y) ? vec2(1.0, 0.0) : vec2(0.0, 1.0);
+          vec4 x12 = x0.xyxy + C.xxzz;
+          x12.xy -= i1;
+          i = mod289(i);
+          vec3 p = permute(permute(i.y + vec3(0.0, i1.y, 1.0))
+                                + i.x + vec3(0.0, i1.x, 1.0));
+          vec3 m = max(0.5 - vec3(dot(x0, x0), dot(x12.xy, x12.xy), dot(x12.zw, x12.zw)), 0.0);
+          m = m * m;
+          m = m * m;
+          vec3 x = 2.0 * fract(p * C.www) - 1.0;
+          vec3 h = abs(x) - 0.5;
+          vec3 ox = floor(x + 0.5);
+          vec3 a0 = x - ox;
+          m *= 1.79284291400159 - 0.85373472095314 * (a0 * a0 + h * h);
+          vec3 g;
+          g.x  = a0.x  * x0.x  + h.x  * x0.y;
+          g.yz = a0.yz * x12.xz + h.yz * x12.yw;
+          return 130.0 * dot(m, g);
+        }
+
+        void main() {
+          vec2 uv = vUv;
+          float aspect = uResolution.x / uResolution.y;
+          vec2 p = uv;
+          p.x *= aspect;
+
+          float t = uTime * 0.08;
+
+          float n1 = snoise(p * 1.5 + vec2(t, t * 0.7));
+          float n2 = snoise(p * 2.2 - vec2(t * 0.5, t * 0.9));
+          float n3 = snoise(p * 3.0 + vec2(t * 1.2, -t * 0.4));
+          float n4 = snoise(p * 0.8 - vec2(t * 0.3, t * 0.6));
+
+          float blend1 = smoothstep(-0.5, 0.5, n1);
+          float blend2 = smoothstep(-0.4, 0.6, n2);
+          float blend3 = smoothstep(-0.6, 0.4, n3);
+          float blend4 = smoothstep(-0.3, 0.7, n4);
+
+          vec3 color = uColor4;
+          color = mix(color, uColor1, blend1 * 0.85);
+          color = mix(color, uColor2, blend2 * 0.55);
+          color = mix(color, uColor3, blend3 * 0.35);
+          color = mix(color, uColor4, blend4 * 0.6);
+
+          // Grain
+          float grain = fract(sin(dot(uv * uResolution, vec2(12.9898, 78.233))) * 43758.5453);
+          color += (grain - 0.5) * 0.025;
+
+          // Vignette
+          float vig = 1.0 - distance(uv, vec2(0.5)) * 1.1;
+          vig = clamp(vig, 0.0, 1.0);
+          color *= vig;
+
+          gl_FragColor = vec4(color, 1.0);
+        }
+      `;
+
+      const geometry = new THREE.PlaneGeometry(2, 2);
+      const material = new THREE.ShaderMaterial({
+        vertexShader,
+        fragmentShader,
+        uniforms
+      });
+      const mesh = new THREE.Mesh(geometry, material);
+      scene.add(mesh);
+
+      const clock = new THREE.Clock();
+
+      function animate() {
+        uniforms.uTime.value = clock.getElapsedTime();
+        renderer.render(scene, camera);
+        requestAnimationFrame(animate);
+      }
+      animate();
+
+      window.addEventListener('resize', () => {
+        const w = window.innerWidth;
+        const h = window.innerHeight;
+        renderer.setSize(w, h);
+        uniforms.uResolution.value.set(w, h);
+      });
+    })();
+
+    // ============================================================
+    // 2. LENIS SMOOTH SCROLL
+    // ============================================================
+    let lenis;
+    if (typeof Lenis !== 'undefined') {
+      lenis = new Lenis({
+        duration: 1.1,
+        easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+        smoothTouch: false
+      });
+
+      lenis.on('scroll', () => {
+        if (typeof ScrollTrigger !== 'undefined') ScrollTrigger.update();
+      });
+
+      function raf(time) {
+        lenis.raf(time);
+        requestAnimationFrame(raf);
+      }
+      requestAnimationFrame(raf);
+    }
+
+    // ============================================================
+    // 3. NAV SHRINK
     // ============================================================
     const navbar = document.getElementById('navbar');
     window.addEventListener('scroll', () => {
@@ -495,7 +656,7 @@
     });
 
     // ============================================================
-    // 2. CAROUSEL
+    // 4. CAROUSEL
     // ============================================================
     const titles = ['SHOWREEL SHAOLIN SHADOW 2025', 'CLIP RAP LOCAL', 'COURT-MÉTRAGE DOCUMENTAIRE', 'RASSEMBLEMENT PORSCHE'];
     const track = document.getElementById('track');
@@ -531,21 +692,7 @@
     });
 
     // ============================================================
-    // 3. SCROLL REVEAL
-    // ============================================================
-    const reveals = document.querySelectorAll('.reveal');
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry, i) => {
-        if (entry.isIntersecting) {
-          setTimeout(() => entry.target.classList.add('visible'), i * 80);
-          observer.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.12 });
-    reveals.forEach(el => observer.observe(el));
-
-    // ============================================================
-    // 4. SMOKE
+    // 5. SMOKE
     // ============================================================
     const smokeContainer = document.getElementById('smokeContainer');
 
@@ -583,7 +730,7 @@
     }
 
     // ============================================================
-    // 5. BOOM SOUND
+    // 6. BOOM SOUND
     // ============================================================
     function playExplosionSound() {
       try {
@@ -625,7 +772,7 @@
     }
 
     // ============================================================
-    // 6. EXPLOSION
+    // 7. EXPLOSION
     // ============================================================
     let isExploding = false;
 
@@ -671,7 +818,7 @@
     }
 
     // ============================================================
-    // 7. EMAIL COPY BUTTON
+    // 8. EMAIL COPY BUTTON
     // ============================================================
     const copyBtn = document.getElementById('copyEmailBtn');
     const emailFeedbackMsg = document.getElementById('emailFeedbackMsg');
@@ -729,7 +876,7 @@
     });
 
     // ============================================================
-    // 8. PHONE COPY BUTTON
+    // 9. PHONE COPY BUTTON
     // ============================================================
     const phoneBtn = document.getElementById('copyPhoneBtn');
     const phoneFeedbackMsg = document.getElementById('phoneFeedbackMsg');
@@ -800,7 +947,7 @@
     });
 
     // ============================================================
-    // 9. CHROME CURSOR
+    // 10. CHROME CURSOR
     // ============================================================
     const cursorHalo = document.getElementById('cursorHalo');
     const cursorDot = document.getElementById('cursorDot');
@@ -862,7 +1009,7 @@
     }
 
     // ============================================================
-    // 10. WIN98 LOADER
+    // 11. WIN98 LOADER
     // ============================================================
     const loader = document.getElementById('loader');
     const restLeft = document.getElementById('restLeft');
@@ -872,10 +1019,10 @@
     const subtitle = document.getElementById('loaderSubtitle');
 
     const loaderSteps = [
-      '▓ CHARGEMENT DES DRIVERS VIDÉO ▓',
+      '▓ CHARGEMENT DES SHADERS ▓',
+      '▓ COMPILATION WEBGL ▓',
       '▓ MONTAGE DES RUSHES ▓',
       '▓ ÉTALONNAGE EN COURS ▓',
-      '▓ SYNCHRONISATION AUDIO ▓',
       '▓ COMPILATION DU PORTFOLIO ▓'
     ];
 
@@ -904,7 +1051,7 @@
     }, 5000);
 
     // ============================================================
-    // 11. J / K / L SHORTCUTS
+    // 12. J / K / L SHORTCUTS
     // ============================================================
     const AUTO_SCROLL_SPEED = 9;
     let autoScrollSpeed = 0;
@@ -912,7 +1059,11 @@
 
     function autoScroll() {
       if (autoScrollSpeed !== 0) {
-        window.scrollBy(0, autoScrollSpeed);
+        if (lenis) {
+          lenis.scrollTo(window.scrollY + autoScrollSpeed, { immediate: true });
+        } else {
+          window.scrollBy(0, autoScrollSpeed);
+        }
         autoScrollRAF = requestAnimationFrame(autoScroll);
       } else {
         cancelAnimationFrame(autoScrollRAF);
@@ -942,7 +1093,7 @@
     });
 
     // ============================================================
-    // 12. PAPARAZZI FLASH
+    // 13. PAPARAZZI FLASH
     // ============================================================
     const paparazzi = document.getElementById('paparazzi');
 
@@ -966,7 +1117,7 @@
     schedulePaparazzi();
 
     // ============================================================
-    // 13. SPARKLES
+    // 14. SPARKLES
     // ============================================================
     const sparkles = document.getElementById('sparkles');
 
@@ -986,7 +1137,7 @@
     }, 2400);
 
     // ============================================================
-    // 14. MINI-GAME
+    // 15. MINI-GAME
     // ============================================================
     const gameModal = document.getElementById('gameModal');
     const gameBoard = document.getElementById('gameBoard');
@@ -1098,33 +1249,7 @@
     });
 
     // ============================================================
-    // 15. VANILLA-TILT — 3D hover sur cards
-    // ============================================================
-    if (typeof VanillaTilt !== 'undefined') {
-      VanillaTilt.init(document.querySelectorAll('[data-tilt]'), {
-        max: 15,
-        speed: 400,
-        glare: true,
-        'max-glare': 0.25
-      });
-    }
-
-    // ============================================================
-    // 16. RELLAX — parallaxe légère au scroll
-    // ============================================================
-    if (typeof Rellax !== 'undefined') {
-      new Rellax('.rellax', {
-        speed: -2,
-        center: true,
-        wrapper: null,
-        round: true,
-        vertical: true,
-        horizontal: false
-      });
-    }
-
-    // ============================================================
-    // 17. TYPED.JS — machine à écrire
+    // 16. TYPED.JS
     // ============================================================
     if (typeof Typed !== 'undefined') {
       new Typed('#typed', {
@@ -1145,163 +1270,150 @@
     }
 
     // ============================================================
-    // 18. ZDOG — objets 3D chrome
+    // 17. SPLITTYPE + GSAP SCROLLTRIGGER
     // ============================================================
-    function initZdogHero() {
-      if (typeof Zdog === 'undefined') return;
-      const el = document.getElementById('zdogHero');
-      if (!el) return;
-
-      const illo = new Zdog.Illustration({
-        element: el,
-        zoom: 1.1,
-        dragRotate: true,
-        onDragStart: () => { el.style.cursor = 'grabbing'; },
-        onDragEnd: () => { el.style.cursor = 'grab'; }
+    if (typeof SplitType !== 'undefined' && typeof gsap !== 'undefined') {
+      const splitTexts = document.querySelectorAll('.split-text');
+      splitTexts.forEach((el) => {
+        const split = new SplitType(el, { types: 'chars, words' });
+        gsap.from(split.chars, {
+          opacity: 0,
+          y: 60,
+          rotateX: -90,
+          stagger: 0.03,
+          duration: 0.9,
+          ease: 'power3.out',
+          delay: 2.8
+        });
       });
-
-      // Cube central — chrome palette
-      const cube = new Zdog.Box({
-        addTo: illo,
-        width: 90,
-        height: 90,
-        depth: 90,
-        color: '#d4d4d4',
-        topFace: '#ffffff',
-        bottomFace: '#4a4a4a',
-        leftFace: '#8a8a8a',
-        rightFace: '#b8b8b8',
-        frontFace: '#ffffff',
-        stroke: 1,
-        translate: { x: 0, y: 0, z: 0 }
-      });
-
-      // Deux satellites chromes
-      new Zdog.Box({
-        addTo: illo,
-        width: 40,
-        height: 40,
-        depth: 40,
-        color: '#b8b8b8',
-        topFace: '#ffffff',
-        bottomFace: '#2a2a2a',
-        leftFace: '#8a8a8a',
-        rightFace: '#d4d4d4',
-        frontFace: '#e8e8e8',
-        stroke: 1,
-        translate: { x: 90, y: -55, z: -20 }
-      });
-
-      new Zdog.Box({
-        addTo: illo,
-        width: 32,
-        height: 32,
-        depth: 32,
-        color: '#8a8a8a',
-        topFace: '#d4d4d4',
-        bottomFace: '#1a1a1a',
-        leftFace: '#555',
-        rightFace: '#a8a8a8',
-        frontFace: '#d4d4d4',
-        stroke: 1,
-        translate: { x: -85, y: 65, z: 30 }
-      });
-
-      // Étoile chromée 8 branches
-      const star = new Zdog.Shape({
-        addTo: illo,
-        stroke: 4,
-        color: '#ffffff',
-        path: [
-          { x: 0, y: -60 },
-          { x: 0, y: 60 }
-        ],
-        translate: { x: 0, y: 0, z: -80 }
-      });
-      new Zdog.Shape({
-        addTo: illo,
-        stroke: 4,
-        color: '#ffffff',
-        path: [
-          { x: -60, y: 0 },
-          { x: 60, y: 0 }
-        ],
-        translate: { x: 0, y: 0, z: -80 }
-      });
-
-      let t = 0;
-      function animate() {
-        t += 0.01;
-        illo.rotate.y += 0.008;
-        illo.rotate.x = Math.sin(t * 0.5) * 0.35 - 0.15;
-        illo.updateRenderGraph();
-        requestAnimationFrame(animate);
-      }
-      animate();
-
-      el.style.cursor = 'grab';
     }
 
-    function initZdogContact() {
-      if (typeof Zdog === 'undefined') return;
-      const el = document.getElementById('zdogContact');
-      if (!el) return;
+    if (typeof gsap !== 'undefined' && typeof ScrollTrigger !== 'undefined') {
+      gsap.registerPlugin(ScrollTrigger);
 
-      const illo = new Zdog.Illustration({
-        element: el,
-        zoom: 0.9,
-        dragRotate: true
+      // Reveal sections on scroll
+      document.querySelectorAll('.reveal').forEach((el) => {
+        gsap.from(el, {
+          scrollTrigger: {
+            trigger: el,
+            start: 'top 85%',
+            toggleActions: 'play none none none'
+          },
+          opacity: 0,
+          y: 60,
+          duration: 0.9,
+          ease: 'power3.out'
+        });
       });
 
-      // Anneau chrome
-      new Zdog.Ellipse({
-        addTo: illo,
-        diameter: 80,
-        quarters: 4,
-        stroke: 8,
-        color: '#d4d4d4',
-        translate: { z: 0 }
+      // Skill cards — stagger reveal
+      gsap.from('.skill-card', {
+        scrollTrigger: {
+          trigger: '.skills-grid',
+          start: 'top 80%'
+        },
+        opacity: 0,
+        y: 80,
+        rotateY: -15,
+        stagger: 0.12,
+        duration: 0.8,
+        ease: 'power3.out'
       });
 
-      new Zdog.Ellipse({
-        addTo: illo,
-        diameter: 56,
-        quarters: 4,
-        stroke: 6,
-        color: '#ffffff',
-        translate: { z: -4 }
+      // CV items — slide from left
+      gsap.from('.cv-item', {
+        scrollTrigger: {
+          trigger: '.cv-grid',
+          start: 'top 75%'
+        },
+        opacity: 0,
+        x: -50,
+        stagger: 0.08,
+        duration: 0.7,
+        ease: 'power2.out'
       });
 
-      // Petit cube au centre
-      new Zdog.Box({
-        addTo: illo,
-        width: 26,
-        height: 26,
-        depth: 26,
-        color: '#ffffff',
-        topFace: '#ffffff',
-        bottomFace: '#555',
-        leftFace: '#a8a8a8',
-        rightFace: '#d4d4d4',
-        frontFace: '#ffffff',
-        stroke: 1
+      // Win98 windows — scale in
+      gsap.from('.win98-window', {
+        scrollTrigger: {
+          trigger: '.win98-window',
+          start: 'top 85%'
+        },
+        opacity: 0,
+        scale: 0.95,
+        duration: 0.6,
+        ease: 'power2.out'
       });
 
-      function animate() {
-        illo.rotate.y += 0.012;
-        illo.rotate.x = Math.sin(Date.now() * 0.001) * 0.2;
-        illo.updateRenderGraph();
-        requestAnimationFrame(animate);
-      }
-      animate();
+      // Parallax on hero title
+      gsap.to('.hero-title:nth-child(1)', {
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1
+        },
+        y: -80,
+        ease: 'none'
+      });
+
+      gsap.to('.hero-title:nth-child(3)', {
+        scrollTrigger: {
+          trigger: '.hero',
+          start: 'top top',
+          end: 'bottom top',
+          scrub: 1
+        },
+        y: 80,
+        ease: 'none'
+      });
+
+      ScrollTrigger.refresh();
     }
 
-    window.addEventListener('load', () => {
-      setTimeout(() => {
-        initZdogHero();
-        initZdogContact();
-      }, 200);
-    });
+    // ============================================================
+    // 18. TSPARTICLES
+    // ============================================================
+    if (typeof tsParticles !== 'undefined') {
+      tsParticles.load('particles-js', {
+        fpsLimit: 60,
+        particles: {
+          number: { value: 40, density: { enable: true, value_area: 900 } },
+          color: { value: ['#ffffff', '#8a8a8a', '#ff00ff'] },
+          shape: { type: 'circle' },
+          opacity: {
+            value: 0.4,
+            random: true,
+            anim: { enable: true, speed: 0.5, opacity_min: 0.1 }
+          },
+          size: {
+            value: 2.5,
+            random: true,
+            anim: { enable: true, speed: 1.5, size_min: 0.5 }
+          },
+          move: {
+            enable: true,
+            speed: 0.8,
+            direction: 'none',
+            random: true,
+            straight: false,
+            out_mode: 'out'
+          }
+        },
+        interactivity: {
+          detect_on: 'canvas',
+          events: {
+            onhover: { enable: true, mode: 'bubble' },
+            onclick: { enable: false },
+            resize: true
+          },
+          modes: {
+            bubble: { distance: 120, size: 3.5, duration: 2, opacity: 0.6 }
+          }
+        },
+        retina_detect: true
+      });
+    }
   </script>
 </body>
 </html>
