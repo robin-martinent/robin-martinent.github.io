@@ -1,6 +1,7 @@
 /* ============================================================
-   ROBIN MARTINENT — PORTFOLIO Y2K
-   Zéro dépendance externe. HTML/CSS/JS pur.
+   ROBIN MARTINENT — PORTFOLIO Y2K v8
+   Chrome WebGL buttons · Chrome text renforcé · Holo skill cards
+   Zéro dépendance externe.
    ============================================================ */
 
 *, *::before, *::after {
@@ -38,24 +39,54 @@ body {
   overflow-x: hidden;
   line-height: 1.5;
   font-size: 16px;
+  position: relative;
 }
 
+/* ============================================================
+   FOND ANIMÉ — 2 lueurs qui dérivent lentement
+   ============================================================ */
 body::before {
   content: '';
   position: fixed;
-  inset: 0;
-  z-index: -1;
+  inset: -25%;
+  z-index: -2;
   pointer-events: none;
-  background:
-    radial-gradient(ellipse 60% 50% at 15% 20%, rgba(91, 43, 255, 0.35), transparent 60%),
-    radial-gradient(ellipse 50% 40% at 85% 75%, rgba(255, 0, 255, 0.22), transparent 60%),
-    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(20, 0, 40, 0.6), transparent 70%);
-  animation: bgShift 30s ease-in-out infinite alternate;
+  background: radial-gradient(
+    ellipse 55% 45% at 25% 30%,
+    rgba(91, 43, 255, 0.45),
+    rgba(91, 43, 255, 0.10) 45%,
+    transparent 70%
+  );
+  animation: bgDrift1 26s ease-in-out infinite alternate;
+  filter: blur(50px);
 }
 
-@keyframes bgShift {
-  0%   { transform: scale(1) rotate(0deg); }
-  100% { transform: scale(1.1) rotate(3deg); }
+body::after {
+  content: '';
+  position: fixed;
+  inset: -25%;
+  z-index: -2;
+  pointer-events: none;
+  background: radial-gradient(
+    ellipse 50% 40% at 75% 70%,
+    rgba(255, 0, 255, 0.30),
+    rgba(255, 0, 255, 0.08) 45%,
+    transparent 70%
+  );
+  animation: bgDrift2 34s ease-in-out infinite alternate;
+  filter: blur(55px);
+}
+
+@keyframes bgDrift1 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.55; }
+  50%  { transform: translate(12%, 8%) scale(1.15); opacity: 0.85; }
+  100% { transform: translate(-8%, 14%) scale(1.08); opacity: 0.65; }
+}
+
+@keyframes bgDrift2 {
+  0%   { transform: translate(0, 0) scale(1); opacity: 0.45; }
+  50%  { transform: translate(-14%, -10%) scale(1.2); opacity: 0.75; }
+  100% { transform: translate(8%, -12%) scale(1.1); opacity: 0.55; }
 }
 
 h1, h2, h3, h4, .nav-logo, .section-title, .btn-98 {
@@ -261,6 +292,8 @@ h1, h2, h3, h4, .nav-logo, .section-title, .btn-98 {
     inset -1px -1px 0 var(--win98-dark);
   cursor: pointer;
   user-select: none;
+  position: relative;
+  overflow: hidden;
 }
 .btn-98:hover {
   background: #d0d0d0;
@@ -269,8 +302,69 @@ h1, h2, h3, h4, .nav-logo, .section-title, .btn-98 {
   border-color: #000 var(--win98-light) var(--win98-light) #000;
   box-shadow: inset 1px 1px 0 var(--win98-dark);
 }
-.btn-98.primary:hover {
-  background: var(--accent);
+
+/* ============================================================
+   CHROME BUTTON — WebGL liquid metal
+   ============================================================ */
+.btn-98.chrome-btn {
+  background: #0a0a12;
+  color: #000;
+  border-color: var(--win98-light) #000 #000 var(--win98-light);
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+    0 0 24px rgba(255, 0, 255, 0.25),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+  isolation: isolate;
+}
+
+.btn-98.chrome-btn:hover {
+  background: #0a0a12;
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.5) inset,
+    0 0 40px rgba(255, 0, 255, 0.45),
+    6px 6px 0 rgba(0, 0, 0, 0.6);
+}
+
+.btn-98.chrome-btn:active {
+  box-shadow:
+    0 0 0 1px rgba(255, 255, 255, 0.4) inset,
+    0 0 24px rgba(255, 0, 255, 0.25),
+    3px 3px 0 rgba(0, 0, 0, 0.6);
+  transform: translate(3px, 3px);
+}
+
+.btn-98.chrome-btn .chrome-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  display: block;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.btn-98.chrome-btn .chrome-label,
+.btn-98.chrome-btn .btn-feedback {
+  position: relative;
+  z-index: 2;
+}
+
+.btn-98.chrome-btn .chrome-label {
+  color: #000;
+  text-shadow:
+    0 1px 0 rgba(255, 255, 255, 0.8),
+    0 -1px 0 rgba(0, 0, 0, 0.3);
+  mix-blend-mode: multiply;
+}
+
+/* Fallback si WebGL indispo : cache le canvas et remet le style plat */
+.btn-98.chrome-btn.no-webgl .chrome-canvas { display: none; }
+.btn-98.chrome-btn.no-webgl {
+  background: linear-gradient(180deg, #fff 0%, #aaa 50%, #333 100%);
+  color: #000;
+}
+.btn-98.chrome-btn.no-webgl:hover {
+  background: linear-gradient(180deg, #fff 0%, var(--accent) 50%, #333 100%);
   color: #fff;
 }
 
@@ -542,25 +636,64 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   margin: 0 auto;
   position: relative;
   z-index: 3;
+  perspective: 1200px;
 }
 
+/* ============================================================
+   TITRES HERO — révélation cascade
+   ============================================================ */
 .hero-title {
   font-size: clamp(64px, 12vw, 180px);
   line-height: 0.92;
   margin-bottom: 4px;
   display: block;
+  opacity: 0;
+  transform: translateY(80px) rotateX(-60deg);
+  transform-origin: center bottom;
+  animation:
+    heroTitleIn 1.2s cubic-bezier(0.19, 1, 0.22, 1) forwards,
+    chromeShine 6s ease-in-out infinite;
+  will-change: transform, opacity, background-position;
 }
 
+.hero-title:nth-of-type(1) { animation-delay: 3.2s, 3.2s; }
+.hero-title:nth-of-type(2) { animation-delay: 3.45s, 3.45s; }
+.hero-title:nth-of-type(3) { animation-delay: 3.7s, 3.7s; }
+
+@keyframes heroTitleIn {
+  0% {
+    opacity: 0;
+    transform: translateY(80px) rotateX(-60deg);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotateX(0deg);
+  }
+}
+
+/* ============================================================
+   CHROME — bande blanche dure à 50% (le secret du vrai chrome)
+   + shimmer qui balaye
+   ============================================================ */
 .chrome {
-  background: linear-gradient(180deg,
-    #ffffff 0%,
-    #f5f5f5 20%,
-    #b8b8b8 42%,
-    #ffffff 50%,
-    #8a8a8a 55%,
-    #2a2a2a 82%,
-    #000 100%
-  );
+  background-image:
+    linear-gradient(110deg,
+      transparent 42%,
+      rgba(255, 255, 255, 0.90) 48%,
+      rgba(255, 255, 255, 0.90) 52%,
+      transparent 58%),
+    linear-gradient(180deg,
+      #6b6b6b 0%,
+      #c8c8c8 20%,
+      #ffffff 42%,
+      #ffffff 50%,
+      #000000 50.5%,
+      #1a1a1a 55%,
+      #2a2a2a 70%,
+      #4a4a4a 100%);
+  background-size: 300% 100%, 100% 100%;
+  background-position: -200% 0, 0 0;
+  background-repeat: no-repeat, no-repeat;
   -webkit-background-clip: text;
   background-clip: text;
   -webkit-text-fill-color: transparent;
@@ -571,19 +704,31 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
 }
 
 .chrome.magenta {
-  background: linear-gradient(180deg,
-    #ffffff 0%,
-    #ffe0ff 15%,
-    #ff00ff 45%,
-    #ffffff 52%,
-    #b000b0 58%,
-    #2a002a 100%
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
+  background-image:
+    linear-gradient(110deg,
+      transparent 42%,
+      rgba(255, 255, 255, 0.90) 48%,
+      rgba(255, 255, 255, 0.90) 52%,
+      transparent 58%),
+    linear-gradient(180deg,
+      #6b2a6b 0%,
+      #c86ac8 20%,
+      #ffe0ff 42%,
+      #ffffff 50%,
+      #b000b0 50.5%,
+      #6a006a 55%,
+      #3a003a 70%,
+      #1a001a 100%);
 }
 
+@keyframes chromeShine {
+  0%, 55%, 100% { background-position: -200% 0, 0 0; }
+  72%           { background-position: 200% 0, 0 0; }
+}
+
+/* ============================================================
+   SOUS-TITRE
+   ============================================================ */
 .hero-sub {
   font-family: var(--font-brut);
   font-size: 18px;
@@ -594,6 +739,8 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   border-left: 3px solid var(--accent);
   padding-left: 22px;
   min-height: 80px;
+  opacity: 0;
+  animation: heroTitleIn 1s cubic-bezier(0.19, 1, 0.22, 1) 3.95s forwards;
 }
 .typed-target {
   color: #fff;
@@ -610,6 +757,8 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   gap: 16px;
   flex-wrap: wrap;
   margin-bottom: 80px;
+  opacity: 0;
+  animation: heroTitleIn 1s cubic-bezier(0.19, 1, 0.22, 1) 4.15s forwards;
 }
 
 .hero-badge {
@@ -618,7 +767,8 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   font-weight: bold;
   color: var(--muted);
   letter-spacing: 0.4em;
-  opacity: 0.7;
+  opacity: 0;
+  animation: heroTitleIn 1s cubic-bezier(0.19, 1, 0.22, 1) 4.35s forwards;
 }
 
 /* ============================================================
@@ -780,25 +930,91 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
 }
 
 /* ============================================================
-   SKILLS
+   SKILLS — avec effet holo (carte Pokémon)
    ============================================================ */
 .skills-grid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
   gap: 14px;
 }
+
 .skill-card {
   background: var(--win98-bg);
   border: 2px solid;
   border-color: var(--win98-light) #000 #000 var(--win98-light);
   padding: 32px 26px;
-  transition: background 0.15s;
   min-height: 180px;
+  position: relative;
+  overflow: hidden;
+  transform:
+    perspective(900px)
+    rotateX(var(--rx, 0deg))
+    rotateY(var(--ry, 0deg));
+  transform-style: preserve-3d;
+  transition:
+    background 0.15s,
+    transform 0.2s ease-out;
 }
+
+/* Base du contenu qui doit rester au-dessus */
+.skill-card > * {
+  position: relative;
+  z-index: 2;
+}
+
+/* Overlay holographique */
+.skill-card.holo::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background:
+    radial-gradient(
+      circle 220px at var(--mx, 50%) var(--my, 50%),
+      rgba(255, 255, 255, 0.85) 0%,
+      rgba(255, 0, 255, 0.55) 22%,
+      rgba(0, 200, 255, 0.45) 42%,
+      rgba(255, 200, 0, 0.35) 60%,
+      transparent 78%
+    );
+  mix-blend-mode: color-dodge;
+}
+
+/* Fines stries iridescentes qui bougent avec le pointeur */
+.skill-card.holo::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.25s ease;
+  background:
+    repeating-linear-gradient(
+      115deg,
+      transparent 0 8px,
+      rgba(255, 255, 255, 0.10) 8px 9px,
+      transparent 9px 18px
+    );
+  background-position:
+    calc(var(--mx, 50%) * 1) calc(var(--my, 50%) * 1);
+  mix-blend-mode: overlay;
+}
+
+.skill-card.holo:hover::after,
+.skill-card.holo:hover::before {
+  opacity: 1;
+}
+
 .skill-card:hover { background: #000; }
 .skill-card:hover h3 { color: var(--accent); }
 .skill-card:hover p { color: #b8b8b8; }
+
 .skill-icon { font-size: 40px; margin-bottom: 16px; }
+
 .skill-card h3 {
   font-family: var(--font-display);
   font-size: 18px;
@@ -806,6 +1022,7 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   margin-bottom: 12px;
   transition: color 0.15s;
 }
+
 .skill-card p {
   font-family: var(--font-brut);
   font-size: 14px;
@@ -959,7 +1176,10 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   overflow: hidden;
   min-width: 320px;
 }
-.btn-copy .btn-text { transition: opacity 0.2s; }
+.btn-copy .btn-text,
+.btn-copy .chrome-label {
+  transition: opacity 0.2s;
+}
 .btn-copy .btn-feedback {
   position: absolute;
   inset: 0;
@@ -974,8 +1194,10 @@ nav.scrolled .nav-inner { padding: 14px 60px; }
   font-family: var(--font-display);
   font-size: 14px;
   text-transform: uppercase;
+  z-index: 5;
 }
-.btn-copy.copied .btn-text { opacity: 0; }
+.btn-copy.copied .btn-text,
+.btn-copy.copied .chrome-label { opacity: 0; }
 .btn-copy.copied .btn-feedback { opacity: 1; }
 .btn-copy .btn-feedback svg {
   width: 18px;
@@ -1018,6 +1240,12 @@ footer p {
   font-size: 11px;
   color: var(--muted);
   letter-spacing: 0.12em;
+}
+.footer-credits {
+  margin-top: 6px;
+  font-size: 10px !important;
+  opacity: 0.6;
+  letter-spacing: 0.1em !important;
 }
 .footer-left { flex: 1; }
 .footer-center {
@@ -1264,6 +1492,8 @@ footer p {
   .contact-links { flex-direction: column; align-items: stretch; }
   .contact-secondary { flex-direction: column; align-items: stretch; }
   .explosion-text { font-size: 60px; }
+
+  body::before, body::after { filter: blur(35px); }
 }
 
 /* ============================================================
