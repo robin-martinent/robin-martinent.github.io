@@ -19,11 +19,15 @@
   --font-body: 'Inter', sans-serif;
 }
 
-html { scroll-behavior: smooth; }
+/* Fond sur <html> pour laisser l'auroral (z-index -1) visible */
+html {
+  background: var(--bg);
+  scroll-behavior: smooth;
+}
 
 body {
   font-family: var(--font-body);
-  background: var(--bg);
+  background: transparent;
   color: var(--ink);
   overflow-x: hidden;
 }
@@ -35,6 +39,106 @@ h1, h2, h3, h4, .nav-logo, .section-title, .hero h1, .btn-primary, .btn-ghost, .
 ::-webkit-scrollbar { width: 4px; }
 ::-webkit-scrollbar-track { background: var(--bg); }
 ::-webkit-scrollbar-thumb { background: var(--accent); border-radius: 2px; }
+
+/* ============================================================
+   FOND AURORAL
+   CSS pur, aucun JavaScript. Deux pseudo-éléments :
+   - ::before : les blobs lumineux floutés qui ondulent
+   - ::after  : les fines stries d'aurore boréale
+   Thèmes : auroral-northern (défaut), auroral-dusk, auroral-warm
+   ============================================================ */
+
+.auroral-bg {
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  overflow: hidden;
+  pointer-events: none;
+  background: var(--bg);
+}
+
+.auroral-bg::before {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  width: 140%;
+  height: 140%;
+
+  background:
+    radial-gradient(ellipse 55% 40% at 15% 25%, rgba(91, 43, 255, 0.55), transparent 62%),
+    radial-gradient(ellipse 45% 32% at 78% 18%, rgba(120, 200, 255, 0.28), transparent 62%),
+    radial-gradient(ellipse 65% 42% at 45% 72%, rgba(200, 80, 255, 0.26), transparent 62%),
+    radial-gradient(ellipse 40% 28% at 88% 82%, rgba(80, 255, 180, 0.18), transparent 62%);
+
+  filter: blur(70px);
+  animation: auroralDrift 20s ease-in-out infinite alternate;
+  will-change: transform;
+}
+
+.auroral-bg::after {
+  content: '';
+  position: absolute;
+  inset: -20%;
+  width: 140%;
+  height: 140%;
+
+  background:
+    repeating-linear-gradient(
+      68deg,
+      transparent 0 42px,
+      rgba(150, 200, 255, 0.045) 42px 44px,
+      transparent 44px 110px
+    );
+
+  mix-blend-mode: screen;
+  animation: auroralStreaks 30s linear infinite;
+  will-change: transform;
+}
+
+@keyframes auroralDrift {
+  0% {
+    transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+  }
+  50% {
+    transform: translate3d(2%, -3%, 0) rotate(2deg) scale(1.08);
+  }
+  100% {
+    transform: translate3d(-3%, 2%, 0) rotate(-2deg) scale(1.05);
+  }
+}
+
+@keyframes auroralStreaks {
+  0%   { transform: translateX(-6%) skewX(-6deg); }
+  100% { transform: translateX(6%) skewX(-6deg); }
+}
+
+/* Thème DUSK */
+.auroral-dusk::before {
+  background:
+    radial-gradient(ellipse 55% 40% at 22% 30%, rgba(255, 120, 80, 0.42), transparent 62%),
+    radial-gradient(ellipse 45% 32% at 78% 22%, rgba(180, 60, 180, 0.38), transparent 62%),
+    radial-gradient(ellipse 65% 42% at 42% 74%, rgba(80, 40, 140, 0.45), transparent 62%),
+    radial-gradient(ellipse 40% 28% at 90% 72%, rgba(255, 180, 100, 0.20), transparent 62%);
+}
+
+/* Thème WARM */
+.auroral-warm::before {
+  background:
+    radial-gradient(ellipse 55% 40% at 18% 28%, rgba(255, 140, 60, 0.45), transparent 62%),
+    radial-gradient(ellipse 45% 32% at 72% 22%, rgba(255, 200, 80, 0.32), transparent 62%),
+    radial-gradient(ellipse 65% 42% at 40% 72%, rgba(220, 60, 120, 0.35), transparent 62%),
+    radial-gradient(ellipse 40% 28% at 88% 70%, rgba(255, 80, 40, 0.25), transparent 62%);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .auroral-bg::before,
+  .auroral-bg::after { animation: none; }
+}
+
+@media (max-width: 768px) {
+  .auroral-bg::before { filter: blur(50px); }
+  .auroral-bg::after  { display: none; }
+}
 
 /* ============================================================
    GRAIN DE PELLICULE
