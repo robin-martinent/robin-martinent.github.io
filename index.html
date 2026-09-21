@@ -27,18 +27,13 @@
 </head>
 <body>
 
-  <!-- SCANLINES -->
   <div class="scanlines" aria-hidden="true"></div>
-
-  <!-- NOISE -->
   <div class="noise" aria-hidden="true"></div>
 
-  <!-- CURSEUR CHROME -->
   <div class="cursor-halo" id="cursorHalo"></div>
   <div class="cursor-dot" id="cursorDot"></div>
   <div class="cursor-trail" id="cursorTrail"></div>
 
-  <!-- LOADER -->
   <div id="loader">
     <div class="loader-win">
       <div class="loader-titlebar">
@@ -59,17 +54,15 @@
           <div class="loader-fill" id="loaderFill"></div>
         </div>
         <div class="loader-pct" id="loaderPct">0%</div>
-        <div class="loader-sub" id="loaderSub">▓ CHARGEMENT ▓</div>
+        <div class="loader-sub" id="loaderSub">▓ COMPILATION DES SHADERS ▓</div>
       </div>
     </div>
   </div>
 
-  <!-- EXPLOSION -->
   <div class="explosion" id="explosion">
     <div class="explosion-text" id="explosionText">💥 BOOM !</div>
   </div>
 
-  <!-- NAV -->
   <nav id="navbar">
     <div class="nav-inner">
       <a href="#" class="nav-logo">[ ROBIN MARTINENT ]</a>
@@ -84,7 +77,6 @@
     </div>
   </nav>
 
-  <!-- HERO -->
   <section class="hero" id="heroSection">
     <div class="hero-grid" aria-hidden="true"></div>
     <div class="hero-inner">
@@ -96,7 +88,10 @@
         Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
       </p>
       <div class="hero-cta">
-        <a href="#portfolio" class="btn-98 primary">▶ VOIR MES PROJETS</a>
+        <a href="#portfolio" class="btn-98 primary chrome-btn" data-chrome>
+          <canvas class="chrome-canvas" aria-hidden="true"></canvas>
+          <span class="chrome-label">▶ VOIR MES PROJETS</span>
+        </a>
         <a href="#contact" class="btn-98">▣ ME CONTACTER</a>
         <a href="rapport.html" class="btn-98">▤ RAPPORT 2026</a>
       </div>
@@ -104,7 +99,6 @@
     </div>
   </section>
 
-  <!-- À PROPOS -->
   <section class="section" id="about">
     <div class="section-inner">
       <div class="win98">
@@ -126,7 +120,6 @@
     </div>
   </section>
 
-  <!-- PORTFOLIO -->
   <section class="section" id="portfolio">
     <div class="section-inner">
       <div class="win98">
@@ -193,7 +186,6 @@
     </div>
   </section>
 
-  <!-- COMPÉTENCES -->
   <section class="section" id="competences">
     <div class="section-inner">
       <div class="win98">
@@ -207,12 +199,12 @@
           <h2 class="section-title reveal">COMPÉTENCES</h2>
 
           <div class="skills-grid">
-            <div class="skill-card reveal"><div class="skill-icon">🎬</div><h3>MONTAGE VIDÉO</h3><p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p></div>
-            <div class="skill-card reveal"><div class="skill-icon">✨</div><h3>MOTION DESIGN</h3><p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p></div>
-            <div class="skill-card reveal"><div class="skill-icon">🎨</div><h3>ILLUSTRATION</h3><p>Affiches, visuels réseaux sociaux, identité visuelle.</p></div>
-            <div class="skill-card reveal"><div class="skill-icon">🌐</div><h3>DEV WEB</h3><p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p></div>
-            <div class="skill-card reveal"><div class="skill-icon">📷</div><h3>RÉALISATION</h3><p>Tournage, cadrage, son, gestion de plateau.</p></div>
-            <div class="skill-card reveal"><div class="skill-icon">🖨️</div><h3>IMPRESSION 3D</h3><p>À l'aise avec le hardware, l'impression et le dépannage technique.</p></div>
+            <div class="skill-card holo reveal"><div class="skill-icon">🎬</div><h3>MONTAGE VIDÉO</h3><p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p></div>
+            <div class="skill-card holo reveal"><div class="skill-icon">✨</div><h3>MOTION DESIGN</h3><p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p></div>
+            <div class="skill-card holo reveal"><div class="skill-icon">🎨</div><h3>ILLUSTRATION</h3><p>Affiches, visuels réseaux sociaux, identité visuelle.</p></div>
+            <div class="skill-card holo reveal"><div class="skill-icon">🌐</div><h3>DEV WEB</h3><p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p></div>
+            <div class="skill-card holo reveal"><div class="skill-icon">📷</div><h3>RÉALISATION</h3><p>Tournage, cadrage, son, gestion de plateau.</p></div>
+            <div class="skill-card holo reveal"><div class="skill-icon">🖨️</div><h3>IMPRESSION 3D</h3><p>À l'aise avec le hardware, l'impression et le dépannage technique.</p></div>
           </div>
 
           <div class="tools-list reveal">
@@ -231,7 +223,6 @@
     </div>
   </section>
 
-  <!-- CV -->
   <section class="section" id="cv">
     <div class="section-inner">
       <div class="win98">
@@ -305,7 +296,6 @@
     </div>
   </section>
 
-  <!-- CONTACT -->
   <section class="section" id="contact">
     <div class="section-inner">
       <div class="win98">
@@ -320,8 +310,9 @@
           <p class="contact-sub">Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
 
           <div class="contact-links">
-            <button id="copyEmailBtn" class="btn-98 primary btn-copy">
-              <span class="btn-text">📧 robin.martinent@gmail.com</span>
+            <button id="copyEmailBtn" class="btn-98 primary chrome-btn btn-copy" data-chrome>
+              <canvas class="chrome-canvas" aria-hidden="true"></canvas>
+              <span class="chrome-label btn-text">📧 robin.martinent@gmail.com</span>
               <span class="btn-feedback" id="emailFeedback">
                 <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
                 <span id="emailFeedbackMsg">COPIÉ !</span>
@@ -345,9 +336,11 @@
     </div>
   </section>
 
-  <!-- FOOTER -->
   <footer>
-    <div class="footer-left"><p>© 2026 ROBIN MARTINENT — TOUS DROITS RÉSERVÉS</p></div>
+    <div class="footer-left">
+      <p>© 2026 ROBIN MARTINENT — TOUS DROITS RÉSERVÉS</p>
+      <p class="footer-credits">Shader chrome custom · Vanilla JS · Zéro dépendance</p>
+    </div>
     <div class="footer-center">
       <a href="mailto:robin.martinent@gmail.com">EMAIL</a>
       <a href="https://www.linkedin.com/in/robin-martinent" target="_blank" rel="noopener">LINKEDIN</a>
@@ -356,7 +349,6 @@
     <div class="footer-right"><p>FAIT AVEC PASSION ✦</p></div>
   </footer>
 
-  <!-- MINI-JEU -->
   <div class="game-modal" id="gameModal">
     <div class="win98 game-win">
       <div class="win98-titlebar">
@@ -448,11 +440,11 @@
     }
 
     // ============================================================
-    // 4. TYPED MANUEL
+    // 4. TYPED
     // ============================================================
     var typedEl = document.getElementById('typed');
     var typedWords = ['Monteur vidéo.', 'Réalisateur.', 'Motion designer.', 'Créatif.'];
-    var twIndex = 0, tcIndex = 0, typing = true, typedTimeout;
+    var twIndex = 0, tcIndex = 0, typing = true;
 
     function typeLoop() {
       var word = typedWords[twIndex];
@@ -461,23 +453,23 @@
         typedEl.textContent = word.substring(0, tcIndex);
         if (tcIndex === word.length) {
           typing = false;
-          typedTimeout = setTimeout(typeLoop, 1600);
+          setTimeout(typeLoop, 1600);
           return;
         }
-        typedTimeout = setTimeout(typeLoop, 55);
+        setTimeout(typeLoop, 55);
       } else {
         tcIndex--;
         typedEl.textContent = word.substring(0, tcIndex);
         if (tcIndex === 0) {
           typing = true;
           twIndex = (twIndex + 1) % typedWords.length;
-          typedTimeout = setTimeout(typeLoop, 400);
+          setTimeout(typeLoop, 400);
           return;
         }
-        typedTimeout = setTimeout(typeLoop, 30);
+        setTimeout(typeLoop, 30);
       }
     }
-    if (typedEl) typeLoop();
+    if (typedEl) setTimeout(typeLoop, 4200);
 
     // ============================================================
     // 5. CURSEUR CHROME
@@ -550,7 +542,7 @@
     var loaderSub = document.getElementById('loaderSub');
 
     var loaderSteps = [
-      '▓ CHARGEMENT DES DRIVERS ▓',
+      '▓ COMPILATION DES SHADERS ▓',
       '▓ MONTAGE DES RUSHES ▓',
       '▓ ÉTALONNAGE EN COURS ▓',
       '▓ SYNCHRONISATION AUDIO ▓',
@@ -573,7 +565,7 @@
 
     setTimeout(function() {
       loader.classList.add('hidden');
-    }, 3600);
+    }, 2600);
 
     // ============================================================
     // 7. COPIER EMAIL / TEL
@@ -871,6 +863,265 @@
 
     document.addEventListener('keydown', function(e) {
       if (e.key === 'Escape' && gameModal.classList.contains('active')) closeGame();
+    });
+
+    // ============================================================
+    // 11. CHROME BUTTON — shader WebGL liquid metal
+    // ============================================================
+    var VERT = [
+      'attribute vec2 a;',
+      'varying vec2 vUv;',
+      'void main() {',
+      '  vUv = a * 0.5 + 0.5;',
+      '  gl_Position = vec4(a, 0.0, 1.0);',
+      '}'
+    ].join('\n');
+
+    var FRAG = [
+      'precision highp float;',
+      'varying vec2 vUv;',
+      'uniform float uTime;',
+      'uniform vec2 uResolution;',
+      'uniform float uHover;',
+      '',
+      'vec3 mod289(vec3 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }',
+      'vec4 mod289(vec4 x) { return x - floor(x * (1.0 / 289.0)) * 289.0; }',
+      'vec4 permute(vec4 x) { return mod289(((x * 34.0) + 1.0) * x); }',
+      'vec4 taylorInvSqrt(vec4 r) { return 1.79284291400159 - 0.85373472095314 * r; }',
+      '',
+      'float snoise(vec3 v) {',
+      '  const vec2 C = vec2(1.0/6.0, 1.0/3.0);',
+      '  const vec4 D = vec4(0.0, 0.5, 1.0, 2.0);',
+      '  vec3 i  = floor(v + dot(v, C.yyy));',
+      '  vec3 x0 = v - i + dot(i, C.xxx);',
+      '  vec3 g = step(x0.yzx, x0.xyz);',
+      '  vec3 l = 1.0 - g;',
+      '  vec3 i1 = min(g.xyz, l.zxy);',
+      '  vec3 i2 = max(g.xyz, l.zxy);',
+      '  vec3 x1 = x0 - i1 + C.xxx;',
+      '  vec3 x2 = x0 - i2 + C.yyy;',
+      '  vec3 x3 = x0 - D.yyy;',
+      '  i = mod289(i);',
+      '  vec4 p = permute(permute(permute(',
+      '    i.z + vec4(0.0, i1.z, i2.z, 1.0))',
+      '    + i.y + vec4(0.0, i1.y, i2.y, 1.0))',
+      '    + i.x + vec4(0.0, i1.x, i2.x, 1.0));',
+      '  float n_ = 0.142857142857;',
+      '  vec3 ns = n_ * D.wyz - D.xzx;',
+      '  vec4 j = p - 49.0 * floor(p * ns.z * ns.z);',
+      '  vec4 x_ = floor(j * ns.z);',
+      '  vec4 y_ = floor(j - 7.0 * x_);',
+      '  vec4 x = x_ * ns.x + ns.yyyy;',
+      '  vec4 y = y_ * ns.x + ns.yyyy;',
+      '  vec4 h = 1.0 - abs(x) - abs(y);',
+      '  vec4 b0 = vec4(x.xy, y.xy);',
+      '  vec4 b1 = vec4(x.zw, y.zw);',
+      '  vec4 s0 = floor(b0) * 2.0 + 1.0;',
+      '  vec4 s1 = floor(b1) * 2.0 + 1.0;',
+      '  vec4 sh = -step(h, vec4(0.0));',
+      '  vec4 a0 = b0.xzyw + s0.xzyw * sh.xxyy;',
+      '  vec4 a1 = b1.xzyw + s1.xzyw * sh.zzww;',
+      '  vec3 p0 = vec3(a0.xy, h.x);',
+      '  vec3 p1 = vec3(a0.zw, h.y);',
+      '  vec3 p2 = vec3(a1.xy, h.z);',
+      '  vec3 p3 = vec3(a1.zw, h.w);',
+      '  vec4 norm = taylorInvSqrt(vec4(dot(p0, p0), dot(p1, p1), dot(p2, p2), dot(p3, p3)));',
+      '  p0 *= norm.x; p1 *= norm.y; p2 *= norm.z; p3 *= norm.w;',
+      '  vec4 m = max(0.6 - vec4(dot(x0, x0), dot(x1, x1), dot(x2, x2), dot(x3, x3)), 0.0);',
+      '  m = m * m;',
+      '  return 42.0 * dot(m * m, vec4(dot(p0, x0), dot(p1, x1), dot(p2, x2), dot(p3, x3)));',
+      '}',
+      '',
+      'void main() {',
+      '  vec2 uv = vUv;',
+      '  float aspect = uResolution.x / uResolution.y;',
+      '  vec2 p = vec2(uv.x * aspect, uv.y);',
+      '  float t = uTime * 0.35;',
+      '',
+      '  float n1 = snoise(vec3(p * 2.2, t));',
+      '  float n2 = snoise(vec3(p * 3.5 + 5.0, t * 0.7));',
+      '  float n3 = snoise(vec3(p * 1.4 - 3.0, t * 1.3));',
+      '',
+      '  vec2 warp = vec2(n1, n2) * 0.14;',
+      '  vec2 sp = p + warp;',
+      '',
+      '  float band = sp.y * 3.2 + n3 * 1.6;',
+      '  float sky = sin(band * 1.8) * 0.5 + 0.5;',
+      '',
+      '  vec3 skyCol = vec3(1.0, 1.0, 1.05);',
+      '  vec3 midCol = vec3(0.70, 0.70, 0.76);',
+      '  vec3 groundCol = vec3(0.02, 0.02, 0.06);',
+      '',
+      '  vec3 col = mix(groundCol, midCol, smoothstep(0.05, 0.55, sky));',
+      '  col = mix(col, skyCol, smoothstep(0.55, 0.95, sky));',
+      '',
+      '  float spec = pow(smoothstep(0.80, 0.98, sky), 4.0);',
+      '  col += vec3(1.0) * spec;',
+      '',
+      '  vec2 center = vec2(0.5 * aspect, 0.5);',
+      '  float d = length(p - center);',
+      '  float rim = smoothstep(0.35, 0.75, d);',
+      '  col += vec3(1.0, 0.0, 1.0) * rim * (0.32 + uHover * 0.20);',
+      '  col += vec3(0.35, 0.15, 1.0) * (1.0 - rim) * 0.10;',
+      '',
+      '  float scan = sin(uv.y * uResolution.y * 0.5) * 0.035;',
+      '  col -= scan;',
+      '',
+      '  gl_FragColor = vec4(col, 1.0);',
+      '}'
+    ].join('\n');
+
+    function createShader(gl, type, src) {
+      var s = gl.createShader(type);
+      gl.shaderSource(s, src);
+      gl.compileShader(s);
+      if (!gl.getShaderParameter(s, gl.COMPILE_STATUS)) {
+        console.warn('Shader compile error:', gl.getShaderInfoLog(s));
+        return null;
+      }
+      return s;
+    }
+
+    function ChromeButton(btn) {
+      this.btn = btn;
+      this.canvas = btn.querySelector('.chrome-canvas');
+      this.time = Math.random() * 1000;
+      this.hover = 0;
+      this.hoverTarget = 0;
+      this.visible = true;
+      this.dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+      if (!this.canvas) return;
+
+      this.gl = this.canvas.getContext('webgl', { antialias: true, alpha: false, premultipliedAlpha: false });
+      if (!this.gl) {
+        this.canvas.style.display = 'none';
+        return;
+      }
+
+      var gl = this.gl;
+      var vs = createShader(gl, gl.VERTEX_SHADER, VERT);
+      var fs = createShader(gl, gl.FRAGMENT_SHADER, FRAG);
+      if (!vs || !fs) { this.canvas.style.display = 'none'; return; }
+
+      var prog = gl.createProgram();
+      gl.attachShader(prog, vs);
+      gl.attachShader(prog, fs);
+      gl.linkProgram(prog);
+      if (!gl.getProgramParameter(prog, gl.LINK_STATUS)) {
+        console.warn('Program link error:', gl.getProgramInfoLog(prog));
+        this.canvas.style.display = 'none';
+        return;
+      }
+      this.prog = prog;
+      gl.useProgram(prog);
+
+      this.uTime = gl.getUniformLocation(prog, 'uTime');
+      this.uRes = gl.getUniformLocation(prog, 'uResolution');
+      this.uHover = gl.getUniformLocation(prog, 'uHover');
+
+      var buf = gl.createBuffer();
+      gl.bindBuffer(gl.ARRAY_BUFFER, buf);
+      gl.bufferData(gl.ARRAY_BUFFER, new Float32Array([
+        -1, -1,  1, -1, -1, 1,
+        -1, 1,   1, -1,  1, 1
+      ]), gl.STATIC_DRAW);
+
+      var aLoc = gl.getAttribLocation(prog, 'a');
+      gl.enableVertexAttribArray(aLoc);
+      gl.vertexAttribPointer(aLoc, 2, gl.FLOAT, false, 0, 0);
+
+      this.resize();
+      var self = this;
+
+      var resizeObs = null;
+      if (typeof ResizeObserver !== 'undefined') {
+        resizeObs = new ResizeObserver(function() { self.resize(); });
+        resizeObs.observe(btn);
+      } else {
+        window.addEventListener('resize', function() { self.resize(); });
+      }
+
+      btn.addEventListener('mouseenter', function() { self.hoverTarget = 1; });
+      btn.addEventListener('mouseleave', function() { self.hoverTarget = 0; });
+
+      if (typeof IntersectionObserver !== 'undefined') {
+        var io = new IntersectionObserver(function(entries) {
+          self.visible = entries[0].isIntersecting;
+        }, { threshold: 0.05 });
+        io.observe(btn);
+      }
+
+      this.loop();
+    }
+
+    ChromeButton.prototype.resize = function() {
+      var r = this.btn.getBoundingClientRect();
+      if (r.width === 0 || r.height === 0) return;
+      this.canvas.width = Math.max(1, Math.round(r.width * this.dpr));
+      this.canvas.height = Math.max(1, Math.round(r.height * this.dpr));
+      this.gl.viewport(0, 0, this.canvas.width, this.canvas.height);
+    };
+
+    ChromeButton.prototype.loop = function() {
+      var self = this;
+      function frame() {
+        if (self.visible) {
+          self.time += 0.016;
+          self.hover += (self.hoverTarget - self.hover) * 0.08;
+          self.render();
+        }
+        requestAnimationFrame(frame);
+      }
+      frame();
+    };
+
+    ChromeButton.prototype.render = function() {
+      var gl = this.gl;
+      gl.useProgram(this.prog);
+      gl.uniform1f(this.uTime, this.time);
+      gl.uniform2f(this.uRes, this.canvas.width, this.canvas.height);
+      gl.uniform1f(this.uHover, this.hover);
+      gl.drawArrays(gl.TRIANGLES, 0, 6);
+    };
+
+    function initChromeButtons() {
+      var btns = document.querySelectorAll('[data-chrome]');
+      btns.forEach(function(btn) {
+        try { new ChromeButton(btn); }
+        catch (e) { console.warn('ChromeButton init failed', e); }
+      });
+    }
+
+    if (document.readyState === 'complete') {
+      initChromeButtons();
+    } else {
+      window.addEventListener('load', initChromeButtons);
+    }
+
+    // ============================================================
+    // 12. HOLO CARDS — tracking du pointeur pour effet foil
+    // ============================================================
+    var holoCards = document.querySelectorAll('.skill-card.holo');
+
+    holoCards.forEach(function(card) {
+      card.addEventListener('pointermove', function(e) {
+        var r = card.getBoundingClientRect();
+        var x = ((e.clientX - r.left) / r.width) * 100;
+        var y = ((e.clientY - r.top) / r.height) * 100;
+        card.style.setProperty('--mx', x + '%');
+        card.style.setProperty('--my', y + '%');
+
+        var rx = ((e.clientY - r.top) / r.height - 0.5) * -8;
+        var ry = ((e.clientX - r.left) / r.width - 0.5) * 8;
+        card.style.setProperty('--rx', rx.toFixed(2) + 'deg');
+        card.style.setProperty('--ry', ry.toFixed(2) + 'deg');
+      });
+
+      card.addEventListener('pointerleave', function() {
+        card.style.setProperty('--rx', '0deg');
+        card.style.setProperty('--ry', '0deg');
+      });
     });
   </script>
 </body>
