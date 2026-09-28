@@ -99,46 +99,6 @@ body {
 }
 
 /* ============================================================
-   CURSEUR
-   ============================================================ */
-.cursor-ring,
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  will-change: transform, left, top;
-  z-index: 9999;
-}
-
-.cursor-ring {
-  width: 22px;
-  height: 22px;
-  border: 1px solid var(--violet);
-  transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
-}
-.cursor-ring.visible { opacity: 0.55; }
-.cursor-ring.hovering {
-  width: 36px;
-  height: 36px;
-  border-color: var(--violet-2);
-  background: var(--violet-glow-2);
-  opacity: 0.9;
-}
-
-.cursor-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--violet);
-  box-shadow: 0 0 10px var(--violet);
-  transition: opacity 0.3s ease;
-}
-.cursor-dot.visible { opacity: 1; }
-
-/* ============================================================
    BOOT
    ============================================================ */
 #boot {
@@ -410,6 +370,9 @@ nav.scrolled {
   isolation: isolate;
 }
 
+/* ASCII canvas — sized to the hero.
+   Mask fades the field out at the bottom so it melts into
+   the next section instead of cutting with a hard line. */
 .ascii-field {
   position: absolute;
   inset: 0;
@@ -417,8 +380,23 @@ nav.scrolled {
   height: 100%;
   z-index: 0;
   pointer-events: auto;
-  cursor: crosshair;
   display: block;
+  -webkit-mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 62%,
+    rgba(0, 0, 0, 0.55) 80%,
+    rgba(0, 0, 0, 0.15) 92%,
+    transparent 100%
+  );
+  mask-image: linear-gradient(
+    180deg,
+    #000 0%,
+    #000 62%,
+    rgba(0, 0, 0, 0.55) 80%,
+    rgba(0, 0, 0, 0.15) 92%,
+    transparent 100%
+  );
 }
 
 .hero-scanlines {
@@ -718,7 +696,7 @@ nav.scrolled {
 @keyframes wobble1 { 0%,100%{transform:rotateY(0deg)} 50%{transform:rotateY(12deg)} }
 @keyframes wobble2 { 0%,100%{transform:rotateY(0deg)} 25%{transform:rotateY(-18deg)} 75%{transform:rotateY(18deg)} }
 @keyframes wobble3 { 0%,100%{transform:rotateY(0deg)} 20%{transform:rotateY(-28deg)} 40%{transform:rotateY(28deg)} 60%{transform:rotateY(-16deg)} 80%{transform:rotateY(16deg)} }
-@keyframes wobble4 { 0%,100%{transform:rotateY(0deg)} 15%{transform:rotateY(-38deg)} 30%{transform:rotateY(38deg)} 45%{transform:rotateY(-26deg)} 60%{transform:rotateY(26deg)} 75%{transform:rotateY(-14deg)} 90%{transform:translateY(14deg)} }
+@keyframes wobble4 { 0%,100%{transform:rotateY(0deg)} 15%{transform:rotateY(-38deg)} 30%{transform:rotateY(38deg)} 45%{transform:rotateY(-26deg)} 60%{transform:rotateY(26deg)} 75%{transform:rotateY(-14deg)} 90%{transform:rotateY(14deg)} }
 @keyframes wobble5 { 0%,100%{transform:rotateY(0deg) rotateX(0deg)} 20%{transform:rotateY(-45deg) rotateX(6deg)} 40%{transform:rotateY(45deg) rotateX(-6deg)} 60%{transform:rotateY(-28deg) rotateX(4deg)} 80%{transform:rotateY(28deg) rotateX(-4deg)} }
 
 /* ============================================================
@@ -785,11 +763,8 @@ nav.scrolled {
 .section-title .accent { color: var(--violet); }
 
 /* ============================================================
-   EDGE DOTS — dot field on section edges, animated like a tide
-   Two overlapping dot layers drift slowly; a radial mask keeps
-   the effect on the periphery. Variants per section.
+   EDGE DOTS — animated dot field on section edges
    ============================================================ */
-
 .edge-dots {
   position: absolute;
   inset: 0;
@@ -797,7 +772,6 @@ nav.scrolled {
   pointer-events: none;
   overflow: hidden;
 
-  /* Layer 1: dense dot grid. Layer 2: soft radial glow tint. */
   background-image:
     radial-gradient(circle, rgba(167, 139, 250, 0.55) 1px, transparent 1.6px),
     radial-gradient(ellipse 55% 45% at 0% 50%, rgba(139, 92, 246, 0.14), transparent 75%),
@@ -809,7 +783,6 @@ nav.scrolled {
   will-change: background-position, opacity;
 }
 
-/* Secondary dot layer for organic feel */
 .edge-dots::before {
   content: '';
   position: absolute;
@@ -853,9 +826,6 @@ nav.scrolled {
   }
 }
 
-/* ---- Edge variants ---- */
-
-/* LEFT edge only — dots fade away from the left boundary */
 .edge-dots--left {
   -webkit-mask-image:
     linear-gradient(90deg, #000 0%, rgba(0,0,0,0.4) 12%, transparent 28%),
@@ -867,7 +837,6 @@ nav.scrolled {
   mask-composite: intersect;
 }
 
-/* TOP edge only — dots fade downward */
 .edge-dots--top {
   -webkit-mask-image:
     linear-gradient(180deg, #000 0%, rgba(0,0,0,0.5) 10%, transparent 26%),
@@ -879,7 +848,6 @@ nav.scrolled {
   mask-composite: intersect;
 }
 
-/* RIGHT edge only */
 .edge-dots--right {
   -webkit-mask-image:
     linear-gradient(270deg, #000 0%, rgba(0,0,0,0.4) 12%, transparent 28%),
@@ -891,7 +859,6 @@ nav.scrolled {
   mask-composite: intersect;
 }
 
-/* BOTH SIDES (left + right), thin rails */
 .edge-dots--sides {
   -webkit-mask-image:
     linear-gradient(90deg,
@@ -907,7 +874,6 @@ nav.scrolled {
   mask-composite: intersect;
 }
 
-/* ALL edges — periphery, hollow center */
 .edge-dots--all {
   -webkit-mask-image:
     radial-gradient(ellipse 70% 70% at 50% 50%, transparent 32%, #000 82%);
@@ -915,7 +881,6 @@ nav.scrolled {
     radial-gradient(ellipse 70% 70% at 50% 50%, transparent 32%, #000 82%);
 }
 
-/* Subtle variation per section via animation durations */
 .section--about .edge-dots { animation-duration: 24s; }
 .section--portfolio .edge-dots { animation-duration: 28s; }
 .section--competences .edge-dots { animation-duration: 32s; }
@@ -929,10 +894,8 @@ nav.scrolled {
 .section--contact .edge-dots::before { animation-duration: 30s; }
 
 /* ============================================================
-   SECTION VARIANTS — varied layouts
+   SECTION VARIANTS
    ============================================================ */
-
-/* --- ABOUT — head on the left rail, body on the right --- */
 .section--about {
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
@@ -970,13 +933,11 @@ nav.scrolled {
   margin-top: 0;
 }
 
-/* --- PORTFOLIO — head above, full width --- */
 .section--portfolio {
   padding-top: 96px;
   padding-bottom: 96px;
 }
 
-/* --- COMPETENCES — grid on the left, head on the right rail --- */
 .section--competences {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 200px;
@@ -1018,7 +979,6 @@ nav.scrolled {
   margin-top: 0;
 }
 
-/* --- CV — head above, asymmetric body columns --- */
 .section--cv {
   padding-top: 96px;
   padding-bottom: 96px;
@@ -1028,7 +988,6 @@ nav.scrolled {
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 }
 
-/* --- CONTACT — head centered --- */
 .section--contact {
   padding-top: 96px;
   padding-bottom: 96px;
@@ -1946,9 +1905,6 @@ footer {
   .game-board { gap: 6px; }
   .game-clip { font-size: 16px; }
 
-  .cursor-ring,
-  .cursor-dot { display: none; }
-
   .slide-info { padding: 22px 20px 26px; }
   .slide-info h3 { font-size: 17px; }
 
@@ -1956,23 +1912,6 @@ footer {
 
   .edge-dots { background-size: 18px 18px, 100% 100%, 100% 100%; }
   .edge-dots::before { background-size: 36px 36px; }
-}
-
-/* ============================================================
-   CURSEUR MASQUÉ
-   ============================================================ */
-* { cursor: none; }
-
-a, button, input, select, textarea,
-.btn, .nav-links a, .arrow, .dot,
-.game-clip, .game-close, .cv-item, .skill-card, .tool-tag,
-.ascii-field {
-  cursor: pointer;
-}
-
-@media (pointer: coarse) {
-  * { cursor: auto; }
-  a, button, .btn, .arrow, .dot, .game-clip { cursor: pointer; }
 }
 
 /* ============================================================
