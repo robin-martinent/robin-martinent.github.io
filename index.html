@@ -25,33 +25,26 @@
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;0,800;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
 
-  <!-- ===== MATRIX RAIN CANVAS ===== -->
-  <canvas id="matrixCanvas" class="matrix-canvas" aria-hidden="true"></canvas>
-
-  <!-- ===== PERSPECTIVE WIREFRAME ===== -->
-  <div class="wireframe-floor" aria-hidden="true"></div>
-
-  <!-- ===== VIGNETTE + SCANLINES ===== -->
+  <!-- ===== GRID + VIGNETTE ===== -->
+  <div class="grid-bg" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
-  <div class="scanlines" aria-hidden="true"></div>
 
   <!-- ===== CURSEUR ===== -->
   <div class="cursor-ring" id="cursorRing"></div>
   <div class="cursor-dot" id="cursorDot"></div>
-  <div class="cursor-trail" id="cursorTrail"></div>
 
   <!-- ===== BOOT ===== -->
   <div id="boot">
     <div class="boot-frame">
       <div class="boot-head">
         <span class="boot-led"></span>
-        <span class="boot-name">CHROME-CORE // TERMINAL</span>
+        <span class="boot-name">CHROME CORE</span>
         <span class="boot-version">v4.0.1</span>
       </div>
       <pre class="boot-log" id="bootLog"></pre>
@@ -71,8 +64,8 @@
     <a href="#" class="nav-logo">
       <span class="logo-bracket">[</span>
       <span class="logo-mark">RM</span>
-      <span class="logo-slash">//</span>
-      <span class="logo-os">CHROME</span>
+      <span class="logo-sep">·</span>
+      <span class="logo-os">STUDIO</span>
       <span class="logo-bracket">]</span>
     </a>
     <ul class="nav-links">
@@ -85,172 +78,172 @@
     </ul>
     <div class="nav-status">
       <span class="status-led"></span>
-      <span class="status-text">ONLINE</span>
+      <span class="status-text">AVAILABLE</span>
     </div>
     <div class="nav-clock" id="navClock">00:00:00</div>
   </nav>
 
   <!-- ===== HERO ===== -->
   <header class="hero" id="heroSection">
+    <canvas id="asciiField" class="ascii-field" aria-hidden="true"></canvas>
+    <div class="hero-scanlines" aria-hidden="true"></div>
+
     <div class="hero-inner">
-      <div class="hero-left">
-        <div class="hero-tag">
-          <span class="tag-led"></span>
-          <span class="tag-text">DISPONIBLE · ALTERNANCE 2 ANS · RENTRÉE 2026</span>
-        </div>
-
-        <h1 class="hero-title">
-          <span class="title-line">MONTEUR</span>
-          <span class="title-line chrome-text">RÉALISATEUR</span>
-          <span class="title-line glitch" data-text="CRÉATIF">CRÉATIF</span>
-        </h1>
-
-        <p class="hero-sub">
-          <span class="sub-prompt">&gt;</span> Montage vidéo, motion design, illustration, dev web.<br />
-          <span class="sub-prompt">&gt;</span> Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
-          <span class="cursor-blink">_</span>
-        </p>
-
-        <div class="hero-cta">
-          <a href="#portfolio" class="btn primary">
-            <span class="btn-led"></span>
-            <span>VOIR MES PROJETS</span>
-          </a>
-          <a href="#contact" class="btn">
-            <span class="btn-led"></span>
-            <span>ME CONTACTER</span>
-          </a>
-          <a href="rapport.html" class="btn">
-            <span class="btn-led amber"></span>
-            <span>RAPPORT 2026</span>
-          </a>
-        </div>
+      <div class="hero-tag">
+        <span class="tag-led"></span>
+        <span class="tag-text">ALTERNANCE 2 ANS · RENTRÉE 2026</span>
       </div>
 
-      <div class="hero-right">
-        <div class="skull-stage">
-          <canvas id="skullCanvas" class="skull-canvas"></canvas>
-          <div class="skull-frame" aria-hidden="true"></div>
-          <div class="skull-label top-left">ROTATING</div>
-          <div class="skull-label top-right">MESH · 3D</div>
-          <div class="skull-label bottom-left">CHROME-CORE</div>
-          <div class="skull-label bottom-right" id="skullFps">60 FPS</div>
-        </div>
-        <div class="hud">
-          <div class="hud-row"><span class="hud-k">MOTEUR</span><span class="hud-v">CHROME-CORE</span></div>
-          <div class="hud-row"><span class="hud-k">STATUT</span><span class="hud-v live">● EN LIGNE</span></div>
-          <div class="hud-row"><span class="hud-k">MESH</span><span class="hud-v" id="hudMesh">1200 PTS</span></div>
-          <div class="hud-row"><span class="hud-k">LATENCE</span><span class="hud-v" id="hudLatency">12 MS</span></div>
-        </div>
-      </div>
-    </div>
+      <h1 class="hero-title">
+        <span class="title-line">Monteur</span>
+        <span class="title-line accent">Réalisateur</span>
+        <span class="title-line muted">Créatif</span>
+      </h1>
 
-    <div class="marquee">
-      <div class="marquee-inner">
-        <span>&gt; MONTAGE · MOTION DESIGN · ÉTALONNAGE · RÉALISATION · POST-PRODUCTION · SHOWREEL · PREMIERE PRO · AFTER EFFECTS · DAVINCI · </span>
-        <span>&gt; MONTAGE · MOTION DESIGN · ÉTALONNAGE · RÉALISATION · POST-PRODUCTION · SHOWREEL · PREMIERE PRO · AFTER EFFECTS · DAVINCI · </span>
+      <p class="hero-sub">
+        Montage vidéo · motion design · illustration · dev web.<br />
+        Je cherche une alternance de 2 ans pour continuer à apprendre en faisant.
+        <span class="cursor-blink">_</span>
+      </p>
+
+      <div class="hero-cta">
+        <a href="#portfolio" class="btn primary">
+          <span>Voir mes projets</span>
+          <span class="btn-arrow">→</span>
+        </a>
+        <a href="#contact" class="btn">
+          <span>Me contacter</span>
+        </a>
+        <a href="rapport.html" class="btn ghost">
+          <span>Rapport 2026</span>
+        </a>
+      </div>
+
+      <div class="hero-foot">
+        <div class="hero-coord">
+          <span class="coord-label">LAT</span>
+          <span class="coord-val">45.1885° N</span>
+        </div>
+        <div class="hero-coord">
+          <span class="coord-label">LNG</span>
+          <span class="coord-val">5.7245° E</span>
+        </div>
+        <div class="hero-coord">
+          <span class="coord-label">FPS</span>
+          <span class="coord-val" id="hudFps">60</span>
+        </div>
+        <div class="hero-coord">
+          <span class="coord-label">CELLS</span>
+          <span class="coord-val" id="hudCells">0</span>
+        </div>
       </div>
     </div>
 
     <div class="scroll-hint">
       <span class="scroll-text">SCROLL</span>
-      <span class="scroll-arrow">▼</span>
+      <span class="scroll-arrow">↓</span>
     </div>
   </header>
 
-  <!-- ===== À PROPOS ===== -->
-  <section class="section" id="about">
-    <article class="panel reveal">
-      <span class="corner tl" aria-hidden="true"></span>
-      <span class="corner tr" aria-hidden="true"></span>
-      <span class="corner bl" aria-hidden="true"></span>
-      <span class="corner br" aria-hidden="true"></span>
-      <div class="panel-head">
-        <span class="panel-led"></span>
-        <span class="panel-index">01</span>
-        <span class="panel-name">/ A_PROPOS.TXT</span>
-        <span class="panel-spacer"></span>
-        <span class="panel-meta">READ · ONLY</span>
+  <!-- ===== À PROPOS — layout : head à gauche, prose à droite ===== -->
+  <section class="section section--about" id="about">
+    <div class="edge-dots edge-dots--left" aria-hidden="true"></div>
+
+    <header class="section-head">
+      <span class="section-num">/ 01</span>
+      <span class="section-tag">À PROPOS</span>
+      <span class="section-rule"></span>
+    </header>
+
+    <div class="section-body">
+      <h2 class="section-title">Qui je suis<span class="accent">.</span></h2>
+      <div class="prose">
+        <p>
+          Je m'appelle Robin Martinent, j'ai 21 ans et je suis en première année de Bachelor Réalisateur Monteur.
+          Passionné par le montage vidéo et la narration, je cherche une alternance pour continuer à apprendre
+          en travaillant sur des projets concrets.
+        </p>
+        <p>
+          J'aime particulièrement le montage rythmique, le motion design et la post-production. Mon objectif
+          est de devenir monteur vidéo et réalisateur de documentaires, en alliant technique et sens du récit.
+          Ce stage chez Shaolin Shadow m'a permis de confirmer cette direction et de découvrir le milieu associatif,
+          sa richesse humaine et ses contraintes matérielles.
+        </p>
+        <p>
+          Je suis curieux, rigoureux et j'aime apprendre en faisant. J'accorde une grande importance à
+          l'organisation, au travail en équipe et à la qualité du rendu final.
+        </p>
       </div>
-      <div class="panel-body">
-        <p class="section-label">[ QUI JE SUIS ]</p>
-        <h2 class="section-title">À PROPOS</h2>
-        <div class="about-content">
-          <p>
-            <span class="line-num">01</span>Je m'appelle Robin Martinent, j'ai 21 ans et je suis en première année de Bachelor Réalisateur Monteur.
-            Passionné par le montage vidéo et la narration, je cherche une alternance pour continuer à apprendre
-            en travaillant sur des projets concrets.
-          </p>
-          <p>
-            <span class="line-num">02</span>J'aime particulièrement le montage rythmique, le motion design et la post-production. Mon objectif
-            est de devenir monteur vidéo et réalisateur de documentaires, en alliant technique et sens du récit.
-            Ce stage chez Shaolin Shadow m'a permis de confirmer cette direction et de découvrir le milieu associatif,
-            sa richesse humaine et ses contraintes matérielles.
-          </p>
-          <p>
-            <span class="line-num">03</span>Je suis curieux, rigoureux et j'aime apprendre en faisant. J'accorde une grande importance à
-            l'organisation, au travail en équipe et à la qualité du rendu final.
-          </p>
-        </div>
-      </div>
-    </article>
+    </div>
   </section>
 
-  <!-- ===== PORTFOLIO ===== -->
-  <section class="section" id="portfolio">
-    <article class="panel reveal">
-      <span class="corner tl" aria-hidden="true"></span>
-      <span class="corner tr" aria-hidden="true"></span>
-      <span class="corner bl" aria-hidden="true"></span>
-      <span class="corner br" aria-hidden="true"></span>
-      <div class="panel-head">
-        <span class="panel-led"></span>
-        <span class="panel-index">02</span>
-        <span class="panel-name">/ PROJETS.AVI</span>
-        <span class="panel-spacer"></span>
-        <span class="panel-meta">4 FILES</span>
-      </div>
-      <div class="panel-body">
-        <p class="section-label">[ MES RÉALISATIONS ]</p>
-        <h2 class="section-title">PORTFOLIO</h2>
+  <!-- ===== PORTFOLIO — layout : head au-dessus, pleine largeur ===== -->
+  <section class="section section--portfolio" id="portfolio">
+    <div class="edge-dots edge-dots--top" aria-hidden="true"></div>
 
-        <div class="carousel-wrap">
-          <div class="screen">
-            <div class="screen-chrome">
-              <div class="carousel">
-                <div class="carousel-track" id="track">
-                  <div class="carousel-slide">
-                    <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy" title="Showreel Shaolin Shadow 2025"></iframe>
-                    <div class="project-info">
-                      <h3>Showreel Shaolin Shadow 2025</h3>
-                      <p class="project-meta">// MONTEUR · SHAOLIN SHADOW · 2025</p>
-                      <p class="project-desc">Montage rythmique de la showreel annuelle : sélection des meilleurs moments de l'année, synchronisation avec la musique et création de l'animation d'outro.</p>
-                    </div>
+    <header class="section-head">
+      <span class="section-num">/ 02</span>
+      <span class="section-tag">PORTFOLIO</span>
+      <span class="section-rule"></span>
+    </header>
+
+    <div class="section-body">
+      <h2 class="section-title">Mes réalisations<span class="accent">.</span></h2>
+
+      <div class="carousel-wrap">
+        <div class="carousel-frame">
+          <div class="carousel">
+            <div class="carousel-track" id="track">
+              <div class="carousel-slide">
+                <div class="slide-video">
+                  <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy" title="Showreel Shaolin Shadow 2025"></iframe>
+                </div>
+                <div class="slide-info">
+                  <div class="slide-info-head">
+                    <span class="slide-num">01</span>
+                    <span class="slide-meta">MONTEUR · SHAOLIN SHADOW · 2025</span>
                   </div>
-                  <div class="carousel-slide">
-                    <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy" title="Clip rap local"></iframe>
-                    <div class="project-info">
-                      <h3>Clip rap local</h3>
-                      <p class="project-meta">// MONTEUR · SHAOLIN SHADOW · 2025</p>
-                      <p class="project-desc">Montage d'un clip musical pour un artiste de la scène rap grenobloise. Travail sur le rythme, les transitions et la colorimétrie.</p>
-                    </div>
+                  <h3>Showreel Shaolin Shadow 2025</h3>
+                  <p>Montage rythmique de la showreel annuelle : sélection des meilleurs moments de l'année, synchronisation avec la musique et création de l'animation d'outro.</p>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div class="slide-video">
+                  <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy" title="Clip rap local"></iframe>
+                </div>
+                <div class="slide-info">
+                  <div class="slide-info-head">
+                    <span class="slide-num">02</span>
+                    <span class="slide-meta">MONTEUR · SHAOLIN SHADOW · 2025</span>
                   </div>
-                  <div class="carousel-slide">
-                    <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy" title="Court-métrage documentaire"></iframe>
-                    <div class="project-info">
-                      <h3>Court-métrage documentaire</h3>
-                      <p class="project-meta">// MONTEUR · SHAOLIN SHADOW · 2025</p>
-                      <p class="project-desc">Montage de séquences documentaires : dérushage, structuration narrative, calage son et étalonnage léger.</p>
-                    </div>
+                  <h3>Clip rap local</h3>
+                  <p>Montage d'un clip musical pour un artiste de la scène rap grenobloise. Travail sur le rythme, les transitions et la colorimétrie.</p>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div class="slide-video">
+                  <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy" title="Court-métrage documentaire"></iframe>
+                </div>
+                <div class="slide-info">
+                  <div class="slide-info-head">
+                    <span class="slide-num">03</span>
+                    <span class="slide-meta">MONTEUR · SHAOLIN SHADOW · 2025</span>
                   </div>
-                  <div class="carousel-slide">
-                    <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy" title="Rassemblement Porsche"></iframe>
-                    <div class="project-info">
-                      <h3>Rassemblement Porsche</h3>
-                      <p class="project-meta">// MONTEUR · SHAOLIN SHADOW · 2025</p>
-                      <p class="project-desc">Montage d'un événement automobile pour la recherche de sponsors. Synchronisation de deux caméras, dérushage et montage final.</p>
-                    </div>
+                  <h3>Court-métrage documentaire</h3>
+                  <p>Montage de séquences documentaires : dérushage, structuration narrative, calage son et étalonnage léger.</p>
+                </div>
+              </div>
+              <div class="carousel-slide">
+                <div class="slide-video">
+                  <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy" title="Rassemblement Porsche"></iframe>
+                </div>
+                <div class="slide-info">
+                  <div class="slide-info-head">
+                    <span class="slide-num">04</span>
+                    <span class="slide-meta">MONTEUR · SHAOLIN SHADOW · 2025</span>
                   </div>
+                  <h3>Rassemblement Porsche</h3>
+                  <p>Montage d'un événement automobile pour la recherche de sponsors. Synchronisation de deux caméras, dérushage et montage final.</p>
                 </div>
               </div>
             </div>
@@ -259,96 +252,63 @@
           <div class="carousel-controls">
             <div class="carousel-dots" id="dots"></div>
             <div class="carousel-arrows">
-              <button class="arrow" id="prev" aria-label="Précédent">◄</button>
-              <button class="arrow" id="next" aria-label="Suivant">►</button>
+              <button class="arrow" id="prev" aria-label="Précédent">←</button>
+              <button class="arrow" id="next" aria-label="Suivant">→</button>
             </div>
-          </div>
-
-          <div class="carousel-label">
-            <span class="label-idx" id="cur">01</span>
-            <span class="label-sep">//</span>
-            <span id="slide-title">Showreel Shaolin Shadow 2025</span>
           </div>
         </div>
       </div>
-    </article>
+    </div>
   </section>
 
-  <!-- ===== COMPÉTENCES ===== -->
-  <section class="section" id="competences">
-    <article class="panel reveal">
-      <span class="corner tl" aria-hidden="true"></span>
-      <span class="corner tr" aria-hidden="true"></span>
-      <span class="corner bl" aria-hidden="true"></span>
-      <span class="corner br" aria-hidden="true"></span>
-      <div class="panel-head">
-        <span class="panel-led"></span>
-        <span class="panel-index">03</span>
-        <span class="panel-name">/ COMPETENCES.SYS</span>
-        <span class="panel-spacer"></span>
-        <span class="panel-meta">6 MODULES</span>
-      </div>
-      <div class="panel-body">
-        <p class="section-label">[ CE QUE JE SAIS FAIRE ]</p>
-        <h2 class="section-title">COMPÉTENCES</h2>
+  <!-- ===== COMPÉTENCES — layout : head à droite, grille à gauche ===== -->
+  <section class="section section--competences" id="competences">
+    <div class="edge-dots edge-dots--right" aria-hidden="true"></div>
 
-        <div class="skills-grid">
-          <div class="skill-card">
-            <div class="skill-head">
-              <span class="skill-id">01</span>
-              <span class="skill-icon">🎬</span>
-            </div>
-            <h3>MONTAGE VIDÉO</h3>
-            <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
-            <span class="skill-bar"><span class="skill-bar-fill"></span></span>
-          </div>
-          <div class="skill-card">
-            <div class="skill-head">
-              <span class="skill-id">02</span>
-              <span class="skill-icon">✨</span>
-            </div>
-            <h3>MOTION DESIGN</h3>
-            <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
-            <span class="skill-bar"><span class="skill-bar-fill"></span></span>
-          </div>
-          <div class="skill-card">
-            <div class="skill-head">
-              <span class="skill-id">03</span>
-              <span class="skill-icon">🎨</span>
-            </div>
-            <h3>ILLUSTRATION</h3>
-            <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
-            <span class="skill-bar"><span class="skill-bar-fill"></span></span>
-          </div>
-          <div class="skill-card">
-            <div class="skill-head">
-              <span class="skill-id">04</span>
-              <span class="skill-icon">🌐</span>
-            </div>
-            <h3>DEV WEB</h3>
-            <p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p>
-            <span class="skill-bar"><span class="skill-bar-fill"></span></span>
-          </div>
-          <div class="skill-card">
-            <div class="skill-head">
-              <span class="skill-id">05</span>
-              <span class="skill-icon">📷</span>
-            </div>
-            <h3>RÉALISATION</h3>
-            <p>Tournage, cadrage, son, gestion de plateau.</p>
-            <span class="skill-bar"><span class="skill-bar-fill"></span></span>
-          </div>
-          <div class="skill-card">
-            <div class="skill-head">
-              <span class="skill-id">06</span>
-              <span class="skill-icon">🖨️</span>
-            </div>
-            <h3>IMPRESSION 3D</h3>
-            <p>À l'aise avec le hardware, l'impression résine et le dépannage technique.</p>
-            <span class="skill-bar"><span class="skill-bar-fill"></span></span>
-          </div>
+    <div class="section-body">
+      <h2 class="section-title">Ce que je sais faire<span class="accent">.</span></h2>
+
+      <div class="skills-grid">
+        <div class="skill-card">
+          <div class="skill-num">01</div>
+          <div class="skill-icon">🎬</div>
+          <h3>Montage vidéo</h3>
+          <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
         </div>
+        <div class="skill-card">
+          <div class="skill-num">02</div>
+          <div class="skill-icon">✨</div>
+          <h3>Motion design</h3>
+          <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">03</div>
+          <div class="skill-icon">🎨</div>
+          <h3>Illustration</h3>
+          <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">04</div>
+          <div class="skill-icon">🌐</div>
+          <h3>Dev web</h3>
+          <p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">05</div>
+          <div class="skill-icon">📷</div>
+          <h3>Réalisation</h3>
+          <p>Tournage, cadrage, son, gestion de plateau.</p>
+        </div>
+        <div class="skill-card">
+          <div class="skill-num">06</div>
+          <div class="skill-icon">🖨️</div>
+          <h3>Impression 3D</h3>
+          <p>À l'aise avec le hardware, l'impression résine et le dépannage technique.</p>
+        </div>
+      </div>
 
+      <div class="tools">
+        <span class="tools-label">OUTILS</span>
         <div class="tools-list">
           <span class="tool-tag">Premiere Pro</span>
           <span class="tool-tag">After Effects</span>
@@ -361,173 +321,161 @@
           <span class="tool-tag">JavaScript</span>
         </div>
       </div>
-    </article>
+    </div>
+
+    <header class="section-head section-head--right">
+      <span class="section-num">/ 03</span>
+      <span class="section-tag">COMPÉTENCES</span>
+      <span class="section-rule"></span>
+    </header>
   </section>
 
-  <!-- ===== CV ===== -->
-  <section class="section" id="cv">
-    <article class="panel reveal">
-      <span class="corner tl" aria-hidden="true"></span>
-      <span class="corner tr" aria-hidden="true"></span>
-      <span class="corner bl" aria-hidden="true"></span>
-      <span class="corner br" aria-hidden="true"></span>
-      <div class="panel-head">
-        <span class="panel-led"></span>
-        <span class="panel-index">04</span>
-        <span class="panel-name">/ CURRICULUM_VITAE.DOC</span>
-        <span class="panel-spacer"></span>
-        <span class="panel-meta">8 ENTRIES</span>
-      </div>
-      <div class="panel-body">
-        <p class="section-label">[ MON PARCOURS ]</p>
-        <h2 class="section-title">CV</h2>
+  <!-- ===== CV — layout : head au-dessus + colonnes asymétriques ===== -->
+  <section class="section section--cv" id="cv">
+    <div class="edge-dots edge-dots--sides" aria-hidden="true"></div>
 
-        <div class="cv-grid">
-          <div class="cv-col">
-            <h3 class="cv-col-title"><span class="cv-col-idx">A</span>FORMATION</h3>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">Bachelor Réalisateur-Monteur</div>
-                <div class="cv-item-date">2025 — 2026</div>
-              </div>
-              <div class="cv-item-sub">Studio M</div>
-              <div class="cv-desc">Montage vidéo · Motion design · Direction artistique · Gestion de projet audiovisuel · Réalisation de courts-métrages</div>
+    <header class="section-head">
+      <span class="section-num">/ 04</span>
+      <span class="section-tag">PARCOURS</span>
+      <span class="section-rule"></span>
+    </header>
+
+    <div class="section-body">
+      <h2 class="section-title">Mon parcours<span class="accent">.</span></h2>
+
+      <div class="cv-grid">
+        <div class="cv-col">
+          <h3 class="cv-col-title">
+            <span class="cv-col-mark">A</span>
+            Formation
+          </h3>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">Bachelor Réalisateur-Monteur</div>
+              <div class="cv-item-date">2025 — 2026</div>
             </div>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">Licence MIASH</div>
-                <div class="cv-item-date">2024 — 2025</div>
-              </div>
-              <div class="cv-item-sub">Grenoble IUT1</div>
-              <div class="cv-desc">Mathématiques · Informatique · Algorithmique · Analyse de données · Programmation Python</div>
-            </div>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">BUT MMI</div>
-                <div class="cv-item-date">2023 — 2024</div>
-              </div>
-              <div class="cv-item-sub">Grenoble IUT1</div>
-              <div class="cv-desc">Multimédia · Communication · Design graphique · Développement web · Audiovisuel · UX/UI</div>
-            </div>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">Bac STI2D option AC</div>
-                <div class="cv-item-date">2023</div>
-              </div>
-              <div class="cv-item-sub">Lycée Ferdinand Buisson</div>
-              <div class="cv-desc">Sciences de l'ingénieur · Systèmes automatisés · Électronique · Architecture des systèmes · Projets techniques</div>
-            </div>
+            <div class="cv-item-sub">Studio M</div>
+            <div class="cv-desc">Montage vidéo · Motion design · Direction artistique · Gestion de projet audiovisuel · Réalisation de courts-métrages</div>
           </div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">Licence MIASH</div>
+              <div class="cv-item-date">2024 — 2025</div>
+            </div>
+            <div class="cv-item-sub">Grenoble IUT1</div>
+            <div class="cv-desc">Mathématiques · Informatique · Algorithmique · Analyse de données · Programmation Python</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">BUT MMI</div>
+              <div class="cv-item-date">2023 — 2024</div>
+            </div>
+            <div class="cv-item-sub">Grenoble IUT1</div>
+            <div class="cv-desc">Multimédia · Communication · Design graphique · Développement web · Audiovisuel · UX/UI</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">Bac STI2D option AC</div>
+              <div class="cv-item-date">2023</div>
+            </div>
+            <div class="cv-item-sub">Lycée Ferdinand Buisson</div>
+            <div class="cv-desc">Sciences de l'ingénieur · Systèmes automatisés · Électronique · Architecture des systèmes · Projets techniques</div>
+          </div>
+        </div>
 
-          <div class="cv-col">
-            <h3 class="cv-col-title"><span class="cv-col-idx">B</span>EXPÉRIENCES</h3>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">Monteur vidéo</div>
-                <div class="cv-item-date">MARS 2026 · 5 SEM.</div>
-              </div>
-              <div class="cv-item-sub">Shaolin Shadow</div>
-              <div class="cv-desc">Réalisation de showreels et best of d'événements dans le cadre d'un stage · Montage de clips et courts-métrages · Post-production</div>
+        <div class="cv-col">
+          <h3 class="cv-col-title">
+            <span class="cv-col-mark">B</span>
+            Expériences
+          </h3>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">Monteur vidéo</div>
+              <div class="cv-item-date">MARS 2026</div>
             </div>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">Employé polyvalent</div>
-                <div class="cv-item-date">ÉTÉ 2025 · 1 MOIS</div>
-              </div>
-              <div class="cv-item-sub">McDonald's</div>
-              <div class="cv-desc">Job d'été · Accueil client · Préparation des commandes · Gestion du service · Travail en équipe</div>
+            <div class="cv-item-sub">Shaolin Shadow · 5 semaines</div>
+            <div class="cv-desc">Réalisation de showreels et best of d'événements dans le cadre d'un stage · Montage de clips et courts-métrages · Post-production</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">Employé polyvalent</div>
+              <div class="cv-item-date">ÉTÉ 2025</div>
             </div>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">Hydroguide</div>
-                <div class="cv-item-date">ÉTÉ 2024 · 2 MOIS</div>
-              </div>
-              <div class="cv-item-sub">EDF</div>
-              <div class="cv-desc">Job d'été · Garde de côtes · Sensibilisation aux dangers des barrages hydrauliques · Surveillance des zones</div>
+            <div class="cv-item-sub">McDonald's · 1 mois</div>
+            <div class="cv-desc">Job d'été · Accueil client · Préparation des commandes · Gestion du service · Travail en équipe</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">Hydroguide</div>
+              <div class="cv-item-date">ÉTÉ 2024</div>
             </div>
-            <div class="cv-item">
-              <div class="cv-item-head">
-                <div class="cv-item-title">Mise en rayon</div>
-                <div class="cv-item-date">ÉTÉ 2023 · 1 MOIS</div>
-              </div>
-              <div class="cv-item-sub">Carrefour</div>
-              <div class="cv-desc">Job d'été · Remplissage des rayons · Gestion des stocks · Réapprovisionnement · Organisation</div>
+            <div class="cv-item-sub">EDF · 2 mois</div>
+            <div class="cv-desc">Job d'été · Garde de côtes · Sensibilisation aux dangers des barrages hydrauliques · Surveillance des zones</div>
+          </div>
+          <div class="cv-item">
+            <div class="cv-item-head">
+              <div class="cv-item-title">Mise en rayon</div>
+              <div class="cv-item-date">ÉTÉ 2023</div>
             </div>
+            <div class="cv-item-sub">Carrefour · 1 mois</div>
+            <div class="cv-desc">Job d'été · Remplissage des rayons · Gestion des stocks · Réapprovisionnement · Organisation</div>
           </div>
         </div>
       </div>
-    </article>
+    </div>
   </section>
 
-  <!-- ===== CONTACT ===== -->
-  <section class="section contact-section" id="contact">
-    <article class="panel reveal">
-      <span class="corner tl" aria-hidden="true"></span>
-      <span class="corner tr" aria-hidden="true"></span>
-      <span class="corner bl" aria-hidden="true"></span>
-      <span class="corner br" aria-hidden="true"></span>
-      <div class="panel-head">
-        <span class="panel-led"></span>
-        <span class="panel-index">05</span>
-        <span class="panel-name">/ CONTACT.EXE</span>
-        <span class="panel-spacer"></span>
-        <span class="panel-meta">READY</span>
+  <!-- ===== CONTACT — layout : centré ===== -->
+  <section class="section section--contact contact-section" id="contact">
+    <div class="edge-dots edge-dots--all" aria-hidden="true"></div>
+
+    <header class="section-head section-head--center">
+      <span class="section-num">/ 05</span>
+      <span class="section-tag">CONTACT</span>
+      <span class="section-rule"></span>
+    </header>
+
+    <div class="section-body">
+      <h2 class="section-title">On travaille<br />ensemble<span class="accent"> ?</span></h2>
+      <p class="contact-sub">Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
+
+      <div class="contact-links">
+        <button id="copyEmailBtn" class="btn primary btn-copy">
+          <span class="btn-text">robin.martinent@gmail.com</span>
+          <span class="btn-feedback" id="emailFeedback">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span id="emailFeedbackMsg">Copié</span>
+          </span>
+        </button>
+
+        <button id="copyPhoneBtn" class="btn btn-copy">
+          <span class="btn-text">07 66 74 03 46</span>
+          <span class="btn-feedback" id="phoneFeedback">
+            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <span id="phoneFeedbackMsg">Copié</span>
+          </span>
+        </button>
       </div>
-      <div class="panel-body contact-body">
-        <p class="section-label">[ ME CONTACTER ]</p>
-        <h2 class="section-title">ON TRAVAILLE<br>ENSEMBLE ?</h2>
-        <p class="contact-sub">&gt; Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
 
-        <div class="contact-links">
-          <button id="copyEmailBtn" class="btn primary btn-copy">
-            <span class="btn-led"></span>
-            <span class="btn-text">robin.martinent@gmail.com</span>
-            <span class="btn-feedback" id="emailFeedback">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              <span id="emailFeedbackMsg">Copié !</span>
-            </span>
-          </button>
-
-          <button id="copyPhoneBtn" class="btn btn-copy">
-            <span class="btn-led amber"></span>
-            <span class="btn-text">07 66 74 03 46</span>
-            <span class="btn-feedback" id="phoneFeedback">
-              <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
-              <span id="phoneFeedbackMsg">Copié !</span>
-            </span>
-          </button>
-        </div>
-
-        <div class="contact-secondary">
-          <a href="cv.pdf" class="btn" target="_blank" rel="noopener">
-            <span class="btn-led"></span>
-            <span>TÉLÉCHARGER MON CV (PDF)</span>
-          </a>
-          <a href="https://www.linkedin.com/in/robin-martinent" class="btn" target="_blank" rel="noopener">
-            <span class="btn-led"></span>
-            <span>LINKEDIN</span>
-          </a>
-        </div>
+      <div class="contact-secondary">
+        <a href="cv.pdf" class="btn ghost" target="_blank" rel="noopener">CV PDF</a>
+        <a href="https://www.linkedin.com/in/robin-martinent" class="btn ghost" target="_blank" rel="noopener">LinkedIn</a>
       </div>
-    </article>
+    </div>
   </section>
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="footer-bar">
-      <span class="footer-cell">
-        <span class="footer-led"></span>
-        © 2026 ROBIN MARTINENT
-      </span>
+    <div class="footer-inner">
+      <span class="footer-cell">© 2026 Robin Martinent</span>
       <span class="footer-cell center">
         <a href="mailto:robin.martinent@gmail.com">EMAIL</a>
+        <span class="footer-sep">·</span>
         <a href="https://www.linkedin.com/in/robin-martinent" target="_blank" rel="noopener">LINKEDIN</a>
+        <span class="footer-sep">·</span>
         <a href="https://github.com/robin-martinent" target="_blank" rel="noopener">GITHUB</a>
       </span>
-      <span class="footer-cell right">CHROME-CORE // 2026</span>
-    </div>
-    <div class="footer-vu" aria-hidden="true">
-      <span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span><span class="vu-bar"></span>
+      <span class="footer-cell right">Chrome Core · 2026</span>
     </div>
   </footer>
 
@@ -537,35 +485,26 @@
   <!-- ===== GAME MODAL ===== -->
   <div class="game-modal" id="gameModal">
     <div class="game-content">
-      <span class="corner tl" aria-hidden="true"></span>
-      <span class="corner tr" aria-hidden="true"></span>
-      <span class="corner bl" aria-hidden="true"></span>
-      <span class="corner br" aria-hidden="true"></span>
-      <div class="panel-head game-head">
-        <span class="panel-led amber"></span>
-        <span class="panel-index">◆</span>
-        <span class="panel-name">/ MONTAGE.EXE</span>
-        <span class="panel-spacer"></span>
+      <div class="game-head">
+        <span class="game-led"></span>
+        <span class="game-name">MONTAGE.EXE</span>
         <button class="game-close" id="gameClose" aria-label="Fermer">✕</button>
       </div>
       <div class="game-body">
-        <p class="game-label">&gt; SALLE DE MONTAGE</p>
-        <h2>LE DÉFI DU MONTEUR</h2>
+        <p class="game-label">// SALLE DE MONTAGE</p>
+        <h2>Le défi du monteur</h2>
         <p class="game-desc">Clique les rushes dans le bon ordre, de 1 à 5, le plus vite possible.</p>
 
         <div class="game-stats">
-          <span>TEMPS : <strong id="gameTimer">0.00</strong>s</span>
-          <span>ERREURS : <strong id="gameErrors">0</strong></span>
+          <span>TEMPS <strong id="gameTimer">0.00</strong>s</span>
+          <span>ERREURS <strong id="gameErrors">0</strong></span>
         </div>
 
         <div class="game-board" id="gameBoard"></div>
 
         <div class="game-result" id="gameResult"></div>
 
-        <button class="btn primary" id="gameRestart">
-          <span class="btn-led"></span>
-          <span>REJOUER</span>
-        </button>
+        <button class="btn primary" id="gameRestart">Rejouer</button>
       </div>
     </div>
   </div>
