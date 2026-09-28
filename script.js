@@ -6,7 +6,6 @@
   'use strict';
 
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const isCoarse     = window.matchMedia('(pointer: coarse)').matches;
 
   const pad2 = (n) => n.toString().padStart(2, '0');
 
@@ -15,6 +14,7 @@
      - Base animated wave (two overlapping sines)
      - Mouse hover brightens and tints nearby cells (violet)
      - Click emits a rainbow radial wave from the click point
+     - Bottom of the field is masked into the section gradient
      ============================================================ */
   (function initAsciiField() {
     const canvas = document.getElementById('asciiField');
@@ -39,15 +39,15 @@
     let tmx = -9999, tmy = -9999;
     let hasMouse = false;
 
-    // Mouse influence radius
-    const MOUSE_R = 200;
+    // ---- Tighter influence radii ----
+    const MOUSE_R = 90;
     const MOUSE_R_SQ = MOUSE_R * MOUSE_R;
 
-    // Click waves — each: {x, y, t0, life, maxR, hue}
+    // Click waves — smaller and thinner
     const waves = [];
-    const WAVE_LIFE = 1400;      // ms
-    const WAVE_MAX_R = 520;      // px
-    const WAVE_THICKNESS = 70;   // px
+    const WAVE_LIFE = 1200;      // ms
+    const WAVE_MAX_R = 220;      // px
+    const WAVE_THICKNESS = 34;   // px
 
     // FPS + HUD
     const hudFps = document.getElementById('hudFps');
@@ -85,7 +85,6 @@
     setTimeout(resize, 80);
     setTimeout(resize, 400);
 
-    // ---- Pointer tracking (local coords relative to hero) ----
     function toLocal(clientX, clientY) {
       const rect = hero.getBoundingClientRect();
       return {
@@ -109,7 +108,6 @@
       tmx = -9999; tmy = -9999;
     });
 
-    // ---- Click → emit a wave + change base tint ----
     let tintShift = 0;
 
     hero.addEventListener('click', (e) => {
@@ -123,14 +121,13 @@
         y: p.y,
         t0: performance.now(),
         life: WAVE_LIFE,
-        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.9),
+        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.5),
         hue: hue
       });
 
       tintShift = (tintShift + 1) % 12;
     });
 
-    // Touch support — tap emits a wave
     hero.addEventListener('touchstart', (e) => {
       if (e.target.closest('a, button')) return;
       const t = e.touches[0];
@@ -141,12 +138,11 @@
         y: p.y,
         t0: performance.now(),
         life: WAVE_LIFE,
-        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.9),
+        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.5),
         hue: (performance.now() * 0.05) % 360
       });
     }, { passive: true });
 
-    // ---- Static render for reduced motion ----
     if (reduceMotion) {
       ctx.clearRect(0, 0, W, H);
       ctx.font = `500 ${Math.max(10, CELL_H * 0.75)}px 'JetBrains Mono', monospace`;
@@ -172,17 +168,15 @@
       return;
     }
 
-    // ---- Main render loop ----
     function render(now) {
       if (hasMouse) {
-        mx += (tmx - mx) * 0.16;
-        my += (tmy - my) * 0.16;
+        mx += (tmx - mx) * 0.18;
+        my += (tmy - my) * 0.18;
       } else {
         mx += (-9999 - mx) * 0.05;
         my += (-9999 - my) * 0.05;
       }
 
-      // Expire old waves
       for (let i = waves.length - 1; i >= 0; i--) {
         if (now - waves[i].t0 > waves[i].life) {
           waves.splice(i, 1);
@@ -202,14 +196,13 @@
           const px = x * CELL_W + CELL_W * 0.5;
           const py = y * CELL_H + CELL_H * 0.5;
 
-          // ---- Base intensity ----
           const baseWave =
             Math.sin(x * 0.14 + t * 0.55) * 0.55 +
             Math.cos(y * 0.18 - t * 0.42) * 0.55;
 
           let intensity = 0.22 + baseWave * 0.16;
 
-          // ---- Mouse influence ----
+          // ---- Mouse influence (tighter radius) ----
           let mouseFactor = 0;
           if (hasMouse) {
             const dxm = px - mx;
@@ -225,7 +218,7 @@
             }
           }
 
-          // ---- Wave (click ripple) influence ----
+          // ---- Wave influence ----
           let waveFactor = 0;
           let waveHue = 0;
           let waveProgress = 0;
@@ -260,12 +253,10 @@
             if (target > intensity) intensity = target;
           }
 
-          // ---- Skip invisible cells ----
           if (intensity < 0.14) continue;
 
           const clamped = intensity > 1 ? 1 : intensity;
 
-          // ---- Glyph pick ----
           const ci = Math.min(
             GLYPHS.length - 1,
             Math.floor(clamped * GLYPHS.length)
@@ -273,10 +264,8 @@
           const glyph = GLYPHS[ci];
           if (glyph === '·' && clamped < 0.22) continue;
 
-          // ---- Alpha ----
           const alpha = Math.min(1, 0.25 + clamped * 0.85);
 
-          // ---- Color ----
           if (waveFactor > 0.15) {
             const baseHue = (waveHue + waveProgress * 180) % 360;
             ctx.fillStyle = `hsla(${baseHue}, 90%, ${58 + waveFactor * 15}%, ${Math.min(1, alpha * (0.6 + waveFactor * 0.9))})`;
@@ -295,7 +284,6 @@
         }
       }
 
-      // ---- FPS ----
       fpsFrames++;
       const nowMs = performance.now();
       if (nowMs - fpsLast > 500) {
@@ -804,69 +792,7 @@
   })();
 
   /* ============================================================
-     11. CUSTOM CURSOR
-     ============================================================ */
-  (function initCursor() {
-    if (isCoarse || reduceMotion) return;
-
-    const ring = document.getElementById('cursorRing');
-    const dot  = document.getElementById('cursorDot');
-    if (!ring || !dot) return;
-
-    let mx = window.innerWidth / 2;
-    let my = window.innerHeight / 2;
-    let rx = mx, ry = my;
-    let dx = mx, dy = my;
-    let visible = false;
-
-    function loop() {
-      rx += (mx - rx) * 0.18;
-      ry += (my - ry) * 0.18;
-      dx += (mx - dx) * 0.4;
-      dy += (my - dy) * 0.4;
-
-      ring.style.left = rx + 'px';
-      ring.style.top  = ry + 'px';
-      dot.style.left  = dx + 'px';
-      dot.style.top   = dy + 'px';
-
-      requestAnimationFrame(loop);
-    }
-
-    document.addEventListener('mousemove', (e) => {
-      mx = e.clientX;
-      my = e.clientY;
-
-      if (!visible) {
-        visible = true;
-        ring.classList.add('visible');
-        dot.classList.add('visible');
-        rx = mx; ry = my;
-        dx = mx; dy = my;
-      }
-    });
-
-    document.addEventListener('mouseleave', () => {
-      visible = false;
-      ring.classList.remove('visible');
-      dot.classList.remove('visible');
-    });
-
-    const hoverSel = 'a, button, .btn, .arrow, .dot, .game-clip, .cv-item, .skill-card, .tool-tag, .game-close, .ascii-field';
-
-    document.addEventListener('mouseover', (e) => {
-      if (e.target.closest(hoverSel)) ring.classList.add('hovering');
-    });
-
-    document.addEventListener('mouseout', (e) => {
-      if (e.target.closest(hoverSel)) ring.classList.remove('hovering');
-    });
-
-    loop();
-  })();
-
-  /* ============================================================
-     12. J / K / L AUTO-SCROLL
+     11. J / K / L AUTO-SCROLL
      ============================================================ */
   (function initAutoscroll() {
     const SPEED = 9;
@@ -918,7 +844,7 @@
   })();
 
   /* ============================================================
-     13. MINI-GAME
+     12. MINI-GAME
      ============================================================ */
   const gameModal   = document.getElementById('gameModal');
   const gameBoard   = document.getElementById('gameBoard');
@@ -1030,7 +956,7 @@
   }
 
   /* ============================================================
-     14. EASTER EGG — TYPE "MONTAGE"
+     13. EASTER EGG — TYPE "MONTAGE"
      ============================================================ */
   (function initEasterEgg() {
     let buffer = '';
