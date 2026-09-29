@@ -1,6 +1,6 @@
 /* ============================================================
    PAGES.CSS — sections pleine largeur · footer shader arc
-   + legal pages · cookie banner · 404
+   + legal pages (TOC nettoyée, non-overlap) · cookie banner · 404
    ============================================================ */
 
 /* ============================================================
@@ -22,8 +22,6 @@
 
 /* ============================================================
    1. SECTIONS — pleine largeur du body
-   La section s'étire sur tout le viewport ; un padding max()
-   ramène le contenu dans une colonne lisible de 1320px max.
    ============================================================ */
 .section {
   max-width: none;
@@ -101,7 +99,7 @@
 }
 
 /* ============================================================
-   3. EDGE DOTS — déjà full-bleed
+   3. EDGE DOTS — full-bleed
    ============================================================ */
 .edge-dots {
   position: absolute;
@@ -216,7 +214,7 @@
 .section--contact .edge-dots::before { animation-duration: 30s; }
 
 /* ============================================================
-   4. FOOTER — avec shader arc en fond
+   4. FOOTER — shader arc en fond
    ============================================================ */
 footer {
   position: relative;
@@ -532,7 +530,10 @@ footer {
 }
 
 /* ============================================================
-   6. PAGES LÉGALES
+   6. PAGES LÉGALES — TOC nettoyée et non-overlap
+   Le sommaire est en flux normal : il pousse le contenu vers
+   le bas, il ne le chevauche jamais, et il remonte naturellement
+   avec le scroll. Une seule colonne partout pour la lisibilité.
    ============================================================ */
 .legal-page {
   position: relative;
@@ -543,7 +544,8 @@ footer {
 }
 
 .legal-header {
-  margin-bottom: 56px;
+  display: block;
+  margin-bottom: 48px;
   padding-bottom: 32px;
   border-bottom: 1px solid var(--border);
 }
@@ -591,14 +593,26 @@ footer {
   font-weight: 500;
 }
 
+/* ----- Sommaire (TOC) -----
+   • Bloc statique, en haut de page, au-dessus de tout le contenu
+   • Pousse `.legal-body` vers le bas — jamais de chevauchement
+   • Se retire naturellement au scroll (pas de sticky, pas de fixed)
+   • Une seule colonne, alignement vertical propre
+   • z-index bas pour ne jamais passer devant le texte
+*/
 .legal-toc {
+  position: relative;
+  z-index: 1;
+  display: block;
+  width: 100%;
+  margin: 0 0 64px;
+  padding: 24px 28px;
+
   background: rgba(15, 15, 17, 0.6);
   backdrop-filter: blur(8px);
   -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: 8px;
-  padding: 22px 24px;
-  margin-bottom: 56px;
 }
 
 .legal-toc-title {
@@ -607,31 +621,37 @@ footer {
   letter-spacing: 0.24em;
   color: var(--fg-4);
   text-transform: uppercase;
-  margin-bottom: 14px;
+  margin: 0 0 16px;
 }
 
 .legal-toc ol {
   list-style: none;
   padding: 0;
   margin: 0;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 8px 24px;
+
+  /* Une seule colonne partout */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
   counter-reset: toc;
 }
 
 .legal-toc li {
   counter-increment: toc;
   font-size: 13px;
-  padding-left: 0;
+  line-height: 1.5;
+  padding: 0;
+  margin: 0;
 }
 
 .legal-toc li::before {
   content: counter(toc, decimal-leading-zero);
   color: var(--violet);
   font-weight: 600;
-  margin-right: 10px;
+  margin-right: 12px;
   font-variant-numeric: tabular-nums;
+  display: inline-block;
+  min-width: 22px;
 }
 
 .legal-toc a {
@@ -642,7 +662,16 @@ footer {
 
 .legal-toc a:hover { color: var(--violet); }
 
+.legal-toc a:focus-visible {
+  outline: 2px solid var(--violet);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* ----- Corps du texte ----- */
 .legal-body {
+  position: relative;
+  z-index: 1;
   display: flex;
   flex-direction: column;
   gap: 48px;
@@ -809,9 +838,9 @@ footer {
 @media (max-width: 768px) {
   .legal-page { padding: 110px 20px 72px; }
   .legal-title { font-size: clamp(28px, 8vw, 44px); }
-  .legal-toc { padding: 16px 18px; margin-bottom: 40px; }
-  .legal-toc ol { grid-template-columns: 1fr; gap: 6px; }
-  .legal-toc li { font-size: 12px; }
+  .legal-header { margin-bottom: 36px; padding-bottom: 24px; }
+  .legal-toc { padding: 18px 20px; margin-bottom: 48px; }
+  .legal-toc li { font-size: 12.5px; }
   .legal-section { scroll-margin-top: 90px; }
   .legal-section h2 { font-size: 19px; }
   .legal-table { font-size: 11.5px; }
