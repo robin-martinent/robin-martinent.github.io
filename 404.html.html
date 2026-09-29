@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>404 · Page introuvable — Robin Martinent</title>
+  <meta name="description" content="La page que vous cherchez n'existe pas ou a été déplacée." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
+  <link rel="shortcut icon" href="favicon_io/favicon.ico">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
+
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+</head>
+<body>
+
+  <div class="shader-gradient" aria-hidden="true">
+    <span class="shader-blob blob-violet"></span>
+    <span class="shader-blob blob-cyan"></span>
+    <span class="shader-blob blob-magenta"></span>
+    <span class="shader-blob blob-blue"></span>
+  </div>
+
+  <div class="grid-bg" aria-hidden="true"></div>
+  <div class="vignette" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
+
+  <nav id="navbar">
+    <a href="index.html" class="nav-logo" aria-label="Retour à l'accueil">
+      <span class="logo-liquid" aria-hidden="true"></span>
+      <span class="logo-inner">
+        <span class="logo-bracket">[</span>
+        <span class="logo-mark">RM</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-os">STUDIO</span>
+        <span class="logo-bracket">]</span>
+      </span>
+    </a>
+    <ul class="nav-links">
+      <li><a href="index.html#about"><span class="num">01</span> À propos</a></li>
+      <li><a href="index.html#portfolio"><span class="num">02</span> Portfolio</a></li>
+      <li><a href="index.html#competences"><span class="num">03</span> Compétences</a></li>
+      <li><a href="index.html#cv"><span class="num">04</span> CV</a></li>
+      <li><a href="index.html#contact"><span class="num">06</span> Contact</a></li>
+    </ul>
+    <div class="nav-status">
+      <span class="status-led"></span>
+      <span class="status-text">404</span>
+    </div>
+    <div class="nav-clock" id="navClock">00:00:00</div>
+  </nav>
+
+  <main class="error-page">
+    <div class="error-ascii" aria-hidden="true">404</div>
+    <p class="error-code">◆ Signal perdu</p>
+    <h1 class="error-title">Cette page n'existe pas.</h1>
+    <p class="error-text">
+      Le lien est peut-être cassé, la page a été déplacée, ou vous vous êtes aventuré
+      hors de la timeline. Pas de panique — revenez au point de départ.
+    </p>
+
+    <div class="error-actions">
+      <a href="index.html" class="btn primary">
+        <span>Retour à l'accueil</span>
+        <span class="btn-arrow">→</span>
+      </a>
+      <a href="index.html#portfolio" class="btn ghost">Voir le portfolio</a>
+    </div>
+
+    <div class="error-terminal" aria-hidden="true">
+      <div class="error-terminal-line">GET /cette-page → 404 Not Found</div>
+      <div class="error-terminal-line">find / -name "espoir" → 0 résultat</div>
+      <div class="error-terminal-line">suggestion : retourner à l'index</div>
+    </div>
+  </main>
+
+  <script>
+    (function () {
+      const el = document.getElementById('navClock');
+      if (!el) return;
+      const pad2 = (n) => n.toString().padStart(2, '0');
+      function tick() {
+        const d = new Date();
+        el.textContent = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
+      }
+      tick();
+      setInterval(tick, 1000);
+    })();
+
+    (function () {
+      const ring = document.getElementById('cursorRing');
+      const dot  = document.getElementById('cursorDot');
+      if (!ring || !dot) return;
+      if (window.matchMedia('(pointer: coarse)').matches) return;
+
+      let mx = innerWidth / 2, my = innerHeight / 2;
+      let rx = mx, ry = my, dx = mx, dy = my;
+      let visible = false;
+
+      function loop() {
+        rx += (mx - rx) * 0.18;
+        ry += (my - ry) * 0.18;
+        dx += (mx - dx) * 0.4;
+        dy += (my - dy) * 0.4;
+        ring.style.left = rx + 'px';
+        ring.style.top  = ry + 'px';
+        dot.style.left  = dx + 'px';
+        dot.style.top   = dy + 'px';
+        requestAnimationFrame(loop);
+      }
+
+      window.addEventListener('mousemove', (e) => {
+        mx = e.clientX; my = e.clientY;
+        if (!visible) {
+          visible = true;
+          ring.classList.add('visible');
+          dot.classList.add('visible');
+          rx = mx; ry = my; dx = mx; dy = my;
+        }
+      });
+      document.addEventListener('mouseleave', () => {
+        visible = false;
+        ring.classList.remove('visible');
+        dot.classList.remove('visible');
+      });
+      document.addEventListener('mouseover', (e) => {
+        if (e.target.closest('a, button')) ring.classList.add('hovering');
+      });
+      document.addEventListener('mouseout', (e) => {
+        if (e.target.closest('a, button')) ring.classList.remove('hovering');
+      });
+      loop();
+    })();
+  </script>
+</body>
+</html>
