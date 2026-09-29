@@ -1,33 +1,28 @@
 /* ============================================================
-   PAGES.CSS — sections pleine largeur · footer shader arc
-   + legal pages (TOC nettoyée, non-overlap) · cookie banner · 404
+   pages.css — EXTENSIONS
+   Chargé APRÈS style.css. Surcharge uniquement ce qui doit l'être :
+   - sections pleine largeur du body
+   - edge-dots full-bleed (décor des sections)
+   - variantes de layout (about en grille, compétences en grille)
+   - hero-cta à un seul bouton
+   - footer riche 4 colonnes + shader arc
+   - cookie banner RGPD
+   - pages légales (TOC en flux normal)
+   - page 404
+   Aucune duplication avec style.css.
    ============================================================ */
-
-/* ============================================================
-   0. BOOT LOG — scroll
-   ============================================================ */
-.boot-log {
-  max-height: 260px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: var(--border-3) transparent;
-}
-
-.boot-log::-webkit-scrollbar { width: 6px; }
-.boot-log::-webkit-scrollbar-track { background: transparent; }
-.boot-log::-webkit-scrollbar-thumb {
-  background: var(--border-3);
-  border-radius: 3px;
-}
 
 /* ============================================================
    1. SECTIONS — pleine largeur du body
+   Surcharge `.section` de style.css (max-width + padding).
+   Le contenu reste dans une colonne de 1320 px max, centrée par
+   le padding max(). Les edge-dots débordent en 100vw.
    ============================================================ */
 .section {
   max-width: none;
   margin: 0;
-  width: 100%;
   padding: 80px max(32px, calc((100vw - 1320px) / 2));
+  isolation: isolate;
 }
 
 .section--about,
@@ -39,67 +34,10 @@
   padding-bottom: 96px;
 }
 
-@media (max-width: 768px) {
-  .section,
-  .section--about,
-  .section--portfolio,
-  .section--competences,
-  .section--cv,
-  .section--contact {
-    padding-top: 56px;
-    padding-bottom: 56px;
-    padding-left: 16px;
-    padding-right: 16px;
-  }
-}
-
 /* ============================================================
-   2. HERO CTA
-   ============================================================ */
-.hero-cta--single {
-  display: flex;
-  align-items: center;
-  gap: 24px;
-  flex-wrap: wrap;
-}
-
-.hero-cta-links {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 12px;
-  letter-spacing: 0.04em;
-  color: var(--fg-3);
-}
-
-.hero-cta-links a {
-  color: var(--fg-3);
-  text-decoration: none;
-  border-bottom: 1px solid transparent;
-  transition: color 0.2s ease, border-color 0.2s ease;
-}
-
-.hero-cta-links a:hover {
-  color: var(--violet);
-  border-bottom-color: var(--violet);
-}
-
-.hero-cta-sep { color: var(--border-3); }
-
-@media (max-width: 768px) {
-  .hero-cta--single {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-  .hero-cta-links {
-    justify-content: center;
-    flex-wrap: wrap;
-  }
-}
-
-/* ============================================================
-   3. EDGE DOTS — full-bleed
+   2. EDGE DOTS — full-bleed, un seul layer + drift
+   Coût GPU réduit : une couche de points (22px) + un léger
+   halo dégradé, une seule animation `background-position`.
    ============================================================ */
 .edge-dots {
   position: absolute;
@@ -120,32 +58,13 @@
 
   opacity: 0.7;
   animation: tideDrift 26s ease-in-out infinite;
-  will-change: background-position, opacity;
-}
-
-.edge-dots::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background-image:
-    radial-gradient(circle, rgba(244, 244, 245, 0.35) 0.8px, transparent 1.2px);
-  background-size: 44px 44px;
-  opacity: 0.5;
-  animation: tideDriftAlt 34s ease-in-out infinite;
-  will-change: background-position, opacity;
-  pointer-events: none;
+  will-change: background-position;
 }
 
 @keyframes tideDrift {
-  0%, 100% { background-position: 0 0, 0 0, 0 0; opacity: 0.55; }
-  30%      { background-position: 34px 22px, 0 0, 0 0; opacity: 0.95; }
-  60%      { background-position: -22px 46px, 0 0, 0 0; opacity: 0.7; }
-}
-
-@keyframes tideDriftAlt {
-  0%, 100% { background-position: 0 0; opacity: 0.35; }
-  40%      { background-position: -50px 30px; opacity: 0.75; }
-  75%      { background-position: 40px -30px; opacity: 0.45; }
+  0%, 100% { background-position: 0 0, 0 0, 0 0; }
+  30%      { background-position: 34px 22px, 0 0, 0 0; }
+  60%      { background-position: -22px 46px, 0 0, 0 0; }
 }
 
 .edge-dots--left {
@@ -201,25 +120,143 @@
   mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 32%, #000 82%);
 }
 
-.section--about .edge-dots { animation-duration: 24s; }
-.section--portfolio .edge-dots { animation-duration: 28s; }
-.section--competences .edge-dots { animation-duration: 32s; }
-.section--cv .edge-dots { animation-duration: 30s; }
-.section--contact .edge-dots { animation-duration: 22s; }
-
-.section--about .edge-dots::before { animation-duration: 36s; }
-.section--portfolio .edge-dots::before { animation-duration: 40s; }
-.section--competences .edge-dots::before { animation-duration: 46s; }
-.section--cv .edge-dots::before { animation-duration: 42s; }
-.section--contact .edge-dots::before { animation-duration: 30s; }
+/* Décalage d'animation pour éviter que les sections pulsent ensemble */
+.section--about .edge-dots       { animation-duration: 24s; animation-delay: -2s; }
+.section--portfolio .edge-dots   { animation-duration: 28s; animation-delay: -6s; }
+.section--competences .edge-dots { animation-duration: 32s; animation-delay: -10s; }
+.section--cv .edge-dots          { animation-duration: 30s; animation-delay: -4s; }
+.section--contact .edge-dots     { animation-duration: 22s; animation-delay: -8s; }
 
 /* ============================================================
-   4. FOOTER — shader arc en fond
+   3. VARIANTES DE SECTION
+   ============================================================ */
+
+/* --- À PROPOS : rail gauche + contenu à droite --- */
+.section--about {
+  display: grid;
+  grid-template-columns: 200px minmax(0, 1fr);
+  column-gap: 48px;
+  align-items: start;
+}
+
+.section--about .section-head {
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 12px;
+  padding: 0 24px 0 0;
+  margin: 0;
+  border-bottom: none;
+  border-right: 1px solid var(--border);
+  min-height: 320px;
+  height: 100%;
+}
+
+.section--about .section-rule {
+  width: 1px;
+  height: 48px;
+  flex: 0 0 auto;
+  background: linear-gradient(180deg, var(--border-2), transparent);
+  margin-top: 8px;
+}
+
+.section--about .section-body { padding-top: 4px; }
+.section--about .section-title { margin-top: 0; }
+
+/* --- COMPÉTENCES : contenu à gauche + rail droit --- */
+.section--competences {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 200px;
+  column-gap: 48px;
+  align-items: start;
+}
+
+.section--competences .section-body { grid-column: 1; grid-row: 1; }
+
+.section--competences .section-head {
+  grid-column: 2;
+  grid-row: 1;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+  gap: 12px;
+  padding: 0 0 0 24px;
+  margin: 0;
+  border-bottom: none;
+  border-left: 1px solid var(--border);
+  min-height: 320px;
+  height: 100%;
+}
+
+.section--competences .section-head .section-rule {
+  width: 1px;
+  height: 48px;
+  flex: 0 0 auto;
+  background: linear-gradient(180deg, var(--border-2), transparent);
+  margin-top: 8px;
+}
+
+.section--competences .section-title { margin-top: 0; }
+
+/* --- CV : colonnes asymétriques --- */
+.section--cv .cv-grid {
+  grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
+}
+
+/* --- CONTACT : header centré --- */
+.section-head--center {
+  justify-content: center;
+  text-align: center;
+  border-bottom: 1px solid var(--border);
+}
+
+.section-head--center .section-rule {
+  max-width: 80px;
+  background: linear-gradient(90deg, var(--border-2), transparent);
+}
+
+/* ============================================================
+   4. HERO CTA — un seul bouton + liens discrets
+   ============================================================ */
+.hero-cta--single {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  flex-wrap: wrap;
+}
+
+.hero-cta-links {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  color: var(--fg-3);
+}
+
+.hero-cta-links a {
+  color: var(--fg-3);
+  text-decoration: none;
+  border-bottom: 1px solid transparent;
+  transition: color 0.15s ease, border-color 0.15s ease;
+}
+.hero-cta-links a:hover {
+  color: var(--violet);
+  border-bottom-color: var(--violet);
+}
+
+.hero-cta-sep { color: var(--border-3); }
+
+/* ============================================================
+   5. FOOTER RICHE + shader arc
+   Surcharge `.footer-inner` (base simple de style.css) sans le
+   remplacer : les deux classes cohabitent sur le même élément.
    ============================================================ */
 footer {
-  position: relative;
   overflow: hidden;
   isolation: isolate;
+  background: rgba(10, 10, 10, 0.7);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
 }
 
 .footer-arc {
@@ -232,6 +269,7 @@ footer {
   pointer-events: auto;
   opacity: 0.7;
   transition: opacity 0.6s ease;
+  contain: strict;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -272,7 +310,7 @@ footer {
   gap: 6px;
 }
 
-.footer-mark { color: var(--fg); }
+.footer-mark    { color: var(--fg); }
 .footer-sep-dot { color: var(--violet); }
 .footer-os {
   color: var(--violet);
@@ -313,25 +351,19 @@ footer {
   padding: 0;
   margin: 0;
 }
-
-.footer-list li {
-  font-size: 12px;
-  line-height: 1.5;
-}
+.footer-list li { font-size: 12px; line-height: 1.5; }
 
 .footer-list a {
   color: var(--fg-2);
   text-decoration: none;
-  transition: color 0.2s ease, padding-left 0.2s ease;
+  transition: color 0.15s ease, padding-left 0.15s ease;
   display: inline-block;
   position: relative;
 }
-
 .footer-list a:hover {
   color: var(--violet);
   padding-left: 6px;
 }
-
 .footer-list a:hover::before {
   content: '→';
   position: absolute;
@@ -345,9 +377,8 @@ footer {
   text-decoration: none;
   border-bottom: 1px dashed var(--border-3);
   cursor: pointer;
-  transition: color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.15s ease, border-color 0.15s ease;
 }
-
 .footer-cookie-link:hover {
   color: var(--violet);
   border-bottom-color: var(--violet);
@@ -372,50 +403,19 @@ footer {
   align-items: center;
   gap: 10px;
 }
-
 .footer-bar-cell.center { justify-content: center; }
-.footer-bar-cell.right { justify-content: flex-end; }
+.footer-bar-cell.right  { justify-content: flex-end; }
 
 .footer-led {
-  width: 5px;
-  height: 5px;
+  width: 5px; height: 5px;
   border-radius: 50%;
   background: var(--green);
   box-shadow: 0 0 6px var(--green);
   animation: ledPulse 2s ease-in-out infinite;
 }
 
-.footer-inner:not(.footer-inner--rich) { display: none; }
-
-@media (max-width: 1024px) {
-  .footer-inner--rich {
-    grid-template-columns: 1fr 1fr;
-    gap: 32px;
-    padding: 44px 24px 32px;
-  }
-  .footer-bar { padding: 14px 24px; }
-}
-
-@media (max-width: 640px) {
-  .footer-inner--rich {
-    grid-template-columns: 1fr;
-    padding: 36px 16px 24px;
-    gap: 28px;
-  }
-
-  .footer-bar {
-    grid-template-columns: 1fr;
-    text-align: center;
-    padding: 14px 16px;
-    gap: 8px;
-  }
-
-  .footer-bar-cell { justify-content: center; }
-  .footer-bar-cell.right { justify-content: center; }
-}
-
 /* ============================================================
-   5. COOKIE BANNER
+   6. COOKIE BANNER — RGPD-compliant, Refuser / Accepter égaux
    ============================================================ */
 .cookie-banner {
   position: fixed;
@@ -424,8 +424,8 @@ footer {
   bottom: 20px;
   z-index: 99998;
   background: rgba(10, 10, 10, 0.94);
-  backdrop-filter: blur(20px);
-  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
   border: 1px solid var(--border-2);
   border-radius: 10px;
   box-shadow:
@@ -434,15 +434,13 @@ footer {
     0 0 60px rgba(167, 139, 250, 0.15);
   transform: translateY(20px);
   opacity: 0;
-  transition: transform 0.5s cubic-bezier(0.34, 1.3, 0.64, 1), opacity 0.4s ease;
+  transition: transform 0.4s cubic-bezier(0.34, 1.3, 0.64, 1), opacity 0.35s ease;
   pointer-events: auto;
 }
-
 .cookie-banner:not([hidden]) {
   transform: translateY(0);
   opacity: 1;
 }
-
 .cookie-banner[hidden] { display: none; }
 
 .cookie-inner {
@@ -465,15 +463,9 @@ footer {
   color: var(--violet);
   font-size: 16px;
   flex-shrink: 0;
-  box-shadow: 0 0 20px var(--violet-glow);
 }
 
-.cookie-content {
-  display: flex;
-  flex-direction: column;
-  gap: 6px;
-  min-width: 0;
-}
+.cookie-content { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 
 .cookie-title {
   font-family: var(--font-mono);
@@ -491,23 +483,16 @@ footer {
   color: var(--fg-2);
   margin: 0;
 }
-
 .cookie-text strong { color: var(--fg); font-weight: 600; }
-
 .cookie-text a {
   color: var(--violet);
   text-decoration: underline;
   text-underline-offset: 2px;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
-
 .cookie-text a:hover { color: var(--violet-2); }
 
-.cookie-actions {
-  display: flex;
-  gap: 8px;
-  flex-shrink: 0;
-}
+.cookie-actions { display: flex; gap: 8px; flex-shrink: 0; }
 
 .cookie-btn {
   padding: 10px 18px;
@@ -517,23 +502,11 @@ footer {
   white-space: nowrap;
 }
 
-@media (max-width: 768px) {
-  .cookie-banner { left: 12px; right: 12px; bottom: 12px; }
-  .cookie-inner {
-    grid-template-columns: 1fr;
-    gap: 14px;
-    padding: 18px;
-  }
-  .cookie-icon { display: none; }
-  .cookie-actions { width: 100%; }
-  .cookie-actions .cookie-btn { flex: 1; }
-}
-
 /* ============================================================
-   6. PAGES LÉGALES — TOC nettoyée et non-overlap
-   Le sommaire est en flux normal : il pousse le contenu vers
-   le bas, il ne le chevauche jamais, et il remonte naturellement
-   avec le scroll. Une seule colonne partout pour la lisibilité.
+   7. PAGES LÉGALES (rgpd.html, cgu.html)
+   Le sommaire est un bloc statique en haut, en flux normal :
+   il pousse le contenu vers le bas, ne le chevauche jamais,
+   et remonte avec le scroll sans position sticky / fixed.
    ============================================================ */
 .legal-page {
   position: relative;
@@ -587,19 +560,8 @@ footer {
   letter-spacing: 0.1em;
   color: var(--fg-4);
 }
+.legal-meta span strong { color: var(--fg-2); font-weight: 500; }
 
-.legal-meta span strong {
-  color: var(--fg-2);
-  font-weight: 500;
-}
-
-/* ----- Sommaire (TOC) -----
-   • Bloc statique, en haut de page, au-dessus de tout le contenu
-   • Pousse `.legal-body` vers le bas — jamais de chevauchement
-   • Se retire naturellement au scroll (pas de sticky, pas de fixed)
-   • Une seule colonne, alignement vertical propre
-   • z-index bas pour ne jamais passer devant le texte
-*/
 .legal-toc {
   position: relative;
   z-index: 1;
@@ -607,10 +569,7 @@ footer {
   width: 100%;
   margin: 0 0 64px;
   padding: 24px 28px;
-
   background: rgba(15, 15, 17, 0.6);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border);
   border-radius: 8px;
 }
@@ -628,8 +587,6 @@ footer {
   list-style: none;
   padding: 0;
   margin: 0;
-
-  /* Une seule colonne partout */
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -640,8 +597,6 @@ footer {
   counter-increment: toc;
   font-size: 13px;
   line-height: 1.5;
-  padding: 0;
-  margin: 0;
 }
 
 .legal-toc li::before {
@@ -657,18 +612,15 @@ footer {
 .legal-toc a {
   color: var(--fg-2);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
-
 .legal-toc a:hover { color: var(--violet); }
-
 .legal-toc a:focus-visible {
   outline: 2px solid var(--violet);
   outline-offset: 2px;
   border-radius: 2px;
 }
 
-/* ----- Corps du texte ----- */
 .legal-body {
   position: relative;
   z-index: 1;
@@ -717,7 +669,6 @@ footer {
   color: var(--fg-2);
   margin-bottom: 16px;
 }
-
 .legal-section p:last-child { margin-bottom: 0; }
 
 .legal-section ul {
@@ -728,7 +679,6 @@ footer {
   flex-direction: column;
   gap: 8px;
 }
-
 .legal-section ul li {
   font-size: 13.5px;
   line-height: 1.7;
@@ -736,7 +686,6 @@ footer {
   padding-left: 22px;
   position: relative;
 }
-
 .legal-section ul li::before {
   content: '▸';
   position: absolute;
@@ -761,9 +710,8 @@ footer {
   text-decoration: underline;
   text-underline-offset: 3px;
   text-decoration-thickness: 1px;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
-
 .legal-section a:hover { color: var(--violet-2); }
 
 .legal-callout {
@@ -773,12 +721,7 @@ footer {
   border-radius: 0 6px 6px 0;
   margin: 20px 0;
 }
-
-.legal-callout p {
-  margin: 0;
-  font-size: 13px;
-  color: var(--fg-2);
-}
+.legal-callout p { margin: 0; font-size: 13px; color: var(--fg-2); }
 
 .legal-table {
   width: 100%;
@@ -789,7 +732,6 @@ footer {
   border-radius: 6px;
   overflow: hidden;
 }
-
 .legal-table th,
 .legal-table td {
   padding: 12px 16px;
@@ -797,7 +739,6 @@ footer {
   border-bottom: 1px solid var(--border);
   vertical-align: top;
 }
-
 .legal-table th {
   background: rgba(15, 15, 17, 0.6);
   font-family: var(--font-mono);
@@ -807,12 +748,7 @@ footer {
   text-transform: uppercase;
   color: var(--fg-3);
 }
-
-.legal-table td {
-  color: var(--fg-2);
-  line-height: 1.6;
-}
-
+.legal-table td { color: var(--fg-2); line-height: 1.6; }
 .legal-table tr:last-child td { border-bottom: none; }
 
 .legal-footer {
@@ -826,30 +762,15 @@ footer {
   font-size: 12px;
   color: var(--fg-4);
 }
-
 .legal-footer a {
   color: var(--fg-3);
   text-decoration: none;
-  transition: color 0.2s ease;
+  transition: color 0.15s ease;
 }
-
 .legal-footer a:hover { color: var(--violet); }
 
-@media (max-width: 768px) {
-  .legal-page { padding: 110px 20px 72px; }
-  .legal-title { font-size: clamp(28px, 8vw, 44px); }
-  .legal-header { margin-bottom: 36px; padding-bottom: 24px; }
-  .legal-toc { padding: 18px 20px; margin-bottom: 48px; }
-  .legal-toc li { font-size: 12.5px; }
-  .legal-section { scroll-margin-top: 90px; }
-  .legal-section h2 { font-size: 19px; }
-  .legal-table { font-size: 11.5px; }
-  .legal-table th,
-  .legal-table td { padding: 10px 12px; }
-}
-
 /* ============================================================
-   7. PAGE 404
+   8. PAGE 404
    ============================================================ */
 .error-page {
   position: relative;
@@ -885,15 +806,6 @@ footer {
   filter:
     drop-shadow(0 2px 0 rgba(255, 255, 255, 0.1))
     drop-shadow(0 0 40px rgba(167, 139, 250, 0.4));
-  animation: glitch404 3.5s steps(1) infinite;
-}
-
-@keyframes glitch404 {
-  0%, 90%, 100% { transform: translate(0, 0); }
-  91% { transform: translate(-4px, 2px); }
-  93% { transform: translate(3px, -2px); }
-  95% { transform: translate(-2px, 1px); }
-  97% { transform: translate(2px, -1px); }
 }
 
 .error-code {
@@ -936,14 +848,11 @@ footer {
   font-size: 12px;
   color: var(--violet);
   background: rgba(15, 15, 17, 0.7);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   border: 1px solid var(--border-2);
   border-radius: 6px;
   padding: 16px 22px;
   text-align: left;
   min-width: min(420px, 100%);
-  box-shadow: 0 0 40px rgba(167, 139, 250, 0.08);
 }
 
 .error-terminal-line {
@@ -951,18 +860,117 @@ footer {
   gap: 10px;
   line-height: 1.8;
 }
-
 .error-terminal-line::before {
   content: '$';
   color: var(--green);
   flex-shrink: 0;
 }
+.error-terminal-line + .error-terminal-line::before { content: '>'; }
 
-.error-terminal-line + .error-terminal-line::before {
-  content: '>';
+/* ============================================================
+   9. RESPONSIVE DES EXTENSIONS
+   ============================================================ */
+@media (max-width: 1024px) {
+  .section--about,
+  .section--competences { display: block; }
+
+  .section--about .section-head,
+  .section--competences .section-head {
+    flex-direction: row;
+    align-items: center;
+    padding: 0 0 24px 0;
+    margin-bottom: 40px;
+    border-right: none;
+    border-left: none;
+    border-bottom: 1px solid var(--border);
+    min-height: 0;
+    height: auto;
+    text-align: left;
+    justify-content: flex-start;
+  }
+
+  .section--about .section-rule,
+  .section--competences .section-rule {
+    width: auto;
+    height: 1px;
+    background: linear-gradient(90deg, var(--border-2), transparent);
+    flex: 1;
+    margin-top: 0;
+  }
+
+  .section--competences .section-body,
+  .section--competences .section-head {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .section--cv .cv-grid { grid-template-columns: 1fr; }
+
+  .footer-inner--rich {
+    grid-template-columns: 1fr 1fr;
+    gap: 32px;
+    padding: 44px 24px 32px;
+  }
+  .footer-bar { padding: 14px 24px; }
 }
 
 @media (max-width: 768px) {
+  .section,
+  .section--about,
+  .section--portfolio,
+  .section--competences,
+  .section--cv,
+  .section--contact {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+
+  .hero-cta--single {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+  .hero-cta-links { justify-content: center; flex-wrap: wrap; }
+
+  .footer-inner--rich {
+    grid-template-columns: 1fr;
+    padding: 36px 16px 24px;
+    gap: 28px;
+  }
+  .footer-bar {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 14px 16px;
+    gap: 8px;
+  }
+  .footer-bar-cell { justify-content: center; }
+  .footer-bar-cell.right { justify-content: center; }
+
+  .edge-dots { background-size: 18px 18px, 100% 100%, 100% 100%; }
+
+  .cookie-banner { left: 12px; right: 12px; bottom: 12px; }
+  .cookie-inner {
+    grid-template-columns: 1fr;
+    gap: 14px;
+    padding: 18px;
+  }
+  .cookie-icon { display: none; }
+  .cookie-actions { width: 100%; }
+  .cookie-actions .cookie-btn { flex: 1; }
+
+  .legal-page { padding: 110px 20px 72px; }
+  .legal-title { font-size: clamp(28px, 8vw, 44px); }
+  .legal-header { margin-bottom: 36px; padding-bottom: 24px; }
+  .legal-toc { padding: 18px 20px; margin-bottom: 48px; }
+  .legal-toc li { font-size: 12.5px; }
+  .legal-section { scroll-margin-top: 90px; }
+  .legal-section h2 { font-size: 19px; }
+  .legal-table { font-size: 11.5px; }
+  .legal-table th,
+  .legal-table td { padding: 10px 12px; }
+
   .error-page { padding: 110px 20px 60px; }
   .error-actions { flex-direction: column; align-items: stretch; }
   .error-actions .btn { width: 100%; }
