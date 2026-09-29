@@ -37,6 +37,7 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
 
   <script type="application/ld+json">
   {
@@ -57,15 +58,12 @@
 </head>
 <body>
 
-  <!-- ===== ASCII FIELD ===== -->
   <canvas id="asciiField" class="ascii-field" aria-hidden="true"></canvas>
 
-  <!-- ===== GRID + VIGNETTE + SCANLINES ===== -->
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
   <div class="scanlines" aria-hidden="true"></div>
 
-  <!-- ===== BOOT ===== -->
   <div id="boot">
     <div class="boot-frame">
       <div class="boot-head">
@@ -79,13 +77,11 @@
     </div>
   </div>
 
-  <!-- ===== EXPLOSION / FUMÉE ===== -->
   <div class="explosion-overlay" id="explosionOverlay">
     <div class="explosion-text" id="explosionText">💥 BOOM !</div>
   </div>
   <div class="smoke-container" id="smokeContainer"></div>
 
-  <!-- ===== NAV ===== -->
   <nav id="navbar">
     <a href="#" class="nav-logo" aria-label="Retour à l'accueil">
       <span class="logo-liquid" aria-hidden="true"></span>
@@ -112,7 +108,6 @@
     <div class="nav-clock" id="navClock">00:00:00</div>
   </nav>
 
-  <!-- ===== HERO ===== -->
   <header class="hero" id="heroSection">
     <div class="hero-scanlines" aria-hidden="true"></div>
 
@@ -172,7 +167,6 @@
     </div>
   </header>
 
-  <!-- ===== À PROPOS ===== -->
   <section class="section section--about" id="about">
     <div class="edge-dots edge-dots--left" aria-hidden="true"></div>
 
@@ -204,7 +198,6 @@
     </div>
   </section>
 
-  <!-- ===== PORTFOLIO ===== -->
   <section class="section section--portfolio" id="portfolio">
     <div class="edge-dots edge-dots--top" aria-hidden="true"></div>
 
@@ -288,7 +281,6 @@
     </div>
   </section>
 
-  <!-- ===== COMPÉTENCES ===== -->
   <section class="section section--competences" id="competences">
     <div class="edge-dots edge-dots--right" aria-hidden="true"></div>
 
@@ -357,7 +349,6 @@
     </header>
   </section>
 
-  <!-- ===== CV ===== -->
   <section class="section section--cv" id="cv">
     <div class="edge-dots edge-dots--sides" aria-hidden="true"></div>
 
@@ -452,7 +443,6 @@
     </div>
   </section>
 
-  <!-- ===== CONTACT ===== -->
   <section class="section section--contact contact-section" id="contact">
     <div class="edge-dots edge-dots--all" aria-hidden="true"></div>
 
@@ -491,7 +481,6 @@
     </div>
   </section>
 
-  <!-- ===== FOOTER ===== -->
   <footer>
     <canvas id="footerArc" class="footer-arc" aria-hidden="true"></canvas>
 
@@ -557,10 +546,8 @@
     </div>
   </footer>
 
-  <!-- ===== PLAY INDICATOR ===== -->
   <div class="play-indicator" id="playIndicator"></div>
 
-  <!-- ===== GAME MODAL ===== -->
   <div class="game-modal" id="gameModal">
     <div class="game-content">
       <div class="game-head">
@@ -587,7 +574,6 @@
     </div>
   </div>
 
-  <!-- ===== COOKIE BANNER ===== -->
   <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Préférences cookies" hidden>
     <div class="cookie-inner">
       <div class="cookie-icon" aria-hidden="true">◆</div>
