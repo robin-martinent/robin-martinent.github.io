@@ -1,8 +1,8 @@
 /* ============================================================
-   CHROME CORE — Interactive ASCII field (full viewport) + logic
-   Boot : plus de lignes, copyright 2005-2077, easter egg Minecraft,
-          progression 100 %, ne se relance pas en navigation interne
-          (uniquement à la première visite ou au refresh).
+   Portfolio Robin Martinent — ASCII field + logique du site
+   Loader : frappe rapide, progression 100 % automatique,
+            clic/touche = saut instantané vers la fin,
+            une seule exécution par session (refresh inclus).
    ============================================================ */
 
 (function () {
@@ -273,9 +273,11 @@
   })();
 
   /* ============================================================
-     2. BOOT — plus de lignes · progression réelle 100 %
-        Ne se rejoue pas en navigation interne (sessionStorage).
-        Se rejoue au refresh (PerformanceNavigationTiming.type = 'reload').
+     2. BOOT — frappe rapide · progression 100 % automatique
+        - 1.5 ms / caractère + 8 ms entre les lignes (~1.8 s au total)
+        - Le pourcentage s'affiche en direct dans le hint
+        - Un clic ou une touche saute instantanément à 100 %
+        - Une seule exécution par session, rejoue au refresh
      ============================================================ */
   (function initBoot() {
     const boot = document.getElementById('boot');
@@ -284,24 +286,19 @@
     const hint = document.getElementById('bootHint');
     if (!boot || !log || !bar) return;
 
-    // ---- Détection du contexte de chargement ----
+    // ---- Détection du contexte ----
     let navType = 'navigate';
     try {
       const entries = performance.getEntriesByType('navigation');
-      if (entries && entries.length && entries[0].type) {
-        navType = entries[0].type; // 'navigate' | 'reload' | 'back_forward' | 'prerender'
-      }
-    } catch (e) { /* performance API indisponible */ }
+      if (entries && entries.length && entries[0].type) navType = entries[0].type;
+    } catch (e) { /* performance API indispo */ }
 
     let bootAlreadyDone = false;
-    try {
-      bootAlreadyDone = sessionStorage.getItem('rm_boot_done') === '1';
-    } catch (e) { /* sessionStorage désactivé */ }
+    try { bootAlreadyDone = sessionStorage.getItem('rm_boot_done') === '1'; } catch (e) {}
 
     const isReload = navType === 'reload';
     const isBack   = navType === 'back_forward';
 
-    // Skip : navigation interne (lien) ou retour arrière — sauf refresh explicite.
     if (bootAlreadyDone && !isReload && !isBack) {
       boot.classList.add('hidden');
       boot.style.display = 'none';
@@ -312,10 +309,10 @@
       try { sessionStorage.setItem('rm_boot_done', '1'); } catch (e) {}
     }
 
-    // ---- 27 lignes dont un clin d'œil Minecraft ----
+    // ---- 27 lignes ----
     const LINES = [
-      'RM/OS  CHROME CORE  BIOS v4.0.1',
-      'Copyright (C) 2005-2077 Robin Martinent',
+      'ROBIN MARTINENT · PORTFOLIO · v4.0.1',
+      'Copyright (C) 1999-2026 Robin Martinent',
       '',
       '> POST ............................. OK',
       '> Vérification mémoire ............ 640K OK',
@@ -329,7 +326,7 @@
       '> Chargement MONTAGE.SYS .......... OK',
       '> Chargement MOTION.DLL ........... OK',
       '> Chargement CREATIVE.DRV ......... OK',
-      '> Chargement CHROME.CORE .......... OK',
+      '> Chargement PORTFOLIO.CORE ....... OK',
       '> Chargement ASCII.FIELD .......... OK',
       '> Chargement JAVA.RUNTIME ......... EXTERNAL',
       '> Chargement NETHER.PORTAL ........ OK',
@@ -344,38 +341,55 @@
       '> BIENVENUE, ROBIN.'
     ];
 
-    // Total de caractères à taper = progression réaliste
     const totalChars = LINES.reduce((sum, l) => sum + l.length + 1, 0);
 
     let done = false;
+
+    function renderProgress(pct) {
+      const v = Math.min(100, Math.round(pct));
+      bar.style.width = v + '%';
+      if (hint) hint.textContent = '[ ' + v + ' % ]';
+    }
 
     function finish() {
       if (done) return;
       done = true;
       markDone();
-      // Force la barre à 100 % avant de masquer le loader.
-      bar.style.width = '100%';
+      renderProgress(100);
       boot.classList.add('hidden');
-      setTimeout(() => { boot.style.display = 'none'; }, 450);
+      setTimeout(() => { boot.style.display = 'none'; }, 400);
     }
 
-    // Raccourcis utilisateur
-    window.addEventListener('keydown', finish);
-    window.addEventListener('click', finish);
-    window.addEventListener('touchstart', finish, { passive: true });
+    // ---- Skip : saute directement à 100 % (pas d'interruption brutale) ----
+    let skipping = false;
 
-    // Failsafe : on laisse la barre atteindre 100 % puis on ferme.
+    function skipToEnd() {
+      if (skipping || done) return;
+      skipping = true;
+      out = LINES.join('\n');
+      log.textContent = out;
+      log.scrollTop = log.scrollHeight;
+      renderProgress(100);
+      if (hint) hint.textContent = '[ 100 % ] PRÊT';
+      clearTimeout(failsafe);
+      setTimeout(finish, 250);
+    }
+
+    window.addEventListener('keydown', skipToEnd);
+    window.addEventListener('click', skipToEnd);
+    window.addEventListener('touchstart', skipToEnd, { passive: true });
+
+    // Failsafe : ferme le loader si quelque chose se bloque.
     const failsafe = setTimeout(() => {
-      bar.style.width = '100%';
-      if (hint) hint.textContent = 'CHARGEMENT DU PORTFOLIO...';
-      setTimeout(finish, 500);
-    }, 12000);
+      if (!done) skipToEnd();
+    }, 4500);
 
     if (reduceMotion) {
       log.textContent = LINES.join('\n');
-      bar.style.width = '100%';
+      renderProgress(100);
+      if (hint) hint.textContent = '[ 100 % ] PRÊT';
       clearTimeout(failsafe);
-      setTimeout(finish, 400);
+      setTimeout(finish, 300);
       return;
     }
 
@@ -384,14 +398,18 @@
     let typedChars = 0;
     let out = '';
 
+    // Timings — rapide mais lisible
+    const CHAR_DELAY = 1.5;   // ms par caractère
+    const LINE_DELAY = 8;     // ms entre les lignes
+
     function typeNext() {
-      if (done) return;
+      if (done || skipping) return;
 
       if (lineIdx >= LINES.length) {
-        if (hint) hint.textContent = 'CHARGEMENT DU PORTFOLIO...';
-        bar.style.width = '100%';
+        renderProgress(100);
+        if (hint) hint.textContent = '[ 100 % ] PRÊT';
         clearTimeout(failsafe);
-        setTimeout(finish, 500);
+        setTimeout(finish, 300);
         return;
       }
 
@@ -404,11 +422,10 @@
         log.textContent = out;
         log.scrollTop = log.scrollHeight;
 
-        // Progression réelle : caractères tapés / total
-        const progress = Math.min((typedChars / totalChars) * 100, 100);
-        bar.style.width = progress + '%';
+        const pct = (typedChars / totalChars) * 100;
+        renderProgress(pct);
 
-        setTimeout(typeNext, 2);
+        setTimeout(typeNext, CHAR_DELAY);
       } else {
         out += '\n';
         typedChars++;
@@ -417,10 +434,10 @@
         lineIdx++;
         charIdx = 0;
 
-        const progress = Math.min((typedChars / totalChars) * 100, 100);
-        bar.style.width = progress + '%';
+        const pct = (typedChars / totalChars) * 100;
+        renderProgress(pct);
 
-        setTimeout(typeNext, 14);
+        setTimeout(typeNext, LINE_DELAY);
       }
     }
 
