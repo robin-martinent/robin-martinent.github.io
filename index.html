@@ -8,14 +8,23 @@
 
   <meta name="description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur. Montage, motion design, post-production. Disponible en alternance 2026." />
   <meta name="robots" content="index, follow" />
+  <meta name="referrer" content="strict-origin-when-cross-origin" />
+  <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests" />
   <link rel="canonical" href="https://robin-martinent.github.io/" />
 
   <meta property="og:title" content="Robin Martinent · Monteur Vidéo & Réalisateur" />
   <meta property="og:description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur." />
   <meta property="og:image" content="https://robin-martinent.github.io/images/og-image.jpg" />
+  <meta property="og:image:width" content="1200" />
+  <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Portfolio de Robin Martinent — Monteur vidéo et réalisateur" />
   <meta property="og:url" content="https://robin-martinent.github.io/" />
   <meta property="og:type" content="website" />
+  <meta property="og:locale" content="fr_FR" />
   <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Robin Martinent · Monteur Vidéo & Réalisateur" />
+  <meta name="twitter:description" content="Portfolio de Robin Martinent, monteur vidéo et réalisateur." />
+  <meta name="twitter:image" content="https://robin-martinent.github.io/images/og-image.jpg" />
 
   <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
   <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
@@ -28,12 +37,46 @@
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
   <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="pages.css" />
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Robin Martinent",
+    "jobTitle": "Monteur vidéo & Réalisateur",
+    "url": "https://robin-martinent.github.io/",
+    "image": "https://robin-martinent.github.io/images/og-image.jpg",
+    "email": "mailto:robin.martinent@gmail.com",
+    "sameAs": [
+      "https://www.linkedin.com/in/robin-martinent",
+      "https://github.com/robin-martinent"
+    ],
+    "knowsAbout": ["Montage vidéo", "Motion design", "Réalisation", "Post-production", "Dev web"]
+  }
+  </script>
 </head>
 <body>
 
-  <!-- ===== GRID + VIGNETTE ===== -->
+  <!-- ===== SHADER GRADIENT ===== -->
+  <div class="shader-gradient" aria-hidden="true">
+    <span class="shader-blob blob-violet"></span>
+    <span class="shader-blob blob-cyan"></span>
+    <span class="shader-blob blob-magenta"></span>
+    <span class="shader-blob blob-blue"></span>
+  </div>
+
+  <!-- ===== ASCII FIELD ===== -->
+  <canvas id="asciiField" class="ascii-field" aria-hidden="true"></canvas>
+
+  <!-- ===== GRID + VIGNETTE + SCANLINES ===== -->
   <div class="grid-bg" aria-hidden="true"></div>
   <div class="vignette" aria-hidden="true"></div>
+  <div class="scanlines" aria-hidden="true"></div>
+
+  <!-- ===== CURSEUR ===== -->
+  <div class="cursor-ring" id="cursorRing"></div>
+  <div class="cursor-dot" id="cursorDot"></div>
 
   <!-- ===== BOOT ===== -->
   <div id="boot">
@@ -57,12 +100,15 @@
 
   <!-- ===== NAV ===== -->
   <nav id="navbar">
-    <a href="#" class="nav-logo">
-      <span class="logo-bracket">[</span>
-      <span class="logo-mark">RM</span>
-      <span class="logo-sep">·</span>
-      <span class="logo-os">STUDIO</span>
-      <span class="logo-bracket">]</span>
+    <a href="#" class="nav-logo" aria-label="Retour à l'accueil">
+      <span class="logo-liquid" aria-hidden="true"></span>
+      <span class="logo-inner">
+        <span class="logo-bracket">[</span>
+        <span class="logo-mark">RM</span>
+        <span class="logo-sep">·</span>
+        <span class="logo-os">STUDIO</span>
+        <span class="logo-bracket">]</span>
+      </span>
     </a>
     <ul class="nav-links">
       <li><a href="#about"><span class="num">01</span> À propos</a></li>
@@ -81,7 +127,6 @@
 
   <!-- ===== HERO ===== -->
   <header class="hero" id="heroSection">
-    <canvas id="asciiField" class="ascii-field" aria-hidden="true"></canvas>
     <div class="hero-scanlines" aria-hidden="true"></div>
 
     <div class="hero-inner">
@@ -102,17 +147,16 @@
         <span class="cursor-blink">_</span>
       </p>
 
-      <div class="hero-cta">
+      <div class="hero-cta hero-cta--single">
         <a href="#portfolio" class="btn primary">
           <span>Voir mes projets</span>
           <span class="btn-arrow">→</span>
         </a>
-        <a href="#contact" class="btn">
-          <span>Me contacter</span>
-        </a>
-        <a href="rapport.html" class="btn ghost">
-          <span>Rapport 2026</span>
-        </a>
+        <p class="hero-cta-links">
+          <a href="#contact">Me contacter</a>
+          <span class="hero-cta-sep">·</span>
+          <a href="rapport.html">Rapport de stage 2026</a>
+        </p>
       </div>
 
       <div class="hero-foot">
@@ -192,7 +236,7 @@
             <div class="carousel-track" id="track">
               <div class="carousel-slide">
                 <div class="slide-video">
-                  <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy" title="Showreel Shaolin Shadow 2025"></iframe>
+                  <iframe src="https://www.youtube.com/embed/HeEMHwfFomE" allowfullscreen loading="lazy" title="Showreel Shaolin Shadow 2025 — montage rythmique"></iframe>
                 </div>
                 <div class="slide-info">
                   <div class="slide-info-head">
@@ -205,7 +249,7 @@
               </div>
               <div class="carousel-slide">
                 <div class="slide-video">
-                  <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy" title="Clip rap local"></iframe>
+                  <iframe src="https://www.youtube.com/embed/LvlTj2bwB8I" allowfullscreen loading="lazy" title="Clip rap local — montage musical"></iframe>
                 </div>
                 <div class="slide-info">
                   <div class="slide-info-head">
@@ -218,7 +262,7 @@
               </div>
               <div class="carousel-slide">
                 <div class="slide-video">
-                  <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy" title="Court-métrage documentaire"></iframe>
+                  <iframe src="https://www.youtube.com/embed/0m7ruRRD8G8" allowfullscreen loading="lazy" title="Court-métrage documentaire — montage narratif"></iframe>
                 </div>
                 <div class="slide-info">
                   <div class="slide-info-head">
@@ -231,7 +275,7 @@
               </div>
               <div class="carousel-slide">
                 <div class="slide-video">
-                  <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy" title="Rassemblement Porsche"></iframe>
+                  <iframe src="https://www.youtube.com/embed/Kr_EL-2GMJs" allowfullscreen loading="lazy" title="Rassemblement Porsche — montage événementiel"></iframe>
                 </div>
                 <div class="slide-info">
                   <div class="slide-info-head">
@@ -248,8 +292,8 @@
           <div class="carousel-controls">
             <div class="carousel-dots" id="dots"></div>
             <div class="carousel-arrows">
-              <button class="arrow" id="prev" aria-label="Précédent">←</button>
-              <button class="arrow" id="next" aria-label="Suivant">→</button>
+              <button class="arrow" id="prev" aria-label="Projet précédent">←</button>
+              <button class="arrow" id="next" aria-label="Projet suivant">→</button>
             </div>
           </div>
         </div>
@@ -267,37 +311,37 @@
       <div class="skills-grid">
         <div class="skill-card">
           <div class="skill-num">01</div>
-          <div class="skill-icon">🎬</div>
+          <div class="skill-icon" aria-hidden="true">🎬</div>
           <h3>Montage vidéo</h3>
           <p>Mon cœur de métier. Des rushes au rendu final, étalonnage inclus.</p>
         </div>
         <div class="skill-card">
           <div class="skill-num">02</div>
-          <div class="skill-icon">✨</div>
+          <div class="skill-icon" aria-hidden="true">✨</div>
           <h3>Motion design</h3>
           <p>Animations, transitions, titres dynamiques pour enrichir les contenus.</p>
         </div>
         <div class="skill-card">
           <div class="skill-num">03</div>
-          <div class="skill-icon">🎨</div>
+          <div class="skill-icon" aria-hidden="true">🎨</div>
           <h3>Illustration</h3>
           <p>Affiches, visuels réseaux sociaux, identité visuelle.</p>
         </div>
         <div class="skill-card">
           <div class="skill-num">04</div>
-          <div class="skill-icon">🌐</div>
+          <div class="skill-icon" aria-hidden="true">🌐</div>
           <h3>Dev web</h3>
           <p>HTML, CSS, JavaScript. Coder et mettre en ligne un site propre.</p>
         </div>
         <div class="skill-card">
           <div class="skill-num">05</div>
-          <div class="skill-icon">📷</div>
+          <div class="skill-icon" aria-hidden="true">📷</div>
           <h3>Réalisation</h3>
           <p>Tournage, cadrage, son, gestion de plateau.</p>
         </div>
         <div class="skill-card">
           <div class="skill-num">06</div>
-          <div class="skill-icon">🖨️</div>
+          <div class="skill-icon" aria-hidden="true">🖨️</div>
           <h3>Impression 3D</h3>
           <p>À l'aise avec le hardware, l'impression résine et le dépannage technique.</p>
         </div>
@@ -436,18 +480,18 @@
       <p class="contact-sub">Dispo pour échanger, montrer mes réalisations et répondre à vos questions.</p>
 
       <div class="contact-links">
-        <button id="copyEmailBtn" class="btn primary btn-copy">
+        <button id="copyEmailBtn" class="btn primary btn-copy" aria-label="Copier l'adresse email">
           <span class="btn-text">robin.martinent@gmail.com</span>
           <span class="btn-feedback" id="emailFeedback">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
             <span id="emailFeedbackMsg">Copié</span>
           </span>
         </button>
 
-        <button id="copyPhoneBtn" class="btn btn-copy">
+        <button id="copyPhoneBtn" class="btn btn-copy" aria-label="Copier le numéro de téléphone">
           <span class="btn-text">07 66 74 03 46</span>
           <span class="btn-feedback" id="phoneFeedback">
-            <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+            <svg viewBox="0 0 24 24" aria-hidden="true"><polyline points="20 6 9 17 4 12"/></svg>
             <span id="phoneFeedbackMsg">Copié</span>
           </span>
         </button>
@@ -462,16 +506,67 @@
 
   <!-- ===== FOOTER ===== -->
   <footer>
-    <div class="footer-inner">
-      <span class="footer-cell">© 2026 Robin Martinent</span>
-      <span class="footer-cell center">
-        <a href="mailto:robin.martinent@gmail.com">EMAIL</a>
-        <span class="footer-sep">·</span>
-        <a href="https://www.linkedin.com/in/robin-martinent" target="_blank" rel="noopener">LINKEDIN</a>
-        <span class="footer-sep">·</span>
-        <a href="https://github.com/robin-martinent" target="_blank" rel="noopener">GITHUB</a>
+    <canvas id="footerArc" class="footer-arc" aria-hidden="true"></canvas>
+
+    <div class="footer-inner footer-inner--rich">
+      <div class="footer-col">
+        <span class="footer-brand">
+          <span class="footer-mark">RM</span>
+          <span class="footer-sep-dot">·</span>
+          <span class="footer-os">STUDIO</span>
+        </span>
+        <p class="footer-tag">Monteur vidéo · Réalisateur · Disponible en alternance 2026</p>
+        <span class="footer-copy">© 2026 Robin Martinent</span>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Navigation</h4>
+        <ul class="footer-list">
+          <li><a href="#about">À propos</a></li>
+          <li><a href="#portfolio">Portfolio</a></li>
+          <li><a href="#competences">Compétences</a></li>
+          <li><a href="#cv">CV</a></li>
+          <li><a href="rapport.html">Rapport 2026</a></li>
+          <li><a href="#contact">Contact</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Contact</h4>
+        <ul class="footer-list">
+          <li><a href="mailto:robin.martinent@gmail.com">robin.martinent@gmail.com</a></li>
+          <li><a href="tel:+33766740346">07 66 74 03 46</a></li>
+          <li><a href="https://www.linkedin.com/in/robin-martinent" target="_blank" rel="noopener">LinkedIn</a></li>
+          <li><a href="https://github.com/robin-martinent" target="_blank" rel="noopener">GitHub</a></li>
+          <li><a href="cv.pdf" target="_blank" rel="noopener">CV PDF</a></li>
+        </ul>
+      </div>
+
+      <div class="footer-col">
+        <h4 class="footer-title">Légal</h4>
+        <ul class="footer-list">
+          <li><a href="rgpd.html">Confidentialité & RGPD</a></li>
+          <li><a href="cgu.html">Conditions d'utilisation</a></li>
+          <li><a href="rgpd.html#cookies">Cookies</a></li>
+          <li><a href="rgpd.html#mentions">Mentions légales</a></li>
+          <li><a href="#" class="footer-cookie-link" id="manageCookies">Gérer mes cookies</a></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span class="footer-bar-cell">
+        <span class="footer-led" aria-hidden="true"></span>
+        CHROME CORE · v4.0.1
       </span>
-      <span class="footer-cell right">Chrome Core · 2026</span>
+      <span class="footer-bar-cell center">
+        <span class="footer-sep">//</span>
+        Site statique · Sans tracker tiers · Hébergé sur GitHub Pages
+      </span>
+      <span class="footer-bar-cell right">
+        <span class="footer-sep">//</span>
+        Fait avec ❤️ à Grenoble
+      </span>
     </div>
   </footer>
 
@@ -505,6 +600,28 @@
     </div>
   </div>
 
+  <!-- ===== COOKIE BANNER ===== -->
+  <div class="cookie-banner" id="cookieBanner" role="dialog" aria-live="polite" aria-label="Préférences cookies" hidden>
+    <div class="cookie-inner">
+      <div class="cookie-icon" aria-hidden="true">◆</div>
+      <div class="cookie-content">
+        <p class="cookie-title">Cookies & confidentialité</p>
+        <p class="cookie-text">
+          Ce site n'utilise <strong>aucun tracker tiers</strong>. Seul un stockage local
+          (localStorage) est utilisé pour mémoriser vos préférences d'affichage.
+          Statistiques anonymes et sans cookie via Plausible.
+          <a href="rgpd.html">En savoir plus</a>.
+        </p>
+      </div>
+      <div class="cookie-actions">
+        <button class="btn ghost cookie-btn" id="cookieRefuse">Refuser</button>
+        <button class="btn primary cookie-btn" id="cookieAccept">Accepter</button>
+      </div>
+    </div>
+  </div>
+
   <script src="script.js"></script>
+  <script src="footer-arc.js"></script>
+  <script src="cookie.js"></script>
 </body>
 </html>
