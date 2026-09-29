@@ -1,6 +1,6 @@
 /* ============================================================
    PAGES.CSS — legal pages · cookie banner · 404 · footer rich
-   Ajouts au portfolio, sans toucher style.css.
+   Corrections : edge-dots full-bleed + scroll-margin + TOC mobile
    ============================================================ */
 
 /* ============================================================
@@ -52,7 +52,125 @@
 }
 
 /* ============================================================
-   2. FOOTER RICHE — 4 colonnes + barre inférieure
+   2. EDGE DOTS — passage en full-bleed
+   Les sections ont max-width 1320px, donc les edge-dots étaient
+   clippés dans cette largeur. On les sort visuellement avec un
+   100vw centré sur le milieu de la section.
+   ============================================================ */
+.edge-dots {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  z-index: 0;
+  pointer-events: none;
+  overflow: hidden;
+
+  background-image:
+    radial-gradient(circle, rgba(167, 139, 250, 0.55) 1px, transparent 1.6px),
+    radial-gradient(ellipse 55% 45% at 0% 50%, rgba(139, 92, 246, 0.14), transparent 75%),
+    radial-gradient(ellipse 55% 45% at 100% 50%, rgba(103, 232, 249, 0.08), transparent 75%);
+  background-size: 22px 22px, 100% 100%, 100% 100%;
+
+  opacity: 0.7;
+  animation: tideDrift 26s ease-in-out infinite;
+  will-change: background-position, opacity;
+}
+
+.edge-dots::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image:
+    radial-gradient(circle, rgba(244, 244, 245, 0.35) 0.8px, transparent 1.2px);
+  background-size: 44px 44px;
+  opacity: 0.5;
+  animation: tideDriftAlt 34s ease-in-out infinite;
+  will-change: background-position, opacity;
+  pointer-events: none;
+}
+
+@keyframes tideDrift {
+  0%, 100% { background-position: 0 0, 0 0, 0 0; opacity: 0.55; }
+  30%      { background-position: 34px 22px, 0 0, 0 0; opacity: 0.95; }
+  60%      { background-position: -22px 46px, 0 0, 0 0; opacity: 0.7; }
+}
+
+@keyframes tideDriftAlt {
+  0%, 100% { background-position: 0 0; opacity: 0.35; }
+  40%      { background-position: -50px 30px; opacity: 0.75; }
+  75%      { background-position: 40px -30px; opacity: 0.45; }
+}
+
+.edge-dots--left {
+  -webkit-mask-image:
+    linear-gradient(90deg, #000 0%, rgba(0,0,0,0.4) 12%, transparent 28%),
+    linear-gradient(180deg, transparent 6%, #000 22%, #000 78%, transparent 94%);
+  mask-image:
+    linear-gradient(90deg, #000 0%, rgba(0,0,0,0.4) 12%, transparent 28%),
+    linear-gradient(180deg, transparent 6%, #000 22%, #000 78%, transparent 94%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.edge-dots--top {
+  -webkit-mask-image:
+    linear-gradient(180deg, #000 0%, rgba(0,0,0,0.5) 10%, transparent 26%),
+    linear-gradient(90deg, transparent 4%, #000 20%, #000 80%, transparent 96%);
+  mask-image:
+    linear-gradient(180deg, #000 0%, rgba(0,0,0,0.5) 10%, transparent 26%),
+    linear-gradient(90deg, transparent 4%, #000 20%, #000 80%, transparent 96%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.edge-dots--right {
+  -webkit-mask-image:
+    linear-gradient(270deg, #000 0%, rgba(0,0,0,0.4) 12%, transparent 28%),
+    linear-gradient(180deg, transparent 6%, #000 22%, #000 78%, transparent 94%);
+  mask-image:
+    linear-gradient(270deg, #000 0%, rgba(0,0,0,0.4) 12%, transparent 28%),
+    linear-gradient(180deg, transparent 6%, #000 22%, #000 78%, transparent 94%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.edge-dots--sides {
+  -webkit-mask-image:
+    linear-gradient(90deg,
+      #000 0%, rgba(0,0,0,0.5) 8%, transparent 22%,
+      transparent 78%, rgba(0,0,0,0.5) 92%, #000 100%),
+    linear-gradient(180deg, transparent 4%, #000 20%, #000 80%, transparent 96%);
+  mask-image:
+    linear-gradient(90deg,
+      #000 0%, rgba(0,0,0,0.5) 8%, transparent 22%,
+      transparent 78%, rgba(0,0,0,0.5) 92%, #000 100%),
+    linear-gradient(180deg, transparent 4%, #000 20%, #000 80%, transparent 96%);
+  -webkit-mask-composite: source-in;
+  mask-composite: intersect;
+}
+
+.edge-dots--all {
+  -webkit-mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 32%, #000 82%);
+  mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 32%, #000 82%);
+}
+
+.section--about .edge-dots { animation-duration: 24s; }
+.section--portfolio .edge-dots { animation-duration: 28s; }
+.section--competences .edge-dots { animation-duration: 32s; }
+.section--cv .edge-dots { animation-duration: 30s; }
+.section--contact .edge-dots { animation-duration: 22s; }
+
+.section--about .edge-dots::before { animation-duration: 36s; }
+.section--portfolio .edge-dots::before { animation-duration: 40s; }
+.section--competences .edge-dots::before { animation-duration: 46s; }
+.section--cv .edge-dots::before { animation-duration: 42s; }
+.section--contact .edge-dots::before { animation-duration: 30s; }
+
+/* ============================================================
+   3. FOOTER RICHE — 4 colonnes + barre inférieure
    ============================================================ */
 .footer-inner--rich {
   display: grid;
@@ -60,6 +178,8 @@
   gap: 40px;
   align-items: start;
   padding: 56px 32px 40px;
+  max-width: 1320px;
+  margin: 0 auto;
 }
 
 .footer-col {
@@ -118,6 +238,8 @@
   display: flex;
   flex-direction: column;
   gap: 8px;
+  padding: 0;
+  margin: 0;
 }
 
 .footer-list li {
@@ -169,6 +291,8 @@
   font-size: 10.5px;
   letter-spacing: 0.1em;
   color: var(--fg-4);
+  max-width: 1320px;
+  margin: 0 auto;
 }
 
 .footer-bar-cell {
@@ -189,17 +313,26 @@
   animation: ledPulse 2s ease-in-out infinite;
 }
 
+/* Neutralise l'ancien .footer-inner simple s'il reste quelque part */
+.footer-inner:not(.footer-inner--rich) {
+  display: none;
+}
+
 @media (max-width: 1024px) {
   .footer-inner--rich {
     grid-template-columns: 1fr 1fr;
     gap: 32px;
+    padding: 44px 24px 32px;
+  }
+  .footer-bar {
+    padding: 14px 24px;
   }
 }
 
 @media (max-width: 640px) {
   .footer-inner--rich {
     grid-template-columns: 1fr;
-    padding: 40px 16px 24px;
+    padding: 36px 16px 24px;
     gap: 28px;
   }
 
@@ -215,7 +348,7 @@
 }
 
 /* ============================================================
-   3. COOKIE BANNER — RGPD-compliant, refuse & accept équivalents
+   4. COOKIE BANNER
    ============================================================ */
 .cookie-banner {
   position: fixed;
@@ -294,10 +427,7 @@
   margin: 0;
 }
 
-.cookie-text strong {
-  color: var(--fg);
-  font-weight: 600;
-}
+.cookie-text strong { color: var(--fg); font-weight: 600; }
 
 .cookie-text a {
   color: var(--violet);
@@ -306,9 +436,7 @@
   transition: color 0.2s ease;
 }
 
-.cookie-text a:hover {
-  color: var(--violet-2);
-}
+.cookie-text a:hover { color: var(--violet-2); }
 
 .cookie-actions {
   display: flex;
@@ -325,33 +453,22 @@
 }
 
 @media (max-width: 768px) {
-  .cookie-banner {
-    left: 12px;
-    right: 12px;
-    bottom: 12px;
-  }
-
+  .cookie-banner { left: 12px; right: 12px; bottom: 12px; }
   .cookie-inner {
     grid-template-columns: 1fr;
     gap: 14px;
     padding: 18px;
   }
-
-  .cookie-icon {
-    display: none;
-  }
-
-  .cookie-actions {
-    width: 100%;
-  }
-
-  .cookie-actions .cookie-btn {
-    flex: 1;
-  }
+  .cookie-icon { display: none; }
+  .cookie-actions { width: 100%; }
+  .cookie-actions .cookie-btn { flex: 1; }
 }
 
 /* ============================================================
-   4. PAGES LÉGALES (rgpd.html, cgu.html)
+   5. PAGES LÉGALES (rgpd.html, cgu.html)
+   Correctifs :
+   - scroll-margin-top augmenté pour compenser la nav fixe
+   - TOC plus compacte et 1 colonne sur mobile
    ============================================================ */
 .legal-page {
   position: relative;
@@ -410,6 +527,7 @@
   font-weight: 500;
 }
 
+/* --- TOC --- */
 .legal-toc {
   background: rgba(15, 15, 17, 0.6);
   backdrop-filter: blur(8px);
@@ -459,10 +577,9 @@
   transition: color 0.2s ease;
 }
 
-.legal-toc a:hover {
-  color: var(--violet);
-}
+.legal-toc a:hover { color: var(--violet); }
 
+/* --- Body --- */
 .legal-body {
   display: flex;
   flex-direction: column;
@@ -470,7 +587,7 @@
 }
 
 .legal-section {
-  scroll-margin-top: 100px;
+  scroll-margin-top: 120px;
 }
 
 .legal-section h2 {
@@ -512,9 +629,7 @@
   margin-bottom: 16px;
 }
 
-.legal-section p:last-child {
-  margin-bottom: 0;
-}
+.legal-section p:last-child { margin-bottom: 0; }
 
 .legal-section ul {
   list-style: none;
@@ -560,9 +675,7 @@
   transition: color 0.2s ease;
 }
 
-.legal-section a:hover {
-  color: var(--violet-2);
-}
+.legal-section a:hover { color: var(--violet-2); }
 
 .legal-callout {
   border-left: 2px solid var(--violet);
@@ -611,9 +724,7 @@
   line-height: 1.6;
 }
 
-.legal-table tr:last-child td {
-  border-bottom: none;
-}
+.legal-table tr:last-child td { border-bottom: none; }
 
 .legal-footer {
   margin-top: 64px;
@@ -633,9 +744,7 @@
   transition: color 0.2s ease;
 }
 
-.legal-footer a:hover {
-  color: var(--violet);
-}
+.legal-footer a:hover { color: var(--violet); }
 
 @media (max-width: 768px) {
   .legal-page {
@@ -644,6 +753,25 @@
 
   .legal-title {
     font-size: clamp(28px, 8vw, 44px);
+  }
+
+  .legal-toc {
+    padding: 16px 18px;
+    margin-bottom: 40px;
+  }
+
+  /* 1 seule colonne sur mobile : la TOC reste courte et lisible */
+  .legal-toc ol {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+
+  .legal-toc li {
+    font-size: 12px;
+  }
+
+  .legal-section {
+    scroll-margin-top: 90px;
   }
 
   .legal-section h2 {
@@ -661,7 +789,7 @@
 }
 
 /* ============================================================
-   5. PAGE 404
+   6. PAGE 404
    ============================================================ */
 .error-page {
   position: relative;
