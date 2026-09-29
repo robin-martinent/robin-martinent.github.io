@@ -1,10 +1,62 @@
 /* ============================================================
-   PAGES.CSS — legal pages · cookie banner · 404 · footer rich
-   Corrections : edge-dots full-bleed + scroll-margin + TOC mobile
+   PAGES.CSS — sections pleine largeur · footer shader arc
+   + legal pages · cookie banner · 404
    ============================================================ */
 
 /* ============================================================
-   1. HERO CTA — un seul bouton principal + liens discrets
+   0. BOOT LOG — scroll
+   ============================================================ */
+.boot-log {
+  max-height: 260px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-3) transparent;
+}
+
+.boot-log::-webkit-scrollbar { width: 6px; }
+.boot-log::-webkit-scrollbar-track { background: transparent; }
+.boot-log::-webkit-scrollbar-thumb {
+  background: var(--border-3);
+  border-radius: 3px;
+}
+
+/* ============================================================
+   1. SECTIONS — pleine largeur du body
+   La section s'étire sur tout le viewport ; un padding max()
+   ramène le contenu dans une colonne lisible de 1320px max.
+   ============================================================ */
+.section {
+  max-width: none;
+  margin: 0;
+  width: 100%;
+  padding: 80px max(32px, calc((100vw - 1320px) / 2));
+}
+
+.section--about,
+.section--portfolio,
+.section--competences,
+.section--cv,
+.section--contact {
+  padding-top: 96px;
+  padding-bottom: 96px;
+}
+
+@media (max-width: 768px) {
+  .section,
+  .section--about,
+  .section--portfolio,
+  .section--competences,
+  .section--cv,
+  .section--contact {
+    padding-top: 56px;
+    padding-bottom: 56px;
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}
+
+/* ============================================================
+   2. HERO CTA
    ============================================================ */
 .hero-cta--single {
   display: flex;
@@ -34,9 +86,7 @@
   border-bottom-color: var(--violet);
 }
 
-.hero-cta-sep {
-  color: var(--border-3);
-}
+.hero-cta-sep { color: var(--border-3); }
 
 @media (max-width: 768px) {
   .hero-cta--single {
@@ -44,7 +94,6 @@
     align-items: stretch;
     gap: 12px;
   }
-
   .hero-cta-links {
     justify-content: center;
     flex-wrap: wrap;
@@ -52,10 +101,7 @@
 }
 
 /* ============================================================
-   2. EDGE DOTS — passage en full-bleed
-   Les sections ont max-width 1320px, donc les edge-dots étaient
-   clippés dans cette largeur. On les sort visuellement avec un
-   100vw centré sur le milieu de la section.
+   3. EDGE DOTS — déjà full-bleed
    ============================================================ */
 .edge-dots {
   position: absolute;
@@ -170,8 +216,36 @@
 .section--contact .edge-dots::before { animation-duration: 30s; }
 
 /* ============================================================
-   3. FOOTER RICHE — 4 colonnes + barre inférieure
+   4. FOOTER — avec shader arc en fond
    ============================================================ */
+footer {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+
+.footer-arc {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 0;
+  display: block;
+  pointer-events: auto;
+  opacity: 0.7;
+  transition: opacity 0.6s ease;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .footer-arc { display: none; }
+}
+
+.footer-inner--rich,
+.footer-bar {
+  position: relative;
+  z-index: 1;
+}
+
 .footer-inner--rich {
   display: grid;
   grid-template-columns: 1.5fr 1fr 1fr 1fr;
@@ -313,10 +387,7 @@
   animation: ledPulse 2s ease-in-out infinite;
 }
 
-/* Neutralise l'ancien .footer-inner simple s'il reste quelque part */
-.footer-inner:not(.footer-inner--rich) {
-  display: none;
-}
+.footer-inner:not(.footer-inner--rich) { display: none; }
 
 @media (max-width: 1024px) {
   .footer-inner--rich {
@@ -324,9 +395,7 @@
     gap: 32px;
     padding: 44px 24px 32px;
   }
-  .footer-bar {
-    padding: 14px 24px;
-  }
+  .footer-bar { padding: 14px 24px; }
 }
 
 @media (max-width: 640px) {
@@ -348,7 +417,7 @@
 }
 
 /* ============================================================
-   4. COOKIE BANNER
+   5. COOKIE BANNER
    ============================================================ */
 .cookie-banner {
   position: fixed;
@@ -376,9 +445,7 @@
   opacity: 1;
 }
 
-.cookie-banner[hidden] {
-  display: none;
-}
+.cookie-banner[hidden] { display: none; }
 
 .cookie-inner {
   display: grid;
@@ -465,10 +532,7 @@
 }
 
 /* ============================================================
-   5. PAGES LÉGALES (rgpd.html, cgu.html)
-   Correctifs :
-   - scroll-margin-top augmenté pour compenser la nav fixe
-   - TOC plus compacte et 1 colonne sur mobile
+   6. PAGES LÉGALES
    ============================================================ */
 .legal-page {
   position: relative;
@@ -527,7 +591,6 @@
   font-weight: 500;
 }
 
-/* --- TOC --- */
 .legal-toc {
   background: rgba(15, 15, 17, 0.6);
   backdrop-filter: blur(8px);
@@ -579,16 +642,13 @@
 
 .legal-toc a:hover { color: var(--violet); }
 
-/* --- Body --- */
 .legal-body {
   display: flex;
   flex-direction: column;
   gap: 48px;
 }
 
-.legal-section {
-  scroll-margin-top: 120px;
-}
+.legal-section { scroll-margin-top: 120px; }
 
 .legal-section h2 {
   font-family: var(--font-display);
@@ -747,49 +807,20 @@
 .legal-footer a:hover { color: var(--violet); }
 
 @media (max-width: 768px) {
-  .legal-page {
-    padding: 110px 20px 72px;
-  }
-
-  .legal-title {
-    font-size: clamp(28px, 8vw, 44px);
-  }
-
-  .legal-toc {
-    padding: 16px 18px;
-    margin-bottom: 40px;
-  }
-
-  /* 1 seule colonne sur mobile : la TOC reste courte et lisible */
-  .legal-toc ol {
-    grid-template-columns: 1fr;
-    gap: 6px;
-  }
-
-  .legal-toc li {
-    font-size: 12px;
-  }
-
-  .legal-section {
-    scroll-margin-top: 90px;
-  }
-
-  .legal-section h2 {
-    font-size: 19px;
-  }
-
-  .legal-table {
-    font-size: 11.5px;
-  }
-
+  .legal-page { padding: 110px 20px 72px; }
+  .legal-title { font-size: clamp(28px, 8vw, 44px); }
+  .legal-toc { padding: 16px 18px; margin-bottom: 40px; }
+  .legal-toc ol { grid-template-columns: 1fr; gap: 6px; }
+  .legal-toc li { font-size: 12px; }
+  .legal-section { scroll-margin-top: 90px; }
+  .legal-section h2 { font-size: 19px; }
+  .legal-table { font-size: 11.5px; }
   .legal-table th,
-  .legal-table td {
-    padding: 10px 12px;
-  }
+  .legal-table td { padding: 10px 12px; }
 }
 
 /* ============================================================
-   6. PAGE 404
+   7. PAGE 404
    ============================================================ */
 .error-page {
   position: relative;
