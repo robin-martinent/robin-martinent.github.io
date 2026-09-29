@@ -1,9 +1,6 @@
 /* ============================================================
-   Portfolio Robin Martinent — style complet fusionné
-   Inclut : shader gradient, ASCII field, curseur custom, boot,
-   sections pleine largeur + edge-dots, footer riche + shader arc,
-   cookie banner, pages légales (TOC en flux), 404.
-   -> Remplace style.css ET pages.css. Supprime le <link pages.css>.
+   Portfolio Robin Martinent — fond noir + dotting, layouts variés
+   (sans shader gradient, sans curseur custom)
    ============================================================ */
 
 *,
@@ -78,104 +75,7 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--border-3); }
 
 /* ============================================================
-   SHADER GRADIENT
-   ============================================================ */
-.shader-gradient {
-  position: fixed;
-  inset: 0;
-  z-index: 0;
-  pointer-events: none;
-  overflow: hidden;
-  background: var(--bg);
-}
-
-.shader-blob {
-  position: absolute;
-  border-radius: 50%;
-  filter: blur(90px);
-  will-change: transform, opacity;
-  mix-blend-mode: screen;
-}
-
-.blob-violet {
-  width: 62vw;
-  height: 62vw;
-  min-width: 480px;
-  min-height: 480px;
-  left: -18vw;
-  top: -14vh;
-  background: radial-gradient(circle at 40% 40%,
-    rgba(139, 92, 246, 0.55) 0%,
-    rgba(124, 58, 237, 0.32) 38%,
-    rgba(76, 29, 149, 0) 72%);
-  animation: shaderDriftA 28s ease-in-out infinite;
-}
-
-.blob-cyan {
-  width: 55vw;
-  height: 55vw;
-  min-width: 420px;
-  min-height: 420px;
-  right: -16vw;
-  top: 22vh;
-  background: radial-gradient(circle at 60% 40%,
-    rgba(103, 232, 249, 0.42) 0%,
-    rgba(8, 145, 178, 0.24) 40%,
-    rgba(0, 0, 0, 0) 72%);
-  animation: shaderDriftB 34s ease-in-out infinite;
-}
-
-.blob-magenta {
-  width: 48vw;
-  height: 48vw;
-  min-width: 360px;
-  min-height: 360px;
-  left: 18vw;
-  bottom: -18vh;
-  background: radial-gradient(circle at 50% 50%,
-    rgba(244, 114, 182, 0.38) 0%,
-    rgba(219, 39, 119, 0.20) 42%,
-    rgba(0, 0, 0, 0) 74%);
-  animation: shaderDriftC 30s ease-in-out infinite;
-}
-
-.blob-blue {
-  width: 42vw;
-  height: 42vw;
-  min-width: 320px;
-  min-height: 320px;
-  right: 12vw;
-  bottom: 8vh;
-  background: radial-gradient(circle at 45% 55%,
-    rgba(96, 165, 250, 0.34) 0%,
-    rgba(37, 99, 235, 0.18) 42%,
-    rgba(0, 0, 0, 0) 74%);
-  animation: shaderDriftD 40s ease-in-out infinite;
-}
-
-@keyframes shaderDriftA {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.9; }
-  33%      { transform: translate3d(6vw, 4vh, 0) scale(1.08); opacity: 1; }
-  66%      { transform: translate3d(-3vw, 7vh, 0) scale(0.96); opacity: 0.85; }
-}
-@keyframes shaderDriftB {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.85; }
-  40%      { transform: translate3d(-7vw, -3vh, 0) scale(1.06); opacity: 1; }
-  70%      { transform: translate3d(2vw, 6vh, 0) scale(0.94); opacity: 0.8; }
-}
-@keyframes shaderDriftC {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.8; }
-  30%      { transform: translate3d(-5vw, -6vh, 0) scale(1.05); opacity: 0.95; }
-  65%      { transform: translate3d(4vw, -2vh, 0) scale(0.98); opacity: 0.85; }
-}
-@keyframes shaderDriftD {
-  0%, 100% { transform: translate3d(0, 0, 0) scale(1); opacity: 0.75; }
-  45%      { transform: translate3d(5vw, -4vh, 0) scale(1.04); opacity: 0.9; }
-  80%      { transform: translate3d(-4vw, 3vh, 0) scale(0.96); opacity: 0.7; }
-}
-
-/* ============================================================
-   ASCII FIELD
+   ASCII FIELD — plein viewport, derrière tout le contenu
    ============================================================ */
 .ascii-field {
   position: fixed;
@@ -227,62 +127,6 @@ body {
     rgba(167, 139, 250, 0.018) 3px
   );
   mix-blend-mode: overlay;
-}
-
-/* ============================================================
-   CURSEUR CUSTOM
-   ============================================================ */
-.cursor-ring,
-.cursor-dot {
-  position: fixed;
-  top: 0;
-  left: 0;
-  pointer-events: none;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  opacity: 0;
-  will-change: transform, left, top;
-  z-index: 99999;
-}
-
-.cursor-ring {
-  width: 22px;
-  height: 22px;
-  border: 1px solid var(--violet);
-  transition: opacity 0.3s ease, width 0.2s ease, height 0.2s ease, border-color 0.2s ease;
-}
-.cursor-ring.visible { opacity: 0.65; }
-.cursor-ring.hovering {
-  width: 36px;
-  height: 36px;
-  border-color: var(--cyan);
-  background: rgba(103, 232, 249, 0.08);
-  opacity: 1;
-}
-
-.cursor-dot {
-  width: 4px;
-  height: 4px;
-  background: var(--violet);
-  box-shadow: 0 0 10px var(--violet);
-  transition: opacity 0.3s ease;
-}
-.cursor-dot.visible { opacity: 1; }
-
-* { cursor: none; }
-
-a, button, input, select, textarea,
-.btn, .nav-links a, .arrow, .dot,
-.game-clip, .game-close, .cv-item, .skill-card, .tool-tag,
-.ascii-field {
-  cursor: pointer;
-}
-
-@media (pointer: coarse) {
-  * { cursor: auto; }
-  a, button, .btn, .arrow, .dot, .game-clip { cursor: pointer; }
-  .cursor-ring,
-  .cursor-dot { display: none; }
 }
 
 /* ============================================================
@@ -620,10 +464,7 @@ nav.scrolled {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  pointer-events: none;
 }
-
-.hero-inner > * { pointer-events: auto; }
 
 .hero-tag {
   display: inline-flex;
@@ -892,8 +733,6 @@ nav.scrolled {
 
 /* ============================================================
    SECTIONS — pleine largeur du body
-   Le contenu reste dans une colonne de 1320 px max, centrée
-   par le padding. Les edge-dots débordent en 100vw.
    ============================================================ */
 .section {
   position: relative;
@@ -965,7 +804,7 @@ nav.scrolled {
 .section-title .accent { color: var(--violet); }
 
 /* ============================================================
-   EDGE DOTS
+   EDGE DOTS — full-bleed
    ============================================================ */
 .edge-dots {
   position: absolute;
@@ -1757,7 +1596,6 @@ footer {
   animation: ledPulse 2s ease-in-out infinite;
 }
 
-/* Le footer simple historique est caché si le riche est présent */
 .footer-inner:not(.footer-inner--rich) { display: none; }
 
 /* ============================================================
@@ -2629,12 +2467,6 @@ footer {
   .edge-dots { background-size: 18px 18px, 100% 100%, 100% 100%; }
   .edge-dots::before { background-size: 36px 36px; }
 
-  .shader-blob { filter: blur(70px); }
-  .blob-violet  { width: 90vw; height: 90vw; }
-  .blob-cyan    { width: 80vw; height: 80vw; }
-  .blob-magenta { width: 70vw; height: 70vw; }
-  .blob-blue    { width: 65vw; height: 65vw; }
-
   .cookie-banner { left: 12px; right: 12px; bottom: 12px; }
   .cookie-inner {
     grid-template-columns: 1fr;
@@ -2674,7 +2506,6 @@ footer {
   .scroll-arrow,
   .edge-dots,
   .edge-dots::before,
-  .shader-blob,
   .logo-liquid {
     animation: none !important;
   }
@@ -2682,7 +2513,6 @@ footer {
   .cursor-blink { opacity: 1; }
   .edge-dots { opacity: 0.55; }
   .edge-dots::before { opacity: 0.35; }
-  .shader-blob { opacity: 0.6; }
   .logo-liquid { opacity: 1; transform: scale(1); }
 
   .hero-tag,
