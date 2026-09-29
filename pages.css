@@ -1,9 +1,10 @@
 /* ============================================================
    pages.css — EXTENSIONS
    Chargé APRÈS style.css. Surcharge uniquement ce qui doit l'être :
-   - sections pleine largeur du body
-   - edge-dots full-bleed (décor des sections)
-   - variantes de layout (about en grille, compétences en grille)
+   - sections pleine largeur du body + overflow: hidden (évite que
+     les edge-dots d'une section débordent sur la suivante)
+   - edge-dots full-bleed
+   - variantes de layout (about/compétences en grille, cv asymétrique)
    - hero-cta à un seul bouton
    - footer riche 4 colonnes + shader arc
    - cookie banner RGPD
@@ -13,15 +14,13 @@
    ============================================================ */
 
 /* ============================================================
-   1. SECTIONS — pleine largeur du body
-   Surcharge `.section` de style.css (max-width + padding).
-   Le contenu reste dans une colonne de 1320 px max, centrée par
-   le padding max(). Les edge-dots débordent en 100vw.
+   1. SECTIONS — pleine largeur du body + overflow hidden
    ============================================================ */
 .section {
   max-width: none;
   margin: 0;
   padding: 80px max(32px, calc((100vw - 1320px) / 2));
+  overflow: hidden;
   isolation: isolate;
 }
 
@@ -36,8 +35,6 @@
 
 /* ============================================================
    2. EDGE DOTS — full-bleed, un seul layer + drift
-   Coût GPU réduit : une couche de points (22px) + un léger
-   halo dégradé, une seule animation `background-position`.
    ============================================================ */
 .edge-dots {
   position: absolute;
@@ -120,7 +117,6 @@
   mask-image: radial-gradient(ellipse 70% 70% at 50% 50%, transparent 32%, #000 82%);
 }
 
-/* Décalage d'animation pour éviter que les sections pulsent ensemble */
 .section--about .edge-dots       { animation-duration: 24s; animation-delay: -2s; }
 .section--portfolio .edge-dots   { animation-duration: 28s; animation-delay: -6s; }
 .section--competences .edge-dots { animation-duration: 32s; animation-delay: -10s; }
@@ -130,8 +126,6 @@
 /* ============================================================
    3. VARIANTES DE SECTION
    ============================================================ */
-
-/* --- À PROPOS : rail gauche + contenu à droite --- */
 .section--about {
   display: grid;
   grid-template-columns: 200px minmax(0, 1fr);
@@ -162,7 +156,6 @@
 .section--about .section-body { padding-top: 4px; }
 .section--about .section-title { margin-top: 0; }
 
-/* --- COMPÉTENCES : contenu à gauche + rail droit --- */
 .section--competences {
   display: grid;
   grid-template-columns: minmax(0, 1fr) 200px;
@@ -197,12 +190,10 @@
 
 .section--competences .section-title { margin-top: 0; }
 
-/* --- CV : colonnes asymétriques --- */
 .section--cv .cv-grid {
   grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
 }
 
-/* --- CONTACT : header centré --- */
 .section-head--center {
   justify-content: center;
   text-align: center;
@@ -248,8 +239,6 @@
 
 /* ============================================================
    5. FOOTER RICHE + shader arc
-   Surcharge `.footer-inner` (base simple de style.css) sans le
-   remplacer : les deux classes cohabitent sur le même élément.
    ============================================================ */
 footer {
   overflow: hidden;
@@ -415,7 +404,7 @@ footer {
 }
 
 /* ============================================================
-   6. COOKIE BANNER — RGPD-compliant, Refuser / Accepter égaux
+   6. COOKIE BANNER
    ============================================================ */
 .cookie-banner {
   position: fixed;
@@ -503,10 +492,7 @@ footer {
 }
 
 /* ============================================================
-   7. PAGES LÉGALES (rgpd.html, cgu.html)
-   Le sommaire est un bloc statique en haut, en flux normal :
-   il pousse le contenu vers le bas, ne le chevauche jamais,
-   et remonte avec le scroll sans position sticky / fixed.
+   7. PAGES LÉGALES
    ============================================================ */
 .legal-page {
   position: relative;
