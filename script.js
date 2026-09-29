@@ -1,5 +1,6 @@
 /* ============================================================
-   CHROME CORE — Interactive ASCII field (hero only) + site logic
+   CHROME CORE — Interactive ASCII field (full viewport) + logic
+   Boot sequence accélérée + 22 lignes de console.
    ============================================================ */
 
 (function () {
@@ -10,23 +11,15 @@
   const pad2 = (n) => n.toString().padStart(2, '0');
 
   /* ============================================================
-     1. INTERACTIVE ASCII FIELD — hero section only
-     - Base animated wave (two overlapping sines)
-     - Mouse hover brightens and tints nearby cells (violet)
-     - Click emits a rainbow radial wave from the click point
-     - Bottom of the field is masked into the section gradient
+     1. INTERACTIVE ASCII FIELD — plein viewport
      ============================================================ */
   (function initAsciiField() {
     const canvas = document.getElementById('asciiField');
-    const hero   = document.getElementById('heroSection');
-    if (!canvas || !hero) return;
+    if (!canvas) return;
 
     const ctx = canvas.getContext('2d', { alpha: true });
 
-    // Density ramp — index maps to intensity 0→1
     const GLYPHS = ['·', '.', ':', '-', '=', '+', '*', 'x', '#', '%', '@'];
-
-    // Cell size in CSS px
     const CELL_W = 14;
     const CELL_H = 16;
 
@@ -34,22 +27,18 @@
     let dpr = 1;
     let cols = 0, rows = 0;
 
-    // Smoothed mouse position (in canvas-local coords)
     let mx = -9999, my = -9999;
     let tmx = -9999, tmy = -9999;
     let hasMouse = false;
 
-    // ---- Tighter influence radii ----
-    const MOUSE_R = 90;
+    const MOUSE_R = 120;
     const MOUSE_R_SQ = MOUSE_R * MOUSE_R;
 
-    // Click waves — smaller and thinner
     const waves = [];
-    const WAVE_LIFE = 1200;      // ms
-    const WAVE_MAX_R = 220;      // px
-    const WAVE_THICKNESS = 34;   // px
+    const WAVE_LIFE = 1400;
+    const WAVE_MAX_R = 480;
+    const WAVE_THICKNESS = 60;
 
-    // FPS + HUD
     const hudFps = document.getElementById('hudFps');
     const hudCells = document.getElementById('hudCells');
 
@@ -58,9 +47,8 @@
 
     function resize() {
       dpr = Math.min(window.devicePixelRatio || 1, 2);
-      const rect = hero.getBoundingClientRect();
-      W = Math.max(1, rect.width);
-      H = Math.max(1, rect.height);
+      W = window.innerWidth;
+      H = window.innerHeight;
 
       canvas.width  = Math.floor(W * dpr);
       canvas.height = Math.floor(H * dpr);
@@ -76,69 +64,55 @@
     }
 
     resize();
-
-    if (typeof ResizeObserver !== 'undefined') {
-      const ro = new ResizeObserver(resize);
-      ro.observe(hero);
-    }
     window.addEventListener('resize', resize);
     setTimeout(resize, 80);
     setTimeout(resize, 400);
 
-    function toLocal(clientX, clientY) {
-      const rect = hero.getBoundingClientRect();
-      return {
-        x: clientX - rect.left,
-        y: clientY - rect.top
-      };
-    }
-
-    hero.addEventListener('mousemove', (e) => {
-      const p = toLocal(e.clientX, e.clientY);
-      tmx = p.x;
-      tmy = p.y;
+    window.addEventListener('mousemove', (e) => {
+      tmx = e.clientX;
+      tmy = e.clientY;
       if (!hasMouse) {
-        mx = tmx; my = tmy;
+        mx = tmx;
+        my = tmy;
         hasMouse = true;
       }
     });
 
-    hero.addEventListener('mouseleave', () => {
+    window.addEventListener('mouseleave', () => {
       hasMouse = false;
-      tmx = -9999; tmy = -9999;
+      tmx = -9999;
+      tmy = -9999;
     });
 
     let tintShift = 0;
 
-    hero.addEventListener('click', (e) => {
-      if (e.target.closest('a, button')) return;
+    window.addEventListener('click', (e) => {
+      if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow')) return;
 
-      const p = toLocal(e.clientX, e.clientY);
       const hue = (tintShift * 47 + performance.now() * 0.05) % 360;
 
       waves.push({
-        x: p.x,
-        y: p.y,
+        x: e.clientX,
+        y: e.clientY,
         t0: performance.now(),
         life: WAVE_LIFE,
-        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.5),
+        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
         hue: hue
       });
 
       tintShift = (tintShift + 1) % 12;
     });
 
-    hero.addEventListener('touchstart', (e) => {
-      if (e.target.closest('a, button')) return;
+    window.addEventListener('touchstart', (e) => {
+      if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow')) return;
       const t = e.touches[0];
       if (!t) return;
-      const p = toLocal(t.clientX, t.clientY);
       waves.push({
-        x: p.x,
-        y: p.y,
+        x: t.clientX,
+        y: t.clientY,
         t0: performance.now(),
         life: WAVE_LIFE,
-        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.5),
+        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
         hue: (performance.now() * 0.05) % 360
       });
     }, { passive: true });
@@ -170,8 +144,8 @@
 
     function render(now) {
       if (hasMouse) {
-        mx += (tmx - mx) * 0.18;
-        my += (tmy - my) * 0.18;
+        mx += (tmx - mx) * 0.16;
+        my += (tmy - my) * 0.16;
       } else {
         mx += (-9999 - mx) * 0.05;
         my += (-9999 - my) * 0.05;
@@ -202,7 +176,6 @@
 
           let intensity = 0.22 + baseWave * 0.16;
 
-          // ---- Mouse influence (tighter radius) ----
           let mouseFactor = 0;
           if (hasMouse) {
             const dxm = px - mx;
@@ -218,7 +191,6 @@
             }
           }
 
-          // ---- Wave influence ----
           let waveFactor = 0;
           let waveHue = 0;
           let waveProgress = 0;
@@ -277,7 +249,7 @@
             const h = (250 + tintShift * 12) % 360;
             ctx.fillStyle = `hsla(${h}, 55%, 68%, ${alpha * 0.9})`;
           } else {
-            ctx.fillStyle = `rgba(113, 113, 122, ${alpha * 0.7})`;
+            ctx.fillStyle = `rgba(113, 113, 122, ${alpha * 0.55})`;
           }
 
           ctx.fillText(glyph, px, py);
@@ -299,7 +271,7 @@
   })();
 
   /* ============================================================
-     2. BOOT
+     2. BOOT — rapide, 22 lignes, auto-scroll
      ============================================================ */
   (function initBoot() {
     const boot = document.getElementById('boot');
@@ -309,41 +281,54 @@
     if (!boot || !log || !bar) return;
 
     const LINES = [
-      'RM/OS  CHROME CORE  v4.0.1',
+      'RM/OS  CHROME CORE  BIOS v4.0.1',
       'Copyright (C) 1999-2026 Robin Martinent',
       '',
+      '> POST ............................. OK',
       '> Vérification mémoire ............ 640K OK',
+      '> Détection clavier ............... OK',
+      '> Détection souris ................ OK',
       '> Détection lecteur CD-ROM ........ OK',
+      '> Détection carte son ............. OK',
+      '> Initialisation GPU .............. OK',
+      '> Compilation shaders WebGL ....... OK',
       '> Chargement MONTAGE.SYS .......... OK',
       '> Chargement MOTION.DLL ........... OK',
       '> Chargement CREATIVE.DRV ......... OK',
-      '> Initialisation carte vidéo ...... OK',
+      '> Chargement CHROME.CORE .......... OK',
+      '> Chargement ASCII.FIELD .......... OK',
+      '> Indexation rushes /projets ...... OK',
       '> Montage des volumes D:\\ ......... OK',
+      '> Calibration timecode 25 fps ..... OK',
+      '> Ouverture session ............... ROBIN',
       '',
       '> BIENVENUE, ROBIN.'
     ];
 
     let done = false;
+
     function finish() {
       if (done) return;
       done = true;
       boot.classList.add('hidden');
-      setTimeout(() => { boot.style.display = 'none'; }, 700);
+      setTimeout(() => { boot.style.display = 'none'; }, 450);
     }
 
     window.addEventListener('keydown', finish);
     window.addEventListener('click', finish);
     window.addEventListener('touchstart', finish, { passive: true });
-    setTimeout(finish, 6500);
+    setTimeout(finish, 3800);
 
     if (reduceMotion) {
       log.textContent = LINES.join('\n');
       bar.style.width = '100%';
-      setTimeout(finish, 900);
+      setTimeout(finish, 400);
       return;
     }
 
-    let lineIdx = 0, charIdx = 0, out = '';
+    let lineIdx = 0;
+    let charIdx = 0;
+    let out = '';
 
     function typeNext() {
       if (done) return;
@@ -351,32 +336,35 @@
       if (lineIdx >= LINES.length) {
         if (hint) hint.textContent = 'CHARGEMENT DU PORTFOLIO...';
         bar.style.width = '100%';
-        setTimeout(finish, 500);
+        setTimeout(finish, 220);
         return;
       }
 
       const line = LINES[lineIdx];
+
       if (charIdx < line.length) {
         out += line[charIdx];
         charIdx++;
         log.textContent = out;
-        setTimeout(typeNext, line.length > 40 ? 3 : 11);
+        log.scrollTop = log.scrollHeight;
+        setTimeout(typeNext, 2);
       } else {
         out += '\n';
         log.textContent = out;
+        log.scrollTop = log.scrollHeight;
         lineIdx++;
         charIdx = 0;
         bar.style.width = Math.min((lineIdx / LINES.length) * 100, 100) + '%';
-        setTimeout(typeNext, 60);
+        setTimeout(typeNext, 14);
       }
     }
 
     typeNext();
 
     if (document.readyState === 'complete') {
-      setTimeout(finish, 5000);
+      setTimeout(finish, 3400);
     } else {
-      window.addEventListener('load', () => setTimeout(finish, 5000));
+      window.addEventListener('load', () => setTimeout(finish, 3400));
     }
   })();
 
@@ -792,7 +780,68 @@
   })();
 
   /* ============================================================
-     11. J / K / L AUTO-SCROLL
+     11. CUSTOM CURSOR — global
+     ============================================================ */
+  (function initCursor() {
+    const ring = document.getElementById('cursorRing');
+    const dot  = document.getElementById('cursorDot');
+    if (!ring || !dot) return;
+    if (window.matchMedia('(pointer: coarse)').matches) return;
+
+    let mx = window.innerWidth / 2;
+    let my = window.innerHeight / 2;
+    let rx = mx, ry = my;
+    let dx = mx, dy = my;
+    let visible = false;
+
+    function loop() {
+      rx += (mx - rx) * 0.18;
+      ry += (my - ry) * 0.18;
+      dx += (mx - dx) * 0.4;
+      dy += (my - dy) * 0.4;
+
+      ring.style.left = rx + 'px';
+      ring.style.top  = ry + 'px';
+      dot.style.left  = dx + 'px';
+      dot.style.top   = dy + 'px';
+
+      requestAnimationFrame(loop);
+    }
+
+    window.addEventListener('mousemove', (e) => {
+      mx = e.clientX;
+      my = e.clientY;
+
+      if (!visible) {
+        visible = true;
+        ring.classList.add('visible');
+        dot.classList.add('visible');
+        rx = mx; ry = my;
+        dx = mx; dy = my;
+      }
+    });
+
+    document.addEventListener('mouseleave', () => {
+      visible = false;
+      ring.classList.remove('visible');
+      dot.classList.remove('visible');
+    });
+
+    const hoverSel = 'a, button, .btn, .arrow, .dot, .game-clip, .cv-item, .skill-card, .tool-tag, .game-close, .nav-logo';
+
+    document.addEventListener('mouseover', (e) => {
+      if (e.target.closest(hoverSel)) ring.classList.add('hovering');
+    });
+
+    document.addEventListener('mouseout', (e) => {
+      if (e.target.closest(hoverSel)) ring.classList.remove('hovering');
+    });
+
+    loop();
+  })();
+
+  /* ============================================================
+     12. J / K / L AUTO-SCROLL
      ============================================================ */
   (function initAutoscroll() {
     const SPEED = 9;
@@ -844,7 +893,7 @@
   })();
 
   /* ============================================================
-     12. MINI-GAME
+     13. MINI-GAME
      ============================================================ */
   const gameModal   = document.getElementById('gameModal');
   const gameBoard   = document.getElementById('gameBoard');
@@ -956,7 +1005,7 @@
   }
 
   /* ============================================================
-     13. EASTER EGG — TYPE "MONTAGE"
+     14. EASTER EGG — TYPE "MONTAGE"
      ============================================================ */
   (function initEasterEgg() {
     let buffer = '';
