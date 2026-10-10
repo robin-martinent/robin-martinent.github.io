@@ -1,7 +1,6 @@
 /* ============================================================
    Portfolio Robin Martinent — ASCII field (hero only) + logique
-   Le canvas ASCII vit DANS le hero. Position : absolute. Les clics
-   n'émettent une onde arc-en-ciel que si on clique DANS le hero.
+   Ajouts : drag élastique du titre chromé « Créatif ».
    ============================================================ */
 
 (function () {
@@ -11,7 +10,7 @@
   const pad2 = (n) => n.toString().padStart(2, '0');
 
   /* ============================================================
-     1. ASCII FIELD — dans le hero uniquement
+     1. ASCII FIELD — dans le hero
      ============================================================ */
   (function initAsciiField() {
     const hero   = document.getElementById('heroSection');
@@ -76,7 +75,6 @@
     window.addEventListener('resize', scheduleResize, { passive: true });
     window.addEventListener('orientationchange', scheduleResize, { passive: true });
 
-    // Position souris convertie en coordonnées locales au hero
     function heroPoint(clientX, clientY) {
       const r = hero.getBoundingClientRect();
       return { x: clientX - r.left, y: clientY - r.top };
@@ -86,10 +84,7 @@
       const p = heroPoint(e.clientX, e.clientY);
       tmx = p.x;
       tmy = p.y;
-      if (!hasMouse) {
-        mx = p.x; my = p.y;
-        hasMouse = true;
-      }
+      if (!hasMouse) { mx = p.x; my = p.y; hasMouse = true; }
     }, { passive: true });
 
     window.addEventListener('mouseleave', () => {
@@ -99,7 +94,6 @@
 
     let tintShift = 0;
 
-    // Onde uniquement si le clic est dans les bornes du hero
     window.addEventListener('click', (e) => {
       if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow')) return;
       const r = hero.getBoundingClientRect();
@@ -282,7 +276,130 @@
   })();
 
   /* ============================================================
-     2. BOOT — frappe rapide + progression réelle 100 %
+     2. DRAG ÉLASTIQUE sur le titre chromé « Créatif »
+     — clic-glisser : rotation + translation suivent le pointeur
+     — relâchement : retour élastique avec overshoot (cubic-bezier 1.8)
+     ============================================================ */
+  (function initChromeTilt() {
+    const el = document.querySelector('.title-line.chrome');
+    if (!el || reduceMotion) return;
+
+    // Attend la fin de fadeUp (0.51s delay + 0.75s duration ≈ 1.26s)
+    // puis désactive l'animation pour libérer la propriété transform.
+    let ready = false;
+
+    function unlock() {
+      ready = true;
+      el.style.animation = 'none';
+    }
+
+    el.addEventListener('animationend', unlock, { once: true });
+    // Sécurité : si animationend ne se déclenche pas (navigateur exotique)
+    setTimeout(unlock, 1800);
+
+    const MAX_ROT = 14;   // degrés
+    const MAX_TX  = 26;   // pixels
+    const MAX_TY  = 26;   // pixels
+    const ROT_K   = 0.09; // degrés par pixel horizontal
+    const TX_K    = 0.18; // px par pixel horizontal
+    const TY_K    = 0.18; // px par pixel vertical
+
+    let dragging = false;
+    let pointerId = null;
+    let startX = 0, startY = 0;
+    let lastX = 0, lastY = 0;
+    let idleTimer = null;
+
+    function clamp(v, lo, hi) {
+      return v < lo ? lo : v > hi ? hi : v;
+    }
+
+    function applyTransform(tx, ty, rot) {
+      el.style.transform =
+        'translate3d(' + tx + 'px, ' + ty + 'px, 0) rotate(' + rot + 'deg)';
+    }
+
+    function beginDrag(e) {
+      if (!ready || dragging) return;
+      dragging = true;
+      pointerId = e.pointerId;
+
+      startX = e.clientX;
+      startY = e.clientY;
+      lastX = startX;
+      lastY = startY;
+
+      el.classList.remove('springing');
+      el.classList.add('dragging');
+
+      // Transition très courte pendant le drag → le texte suit le doigt
+      el.style.transition = 'transform 0.06s linear';
+
+      if (el.setPointerCapture) {
+        try { el.setPointerCapture(pointerId); } catch (err) {}
+      }
+
+      if (idleTimer) {
+        clearTimeout(idleTimer);
+        idleTimer = null;
+      }
+
+      e.preventDefault();
+    }
+
+    function moveDrag(e) {
+      if (!dragging || e.pointerId !== pointerId) return;
+
+      const dx = e.clientX - startX;
+      const dy = e.clientY - startY;
+
+      const rot = clamp(dx * ROT_K, -MAX_ROT, MAX_ROT);
+      const tx  = clamp(dx * TX_K,  -MAX_TX,  MAX_TX);
+      const ty  = clamp(dy * TY_K,  -MAX_TY,  MAX_TY);
+
+      lastX = e.clientX;
+      lastY = e.clientY;
+
+      applyTransform(tx, ty, rot);
+    }
+
+    function release() {
+      if (!dragging) return;
+      dragging = false;
+      pointerId = null;
+
+      el.classList.remove('dragging');
+      el.classList.add('springing');
+
+      // Rien à forcer : on remet juste la transition élastique et
+      // on laisse la transform redevenir identité.
+      el.style.transition = '';
+      applyTransform(0, 0, 0);
+
+      if (idleTimer) clearTimeout(idleTimer);
+      idleTimer = setTimeout(() => {
+        el.classList.remove('springing');
+        el.style.transform = '';
+        el.style.transition = '';
+      }, 1100);
+    }
+
+    el.addEventListener('pointerdown', beginDrag);
+    el.addEventListener('pointermove', moveDrag);
+    el.addEventListener('pointerup', release);
+    el.addEventListener('pointercancel', release);
+
+    // Si le pointeur sort de l'élément pendant le drag, on n'arrête pas
+    // le drag tout de suite — le setPointerCapture gère ça. Mais on
+    // relâche tout de même si l'utilisateur sort complètement.
+    el.addEventListener('lostpointercapture', release);
+
+    // Sécurité : si l'utilisateur relâche ailleurs dans la page
+    window.addEventListener('blur', release);
+  })();
+
+  /* ============================================================
+     3. BOOT
      ============================================================ */
   (function initBoot() {
     const boot = document.getElementById('boot');
@@ -421,9 +538,7 @@
         log.textContent = out;
         log.scrollTop = log.scrollHeight;
 
-        const pct = (typedChars / totalChars) * 100;
-        renderProgress(pct);
-
+        renderProgress((typedChars / totalChars) * 100);
         setTimeout(typeNext, CHAR_DELAY);
       } else {
         out += '\n';
@@ -433,9 +548,7 @@
         lineIdx++;
         charIdx = 0;
 
-        const pct = (typedChars / totalChars) * 100;
-        renderProgress(pct);
-
+        renderProgress((typedChars / totalChars) * 100);
         setTimeout(typeNext, LINE_DELAY);
       }
     }
@@ -444,24 +557,21 @@
   })();
 
   /* ============================================================
-     3. CLOCK
+     4. CLOCK
      ============================================================ */
   (function initClock() {
     const el = document.getElementById('navClock');
     if (!el) return;
     function tick() {
       const d = new Date();
-      el.textContent =
-        pad2(d.getHours()) + ':' +
-        pad2(d.getMinutes()) + ':' +
-        pad2(d.getSeconds());
+      el.textContent = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
     }
     tick();
     setInterval(tick, 1000);
   })();
 
   /* ============================================================
-     4. NAV SHRINK
+     5. NAV SHRINK
      ============================================================ */
   (function initNavScroll() {
     const nav = document.getElementById('navbar');
@@ -472,7 +582,7 @@
   })();
 
   /* ============================================================
-     5. CARROUSEL
+     6. CARROUSEL
      ============================================================ */
   (function initCarousel() {
     const track = document.getElementById('track');
@@ -530,7 +640,7 @@
   })();
 
   /* ============================================================
-     6. SCROLL REVEAL
+     7. SCROLL REVEAL
      ============================================================ */
   (function initReveal() {
     const els = document.querySelectorAll('.reveal');
@@ -554,19 +664,14 @@
   })();
 
   /* ============================================================
-     7. EXPLOSION / SMOKE / SOUND
+     8. EXPLOSION / SMOKE / SOUND
      ============================================================ */
   const smokeContainer   = document.getElementById('smokeContainer');
   const explosionOverlay = document.getElementById('explosionOverlay');
   const explosionText    = document.getElementById('explosionText');
 
   const PANIC_MESSAGES = [
-    '💥 BOOM !',
-    '🔥 FEU !',
-    '💀 RIP SITE',
-    '🤯 PANIQUE',
-    '😱 NOOOOOOON',
-    '💻 FUMÉE'
+    '💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOOON', '💻 FUMÉE'
   ];
 
   function createSmokeParticle() {
@@ -689,7 +794,7 @@
   }
 
   /* ============================================================
-     8. CLIPBOARD
+     9. CLIPBOARD
      ============================================================ */
   async function copyText(text) {
     try {
@@ -714,7 +819,7 @@
   }
 
   /* ============================================================
-     9. EMAIL BUTTON
+     10. EMAIL BUTTON
      ============================================================ */
   (function initEmailBtn() {
     const btn = document.getElementById('copyEmailBtn');
@@ -723,16 +828,10 @@
 
     const EMAIL = 'robin.martinent@gmail.com';
     const MSGS = [
-      'Copié',
-      'Copié ×2',
-      'Copié ×3',
-      'Copié ×4',
-      'T\'as vraiment copié ?',
-      'Recopie au cas où...',
-      'Tu vas casser le bouton',
-      'Arrête...',
-      'Ça va casser le site',
-      'NOOOOOOON'
+      'Copié', 'Copié ×2', 'Copié ×3', 'Copié ×4',
+      'T\'as vraiment copié ?', 'Recopie au cas où...',
+      'Tu vas casser le bouton', 'Arrête...',
+      'Ça va casser le site', 'NOOOOOOON'
     ];
     const SHAKES = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
 
@@ -781,7 +880,7 @@
   })();
 
   /* ============================================================
-     10. PHONE BUTTON
+     11. PHONE BUTTON
      ============================================================ */
   (function initPhoneBtn() {
     const btn = document.getElementById('copyPhoneBtn');
@@ -855,7 +954,7 @@
   })();
 
   /* ============================================================
-     11. J / K / L AUTO-SCROLL
+     12. J / K / L AUTO-SCROLL
      ============================================================ */
   (function initAutoscroll() {
     const SPEED = 9;
@@ -883,19 +982,13 @@
         speed = SPEED;
         cancelAnimationFrame(raf);
         step();
-        if (indicator) {
-          indicator.textContent = '▶ 3x';
-          indicator.classList.add('active');
-        }
+        if (indicator) { indicator.textContent = '▶ 3x'; indicator.classList.add('active'); }
         e.preventDefault();
       } else if (k === 'j') {
         speed = -SPEED;
         cancelAnimationFrame(raf);
         step();
-        if (indicator) {
-          indicator.textContent = '◀ 3x';
-          indicator.classList.add('active');
-        }
+        if (indicator) { indicator.textContent = '◀ 3x'; indicator.classList.add('active'); }
         e.preventDefault();
       } else if (k === 'k') {
         speed = 0;
@@ -907,7 +1000,7 @@
   })();
 
   /* ============================================================
-     12. MINI-GAME
+     13. MINI-GAME
      ============================================================ */
   const gameModal   = document.getElementById('gameModal');
   const gameBoard   = document.getElementById('gameBoard');
@@ -1019,7 +1112,7 @@
   }
 
   /* ============================================================
-     13. EASTER EGG — TYPE "MONTAGE"
+     14. EASTER EGG — TYPE "MONTAGE"
      ============================================================ */
   (function initEasterEgg() {
     let buffer = '';
