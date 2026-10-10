@@ -489,7 +489,7 @@ nav.scrolled {
   margin-bottom: 32px;
   width: fit-content;
   opacity: 0;
-  animation: fadeUp 0.7s 0.15s ease backwards;
+  animation: fadeUp 0.7s 0.15s ease forwards;
 }
 
 .tag-led {
@@ -601,7 +601,7 @@ nav.scrolled {
   max-width: 560px;
   margin-bottom: 44px;
   opacity: 0;
-  animation: fadeUp 0.75s 0.65s ease backwards;
+  animation: fadeUp 0.75s 0.65s ease forwards;
 }
 
 .cursor-blink {
@@ -620,7 +620,7 @@ nav.scrolled {
   gap: 10px;
   flex-wrap: wrap;
   opacity: 0;
-  animation: fadeUp 0.75s 0.78s ease backwards;
+  animation: fadeUp 0.75s 0.78s ease forwards;
 }
 
 @keyframes fadeUp {
@@ -635,7 +635,7 @@ nav.scrolled {
   padding-top: 28px;
   border-top: 1px solid var(--border);
   opacity: 0;
-  animation: fadeUp 0.9s 0.95s ease backwards;
+  animation: fadeUp 0.9s 0.95s ease forwards;
   flex-wrap: wrap;
 }
 
@@ -671,7 +671,7 @@ nav.scrolled {
   letter-spacing: 0.28em;
   color: var(--fg-4);
   opacity: 0;
-  animation: fadeUp 1s 1.15s ease backwards;
+  animation: fadeUp 1s 1.15s ease forwards;
   z-index: 6;
   pointer-events: none;
 }
