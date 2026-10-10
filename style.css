@@ -1,7 +1,8 @@
 /* ============================================================
    style.css — BASE
-   Le canvas ASCII vit DANS le hero (position: absolute). Le
-   titre « Créatif » a un effet chrome + italique + drag élastique.
+   Le canvas ASCII vit DANS le hero (position: absolute).
+   Les 3 lignes du titre sont draggables indépendamment, avec un
+   retour élastique. « Créatif » garde l'effet chrome + italique.
    ============================================================ */
 
 *,
@@ -506,15 +507,36 @@ nav.scrolled {
   color: var(--fg);
 }
 
+/* Base commune aux 3 lignes : chacune est une unité draggable
+   indépendante. transform-origin centré pour une rotation propre. */
 .title-line {
   display: block;
   opacity: 0;
   animation: fadeUp 0.75s ease forwards;
+
+  transform-origin: center center;
+  will-change: transform;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  cursor: grab;
 }
+
+.title-line.dragging {
+  cursor: grabbing;
+}
+
+/* Retour élastique : cubic-bezier avec overshoot (1.8)
+   Ne s'applique qu'au relâchement, jamais pendant le drag. */
+.title-line.springing {
+  transition: transform 0.95s cubic-bezier(0.34, 1.8, 0.64, 1);
+}
+
 .title-line:nth-child(1) { animation-delay: 0.25s; }
 .title-line:nth-child(2) { animation-delay: 0.38s; }
 .title-line:nth-child(3) { animation-delay: 0.51s; }
 
+/* « Réalisateur » : dégradé violet */
 .title-line.accent {
   background: linear-gradient(180deg, var(--violet) 0%, var(--violet-3) 100%);
   -webkit-background-clip: text;
@@ -523,10 +545,9 @@ nav.scrolled {
   color: transparent;
 }
 
-/* Chrome + italique + draggable
+/* « Créatif » : chrome + italique
    La bande sombre centrale (#70747e → #30323a) simule la ligne
-   d'horizon d'un métal courbé — c'est elle qui fait tout le travail.
-   L'italique renforce le côté « logo Y2K » et sert de poignée de drag. */
+   d'horizon d'un métal courbé — c'est elle qui fait tout le travail. */
 .title-line.chrome {
   font-style: italic;
   padding-right: 0.08em;
@@ -547,34 +568,17 @@ nav.scrolled {
     drop-shadow(0 2px 0 rgba(255, 255, 255, 0.12))
     drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.45))
     drop-shadow(0 0 40px rgba(167, 139, 250, 0.35));
-  transform-origin: center center;
-  cursor: grab;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: none;
-  will-change: transform;
-}
-
-.title-line.chrome.dragging {
-  cursor: grabbing;
-}
-
-/* État « élastique » : la transition appliquée au relâchement.
-   Le cubic-bezier avec un dépassement (1.8) crée l'effet ressort. */
-.title-line.chrome.springing {
-  transition: transform 0.95s cubic-bezier(0.34, 1.8, 0.64, 1);
 }
 
 @media (pointer: coarse) {
-  .title-line.chrome {
-    cursor: auto;
-  }
+  .title-line { cursor: auto; }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .title-line.chrome {
+  .title-line {
     cursor: default;
     touch-action: auto;
+    will-change: auto;
   }
 }
 
