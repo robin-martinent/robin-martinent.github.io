@@ -1,8 +1,7 @@
 /* ============================================================
    style.css — BASE
-   Le canvas ASCII vit DANS le hero (position: absolute), pas en
-   overlay plein viewport. Le reste de la page n'affiche que les
-   edge-dots des sections.
+   Le canvas ASCII vit DANS le hero (position: absolute). Le
+   titre « Créatif » a un effet chrome + italique + drag élastique.
    ============================================================ */
 
 *,
@@ -75,7 +74,7 @@ body {
 ::-webkit-scrollbar-thumb:hover { background: var(--border-3); }
 
 /* ============================================================
-   ASCII FIELD — DANS le hero uniquement (position: absolute)
+   ASCII FIELD — DANS le hero uniquement
    ============================================================ */
 .ascii-field {
   position: absolute;
@@ -524,10 +523,13 @@ nav.scrolled {
   color: transparent;
 }
 
-/* Effet chrome métallique — même dégradé que le 404.
+/* Chrome + italique + draggable
    La bande sombre centrale (#70747e → #30323a) simule la ligne
-   d'horizon d'un métal courbé : c'est elle qui fait tout le travail. */
+   d'horizon d'un métal courbé — c'est elle qui fait tout le travail.
+   L'italique renforce le côté « logo Y2K » et sert de poignée de drag. */
 .title-line.chrome {
+  font-style: italic;
+  padding-right: 0.08em;
   background: linear-gradient(180deg,
     #ffffff 0%,
     #d0d4dc 15%,
@@ -545,6 +547,35 @@ nav.scrolled {
     drop-shadow(0 2px 0 rgba(255, 255, 255, 0.12))
     drop-shadow(0 -1px 0 rgba(0, 0, 0, 0.45))
     drop-shadow(0 0 40px rgba(167, 139, 250, 0.35));
+  transform-origin: center center;
+  cursor: grab;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: none;
+  will-change: transform;
+}
+
+.title-line.chrome.dragging {
+  cursor: grabbing;
+}
+
+/* État « élastique » : la transition appliquée au relâchement.
+   Le cubic-bezier avec un dépassement (1.8) crée l'effet ressort. */
+.title-line.chrome.springing {
+  transition: transform 0.95s cubic-bezier(0.34, 1.8, 0.64, 1);
+}
+
+@media (pointer: coarse) {
+  .title-line.chrome {
+    cursor: auto;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .title-line.chrome {
+    cursor: default;
+    touch-action: auto;
+  }
 }
 
 .hero-sub {
@@ -1198,7 +1229,7 @@ nav.scrolled {
 }
 
 /* ============================================================
-   FOOTER — base simple (la version riche est dans pages.css)
+   FOOTER — base simple
    ============================================================ */
 footer {
   position: relative;
