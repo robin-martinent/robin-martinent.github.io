@@ -5,10 +5,10 @@
    edge-dots des sections.
 
    Les 3 lignes du titre (Monteur / Réalisateur / Créatif) sont
-   draggables indépendamment : tu tires horizontalement → le mot
-   s'étire en scaleX comme un élastique, puis revient en place
-   avec un léger overshoot au relâchement. « Créatif » porte en
-   plus l'effet chrome + italique.
+   draggables indépendamment : tu tires vers la droite → le mot
+   s'étire en scaleX depuis son bord gauche (ancrage à gauche),
+   puis revient en place avec un overshoot vif au relâchement.
+   « Créatif » porte en plus l'effet chrome + italique.
    ============================================================ */
 
 *,
@@ -523,7 +523,7 @@ nav.scrolled {
   opacity: 1;
   animation: fadeUp 0.75s ease backwards;
 
-  transform-origin: center center;
+  transform-origin: 0% 50%;
   will-change: transform;
   user-select: none;
   -webkit-user-select: none;
@@ -535,11 +535,11 @@ nav.scrolled {
   cursor: grabbing;
 }
 
-/* Retour élastique : cubic-bezier avec overshoot (1.8) — la courbe
-   dépasse 1 puis revient, ce qui re-squashe brièvement le mot
-   avant stabilisation. */
+/* Retour élastique : cubic-bezier avec overshoot fort (2.6) et durée
+   courte (0.55s) — la courbe dépasse largement la cible puis revient
+   d'un coup, ce qui donne un rebond nerveux. */
 .title-line.springing {
-  transition: transform 0.95s cubic-bezier(0.34, 1.8, 0.64, 1);
+  transition: transform 0.55s cubic-bezier(0.2, 2.6, 0.4, 1);
 }
 
 .title-line:nth-child(1) { animation-delay: 0.25s; }

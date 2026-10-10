@@ -3,9 +3,9 @@
 
    Drag élastique : les 3 lignes du titre (Monteur / Réalisateur /
    Créatif) sont draggables indépendamment. Tu tires vers la DROITE :
-   le mot s'étire en scaleX comme un élastique depuis son bord gauche
-   (le bord gauche reste ancré), avec un léger squash vertical. Au
-   relâchement, retour avec overshoot (cubic-bezier 1.8).
+   le mot s'étire en scaleX depuis son bord gauche (ancrage à gauche),
+   avec un léger squash vertical. Au relâchement, retour vif et
+   nerveux avec un fort overshoot (cubic-bezier 2.6 sur 0.55s).
 
    Pas de rotation, pas de translation — uniquement de l'étirement.
    ============================================================ */
@@ -287,19 +287,20 @@
 
      Principe :
      - Origin ancré à GAUCHE (0% 50%) → seul le côté droit s'étire.
-     - On tire vers la DROITE → scaleX augmente → le mot s'étire
-       comme un élastique. Tirer vers la gauche ne fait rien.
-     - Squash vertical léger (scaleY < 1) pendant l'étirement.
-     - Au relâchement, retour élastique avec overshoot.
+     - On tire vers la DROITE → scaleX augmente → le mot s'étire.
+       Tirer vers la gauche ne fait rien.
+     - Squash vertical léger pendant l'étirement.
+     - Au relâchement, retour vif : 0.55s, overshoot fort (2.6).
      ============================================================ */
   (function initTitleDrag() {
     const lines = document.querySelectorAll('.title-line');
     if (!lines.length || reduceMotion) return;
 
     // Sensibilité / amplitude — ajustables.
-    const STRETCH_K   = 0.014;  // 100 px de tirage → +1.4 sur scaleX
-    const MAX_STRETCH = 2.6;    // étirement max : jusqu'à 2.6× la largeur
-    const SQUASH_K    = 0.35;   // affinage vertical pendant l'étirement
+    // MOINS d'étirement qu'avant (STRETCH_K 0.014 → 0.008, MAX 2.6 → 1.8)
+    const STRETCH_K   = 0.008;  // 100 px de tirage → +0.8 sur scaleX
+    const MAX_STRETCH = 1.8;    // étirement max : 1.8× la largeur
+    const SQUASH_K    = 0.30;   // affinage vertical pendant l'étirement
 
     const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
 
@@ -364,11 +365,12 @@
         apply(1, 1);
 
         if (idleTimer) clearTimeout(idleTimer);
+        // Nettoyage plus rapide (700ms) pour coller à la transition 0.55s
         idleTimer = setTimeout(() => {
           el.classList.remove('springing');
           el.style.transform = '';
           el.style.transition = '';
-        }, 1100);
+        }, 700);
       }
 
       el.addEventListener('pointerdown', onDown);
