@@ -1,9 +1,12 @@
 /* ============================================================
-   Portfolio Robin Martinent — ASCII field (hero only) + logique
-   Drag élastique sur CHAQUE ligne du titre, indépendamment.
-   Fix : après l'animation fadeUp, on force opacity: 1 avant de
-   couper l'animation, sinon le mot disparaît (l'opacité de base
-   de .title-line est 0).
+   Portfolio Robin Martinent — ASCII field (hero) + logique.
+
+   Drag élastique : les 3 lignes du titre sont draggables
+   indépendamment. Plus de unlock() qui posait animation='none'
+   (ça cassait le fill-mode). À la place : CSS base opacity: 1
+   + animation-fill-mode: backwards → après l'animation, l'élément
+   revient naturellement à son état de base, transform: none,
+   donc la propriété transform est libre pour le drag.
    ============================================================ */
 
 (function () {
@@ -12,42 +15,32 @@
   const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const pad2 = (n) => n.toString().padStart(2, '0');
 
-  /* ============================================================
-     1. ASCII FIELD — dans le hero
-     ============================================================ */
+  /* 1. ASCII FIELD — dans le hero ============================ */
   (function initAsciiField() {
     const hero   = document.getElementById('heroSection');
     const canvas = document.getElementById('asciiField');
     if (!hero || !canvas) return;
 
     const ctx = canvas.getContext('2d', { alpha: true });
-    const GLYPHS = ['·', '.', ':', '-', '=', '+', '*', 'x', '#', '%', '@'];
+    const GLYPHS = ['·','.',':','-','=','+','*','x','#','%','@'];
     const CELL_W = 14;
     const CELL_H = 16;
     const MAX_DPR = 1.5;
     const FPS_CAP = 30;
 
-    let W = 0, H = 0, dpr = 1;
-    let cols = 0, rows = 0;
-
-    let mx = -9999, my = -9999;
-    let tmx = -9999, tmy = -9999;
+    let W = 0, H = 0, dpr = 1, cols = 0, rows = 0;
+    let mx = -9999, my = -9999, tmx = -9999, tmy = -9999;
     let hasMouse = false;
 
-    const MOUSE_R = 100;
-    const MOUSE_R_SQ = MOUSE_R * MOUSE_R;
-
+    const MOUSE_R = 100, MOUSE_R_SQ = MOUSE_R * MOUSE_R;
     const waves = [];
-    const WAVE_LIFE = 1200;
-    const WAVE_MAX_R = 400;
-    const WAVE_THICKNESS = 50;
+    const WAVE_LIFE = 1200, WAVE_MAX_R = 400, WAVE_THICKNESS = 50;
 
     const hudFps   = document.getElementById('hudFps');
     const hudCells = document.getElementById('hudCells');
 
     let fpsFrames = 0;
     let fpsLast = performance.now();
-
     let resizeTimer = null;
 
     function doResize() {
@@ -55,25 +48,19 @@
       const rect = hero.getBoundingClientRect();
       W = Math.max(1, Math.floor(rect.width));
       H = Math.max(1, Math.floor(rect.height));
-
       canvas.width  = Math.floor(W * dpr);
       canvas.height = Math.floor(H * dpr);
       canvas.style.width  = W + 'px';
       canvas.style.height = H + 'px';
-
       ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
-
       cols = Math.ceil(W / CELL_W) + 1;
       rows = Math.ceil(H / CELL_H) + 1;
-
       if (hudCells) hudCells.textContent = (cols * rows).toLocaleString('fr-FR');
     }
-
     function scheduleResize() {
       if (resizeTimer) clearTimeout(resizeTimer);
       resizeTimer = setTimeout(doResize, 150);
     }
-
     doResize();
     window.addEventListener('resize', scheduleResize, { passive: true });
     window.addEventListener('orientationchange', scheduleResize, { passive: true });
@@ -82,71 +69,53 @@
       const r = hero.getBoundingClientRect();
       return { x: clientX - r.left, y: clientY - r.top };
     }
-
     window.addEventListener('mousemove', (e) => {
       const p = heroPoint(e.clientX, e.clientY);
-      tmx = p.x;
-      tmy = p.y;
+      tmx = p.x; tmy = p.y;
       if (!hasMouse) { mx = p.x; my = p.y; hasMouse = true; }
     }, { passive: true });
-
     window.addEventListener('mouseleave', () => {
-      hasMouse = false;
-      tmx = -9999; tmy = -9999;
+      hasMouse = false; tmx = -9999; tmy = -9999;
     });
 
     let tintShift = 0;
-
     window.addEventListener('click', (e) => {
-      if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow')) return;
+      if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow, .title-line')) return;
       const r = hero.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right) return;
       if (e.clientY < r.top  || e.clientY > r.bottom) return;
       const p = heroPoint(e.clientX, e.clientY);
       const hue = (tintShift * 47 + performance.now() * 0.05) % 360;
-      waves.push({
-        x: p.x, y: p.y,
-        t0: performance.now(),
-        life: WAVE_LIFE,
-        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
-        hue
-      });
+      waves.push({ x: p.x, y: p.y, t0: performance.now(), life: WAVE_LIFE,
+        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8), hue });
       tintShift = (tintShift + 1) % 12;
     });
-
     window.addEventListener('touchstart', (e) => {
-      if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow')) return;
-      const t = e.touches[0];
-      if (!t) return;
+      if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow, .title-line')) return;
+      const t = e.touches[0]; if (!t) return;
       const r = hero.getBoundingClientRect();
       if (t.clientX < r.left || t.clientX > r.right) return;
       if (t.clientY < r.top  || t.clientY > r.bottom) return;
       const p = heroPoint(t.clientX, t.clientY);
-      waves.push({
-        x: p.x, y: p.y,
-        t0: performance.now(),
-        life: WAVE_LIFE,
+      waves.push({ x: p.x, y: p.y, t0: performance.now(), life: WAVE_LIFE,
         maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
-        hue: (performance.now() * 0.05) % 360
-      });
+        hue: (performance.now() * 0.05) % 360 });
     }, { passive: true });
 
     if (reduceMotion) {
       ctx.clearRect(0, 0, W, H);
       ctx.font = `500 ${Math.max(10, CELL_H * 0.75)}px 'JetBrains Mono', monospace`;
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
-
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-          const wave = Math.sin(x * 0.14) * 0.5 + Math.cos(y * 0.18) * 0.5;
-          const intensity = 0.3 + wave * 0.15;
+          const wave = Math.sin(x*0.14)*0.5 + Math.cos(y*0.18)*0.5;
+          const intensity = 0.3 + wave*0.15;
           if (intensity < 0.25) continue;
-          const ci = Math.min(GLYPHS.length - 1, Math.floor(intensity * GLYPHS.length));
+          const ci = Math.min(GLYPHS.length-1, Math.floor(intensity*GLYPHS.length));
           const ch = GLYPHS[ci];
           if (ch === '·' && intensity < 0.28) continue;
-          ctx.fillStyle = `rgba(167, 139, 250, ${intensity * 0.35})`;
-          ctx.fillText(ch, x * CELL_W + CELL_W * 0.5, y * CELL_H + CELL_H * 0.5);
+          ctx.fillStyle = `rgba(167,139,250,${intensity*0.35})`;
+          ctx.fillText(ch, x*CELL_W+CELL_W*0.5, y*CELL_H+CELL_H*0.5);
         }
       }
       return;
@@ -156,110 +125,81 @@
     const frameInterval = 1000 / FPS_CAP;
 
     function render(now) {
-      if (now - lastFrame < frameInterval) {
-        requestAnimationFrame(render);
-        return;
-      }
+      if (now - lastFrame < frameInterval) { requestAnimationFrame(render); return; }
       lastFrame = now;
 
-      if (hasMouse) {
-        mx += (tmx - mx) * 0.16;
-        my += (tmy - my) * 0.16;
-      } else {
-        mx += (-9999 - mx) * 0.05;
-        my += (-9999 - my) * 0.05;
-      }
+      if (hasMouse) { mx += (tmx-mx)*0.16; my += (tmy-my)*0.16; }
+      else          { mx += (-9999-mx)*0.05; my += (-9999-my)*0.05; }
 
-      for (let i = waves.length - 1; i >= 0; i--) {
+      for (let i = waves.length-1; i >= 0; i--) {
         if (now - waves[i].t0 > waves[i].life) waves.splice(i, 1);
       }
 
       const t = now * 0.001;
       ctx.clearRect(0, 0, W, H);
-
       const fontSize = Math.max(10, CELL_H * 0.78);
-      ctx.font = `500 ${fontSize}px 'JetBrains Mono', 'Menlo', monospace`;
-      ctx.textBaseline = 'middle';
-      ctx.textAlign = 'center';
+      ctx.font = `500 ${fontSize}px 'JetBrains Mono','Menlo',monospace`;
+      ctx.textBaseline = 'middle'; ctx.textAlign = 'center';
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
-          const px = x * CELL_W + CELL_W * 0.5;
-          const py = y * CELL_H + CELL_H * 0.5;
-
+          const px = x*CELL_W + CELL_W*0.5;
+          const py = y*CELL_H + CELL_H*0.5;
           const baseWave =
-            Math.sin(x * 0.14 + t * 0.55) * 0.55 +
-            Math.cos(y * 0.18 - t * 0.42) * 0.55;
-
-          let intensity = 0.22 + baseWave * 0.16;
+            Math.sin(x*0.14 + t*0.55)*0.55 + Math.cos(y*0.18 - t*0.42)*0.55;
+          let intensity = 0.22 + baseWave*0.16;
 
           let mouseFactor = 0;
           if (hasMouse) {
-            const dxm = px - mx;
-            const dym = py - my;
-            const d2 = dxm * dxm + dym * dym;
+            const dxm = px-mx, dym = py-my, d2 = dxm*dxm + dym*dym;
             if (d2 < MOUSE_R_SQ) {
               const d = Math.sqrt(d2);
-              const tt = 1 - d / MOUSE_R;
-              mouseFactor = tt * tt * (3 - 2 * tt);
-              if (mouseFactor * 1.25 > intensity) intensity = mouseFactor * 1.25;
+              const tt = 1 - d/MOUSE_R;
+              mouseFactor = tt*tt*(3 - 2*tt);
+              if (mouseFactor*1.25 > intensity) intensity = mouseFactor*1.25;
             }
           }
 
-          let waveFactor = 0;
-          let waveHue = 0;
-          let waveProgress = 0;
-
+          let waveFactor = 0, waveHue = 0, waveProgress = 0;
           for (let w = 0; w < waves.length; w++) {
             const wv = waves[w];
             const age = (now - wv.t0) / wv.life;
             if (age < 0 || age > 1) continue;
             const frontR = age * wv.maxR;
-            const dxw = px - wv.x;
-            const dyw = py - wv.y;
-            const dist = Math.sqrt(dxw * dxw + dyw * dyw);
+            const dxw = px-wv.x, dyw = py-wv.y;
+            const dist = Math.sqrt(dxw*dxw + dyw*dyw);
             const absDelta = Math.abs(dist - frontR);
             if (absDelta < WAVE_THICKNESS) {
-              const f = 1 - absDelta / WAVE_THICKNESS;
+              const f = 1 - absDelta/WAVE_THICKNESS;
               const fade = 1 - age;
-              const contrib = f * fade;
+              const contrib = f*fade;
               if (contrib > waveFactor) {
-                waveFactor = contrib;
-                waveHue = wv.hue;
-                waveProgress = age;
+                waveFactor = contrib; waveHue = wv.hue; waveProgress = age;
               }
             }
           }
-
-          if (waveFactor > 0) {
-            const target = waveFactor * 1.6;
-            if (target > intensity) intensity = target;
-          }
-
+          if (waveFactor > 0 && waveFactor*1.6 > intensity) intensity = waveFactor*1.6;
           if (intensity < 0.16) continue;
 
           const clamped = intensity > 1 ? 1 : intensity;
-
-          const ci = Math.min(GLYPHS.length - 1, Math.floor(clamped * GLYPHS.length));
+          const ci = Math.min(GLYPHS.length-1, Math.floor(clamped*GLYPHS.length));
           const glyph = GLYPHS[ci];
           if (glyph === '·' && clamped < 0.24) continue;
-
-          const alpha = Math.min(1, 0.25 + clamped * 0.85);
+          const alpha = Math.min(1, 0.25 + clamped*0.85);
 
           if (waveFactor > 0.15) {
-            const baseHue = (waveHue + waveProgress * 180) % 360;
-            ctx.fillStyle = `hsla(${baseHue}, 90%, ${58 + waveFactor * 15}%, ${Math.min(1, alpha * (0.6 + waveFactor * 0.9))})`;
+            const baseHue = (waveHue + waveProgress*180) % 360;
+            ctx.fillStyle = `hsla(${baseHue},90%,${58+waveFactor*15}%,${Math.min(1,alpha*(0.6+waveFactor*0.9))})`;
           } else if (mouseFactor > 0.65) {
-            ctx.fillStyle = `rgba(244, 236, 255, ${alpha})`;
+            ctx.fillStyle = `rgba(244,236,255,${alpha})`;
           } else if (mouseFactor > 0.25) {
-            ctx.fillStyle = `rgba(167, 139, 250, ${alpha})`;
+            ctx.fillStyle = `rgba(167,139,250,${alpha})`;
           } else if (clamped > 0.55) {
-            const h = (250 + tintShift * 12) % 360;
-            ctx.fillStyle = `hsla(${h}, 55%, 68%, ${alpha * 0.9})`;
+            const h = (250 + tintShift*12) % 360;
+            ctx.fillStyle = `hsla(${h},55%,68%,${alpha*0.9})`;
           } else {
-            ctx.fillStyle = `rgba(113, 113, 122, ${alpha * 0.55})`;
+            ctx.fillStyle = `rgba(113,113,122,${alpha*0.55})`;
           }
-
           ctx.fillText(glyph, px, py);
         }
       }
@@ -268,37 +208,21 @@
       const nowMs = performance.now();
       if (nowMs - fpsLast > 500) {
         if (hudFps) hudFps.textContent = Math.round(fpsFrames * 1000 / (nowMs - fpsLast));
-        fpsFrames = 0;
-        fpsLast = nowMs;
+        fpsFrames = 0; fpsLast = nowMs;
       }
-
       requestAnimationFrame(render);
     }
-
     requestAnimationFrame(render);
   })();
 
-  /* ============================================================
-     2. DRAG ÉLASTIQUE — sur CHAQUE ligne du titre, indépendamment
-     Chaque .title-line est sa propre unité draggable.
-     - pointerdown : capture le pointeur
-     - pointermove : translation + rotation proportionnelles
-     - pointerup   : retour élastique (overshoot cubic-bezier 1.8)
-     ============================================================ */
+  /* 2. DRAG ÉLASTIQUE — sur chaque .title-line, indépendamment */
   (function initTitleDrag() {
     const lines = document.querySelectorAll('.title-line');
     if (!lines.length || reduceMotion) return;
 
-    const MAX_ROT = 14;   // degrés
-    const MAX_TX  = 26;   // pixels
-    const MAX_TY  = 26;   // pixels
-    const ROT_K   = 0.09; // degrés par pixel horizontal
-    const TX_K    = 0.18; // px par pixel horizontal
-    const TY_K    = 0.18; // px par pixel vertical
-
-    function clamp(v, lo, hi) {
-      return v < lo ? lo : v > hi ? hi : v;
-    }
+    const MAX_ROT = 14, MAX_TX = 26, MAX_TY = 26;
+    const ROT_K = 0.09, TX_K = 0.18, TY_K = 0.18;
+    const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
 
     lines.forEach((el) => {
       let ready = false;
@@ -307,71 +231,46 @@
       let startX = 0, startY = 0;
       let idleTimer = null;
 
-      // Fin de fadeUp : on fige l'état final (opacity: 1) puis on
-      // coupe l'animation pour libérer transform.
-      function unlock() {
-        if (ready) return;
-        ready = true;
-        el.style.opacity = '1';
-        el.style.animation = 'none';
-      }
-
-      el.addEventListener('animationend', unlock, { once: true });
-      setTimeout(unlock, 1800);
+      // Pas de animation='none' → l'animation se termine naturellement.
+      // fill-mode: backwards garantit qu'après la fin, transform revient à none.
+      el.addEventListener('animationend', () => { ready = true; }, { once: true });
+      setTimeout(() => { ready = true; }, 1800);
 
       function apply(tx, ty, rot) {
         el.style.transform =
-          'translate3d(' + tx + 'px, ' + ty + 'px, 0) rotate(' + rot + 'deg)';
+          'translate3d(' + tx + 'px,' + ty + 'px,0) rotate(' + rot + 'deg)';
       }
 
-      function onPointerDown(e) {
+      function onDown(e) {
         if (!ready || dragging) return;
         dragging = true;
         pointerId = e.pointerId;
-
-        startX = e.clientX;
-        startY = e.clientY;
-
+        startX = e.clientX; startY = e.clientY;
         el.classList.remove('springing');
         el.classList.add('dragging');
         el.style.transition = 'transform 0.06s linear';
-
-        if (el.setPointerCapture) {
-          try { el.setPointerCapture(pointerId); } catch (err) {}
-        }
-
-        if (idleTimer) {
-          clearTimeout(idleTimer);
-          idleTimer = null;
-        }
-
+        if (el.setPointerCapture) { try { el.setPointerCapture(pointerId); } catch (err) {} }
+        if (idleTimer) { clearTimeout(idleTimer); idleTimer = null; }
         e.preventDefault();
       }
 
-      function onPointerMove(e) {
+      function onMove(e) {
         if (!dragging || e.pointerId !== pointerId) return;
-
         const dx = e.clientX - startX;
         const dy = e.clientY - startY;
-
-        const rot = clamp(dx * ROT_K, -MAX_ROT, MAX_ROT);
-        const tx  = clamp(dx * TX_K,  -MAX_TX,  MAX_TX);
-        const ty  = clamp(dy * TY_K,  -MAX_TY,  MAX_TY);
-
+        const rot = clamp(dx*ROT_K, -MAX_ROT, MAX_ROT);
+        const tx  = clamp(dx*TX_K,  -MAX_TX,  MAX_TX);
+        const ty  = clamp(dy*TY_K,  -MAX_TY,  MAX_TY);
         apply(tx, ty, rot);
       }
 
       function release() {
         if (!dragging) return;
-        dragging = false;
-        pointerId = null;
-
+        dragging = false; pointerId = null;
         el.classList.remove('dragging');
         el.classList.add('springing');
-
         el.style.transition = '';
         apply(0, 0, 0);
-
         if (idleTimer) clearTimeout(idleTimer);
         idleTimer = setTimeout(() => {
           el.classList.remove('springing');
@@ -380,8 +279,8 @@
         }, 1100);
       }
 
-      el.addEventListener('pointerdown', onPointerDown);
-      el.addEventListener('pointermove', onPointerMove);
+      el.addEventListener('pointerdown', onDown);
+      el.addEventListener('pointermove', onMove);
       el.addEventListener('pointerup', release);
       el.addEventListener('pointercancel', release);
       el.addEventListener('lostpointercapture', release);
@@ -389,9 +288,7 @@
     });
   })();
 
-  /* ============================================================
-     3. BOOT
-     ============================================================ */
+  /* 3. BOOT ================================================== */
   (function initBoot() {
     const boot = document.getElementById('boot');
     const log  = document.getElementById('bootLog');
@@ -404,10 +301,8 @@
       const entries = performance.getEntriesByType('navigation');
       if (entries && entries.length && entries[0].type) navType = entries[0].type;
     } catch (e) {}
-
     let bootAlreadyDone = false;
     try { bootAlreadyDone = sessionStorage.getItem('rm_boot_done') === '1'; } catch (e) {}
-
     const isReload = navType === 'reload';
     const isBack   = navType === 'back_forward';
 
@@ -416,16 +311,13 @@
       boot.style.display = 'none';
       return;
     }
-
     function markDone() {
       try { sessionStorage.setItem('rm_boot_done', '1'); } catch (e) {}
     }
-
     const LINES = [
       'ROBIN MARTINENT · PORTFOLIO · v4.0.1',
       'Copyright (C) 1999-2026 Robin Martinent',
-      '',
-      '> POST ............................. OK',
+      '', '> POST ............................. OK',
       '> Vérification mémoire ............ 640K OK',
       '> Détection clavier ............... OK',
       '> Détection souris ................ OK',
@@ -448,12 +340,9 @@
       '> Montage des volumes D:\\ ......... OK',
       '> Calibration timecode 25 fps ..... OK',
       '> Ouverture session ............... ROBIN',
-      '',
-      '> BIENVENUE, ROBIN.'
+      '', '> BIENVENUE, ROBIN.'
     ];
-
-    const totalChars = LINES.reduce((sum, l) => sum + l.length + 1, 0);
-
+    const totalChars = LINES.reduce((s,l) => s + l.length + 1, 0);
     let done = false;
 
     function renderProgress(pct) {
@@ -461,11 +350,9 @@
       bar.style.width = v + '%';
       if (hint) hint.textContent = '[ ' + v + ' % ]';
     }
-
     function finish() {
       if (done) return;
-      done = true;
-      markDone();
+      done = true; markDone();
       renderProgress(100);
       boot.classList.add('hidden');
       setTimeout(() => { boot.style.display = 'none'; }, 400);
@@ -476,21 +363,17 @@
       if (skipping || done) return;
       skipping = true;
       out = LINES.join('\n');
-      log.textContent = out;
-      log.scrollTop = log.scrollHeight;
+      log.textContent = out; log.scrollTop = log.scrollHeight;
       renderProgress(100);
       if (hint) hint.textContent = '[ 100 % ] PRÊT';
       clearTimeout(failsafe);
       setTimeout(finish, 250);
     }
-
     window.addEventListener('keydown', skipToEnd);
     window.addEventListener('click', skipToEnd);
     window.addEventListener('touchstart', skipToEnd, { passive: true });
 
-    const failsafe = setTimeout(() => {
-      if (!done) skipToEnd();
-    }, 4500);
+    const failsafe = setTimeout(() => { if (!done) skipToEnd(); }, 4500);
 
     if (reduceMotion) {
       log.textContent = LINES.join('\n');
@@ -501,17 +384,12 @@
       return;
     }
 
-    let lineIdx = 0;
-    let charIdx = 0;
-    let typedChars = 0;
+    let lineIdx = 0, charIdx = 0, typedChars = 0;
     let out = '';
-
-    const CHAR_DELAY = 1.5;
-    const LINE_DELAY = 8;
+    const CHAR_DELAY = 1.5, LINE_DELAY = 8;
 
     function typeNext() {
       if (done || skipping) return;
-
       if (lineIdx >= LINES.length) {
         renderProgress(100);
         if (hint) hint.textContent = '[ 100 % ] PRÊT';
@@ -519,37 +397,24 @@
         setTimeout(finish, 300);
         return;
       }
-
       const line = LINES[lineIdx];
-
       if (charIdx < line.length) {
-        out += line[charIdx];
-        charIdx++;
-        typedChars++;
-        log.textContent = out;
-        log.scrollTop = log.scrollHeight;
-
+        out += line[charIdx]; charIdx++; typedChars++;
+        log.textContent = out; log.scrollTop = log.scrollHeight;
         renderProgress((typedChars / totalChars) * 100);
         setTimeout(typeNext, CHAR_DELAY);
       } else {
-        out += '\n';
-        typedChars++;
-        log.textContent = out;
-        log.scrollTop = log.scrollHeight;
-        lineIdx++;
-        charIdx = 0;
-
+        out += '\n'; typedChars++;
+        log.textContent = out; log.scrollTop = log.scrollHeight;
+        lineIdx++; charIdx = 0;
         renderProgress((typedChars / totalChars) * 100);
         setTimeout(typeNext, LINE_DELAY);
       }
     }
-
     typeNext();
   })();
 
-  /* ============================================================
-     4. CLOCK
-     ============================================================ */
+  /* 4. CLOCK ================================================= */
   (function initClock() {
     const el = document.getElementById('navClock');
     if (!el) return;
@@ -557,13 +422,10 @@
       const d = new Date();
       el.textContent = pad2(d.getHours()) + ':' + pad2(d.getMinutes()) + ':' + pad2(d.getSeconds());
     }
-    tick();
-    setInterval(tick, 1000);
+    tick(); setInterval(tick, 1000);
   })();
 
-  /* ============================================================
-     5. NAV SHRINK
-     ============================================================ */
+  /* 5. NAV SHRINK ============================================ */
   (function initNavScroll() {
     const nav = document.getElementById('navbar');
     if (!nav) return;
@@ -572,9 +434,7 @@
     }, { passive: true });
   })();
 
-  /* ============================================================
-     6. CARROUSEL
-     ============================================================ */
+  /* 6. CARROUSEL ============================================= */
   (function initCarousel() {
     const track = document.getElementById('track');
     const dots  = document.getElementById('dots');
@@ -597,30 +457,21 @@
         dots.appendChild(d);
       }
     }
-
     function go(n) {
       index = ((n % TOTAL) + TOTAL) % TOTAL;
       track.style.transform = 'translateX(-' + (index * 100) + '%)';
-      dots.querySelectorAll('.dot').forEach((d, i) => {
-        d.classList.toggle('active', i === index);
-      });
+      dots.querySelectorAll('.dot').forEach((d,i) => d.classList.toggle('active', i === index));
     }
-
     build();
-
     if (prev) prev.addEventListener('click', () => go(index - 1));
     if (next) next.addEventListener('click', () => go(index + 1));
 
     let touchX = 0;
-    track.addEventListener('touchstart', (e) => {
-      touchX = e.touches[0].clientX;
-    }, { passive: true });
-
+    track.addEventListener('touchstart', (e) => { touchX = e.touches[0].clientX; }, { passive: true });
     track.addEventListener('touchend', (e) => {
       const diff = touchX - e.changedTouches[0].clientX;
       if (Math.abs(diff) > 40) go(diff > 0 ? index + 1 : index - 1);
     });
-
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
       const modal = document.getElementById('gameModal');
@@ -630,18 +481,14 @@
     });
   })();
 
-  /* ============================================================
-     7. SCROLL REVEAL
-     ============================================================ */
+  /* 7. SCROLL REVEAL ======================================== */
   (function initReveal() {
     const els = document.querySelectorAll('.reveal');
     if (!els.length) return;
-
     if (!('IntersectionObserver' in window)) {
       els.forEach((el) => el.classList.add('visible'));
       return;
     }
-
     const io = new IntersectionObserver((entries) => {
       entries.forEach((entry, i) => {
         if (entry.isIntersecting) {
@@ -650,132 +497,96 @@
         }
       });
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
-
     els.forEach((el) => io.observe(el));
   })();
 
-  /* ============================================================
-     8. EXPLOSION / SMOKE / SOUND
-     ============================================================ */
+  /* 8. EXPLOSION / SMOKE / SOUND ============================= */
   const smokeContainer   = document.getElementById('smokeContainer');
   const explosionOverlay = document.getElementById('explosionOverlay');
   const explosionText    = document.getElementById('explosionText');
-
-  const PANIC_MESSAGES = [
-    '💥 BOOM !', '🔥 FEU !', '💀 RIP SITE', '🤯 PANIQUE', '😱 NOOOOOOON', '💻 FUMÉE'
-  ];
+  const PANIC_MESSAGES = ['💥 BOOM !','🔥 FEU !','💀 RIP SITE','🤯 PANIQUE','😱 NOOOOOOON','💻 FUMÉE'];
 
   function createSmokeParticle() {
     if (!smokeContainer) return;
     const p = document.createElement('div');
     p.className = 'smoke-particle';
-
-    const size  = 150 + Math.random() * 200;
-    const left  = Math.random() * 100;
-    const dur   = 5 + Math.random() * 4;
-    const delay = Math.random() * 2;
-    const op    = 0.3 + Math.random() * 0.3;
-
-    p.style.width  = size + 'px';
-    p.style.height = size + 'px';
-    p.style.left   = left + '%';
-    p.style.animationDuration = dur + 's';
-    p.style.animationDelay    = delay + 's';
+    const size = 150 + Math.random()*200;
+    const left = Math.random()*100;
+    const dur  = 5 + Math.random()*4;
+    const delay = Math.random()*2;
+    const op   = 0.3 + Math.random()*0.3;
+    p.style.width = size+'px'; p.style.height = size+'px';
+    p.style.left = left+'%';
+    p.style.animationDuration = dur+'s';
+    p.style.animationDelay = delay+'s';
     p.style.opacity = op;
     p.style.background =
-      'radial-gradient(circle, rgba(220,220,220,' + op + ') 0%, ' +
-      'rgba(180,180,180,' + (op * 0.4) + ') 40%, ' +
+      'radial-gradient(circle,rgba(220,220,220,'+op+') 0%,'+
+      'rgba(180,180,180,'+(op*0.4)+') 40%,'+
       'rgba(150,150,150,0) 80%)';
-
     smokeContainer.appendChild(p);
-    setTimeout(() => p.remove(), (dur + delay) * 1000 + 500);
+    setTimeout(() => p.remove(), (dur+delay)*1000 + 500);
   }
-
   function startSmoke() {
     if (!smokeContainer) return;
     smokeContainer.classList.add('active');
-    const count = 40 + Math.floor(Math.random() * 25);
-    for (let i = 0; i < count; i++) setTimeout(createSmokeParticle, i * 100);
-    for (let i = 0; i < 20; i++) setTimeout(createSmokeParticle, 2000 + i * 150);
+    const count = 40 + Math.floor(Math.random()*25);
+    for (let i = 0; i < count; i++) setTimeout(createSmokeParticle, i*100);
+    for (let i = 0; i < 20; i++) setTimeout(createSmokeParticle, 2000 + i*150);
   }
-
   function stopSmoke() {
     if (!smokeContainer) return;
     smokeContainer.classList.remove('active');
     setTimeout(() => { smokeContainer.innerHTML = ''; }, 3000);
   }
-
   function playExplosionSound() {
     try {
       const AC = window.AudioContext || window.webkitAudioContext;
       if (!AC) return;
-
       const ac = new AC();
-      const size = Math.floor(ac.sampleRate * 0.7);
-      const buf  = ac.createBuffer(1, size, ac.sampleRate);
+      const size = Math.floor(ac.sampleRate*0.7);
+      const buf = ac.createBuffer(1, size, ac.sampleRate);
       const data = buf.getChannelData(0);
-
       for (let i = 0; i < size; i++) {
-        const t = i / ac.sampleRate;
-        const env = Math.exp(-t * 5);
-        const sq  = Math.sign(Math.sin(2 * Math.PI * 80 * t));
-        const noi = (Math.random() * 2 - 1) * 0.3;
-        data[i] = (sq * 0.6 + noi) * env;
+        const t = i/ac.sampleRate;
+        const env = Math.exp(-t*5);
+        const sq = Math.sign(Math.sin(2*Math.PI*80*t));
+        const noi = (Math.random()*2 - 1)*0.3;
+        data[i] = (sq*0.6 + noi)*env;
       }
-
-      const src  = ac.createBufferSource();
-      src.buffer = buf;
-
+      const src = ac.createBufferSource(); src.buffer = buf;
       const gain = ac.createGain();
       gain.gain.setValueAtTime(1.2, ac.currentTime);
       gain.gain.exponentialRampToValueAtTime(0.001, ac.currentTime + 0.8);
-
       const dist = ac.createWaveShaper();
-      const n = 44100;
-      const curve = new Float32Array(n);
+      const n = 44100; const curve = new Float32Array(n);
       for (let i = 0; i < n; i++) {
-        const x = (i / n) * 2 - 1;
-        curve[i] = Math.tanh(x * 2) * 1.5;
+        const x = (i/n)*2 - 1;
+        curve[i] = Math.tanh(x*2)*1.5;
       }
       dist.curve = curve;
-
-      src.connect(dist);
-      dist.connect(gain);
-      gain.connect(ac.destination);
+      src.connect(dist); dist.connect(gain); gain.connect(ac.destination);
       src.start();
     } catch (e) {}
   }
-
   let isExploding = false;
-
   function triggerExplosion(resetFn) {
     if (isExploding) return;
     isExploding = true;
-
-    playExplosionSound();
-    startSmoke();
-
+    playExplosionSound(); startSmoke();
     if (explosionOverlay) explosionOverlay.classList.add('active');
     document.body.classList.add('site-shake');
-
-    if (explosionText) {
-      explosionText.textContent =
-        PANIC_MESSAGES[(Math.random() * PANIC_MESSAGES.length) | 0];
-    }
-
+    if (explosionText) explosionText.textContent = PANIC_MESSAGES[(Math.random()*PANIC_MESSAGES.length)|0];
     setTimeout(() => {
       document.body.classList.remove('site-shake');
       document.body.classList.add('site-fadeout');
       stopSmoke();
-
       setTimeout(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
         document.body.classList.remove('site-fadeout');
         document.body.classList.add('site-fadein');
-
         if (typeof resetFn === 'function') resetFn();
         if (explosionOverlay) explosionOverlay.classList.remove('active');
-
         setTimeout(() => {
           document.body.classList.remove('site-fadein');
           isExploding = false;
@@ -784,73 +595,48 @@
     }, 1500);
   }
 
-  /* ============================================================
-     9. CLIPBOARD
-     ============================================================ */
+  /* 9. CLIPBOARD ============================================ */
   async function copyText(text) {
-    try {
-      await navigator.clipboard.writeText(text);
-      return true;
-    } catch (e) {
+    try { await navigator.clipboard.writeText(text); return true; }
+    catch (e) {
       try {
         const ta = document.createElement('textarea');
-        ta.value = text;
-        ta.setAttribute('readonly', '');
-        ta.style.position = 'fixed';
-        ta.style.left = '-9999px';
-        document.body.appendChild(ta);
-        ta.select();
-        document.execCommand('copy');
-        document.body.removeChild(ta);
+        ta.value = text; ta.setAttribute('readonly','');
+        ta.style.position = 'fixed'; ta.style.left = '-9999px';
+        document.body.appendChild(ta); ta.select();
+        document.execCommand('copy'); document.body.removeChild(ta);
         return true;
-      } catch (err) {
-        return false;
-      }
+      } catch (err) { return false; }
     }
   }
 
-  /* ============================================================
-     10. EMAIL BUTTON
-     ============================================================ */
+  /* 10. EMAIL BUTTON ======================================== */
   (function initEmailBtn() {
     const btn = document.getElementById('copyEmailBtn');
     const fb  = document.getElementById('emailFeedbackMsg');
     if (!btn) return;
-
     const EMAIL = 'robin.martinent@gmail.com';
-    const MSGS = [
-      'Copié', 'Copié ×2', 'Copié ×3', 'Copié ×4',
-      'T\'as vraiment copié ?', 'Recopie au cas où...',
-      'Tu vas casser le bouton', 'Arrête...',
-      'Ça va casser le site', 'NOOOOOOON'
-    ];
-    const SHAKES = ['', 'shake1', 'shake2', 'shake3', 'shake4', 'shake5'];
-
+    const MSGS = ['Copié','Copié ×2','Copié ×3','Copié ×4',
+      'T\'as vraiment copié ?','Recopie au cas où...','Tu vas casser le bouton',
+      'Arrête...','Ça va casser le site','NOOOOOOON'];
+    const SHAKES = ['','shake1','shake2','shake3','shake4','shake5'];
     let clicks = 0;
-
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
       if (isExploding) return;
-
       await copyText(EMAIL);
-
       clicks++;
-      const idx = Math.min(clicks - 1, MSGS.length - 1);
+      const idx = Math.min(clicks-1, MSGS.length-1);
       if (fb) fb.textContent = MSGS[idx];
       btn.classList.add('copied');
-
       let level = 0;
-      if (clicks >= 10) level = 5;
-      else if (clicks >= 8) level = 4;
-      else if (clicks >= 6) level = 3;
-      else if (clicks >= 4) level = 2;
+      if (clicks >= 10) level = 5; else if (clicks >= 8) level = 4;
+      else if (clicks >= 6) level = 3; else if (clicks >= 4) level = 2;
       else if (clicks >= 2) level = 1;
-
       if (level > 0 && level < SHAKES.length) {
         btn.style.animation = SHAKES[level] + ' 0.5s ease';
         setTimeout(() => { btn.style.animation = ''; }, 500);
       }
-
       if (clicks >= MSGS.length) {
         setTimeout(() => {
           triggerExplosion(() => {
@@ -862,7 +648,6 @@
         }, 400);
         return;
       }
-
       setTimeout(() => {
         btn.classList.remove('copied');
         if (clicks < MSGS.length && fb) fb.textContent = 'Copié';
@@ -870,73 +655,47 @@
     });
   })();
 
-  /* ============================================================
-     11. PHONE BUTTON
-     ============================================================ */
+  /* 11. PHONE BUTTON ======================================== */
   (function initPhoneBtn() {
     const btn = document.getElementById('copyPhoneBtn');
     const fb  = document.getElementById('phoneFeedbackMsg');
     if (!btn) return;
-
     const PHONE = '0766740346';
-    const MSGS = [
-      'Copié',
-      'J\'allais pas faire la même chose...',
-      'Mais si, je l\'ai fait.',
-      'T\'es têtu toi.',
-      'Bon, voilà, c\'est copié.',
-      'Tu veux que je le dise plus fort ?',
-      '07 66 74 03 46',
-      'Ça suffit maintenant.',
-      'Je t\'ai copié 9 fois.',
-      'T\'as gagné, j\'arrête.'
-    ];
-    const WOBBLES = ['', 'wobble1', 'wobble2', 'wobble3', 'wobble4', 'wobble5'];
-
-    let clicks = 0;
-    let locked = false;
-
+    const MSGS = ['Copié','J\'allais pas faire la même chose...','Mais si, je l\'ai fait.',
+      'T\'es têtu toi.','Bon, voilà, c\'est copié.','Tu veux que je le dise plus fort ?',
+      '07 66 74 03 46','Ça suffit maintenant.','Je t\'ai copié 9 fois.','T\'as gagné, j\'arrête.'];
+    const WOBBLES = ['','wobble1','wobble2','wobble3','wobble4','wobble5'];
+    let clicks = 0, locked = false;
     btn.addEventListener('click', async (e) => {
       e.preventDefault();
       if (locked) return;
-
       await copyText(PHONE);
-
       clicks++;
-      const idx = Math.min(clicks - 1, MSGS.length - 1);
+      const idx = Math.min(clicks-1, MSGS.length-1);
       if (fb) fb.textContent = MSGS[idx];
       btn.classList.add('copied');
-
       let level = 0;
-      if (clicks >= 10) level = 5;
-      else if (clicks >= 8) level = 4;
-      else if (clicks >= 6) level = 3;
-      else if (clicks >= 4) level = 2;
+      if (clicks >= 10) level = 5; else if (clicks >= 8) level = 4;
+      else if (clicks >= 6) level = 3; else if (clicks >= 4) level = 2;
       else if (clicks >= 2) level = 1;
-
       if (level > 0 && level < WOBBLES.length) {
         btn.style.animation = WOBBLES[level] + ' 0.6s ease';
         setTimeout(() => { btn.style.animation = ''; }, 600);
       }
-
       if (clicks >= MSGS.length) {
-        locked = true;
-        btn.disabled = true;
+        locked = true; btn.disabled = true;
         btn.style.borderColor = 'var(--red)';
         btn.style.color = 'var(--red)';
-
         setTimeout(() => {
           btn.disabled = false;
           btn.classList.remove('copied');
           btn.style.borderColor = '';
           btn.style.color = '';
           if (fb) fb.textContent = 'Copié';
-          clicks = 0;
-          locked = false;
+          clicks = 0; locked = false;
         }, 3000);
         return;
       }
-
       setTimeout(() => {
         btn.classList.remove('copied');
         if (clicks < MSGS.length && fb) fb.textContent = 'Copié';
@@ -944,55 +703,36 @@
     });
   })();
 
-  /* ============================================================
-     12. J / K / L AUTO-SCROLL
-     ============================================================ */
+  /* 12. J / K / L AUTO-SCROLL =============================== */
   (function initAutoscroll() {
     const SPEED = 9;
     const indicator = document.getElementById('playIndicator');
-
-    let speed = 0;
-    let raf = null;
-
+    let speed = 0, raf = null;
     function step() {
-      if (speed !== 0) {
-        window.scrollBy(0, speed);
-        raf = requestAnimationFrame(step);
-      }
+      if (speed !== 0) { window.scrollBy(0, speed); raf = requestAnimationFrame(step); }
     }
-
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
       const modal = document.getElementById('gameModal');
       if (modal && modal.classList.contains('active')) return;
-
       const k = e.key.toLowerCase();
-
       if (k === 'l') {
-        speed = SPEED;
-        cancelAnimationFrame(raf);
-        step();
+        speed = SPEED; cancelAnimationFrame(raf); step();
         if (indicator) { indicator.textContent = '▶ 3x'; indicator.classList.add('active'); }
         e.preventDefault();
       } else if (k === 'j') {
-        speed = -SPEED;
-        cancelAnimationFrame(raf);
-        step();
+        speed = -SPEED; cancelAnimationFrame(raf); step();
         if (indicator) { indicator.textContent = '◀ 3x'; indicator.classList.add('active'); }
         e.preventDefault();
       } else if (k === 'k') {
-        speed = 0;
-        cancelAnimationFrame(raf);
+        speed = 0; cancelAnimationFrame(raf);
         if (indicator) indicator.classList.remove('active');
         e.preventDefault();
       }
     });
   })();
 
-  /* ============================================================
-     13. MINI-GAME
-     ============================================================ */
+  /* 13. MINI-GAME =========================================== */
   const gameModal   = document.getElementById('gameModal');
   const gameBoard   = document.getElementById('gameBoard');
   const gameTimerEl = document.getElementById('gameTimer');
@@ -1001,43 +741,27 @@
   const gameClose   = document.getElementById('gameClose');
   const gameRestart = document.getElementById('gameRestart');
 
-  let gameActive = false;
-  let gameStart = 0;
-  let gameInt = null;
-  let gameNext = 1;
-  let gameErr = 0;
+  let gameActive = false, gameStart = 0, gameInt = null, gameNext = 1, gameErr = 0;
 
   function openGame() {
     if (!gameModal) return;
     gameModal.classList.add('active');
     startGame();
   }
-
   function closeGame() {
     if (!gameModal) return;
     gameModal.classList.remove('active');
     gameActive = false;
     if (gameInt) clearInterval(gameInt);
   }
-
   function startGame() {
     if (!gameBoard) return;
-
-    gameActive = true;
-    gameNext = 1;
-    gameErr = 0;
-
+    gameActive = true; gameNext = 1; gameErr = 0;
     if (gameErrEl) gameErrEl.textContent = '0';
-    if (gameResult) {
-      gameResult.textContent = '';
-      gameResult.className = 'game-result';
-    }
-
+    if (gameResult) { gameResult.textContent = ''; gameResult.className = 'game-result'; }
     gameStart = performance.now();
-
-    const nums = [1, 2, 3, 4, 5].sort(() => Math.random() - 0.5);
+    const nums = [1,2,3,4,5].sort(() => Math.random() - 0.5);
     gameBoard.innerHTML = '';
-
     nums.forEach((num) => {
       const clip = document.createElement('button');
       clip.type = 'button';
@@ -1047,7 +771,6 @@
       clip.addEventListener('click', () => handleClip(clip, num));
       gameBoard.appendChild(clip);
     });
-
     if (gameInt) clearInterval(gameInt);
     gameInt = setInterval(() => {
       if (!gameActive) return;
@@ -1055,26 +778,18 @@
       if (gameTimerEl) gameTimerEl.textContent = t.toFixed(2);
     }, 50);
   }
-
   function handleClip(clip, num) {
     if (!gameActive || clip.classList.contains('done')) return;
-
     if (num === gameNext) {
-      clip.classList.add('done');
-      clip.textContent = '✓';
-      gameNext++;
-
+      clip.classList.add('done'); clip.textContent = '✓'; gameNext++;
       if (gameNext > 5) {
-        gameActive = false;
-        clearInterval(gameInt);
-
+        gameActive = false; clearInterval(gameInt);
         const t = (performance.now() - gameStart) / 1000;
         let msg;
         if (t < 2 && gameErr === 0)       msg = '🏆 Parfait. Monteur de génie.';
         else if (t < 3.5 && gameErr <= 1) msg = '🎬 Excellent montage.';
         else if (t < 5)                   msg = '👍 Bon rythme, continue comme ça.';
         else                              msg = '😅 Un peu lent, mais c\'est monté.';
-
         if (gameResult) {
           gameResult.textContent = msg + ' (' + t.toFixed(2) + 's · ' +
             gameErr + ' erreur' + (gameErr > 1 ? 's' : '') + ')';
@@ -1088,36 +803,23 @@
       setTimeout(() => clip.classList.remove('error'), 400);
     }
   }
-
   if (gameModal) {
     if (gameClose)   gameClose.addEventListener('click', closeGame);
     if (gameRestart) gameRestart.addEventListener('click', startGame);
-
-    gameModal.addEventListener('click', (e) => {
-      if (e.target === gameModal) closeGame();
-    });
-
+    gameModal.addEventListener('click', (e) => { if (e.target === gameModal) closeGame(); });
     document.addEventListener('keydown', (e) => {
       if (e.key === 'Escape' && gameModal.classList.contains('active')) closeGame();
     });
   }
 
-  /* ============================================================
-     14. EASTER EGG — TYPE "MONTAGE"
-     ============================================================ */
+  /* 14. EASTER EGG — TYPE "MONTAGE" ========================= */
   (function initEasterEgg() {
     let buffer = '';
-
     document.addEventListener('keydown', (e) => {
       if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
-
       buffer += e.key.toLowerCase();
       if (buffer.length > 12) buffer = buffer.slice(-12);
-
-      if (buffer.includes('montage')) {
-        buffer = '';
-        openGame();
-      }
+      if (buffer.includes('montage')) { buffer = ''; openGame(); }
     });
   })();
 
