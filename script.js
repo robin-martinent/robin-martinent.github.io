@@ -2,10 +2,12 @@
    Portfolio Robin Martinent — ASCII field (hero) + logique.
 
    Drag élastique : les 3 lignes du titre (Monteur / Réalisateur /
-   Créatif) sont draggables indépendamment. Tu tires horizontalement,
-   le mot s'étire (scaleX) comme un élastique, avec un léger squash
-   vertical (scaleY < 1) — principe squash & stretch. Au relâchement,
-   retour avec overshoot (cubic-bezier 1.8).
+   Créatif) sont draggables indépendamment. Tu tires vers la DROITE :
+   le mot s'étire en scaleX comme un élastique depuis son bord gauche
+   (le bord gauche reste ancré), avec un léger squash vertical. Au
+   relâchement, retour avec overshoot (cubic-bezier 1.8).
+
+   Pas de rotation, pas de translation — uniquement de l'étirement.
    ============================================================ */
 
 (function () {
@@ -284,28 +286,20 @@
      2. DRAG ÉLASTIQUE AVEC ÉTIREMENT — sur chaque .title-line
 
      Principe :
-     - pointerdown capture le pointeur et fixe le transform-origin
-       au point de saisie (le côté attrapé reste ancré sous le
-       doigt, l'autre côté s'étire en élastique).
-     - pointermove calcule dx/dy. dx → scaleX (étirement horizontal).
-       Un scaleY inversé (squash) affine le mot quand il s'étire.
-     - pointerup : transition cubic-bezier(0.34, 1.8, ...) → le mot
-       se re-squashe brièvement avant de reprendre sa forme exacte.
+     - Origin ancré à GAUCHE (0% 50%) → seul le côté droit s'étire.
+     - On tire vers la DROITE → scaleX augmente → le mot s'étire
+       comme un élastique. Tirer vers la gauche ne fait rien.
+     - Squash vertical léger (scaleY < 1) pendant l'étirement.
+     - Au relâchement, retour élastique avec overshoot.
      ============================================================ */
   (function initTitleDrag() {
     const lines = document.querySelectorAll('.title-line');
     if (!lines.length || reduceMotion) return;
 
-    const MAX_ROT     = 3;
-    const ROT_K       = 0.035;
-    const TX_K        = 0.25;
-    const TY_K        = 0.20;
-    const MAX_TX      = 14;
-    const MAX_TY      = 14;
-
-    const STRETCH_K   = 0.007;
-    const MAX_STRETCH = 1.55;
-    const SQUASH_K    = 0.45;
+    // Sensibilité / amplitude — ajustables.
+    const STRETCH_K   = 0.014;  // 100 px de tirage → +1.4 sur scaleX
+    const MAX_STRETCH = 2.6;    // étirement max : jusqu'à 2.6× la largeur
+    const SQUASH_K    = 0.35;   // affinage vertical pendant l'étirement
 
     const clamp = (v, lo, hi) => v < lo ? lo : v > hi ? hi : v;
 
@@ -313,34 +307,27 @@
       let ready = false;
       let dragging = false;
       let pointerId = null;
-      let startX = 0, startY = 0;
+      let startX = 0;
       let idleTimer = null;
 
       el.addEventListener('animationend', () => { ready = true; }, { once: true });
       setTimeout(() => { ready = true; }, 1800);
 
-      function apply(tx, ty, rot, sx, sy) {
-        el.style.transform =
-          'translate3d(' + tx + 'px,' + ty + 'px,0) ' +
-          'rotate(' + rot + 'deg) ' +
-          'scale(' + sx + ',' + sy + ')';
+      // Ancrage permanent au bord gauche, à mi-hauteur.
+      el.style.transformOrigin = '0% 50%';
+
+      function apply(sx, sy) {
+        el.style.transform = 'scale(' + sx + ',' + sy + ')';
       }
 
       function onDown(e) {
         if (!ready || dragging) return;
         dragging = true;
         pointerId = e.pointerId;
-
         startX = e.clientX;
-        startY = e.clientY;
-
-        const rect = el.getBoundingClientRect();
-        const ox = clamp(((e.clientX - rect.left) / rect.width) * 100, 0, 100);
-        el.style.transformOrigin = ox + '% 50%';
 
         el.classList.remove('springing');
         el.classList.add('dragging');
-
         el.style.transition = 'transform 0.06s linear';
 
         if (el.setPointerCapture) {
@@ -359,16 +346,10 @@
         if (!dragging || e.pointerId !== pointerId) return;
 
         const dx = e.clientX - startX;
-        const dy = e.clientY - startY;
-
-        const rot = clamp(dx * ROT_K, -MAX_ROT, MAX_ROT);
-        const tx  = clamp(dx * TX_K,  -MAX_TX,  MAX_TX);
-        const ty  = clamp(dy * TY_K,  -MAX_TY,  MAX_TY);
-
-        const sx = clamp(1 + Math.abs(dx) * STRETCH_K, 1, MAX_STRETCH);
+        // Étirement uniquement vers la droite. dx ≤ 0 → rien.
+        const sx = clamp(1 + Math.max(0, dx) * STRETCH_K, 1, MAX_STRETCH);
         const sy = 1 - (sx - 1) * SQUASH_K;
-
-        apply(tx, ty, rot, sx, sy);
+        apply(sx, sy);
       }
 
       function release() {
@@ -380,14 +361,13 @@
         el.classList.add('springing');
 
         el.style.transition = '';
-        apply(0, 0, 0, 1, 1);
+        apply(1, 1);
 
         if (idleTimer) clearTimeout(idleTimer);
         idleTimer = setTimeout(() => {
           el.classList.remove('springing');
           el.style.transform = '';
           el.style.transition = '';
-          el.style.transformOrigin = '';
         }, 1100);
       }
 
