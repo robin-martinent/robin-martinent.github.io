@@ -1,6 +1,9 @@
 /* ============================================================
    Portfolio Robin Martinent — ASCII field (hero only) + logique
-   Ajouts : drag élastique du titre chromé « Créatif ».
+   Drag élastique sur CHAQUE ligne du titre, indépendamment.
+   Fix : après l'animation fadeUp, on force opacity: 1 avant de
+   couper l'animation, sinon le mot disparaît (l'opacité de base
+   de .title-line est 0).
    ============================================================ */
 
 (function () {
@@ -276,26 +279,15 @@
   })();
 
   /* ============================================================
-     2. DRAG ÉLASTIQUE sur le titre chromé « Créatif »
-     — clic-glisser : rotation + translation suivent le pointeur
-     — relâchement : retour élastique avec overshoot (cubic-bezier 1.8)
+     2. DRAG ÉLASTIQUE — sur CHAQUE ligne du titre, indépendamment
+     Chaque .title-line est sa propre unité draggable.
+     - pointerdown : capture le pointeur
+     - pointermove : translation + rotation proportionnelles
+     - pointerup   : retour élastique (overshoot cubic-bezier 1.8)
      ============================================================ */
-  (function initChromeTilt() {
-    const el = document.querySelector('.title-line.chrome');
-    if (!el || reduceMotion) return;
-
-    // Attend la fin de fadeUp (0.51s delay + 0.75s duration ≈ 1.26s)
-    // puis désactive l'animation pour libérer la propriété transform.
-    let ready = false;
-
-    function unlock() {
-      ready = true;
-      el.style.animation = 'none';
-    }
-
-    el.addEventListener('animationend', unlock, { once: true });
-    // Sécurité : si animationend ne se déclenche pas (navigateur exotique)
-    setTimeout(unlock, 1800);
+  (function initTitleDrag() {
+    const lines = document.querySelectorAll('.title-line');
+    if (!lines.length || reduceMotion) return;
 
     const MAX_ROT = 14;   // degrés
     const MAX_TX  = 26;   // pixels
@@ -304,98 +296,97 @@
     const TX_K    = 0.18; // px par pixel horizontal
     const TY_K    = 0.18; // px par pixel vertical
 
-    let dragging = false;
-    let pointerId = null;
-    let startX = 0, startY = 0;
-    let lastX = 0, lastY = 0;
-    let idleTimer = null;
-
     function clamp(v, lo, hi) {
       return v < lo ? lo : v > hi ? hi : v;
     }
 
-    function applyTransform(tx, ty, rot) {
-      el.style.transform =
-        'translate3d(' + tx + 'px, ' + ty + 'px, 0) rotate(' + rot + 'deg)';
-    }
+    lines.forEach((el) => {
+      let ready = false;
+      let dragging = false;
+      let pointerId = null;
+      let startX = 0, startY = 0;
+      let idleTimer = null;
 
-    function beginDrag(e) {
-      if (!ready || dragging) return;
-      dragging = true;
-      pointerId = e.pointerId;
-
-      startX = e.clientX;
-      startY = e.clientY;
-      lastX = startX;
-      lastY = startY;
-
-      el.classList.remove('springing');
-      el.classList.add('dragging');
-
-      // Transition très courte pendant le drag → le texte suit le doigt
-      el.style.transition = 'transform 0.06s linear';
-
-      if (el.setPointerCapture) {
-        try { el.setPointerCapture(pointerId); } catch (err) {}
+      // Fin de fadeUp : on fige l'état final (opacity: 1) puis on
+      // coupe l'animation pour libérer transform.
+      function unlock() {
+        if (ready) return;
+        ready = true;
+        el.style.opacity = '1';
+        el.style.animation = 'none';
       }
 
-      if (idleTimer) {
-        clearTimeout(idleTimer);
-        idleTimer = null;
+      el.addEventListener('animationend', unlock, { once: true });
+      setTimeout(unlock, 1800);
+
+      function apply(tx, ty, rot) {
+        el.style.transform =
+          'translate3d(' + tx + 'px, ' + ty + 'px, 0) rotate(' + rot + 'deg)';
       }
 
-      e.preventDefault();
-    }
+      function onPointerDown(e) {
+        if (!ready || dragging) return;
+        dragging = true;
+        pointerId = e.pointerId;
 
-    function moveDrag(e) {
-      if (!dragging || e.pointerId !== pointerId) return;
+        startX = e.clientX;
+        startY = e.clientY;
 
-      const dx = e.clientX - startX;
-      const dy = e.clientY - startY;
-
-      const rot = clamp(dx * ROT_K, -MAX_ROT, MAX_ROT);
-      const tx  = clamp(dx * TX_K,  -MAX_TX,  MAX_TX);
-      const ty  = clamp(dy * TY_K,  -MAX_TY,  MAX_TY);
-
-      lastX = e.clientX;
-      lastY = e.clientY;
-
-      applyTransform(tx, ty, rot);
-    }
-
-    function release() {
-      if (!dragging) return;
-      dragging = false;
-      pointerId = null;
-
-      el.classList.remove('dragging');
-      el.classList.add('springing');
-
-      // Rien à forcer : on remet juste la transition élastique et
-      // on laisse la transform redevenir identité.
-      el.style.transition = '';
-      applyTransform(0, 0, 0);
-
-      if (idleTimer) clearTimeout(idleTimer);
-      idleTimer = setTimeout(() => {
         el.classList.remove('springing');
-        el.style.transform = '';
+        el.classList.add('dragging');
+        el.style.transition = 'transform 0.06s linear';
+
+        if (el.setPointerCapture) {
+          try { el.setPointerCapture(pointerId); } catch (err) {}
+        }
+
+        if (idleTimer) {
+          clearTimeout(idleTimer);
+          idleTimer = null;
+        }
+
+        e.preventDefault();
+      }
+
+      function onPointerMove(e) {
+        if (!dragging || e.pointerId !== pointerId) return;
+
+        const dx = e.clientX - startX;
+        const dy = e.clientY - startY;
+
+        const rot = clamp(dx * ROT_K, -MAX_ROT, MAX_ROT);
+        const tx  = clamp(dx * TX_K,  -MAX_TX,  MAX_TX);
+        const ty  = clamp(dy * TY_K,  -MAX_TY,  MAX_TY);
+
+        apply(tx, ty, rot);
+      }
+
+      function release() {
+        if (!dragging) return;
+        dragging = false;
+        pointerId = null;
+
+        el.classList.remove('dragging');
+        el.classList.add('springing');
+
         el.style.transition = '';
-      }, 1100);
-    }
+        apply(0, 0, 0);
 
-    el.addEventListener('pointerdown', beginDrag);
-    el.addEventListener('pointermove', moveDrag);
-    el.addEventListener('pointerup', release);
-    el.addEventListener('pointercancel', release);
+        if (idleTimer) clearTimeout(idleTimer);
+        idleTimer = setTimeout(() => {
+          el.classList.remove('springing');
+          el.style.transform = '';
+          el.style.transition = '';
+        }, 1100);
+      }
 
-    // Si le pointeur sort de l'élément pendant le drag, on n'arrête pas
-    // le drag tout de suite — le setPointerCapture gère ça. Mais on
-    // relâche tout de même si l'utilisateur sort complètement.
-    el.addEventListener('lostpointercapture', release);
-
-    // Sécurité : si l'utilisateur relâche ailleurs dans la page
-    window.addEventListener('blur', release);
+      el.addEventListener('pointerdown', onPointerDown);
+      el.addEventListener('pointermove', onPointerMove);
+      el.addEventListener('pointerup', release);
+      el.addEventListener('pointercancel', release);
+      el.addEventListener('lostpointercapture', release);
+      window.addEventListener('blur', release);
+    });
   })();
 
   /* ============================================================
