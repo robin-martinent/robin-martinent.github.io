@@ -9,6 +9,11 @@
    s'étire en scaleX depuis son bord gauche (ancrage à gauche),
    puis revient en place avec un overshoot vif au relâchement.
    « Créatif » porte en plus l'effet chrome + italique.
+
+   Chaque mot tombe du haut et vient s'empiler sous le précédent.
+   La hitbox de drag est calée sur la largeur du mot (fit-content),
+   le reste du hero reste cliquable pour le halo ASCII.
+   Sur appareils tactiles, le drag est désactivé.
    ============================================================ */
 
 *,
@@ -501,6 +506,10 @@ nav.scrolled {
   animation: ledPulse 1.8s ease-in-out infinite;
 }
 
+/* --hero-title : align-items: flex-start empêche les .title-line
+   de s'étirer sur toute la largeur du conteneur flex. Sans ça,
+   chaque mot fait 1320px de large et absorbe tous les clics —
+   le halo ASCII du hero ne se déclenche plus. */
 .hero-title {
   font-family: var(--font-display);
   font-weight: 600;
@@ -510,18 +519,24 @@ nav.scrolled {
   margin-bottom: 36px;
   display: flex;
   flex-direction: column;
+  align-items: flex-start;
   color: var(--fg);
 }
 
 /* Base commune aux 3 lignes.
-   opacity: 1 en base + animation-fill-mode: backwards → l'anim
-   n'agit que PENDANT son exécution ; après, l'élément revient à
-   son état de base (opacity 1, transform none), ce qui libère la
-   propriété transform pour le drag (étirement élastique). */
+   - width: fit-content → la hitbox du drag épouse la largeur du mot.
+   - opacity: 1 en base + animation-fill-mode: backwards → l'anim
+     n'agit que PENDANT son exécution ; après, l'élément revient à
+     son état de base (opacity 1, transform none), ce qui libère la
+     propriété transform pour le drag (étirement élastique).
+   - stackIn : chaque mot tombe du haut et vient s'empiler sous le
+     précédent. Les délais espacés (220 ms entre chaque mot) rendent
+     la cascade verticale clairement lisible. */
 .title-line {
   display: block;
+  width: fit-content;
   opacity: 1;
-  animation: fadeUp 0.75s ease backwards;
+  animation: stackIn 0.8s cubic-bezier(0.22, 1, 0.36, 1) backwards;
 
   transform-origin: 0% 50%;
   will-change: transform;
@@ -529,6 +544,12 @@ nav.scrolled {
   -webkit-user-select: none;
   touch-action: none;
   cursor: grab;
+}
+
+@keyframes stackIn {
+  0%   { opacity: 0; transform: translateY(-60px); }
+  60%  { opacity: 1; }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 .title-line.dragging {
@@ -542,9 +563,9 @@ nav.scrolled {
   transition: transform 0.55s cubic-bezier(0.2, 2.6, 0.4, 1);
 }
 
-.title-line:nth-child(1) { animation-delay: 0.25s; }
-.title-line:nth-child(2) { animation-delay: 0.38s; }
-.title-line:nth-child(3) { animation-delay: 0.51s; }
+.title-line:nth-child(1) { animation-delay: 0.20s; }
+.title-line:nth-child(2) { animation-delay: 0.42s; }
+.title-line:nth-child(3) { animation-delay: 0.64s; }
 
 /* « Réalisateur » : dégradé violet */
 .title-line.accent {
@@ -582,8 +603,15 @@ nav.scrolled {
     drop-shadow(0 0 40px rgba(167, 139, 250, 0.35));
 }
 
+/* Sur appareils tactiles : drag désactivé.
+   - cursor: default → pas de poignée visuelle trompeuse.
+   - touch-action: auto → on rend au navigateur le scroll natif,
+     sinon poser le doigt sur un mot bloquerait la navigation. */
 @media (pointer: coarse) {
-  .title-line { cursor: auto; }
+  .title-line {
+    cursor: default;
+    touch-action: auto;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -787,7 +815,7 @@ nav.scrolled {
 @keyframes wobble1 { 0%,100%{transform:rotateY(0deg)} 50%{transform:rotateY(12deg)} }
 @keyframes wobble2 { 0%,100%{transform:rotateY(0deg)} 25%{transform:rotateY(-18deg)} 75%{transform:rotateY(18deg)} }
 @keyframes wobble3 { 0%,100%{transform:rotateY(0deg)} 20%{transform:rotateY(-28deg)} 40%{transform:rotateY(28deg)} 60%{transform:rotateY(-16deg)} 80%{transform:rotateY(16deg)} }
-@keyframes wobble4 { 0%,100%{transform:rotateY(0deg)} 15%{transform:rotateY(-38deg)} 30%{transform:rotateY(38deg)} 45%{transform:rotateY(-26deg)} 60%{transform:rotateY(26deg)} 75%{transform:rotateY(-14deg)} 90%{transform:rotateY(14deg)} }
+@keyframes wobble4 { 0%,100%{transform:rotateY(0deg)} 15%{transform:rotateY(-38deg)} 30%{transform:rotateY(38deg)} 45%{transform:rotateY(-26deg)} 60%{transform:rotateY(26deg)} 75%{transform:rotateY(-14deg)} 90%{transform:translateY(14deg)} }
 @keyframes wobble5 { 0%,100%{transform:rotateY(0deg) rotateX(0deg)} 20%{transform:rotateY(-45deg) rotateX(6deg)} 40%{transform:rotateY(45deg) rotateX(-6deg)} 60%{transform:rotateY(-28deg) rotateX(4deg)} 80%{transform:rotateY(28deg) rotateX(-4deg)} }
 
 /* ============================================================
