@@ -7,22 +7,22 @@
   <meta name="description" content="Politique de confidentialité, mentions légales et gestion des cookies du portfolio de Robin Martinent." />
   <meta name="robots" content="index, follow" />
   <meta name="referrer" content="strict-origin-when-cross-origin" />
-  <link rel="canonical" href="https://robin-martinent.github.io/rgpd.html" />
+  <link rel="canonical" href="https://robin-martinent.github.io/pages/rgpd.html" />
 
   <meta property="og:title" content="Confidentialité & RGPD · Robin Martinent" />
   <meta property="og:description" content="Politique de confidentialité et mentions légales." />
-  <meta property="og:url" content="https://robin-martinent.github.io/rgpd.html" />
+  <meta property="og:url" content="https://robin-martinent.github.io/pages/rgpd.html" />
   <meta property="og:type" content="article" />
 
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-  <link rel="shortcut icon" href="favicon_io/favicon.ico">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon_io/favicon-32x32.png">
+  <link rel="shortcut icon" href="../assets/favicon_io/favicon.ico">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:ital,wght@0,300;0,400;0,500;0,700;1,400&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css" />
-  <link rel="stylesheet" href="pages.css" />
+  <link rel="stylesheet" href="../css/style.css" />
+  <link rel="stylesheet" href="../css/pages.css" />
 </head>
 <body>
 
@@ -41,7 +41,7 @@
   <div class="cursor-dot" id="cursorDot"></div>
 
   <nav id="navbar">
-    <a href="index.html" class="nav-logo" aria-label="Retour à l'accueil">
+    <a href="../index.html" class="nav-logo" aria-label="Retour à l'accueil">
       <span class="logo-liquid" aria-hidden="true"></span>
       <span class="logo-inner">
         <span class="logo-bracket">[</span>
@@ -52,17 +52,18 @@
       </span>
     </a>
     <ul class="nav-links">
-      <li><a href="index.html#about"><span class="num">01</span> À propos</a></li>
-      <li><a href="index.html#portfolio"><span class="num">02</span> Portfolio</a></li>
-      <li><a href="index.html#competences"><span class="num">03</span> Compétences</a></li>
-      <li><a href="index.html#cv"><span class="num">04</span> CV</a></li>
-      <li><a href="index.html#contact"><span class="num">06</span> Contact</a></li>
+      <li><a href="../index.html#about"><span class="num">01</span> À propos</a></li>
+      <li><a href="../index.html#portfolio"><span class="num">02</span> Portfolio</a></li>
+      <li><a href="../index.html#competences"><span class="num">03</span> Compétences</a></li>
+      <li><a href="../index.html#cv"><span class="num">04</span> CV</a></li>
+      <li><a href="../index.html#contact"><span class="num">06</span> Contact</a></li>
     </ul>
     <div class="nav-status">
       <span class="status-led"></span>
       <span class="status-text">LEGAL</span>
     </div>
     <div class="nav-clock" id="navClock">00:00:00</div>
+    <button class="theme-toggle" id="themeToggle" aria-label="Basculer le thème" title="Basculer le thème">☀️</button>
   </nav>
 
   <main class="legal-page">
@@ -311,7 +312,7 @@
     <footer class="legal-footer">
       <span>© 2026 Robin Martinent</span>
       <span>
-        <a href="index.html">Accueil</a> ·
+        <a href="../index.html">Accueil</a> ·
         <a href="cgu.html">CGU</a> ·
         <a href="rgpd.html">RGPD</a>
       </span>
@@ -376,6 +377,25 @@
         if (e.target.closest('a, button')) ring.classList.remove('hovering');
       });
       loop();
+    })();
+
+    (function() {
+      const btn = document.getElementById('themeToggle');
+      if (!btn) return;
+      const KEY = 'rm_theme';
+      const CLASS = 'theme-light';
+      function apply(t) {
+        if (t === 'light') { document.documentElement.classList.add(CLASS); btn.textContent = '🌙'; }
+        else { document.documentElement.classList.remove(CLASS); btn.textContent = '☀️'; }
+      }
+      const saved = localStorage.getItem(KEY);
+      const initial = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+      apply(initial);
+      btn.onclick = () => {
+        const isLight = document.documentElement.classList.contains(CLASS);
+        localStorage.setItem(KEY, isLight ? 'dark' : 'light');
+        apply(isLight ? 'dark' : 'light');
+      };
     })();
   </script>
 </body>

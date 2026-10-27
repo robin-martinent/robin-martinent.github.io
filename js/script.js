@@ -25,12 +25,14 @@
     const canvas = document.getElementById('asciiField');
     if (!hero || !canvas) return;
 
+    // Mobile optimization: reduce grid density and FPS on small screens
+    const isMobile = window.innerWidth < 768 || ('ontouchstart' in window && navigator.maxTouchPoints > 0);
     const ctx = canvas.getContext('2d', { alpha: true });
     const GLYPHS = ['·', '.', ':', '-', '=', '+', '*', 'x', '#', '%', '@'];
-    const CELL_W = 14;
-    const CELL_H = 16;
-    const MAX_DPR = 1.5;
-    const FPS_CAP = 30;
+    const CELL_W = isMobile ? 20 : 14;
+    const CELL_H = isMobile ? 24 : 16;
+    const MAX_DPR = isMobile ? 1.2 : 1.5;
+    const FPS_CAP = isMobile ? 20 : 30;
 
     let W = 0, H = 0, dpr = 1;
     let cols = 0, rows = 0;
@@ -54,6 +56,10 @@
     let fpsLast = performance.now();
 
     let resizeTimer = null;
+
+    function isLightMode() {
+      return document.documentElement.classList.contains('theme-light');
+    }
 
     function doResize() {
       dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
@@ -102,21 +108,25 @@
 
     let tintShift = 0;
 
+    // Click handler - creates waves in dark mode, does nothing in light mode
     window.addEventListener('click', (e) => {
       if (e.target.closest('a, button, input, select, textarea, .game-clip, .dot, .arrow, .title-line')) return;
       const r = hero.getBoundingClientRect();
       if (e.clientX < r.left || e.clientX > r.right) return;
       if (e.clientY < r.top  || e.clientY > r.bottom) return;
-      const p = heroPoint(e.clientX, e.clientY);
-      const hue = (tintShift * 47 + performance.now() * 0.05) % 360;
-      waves.push({
-        x: p.x, y: p.y,
-        t0: performance.now(),
-        life: WAVE_LIFE,
-        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
-        hue
-      });
-      tintShift = (tintShift + 1) % 12;
+
+      if (!isLightMode()) {
+        const p = heroPoint(e.clientX, e.clientY);
+        const hue = (tintShift * 47 + performance.now() * 0.05) % 360;
+        waves.push({
+          x: p.x, y: p.y,
+          t0: performance.now(),
+          life: WAVE_LIFE,
+          maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
+          hue
+        });
+        tintShift = (tintShift + 1) % 12;
+      }
     });
 
     window.addEventListener('touchstart', (e) => {
@@ -126,14 +136,17 @@
       const r = hero.getBoundingClientRect();
       if (t.clientX < r.left || t.clientX > r.right) return;
       if (t.clientY < r.top  || t.clientY > r.bottom) return;
-      const p = heroPoint(t.clientX, t.clientY);
-      waves.push({
-        x: p.x, y: p.y,
-        t0: performance.now(),
-        life: WAVE_LIFE,
-        maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
-        hue: (performance.now() * 0.05) % 360
-      });
+
+      if (!isLightMode()) {
+        const p = heroPoint(t.clientX, t.clientY);
+        waves.push({
+          x: p.x, y: p.y,
+          t0: performance.now(),
+          life: WAVE_LIFE,
+          maxR: Math.min(WAVE_MAX_R, Math.max(W, H) * 0.8),
+          hue: (performance.now() * 0.05) % 360
+        });
+      }
     }, { passive: true });
 
     if (reduceMotion) {
@@ -141,6 +154,9 @@
       ctx.font = `500 ${Math.max(10, CELL_H * 0.75)}px 'JetBrains Mono', monospace`;
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'center';
+
+      const lightMode = isLightMode();
+      const baseColor = lightMode ? '0, 120, 212' : '167, 139, 250'; // Blue for light, violet for dark
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
@@ -150,7 +166,7 @@
           const ci = Math.min(GLYPHS.length - 1, Math.floor(intensity * GLYPHS.length));
           const ch = GLYPHS[ci];
           if (ch === '·' && intensity < 0.28) continue;
-          ctx.fillStyle = `rgba(167, 139, 250, ${intensity * 0.35})`;
+          ctx.fillStyle = `rgba(${baseColor}, ${intensity * 0.35})`;
           ctx.fillText(ch, x * CELL_W + CELL_W * 0.5, y * CELL_H + CELL_H * 0.5);
         }
       }
@@ -186,6 +202,8 @@
       ctx.font = `500 ${fontSize}px 'JetBrains Mono', 'Menlo', monospace`;
       ctx.textBaseline = 'middle';
       ctx.textAlign = 'center';
+
+      const lightMode = isLightMode();
 
       for (let y = 0; y < rows; y++) {
         for (let x = 0; x < cols; x++) {
@@ -251,18 +269,34 @@
 
           const alpha = Math.min(1, 0.25 + clamped * 0.85);
 
-          if (waveFactor > 0.15) {
-            const baseHue = (waveHue + waveProgress * 180) % 360;
-            ctx.fillStyle = `hsla(${baseHue}, 90%, ${58 + waveFactor * 15}%, ${Math.min(1, alpha * (0.6 + waveFactor * 0.9))})`;
-          } else if (mouseFactor > 0.65) {
-            ctx.fillStyle = `rgba(244, 236, 255, ${alpha})`;
-          } else if (mouseFactor > 0.25) {
-            ctx.fillStyle = `rgba(167, 139, 250, ${alpha})`;
-          } else if (clamped > 0.55) {
-            const h = (250 + tintShift * 12) % 360;
-            ctx.fillStyle = `hsla(${h}, 55%, 68%, ${alpha * 0.9})`;
+          if (lightMode) {
+            // Light mode: blue color scheme
+            if (waveFactor > 0.15) {
+              ctx.fillStyle = `rgba(0, 120, 212, ${Math.min(1, alpha * (0.5 + waveFactor * 0.8))})`;
+            } else if (mouseFactor > 0.65) {
+              ctx.fillStyle = `rgba(0, 180, 255, ${alpha})`;
+            } else if (mouseFactor > 0.25) {
+              ctx.fillStyle = `rgba(0, 120, 212, ${alpha})`;
+            } else if (clamped > 0.55) {
+              ctx.fillStyle = `rgba(0, 120, 212, ${alpha * 0.8})`;
+            } else {
+              ctx.fillStyle = `rgba(90, 150, 180, ${alpha * 0.5})`;
+            }
           } else {
-            ctx.fillStyle = `rgba(113, 113, 122, ${alpha * 0.55})`;
+            // Dark mode: original RGB/hue colors
+            if (waveFactor > 0.15) {
+              const baseHue = (waveHue + waveProgress * 180) % 360;
+              ctx.fillStyle = `hsla(${baseHue}, 90%, ${58 + waveFactor * 15}%, ${Math.min(1, alpha * (0.6 + waveFactor * 0.9))})`;
+            } else if (mouseFactor > 0.65) {
+              ctx.fillStyle = `rgba(244, 236, 255, ${alpha})`;
+            } else if (mouseFactor > 0.25) {
+              ctx.fillStyle = `rgba(167, 139, 250, ${alpha})`;
+            } else if (clamped > 0.55) {
+              const h = (250 + tintShift * 12) % 360;
+              ctx.fillStyle = `hsla(${h}, 55%, 68%, ${alpha * 0.9})`;
+            } else {
+              ctx.fillStyle = `rgba(113, 113, 122, ${alpha * 0.55})`;
+            }
           }
 
           ctx.fillText(glyph, px, py);
@@ -418,9 +452,6 @@
       '> Vérification mémoire ............ 640K OK',
       '> Détection clavier ............... OK',
       '> Détection souris ................ OK',
-      '> Détection lecteur CD-ROM ........ OK',
-      '> Détection carte son ............. OK',
-      '> Vérification carte graphique .... OK',
       '> Initialisation GPU .............. OK',
       '> Compilation shaders WebGL ....... OK',
       '> Chargement MONTAGE.SYS .......... OK',
@@ -428,14 +459,14 @@
       '> Chargement CREATIVE.DRV ......... OK',
       '> Chargement PORTFOLIO.CORE ....... OK',
       '> Chargement ASCII.FIELD .......... OK',
-      '> Chargement JAVA.RUNTIME ......... EXTERNAL',
-      '> Chargement NETHER.PORTAL ........ OK',
-      '> Chargement REDSTONE.CIRCUIT ..... OK',
-      '> Chargement ENDER.PEARL .......... OK',
-      '> Spawn du monde /projets ......... OK',
+      '> Vérification LUTs ............... OK',
+      '> Génération PROXY ................ OK',
+      '> Vérification TIMECODE 25 fps .... OK',
+      '> RENDER QUEUE prête .............. OK',
+      '> CONFORM vérifié ................. OK',
+      '> DELIVERY H.264 1080p25 .......... OK',
       '> Indexation rushes /projets ...... OK',
-      '> Montage des volumes D:\\ ......... OK',
-      '> Calibration timecode 25 fps ..... OK',
+      '> Montage volumes projets ......... OK',
       '> Ouverture session ............... ROBIN',
       '',
       '> BIENVENUE, ROBIN.'
@@ -480,7 +511,7 @@
 
     const failsafe = setTimeout(() => {
       if (!done) skipToEnd();
-    }, 4500);
+    }, 1200);
 
     if (reduceMotion) {
       log.textContent = LINES.join('\n');
@@ -641,6 +672,39 @@
     }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
 
     els.forEach((el) => io.observe(el));
+  })();
+
+  /* ============================================================
+     7b. MOBILE NAV TOGGLE
+     ============================================================ */
+  (function initMobileNav() {
+    const toggle = document.getElementById('navToggle');
+    const links = document.getElementById('navLinks');
+    if (!toggle || !links) return;
+
+    toggle.addEventListener('click', () => {
+      const isOpen = links.classList.toggle('open');
+      toggle.setAttribute('aria-expanded', isOpen);
+      toggle.setAttribute('aria-label', isOpen ? 'Fermer le menu' : 'Ouvrir le menu');
+    });
+
+    // Close menu when clicking a link
+    links.querySelectorAll('a').forEach((a) => {
+      a.addEventListener('click', () => {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Ouvrir le menu');
+      });
+    });
+
+    // Close menu on escape key
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && links.classList.contains('open')) {
+        links.classList.remove('open');
+        toggle.setAttribute('aria-expanded', 'false');
+        toggle.setAttribute('aria-label', 'Ouvrir le menu');
+      }
+    });
   })();
 
   /* ============================================================
@@ -1106,6 +1170,176 @@
       if (buffer.includes('montage')) {
         buffer = '';
         openGame();
+      }
+    });
+  })();
+
+  /* ============================================================
+     15. THEME TOGGLE (Light/Dark mode with time-based default)
+     ============================================================ */
+  (function initThemeToggle() {
+    const toggleBtn = document.getElementById('themeToggle');
+    if (!toggleBtn) return;
+
+    const THEME_KEY = 'rm_theme';
+    const DARK_CLASS = 'theme-light'; // We add this class for light mode (since default is dark)
+
+    // Get current hour in Paris timezone
+    function getParisHour() {
+      const now = new Date();
+      const parisTime = new Date(now.toLocaleString('en-US', { timeZone: 'Europe/Paris' }));
+      return parisTime.getHours();
+    }
+
+    // Determine theme based on Paris time (08:00-20:00 = light, else dark)
+    function getTimeBasedTheme() {
+      const hour = getParisHour();
+      return (hour >= 8 && hour < 20) ? 'light' : 'dark';
+    }
+
+    // Check saved preference, then time-based, then system preference
+    function getInitialTheme() {
+      const saved = localStorage.getItem(THEME_KEY);
+      if (saved) return saved; // User manual choice always wins
+      return getTimeBasedTheme(); // Time-based default
+    }
+
+    function applyTheme(theme) {
+      if (theme === 'light') {
+        document.documentElement.classList.add(DARK_CLASS);
+        toggleBtn.setAttribute('aria-label', 'Passer au thème sombre');
+        toggleBtn.setAttribute('aria-pressed', 'true');
+      } else {
+        document.documentElement.classList.remove(DARK_CLASS);
+        toggleBtn.setAttribute('aria-label', 'Passer au thème clair');
+        toggleBtn.setAttribute('aria-pressed', 'false');
+      }
+    }
+
+    // Initialize
+    const initialTheme = getInitialTheme();
+    applyTheme(initialTheme);
+
+    toggleBtn.addEventListener('click', () => {
+      const isLight = document.documentElement.classList.contains(DARK_CLASS);
+      const newTheme = isLight ? 'dark' : 'light';
+      localStorage.setItem(THEME_KEY, newTheme);
+      applyTheme(newTheme);
+    });
+
+    // Listen for system preference changes (only if no user preference)
+    window.matchMedia('(prefers-color-scheme: light)').addEventListener('change', (e) => {
+      if (!localStorage.getItem(THEME_KEY)) {
+        // Still prefer time-based over system
+        applyTheme(getTimeBasedTheme());
+      }
+    });
+
+    // Optional: Re-evaluate time-based theme periodically (e.g., every hour)
+    setInterval(() => {
+      if (!localStorage.getItem(THEME_KEY)) {
+        applyTheme(getTimeBasedTheme());
+      }
+    }, 60 * 60 * 1000); // Check every hour
+  })();
+
+  /* ============================================================
+     16. FIRST-VISIT ENTRANCE ANIMATIONS
+     ============================================================ */
+  (function initFirstVisitAnimations() {
+    const FIRST_VISIT_KEY = 'rm_first_visit';
+    const hasVisited = sessionStorage.getItem(FIRST_VISIT_KEY);
+
+    if (!hasVisited) {
+      // First visit in this session - add class to trigger animations
+      document.body.classList.add('first-visit');
+      sessionStorage.setItem(FIRST_VISIT_KEY, 'true');
+
+      // Remove the class after animations complete (longest animation ~1.5s)
+      // We keep it for a bit longer to ensure all staggered animations finish
+      setTimeout(() => {
+        document.body.classList.remove('first-visit');
+      }, 3000);
+    }
+  })();
+
+  /* ============================================================
+     17. SKILLS CLICK-LOCK — Bidirectional highlight with persistence
+     ============================================================ */
+  (function initSkillsClickLock() {
+    const skillCards = document.querySelectorAll('.skill-card[data-skill]');
+    const toolTags = document.querySelectorAll('.tool-tag[data-skill]');
+    if (!skillCards.length || !toolTags.length) return;
+
+    let lockedSkill = null;
+
+    function clearAllLocks() {
+      skillCards.forEach(card => card.classList.remove('skill-card--locked'));
+      toolTags.forEach(tag => {
+        tag.classList.remove('tool-tag--highlighted', 'tool-tag--dimmed');
+      });
+      lockedSkill = null;
+    }
+
+    function applyLock(skill) {
+      clearAllLocks();
+
+      // Lock the clicked skill card
+      const card = document.querySelector(`.skill-card[data-skill="${skill}"]`);
+      if (card) card.classList.add('skill-card--locked');
+
+      // Highlight matching tools, dim others
+      toolTags.forEach(tag => {
+        const tagSkills = tag.dataset.skill.split(' ');
+        if (tagSkills.includes(skill)) {
+          tag.classList.add('tool-tag--highlighted');
+        } else {
+          tag.classList.add('tool-tag--dimmed');
+        }
+      });
+
+      lockedSkill = skill;
+    }
+
+    skillCards.forEach(card => {
+      card.addEventListener('click', (e) => {
+        // Don't trigger if clicking on interactive elements inside
+        if (e.target.closest('a, button')) return;
+
+        const skill = card.dataset.skill;
+        if (lockedSkill === skill) {
+          // Click same skill again -> unlock
+          clearAllLocks();
+        } else {
+          // Lock new skill
+          applyLock(skill);
+        }
+      });
+
+      // Keyboard support
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+
+    // Also allow clicking a highlighted tool to unlock
+    toolTags.forEach(tag => {
+      tag.addEventListener('click', () => {
+        if (lockedSkill && tag.classList.contains('tool-tag--highlighted')) {
+          clearAllLocks();
+        }
+      });
+    });
+
+    // Click outside to unlock
+    document.addEventListener('click', (e) => {
+      if (lockedSkill &&
+          !e.target.closest('.skill-card') &&
+          !e.target.closest('.tool-tag')) {
+        clearAllLocks();
       }
     });
   })();

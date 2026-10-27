@@ -5,7 +5,7 @@ User-agent: *
 Allow: /
 
 # Le contenu est indexable, sauf la page 404.
-Disallow: /404.html
+Disallow: /pages/404.html
 
 # Sitemap
 Sitemap: https://robin-martinent.github.io/sitemap.xml

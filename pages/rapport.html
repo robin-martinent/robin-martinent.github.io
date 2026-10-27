@@ -1,21 +1,54 @@
 <!DOCTYPE html>
 <html lang="fr">
 <head>
-  <meta name="robots" content="noindex, follow">
+  <meta name="robots" content="index, follow">
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Rapport de stage – Robin Martinent</title>
 
-  <link rel="icon" type="image/png" sizes="16x16" href="favicon_io/favicon-16x16.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon_io/favicon-32x32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon_io/apple-touch-icon.png">
-  <link rel="manifest" href="favicon_io/site.webmanifest">
-  <link rel="shortcut icon" href="favicon_io/favicon.ico">
+  <link rel="icon" type="image/png" sizes="16x16" href="../assets/favicon_io/favicon-16x16.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="../assets/favicon_io/favicon-32x32.png">
+  <link rel="apple-touch-icon" sizes="180x180" href="../assets/favicon_io/apple-touch-icon.png">
+  <link rel="manifest" href="../assets/favicon_io/site.webmanifest">
+  <link rel="shortcut icon" href="../assets/favicon_io/favicon.ico">
 
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
 
-  <link rel="stylesheet" href="style.css" />
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Rapport de stage – Robin Martinent",
+    "description": "Rapport de stage de 6 semaines chez Shaolin Shadow (Grenoble) en tant que monteur vidéo. Missions : showreel annuelle, rassemblement Porsche, clips rap, court-métrage documentaire. Difficultés techniques et solutions (proxys, audio, stockage), compétences acquises, bibliographie.",
+    "author": {
+      "@type": "Person",
+      "name": "Robin Martinent",
+      "url": "https://robin-martinent.github.io/"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "Studio M",
+      "url": "https://www.studio-m.com/"
+    },
+    "datePublished": "2026-04-30",
+    "dateModified": "2026-04-30",
+    "inLanguage": "fr-FR",
+    "articleSection": "Éducation / Stage",
+    "keywords": ["montage vidéo", "stage", "Shaolin Shadow", "Premiere Pro", "After Effects", "DaVinci Resolve", "post-production", "rapport de stage"],
+    "about": {
+      "@type": "Organization",
+      "name": "Shaolin Shadow",
+      "url": "https://www.shaolinshadow.com/"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://robin-martinent.github.io/pages/rapport.html"
+    }
+  }
+  </script>
+
+  <link rel="stylesheet" href="../css/style.css" />
 
   <style>
     body {
@@ -29,7 +62,7 @@
     }
 
     /* NAV RETOUR */
-    .back-nav { margin-bottom: 30px; font-size: 14px; }
+    .back-nav { margin-bottom: 30px; font-size: 14px; display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
     .back-nav a {
       color: var(--accent);
       text-decoration: none;
@@ -39,6 +72,18 @@
       transition: all 0.2s;
     }
     .back-nav a:hover { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-download {
+      background: var(--accent) !important;
+      color: #fff !important;
+      border-color: var(--accent) !important;
+      font-weight: 600;
+    }
+    .btn-download:hover {
+      background: #4a2bd8 !important;
+      border-color: #4a2bd8 !important;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 16px rgba(91,43,255,0.3);
+    }
 
     /* COUVERTURE */
     .cover {
@@ -783,12 +828,188 @@
 
     body * { cursor: auto !important; }
     body { cursor: default !important; }
+  }
+
+  /* ============================================================
+     LIGHT MODE SUPPORT (rapport.html) — Frutiger Aero
+     ============================================================ */
+  html.theme-light body {
+    --bg: #f0f4fa;
+    --bg2: #ffffff;
+    --ink: #1a1a2e;
+    --muted: #4a5568;
+    --border: #c8d0e8;
+    --accent: #0078d4;
+  }
+
+  html.theme-light .back-nav a {
+    border-color: var(--border);
+    color: var(--accent);
+    background: var(--aero-glass);
+    backdrop-filter: blur(10px);
+    box-shadow: inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .back-nav a:hover {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2));
+    color: #fff;
+    border-color: var(--accent);
+    box-shadow: 0 4px 16px var(--accent-glow-strong);
+  }
+  html.theme-light .btn-download {
+    background: linear-gradient(135deg, var(--accent), var(--accent-2)) !important;
+    color: #fff !important;
+    border-color: transparent !important;
+    box-shadow: 0 4px 20px var(--accent-glow-strong);
+  }
+  html.theme-light .btn-download:hover {
+    box-shadow: 0 6px 28px var(--accent-glow-strong) !important;
+    transform: translateY(-2px);
+  }
+
+  html.theme-light .cover {
+    background: var(--aero-glass);
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--aero-glass-border);
+    box-shadow: 0 4px 24px rgba(0, 120, 212, 0.1), inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .cover::before {
+    background: radial-gradient(circle, var(--aero-sky-glow) 0%, transparent 70%);
+  }
+  html.theme-light .cover h1 { color: var(--ink); }
+  html.theme-light .cover .subtitle { color: var(--muted); }
+  html.theme-light .cover .subtitle strong { color: var(--accent); }
+  html.theme-light .cover .rapport-title { color: var(--ink); }
+  html.theme-light .cover .rapport-title::before,
+  html.theme-light .cover .rapport-title::after { background: var(--accent); }
+  html.theme-light .cover .subject { color: var(--muted); }
+  html.theme-light .cover .subject span { color: var(--accent); }
+  html.theme-light .cover .info span::before { background: var(--accent); }
+
+  html.theme-light .remerciements {
+    background: var(--aero-glass);
+    backdrop-filter: blur(12px);
+    border-left: 4px solid var(--accent);
+    box-shadow: inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .remerciements h2 { color: var(--accent); }
+  html.theme-light .remerciements p { color: var(--ink); }
+
+  html.theme-light .sommaire {
+    background: var(--aero-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--aero-glass-border);
+    box-shadow: 0 4px 16px rgba(0, 120, 212, 0.08), inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .sommaire .title { color: var(--accent); }
+  html.theme-light .sommaire-item { color: var(--ink); border-bottom-color: var(--border); }
+  html.theme-light .sommaire-item .page { color: var(--accent); }
+
+  html.theme-light .section-rapport {
+    background: var(--aero-glass);
+    backdrop-filter: blur(12px);
+    border: 1px solid var(--aero-glass-border);
+    box-shadow: 0 4px 16px rgba(0, 120, 212, 0.08), inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .section-rapport h2 { color: var(--accent); border-bottom-color: var(--border); }
+  html.theme-light .section-rapport h3,
+  html.theme-light .section-rapport h4 { color: var(--ink); }
+  html.theme-light .section-rapport p { color: var(--ink); }
+  html.theme-light .section-rapport ul,
+  html.theme-light .section-rapport ol,
+  html.theme-light .section-rapport li { color: var(--ink); }
+  html.theme-light .section-rapport a { color: var(--accent); }
+
+  html.theme-light .stat-item {
+    border-color: var(--accent);
+    background: var(--aero-glass);
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .stat-item:nth-child(2) { border-bottom-color: var(--accent); }
+  html.theme-light .stat-item:nth-child(3) { border-top-color: var(--accent); border-bottom-color: var(--accent); }
+  html.theme-light .stat-item:nth-child(4) { border-color: var(--accent); background: linear-gradient(135deg, var(--aero-sky-glow) 0%, transparent 50%); }
+  html.theme-light .stat-item .number { color: var(--accent); }
+  html.theme-light .stat-item .label { color: var(--ink); }
+
+  html.theme-light .timeline-hist-dot { background: var(--accent); box-shadow: 0 0 8px var(--accent-glow-strong); }
+  html.theme-light .timeline-hist-year { color: var(--accent); }
+  html.theme-light .timeline-hist-label { color: var(--ink); }
+  html.theme-light .timeline-hist-line { border-top-color: var(--accent); opacity: 0.75; }
+
+  html.theme-light .duo-item {
+    border-left-color: var(--accent);
+    background: var(--aero-glass);
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .duo-item h4 { color: var(--accent) !important; }
+  html.theme-light .duo-item p { color: var(--ink); }
+
+  html.theme-light .quote-block {
+    background: linear-gradient(135deg, var(--aero-sky-glow), var(--aero-white));
+    border-left: 4px solid var(--accent);
+    box-shadow: 0 4px 16px rgba(0, 120, 212, 0.1), inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .quote-block .quote-icon { color: var(--accent); }
+  html.theme-light .quote-block .quote-text { color: var(--ink); }
+  html.theme-light .quote-block .quote-author { color: var(--accent); }
+
+  html.theme-light .key-fig {
+    border-color: var(--border);
+    background: var(--aero-glass);
+    backdrop-filter: blur(8px);
+    box-shadow: inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .key-fig-number { color: var(--accent); }
+  html.theme-light .key-fig-label { color: var(--ink); opacity: 0.8; }
+  html.theme-light .key-fig-icon { filter: drop-shadow(0 0 8px var(--accent-glow)); }
+
+  html.theme-light .chart-block {
+    border-color: var(--border);
+    background: var(--aero-glass);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 16px rgba(0, 120, 212, 0.08), inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .chart-block .chart-title { color: var(--accent); }
+  html.theme-light .donut::after { background: var(--bg2); border-color: var(--border); }
+  html.theme-light .donut-center strong { color: var(--accent); }
+  html.theme-light .donut-center span { color: var(--ink); }
+  html.theme-light .donut-legend-label { color: var(--ink); }
+  html.theme-light .donut-legend-value { color: var(--accent); }
+
+  html.theme-light .bars {
+    border-color: var(--border);
+    background: var(--aero-glass);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 16px rgba(0, 120, 212, 0.08), inset 0 1px 0 var(--aero-white);
+  }
+  html.theme-light .bars-title { color: var(--accent); }
+  html.theme-light .bar-label { color: var(--ink); }
+  html.theme-light .bar-track { background: rgba(0, 120, 212, 0.08); }
+  html.theme-light .bar-fill { background: linear-gradient(90deg, var(--accent), var(--accent-2)); box-shadow: 0 0 12px var(--accent-glow); }
+  html.theme-light .bar-value { color: var(--accent); }
+
+  html.theme-light .illustration img { border-color: var(--border); box-shadow: 0 4px 20px rgba(0, 120, 212, 0.15); }
+  html.theme-light .illustration .legende { color: var(--ink); }
+  html.theme-light .illustration .legende strong { color: var(--accent); }
+
+  html.theme-light .lexique-item { border-bottom-color: var(--border); }
+  html.theme-light .lexique-item .term { color: var(--accent); }
+  html.theme-light .lexique-item .def { color: var(--ink); opacity: 0.9; }
+
+  html.theme-light .footer-rapport {
+    border-top-color: var(--border);
+    color: var(--ink);
+    opacity: 0.7;
+  }
   </style>
 </head>
 <body>
 
   <div class="back-nav">
-    <a href="index.html">← Retour au portfolio</a>
+    <a href="../index.html">← Retour au portfolio</a>
+    <a href="../assets/rapport.pdf" class="btn-download" target="_blank" rel="noopener">📄 Télécharger PDF</a>
+    <button id="themeToggle" class="btn ghost" aria-label="Basculer le thème clair/sombre" title="Thème clair/sombre" style="padding: 6px 10px; font-size: 14px; line-height: 1; margin-left: auto;">☀️</button>
   </div>
 
   <!-- ===== PAGE DE COUVERTURE ===== -->
@@ -1132,7 +1353,7 @@
     <p>J'ai également réalisé deux autres variantes pour des projets distincts. Pour une vidéo de présentation, j'ai animé le logo Shaolin Shadow en métal, sur lequel un rayon de lumière venait balayer la surface, créant un effet de brillance réaliste. Pour l'école « Ça Tourne ! », j'ai reproduit en 3D le clap du logo existant. L'animation montrait le clap se fermer en tournant sur lui-même, puis disparaître dans un flux d'encre. Ces exercices m'ont permis d'explorer différentes techniques de motion design, allant de la simulation de matières à la 3D.</p>
 
     <div class="illustration">
-      <img src="images/outro-showreel.png" alt="Animation d'outro showreel Shaolin Shadow" />
+      <img src="../assets/images/outro-showreel.png" alt="Animation d'outro showreel Shaolin Shadow" />
       <div class="legende">
         <strong>Illustration 1 :</strong> Capture d'écran de l'animation d'outro pour la showreel. Le parchemin, consumé par les flammes, révèle le logo Shaolin Shadow rouge incandescent sur un fond de braises.
       </div>
@@ -1147,7 +1368,7 @@
     <p>Mon travail a débuté par la synchronisation des pistes audio, une étape délicate car les prises de son provenaient de sources multiples. J'ai ensuite procédé au dérushage complet des rushes, découpant les passages les plus pertinents pour le montage final. Pour faciliter cette étape, j'ai utilisé un système de codage par couleurs dans DaVinci Resolve : chaque couleur correspondait à un type de contenu (interview, plan de coupe, discours, moments clés). Cette méthode m'a permis de visualiser rapidement la structure du projet et d'identifier les séquences à conserver.</p>
 
     <div class="illustration">
-      <img src="images/timeline-porsche.png" alt="Timeline DaVinci Resolve – Rassemblement Porsche" />
+      <img src="../assets/images/timeline-porsche.png" alt="Timeline DaVinci Resolve – Rassemblement Porsche" />
       <div class="legende">
         <strong>Illustration 2 :</strong> Capture d'écran de la timeline DaVinci Resolve lors du dérushage du rassemblement Porsche. Les couleurs correspondent aux différents types de contenu : interviews, plans de coupe, discours, moments clés.
       </div>
@@ -1367,5 +1588,25 @@
     Robin Martinent · Rapport de stage · 2026
   </div>
 
+  <script>
+  (function() {
+    const btn = document.getElementById('themeToggle');
+    if (!btn) return;
+    const KEY = 'rm_theme';
+    const CLASS = 'theme-light';
+    function apply(t) {
+      if (t === 'light') { document.documentElement.classList.add(CLASS); btn.textContent = '🌙'; }
+      else { document.documentElement.classList.remove(CLASS); btn.textContent = '☀️'; }
+    }
+    const saved = localStorage.getItem(KEY);
+    const initial = saved || (matchMedia('(prefers-color-scheme: light)').matches ? 'light' : 'dark');
+    apply(initial);
+    btn.onclick = () => {
+      const isLight = document.documentElement.classList.contains(CLASS);
+      localStorage.setItem(KEY, isLight ? 'dark' : 'light');
+      apply(isLight ? 'dark' : 'light');
+    };
+  })();
+  </script>
 </body>
 </html>
