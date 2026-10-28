@@ -1911,6 +1911,7 @@ footer {
 @media (max-width: 1024px) {
   .cv-grid { grid-template-columns: 1fr; gap: 40px; }
   .skills-grid { grid-template-columns: repeat(2, 1fr); }
+  .section { padding: 64px 24px; }
 }
 
 @media (max-width: 768px) {
@@ -1982,11 +1983,11 @@ footer {
   .theme-toggle { width: 44px; height: 44px; }
   .hero-cta a.btn { min-height: 48px; }
 
-  .hero { padding: 112px 16px 72px; }
-  .hero-title { margin-bottom: 20px; }
-  .hero-sub { font-size: 14px; margin-bottom: 28px; }
-  .hero-tag { margin-top: 6px; margin-bottom: 10px; }
-  .hero-foot { gap: 20px; margin-top: 48px; padding-top: 20px; }
+  .hero { padding: 96px 16px 56px; }
+  .hero-title { margin-bottom: 16px; }
+  .hero-sub { font-size: 14px; margin-bottom: 20px; }
+  .hero-tag { margin-top: 4px; margin-bottom: 8px; }
+  .hero-foot { gap: 16px; margin-top: 32px; padding-top: 16px; }
   .scroll-hint { display: none; }
 
   /* Skills : 2 colonnes sur mobile */
@@ -1997,11 +1998,12 @@ footer {
   .skill-card h3 { font-size: 12px; }
   .skill-card p { font-size: 11px; line-height: 1.4; }
 
-  .section { padding: 56px 16px; }
-  .section-title { margin-bottom: 32px; }
-  .section-head { margin-bottom: 32px; }
+  .section { padding: 40px 16px; }
+  .section-title { margin-bottom: 24px; }
+  .section-head { margin-bottom: 24px; }
 
   .skills-grid { grid-template-columns: 1fr; }
+  .cv-grid { gap: 24px; }
   .tools { flex-direction: column; gap: 12px; }
 
   .contact-links { flex-direction: column; align-items: stretch; }

@@ -917,15 +917,22 @@ html.theme-light .footer-col {
     grid-column: auto;
     grid-row: auto;
   }
+}
 
-  .section--cv .cv-grid { grid-template-columns: 1fr; }
-
+@media (max-width: 1024px) {
   .footer-inner--rich {
     grid-template-columns: 1.5fr 1fr 1fr;
     gap: 32px;
     padding: 44px 40px 32px;
   }
-  .footer-bar { padding: 14px 40px; }
+  .footer-bar {
+    grid-template-columns: 1fr;
+    text-align: center;
+    padding: 14px 40px;
+    gap: 8px;
+  }
+  .footer-bar-cell { justify-content: center; }
+  .footer-bar-cell.right { justify-content: center; }
 }
 
 @media (max-width: 768px) {
@@ -950,8 +957,8 @@ html.theme-light .footer-col {
 
   .footer-inner--rich {
     grid-template-columns: 1fr;
-    padding: 36px 16px 24px;
-    gap: 28px;
+    padding: 28px 16px 20px;
+    gap: 16px;
   }
   .footer-bar {
     grid-template-columns: 1fr;
