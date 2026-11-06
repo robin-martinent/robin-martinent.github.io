@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Icon System Demo</title>
+  <link rel="stylesheet" href="icons.css">
+  <style>
+    body { font-family: system-ui, sans-serif; padding: 2rem; max-width: 900px; margin: 0 auto; }
+    .demo-section { margin-bottom: 3rem; }
+    .demo-section h2 { border-bottom: 1px solid #e2e8f0; padding-bottom: 0.5rem; }
+    .icon-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 1rem; }
+    .icon-item { display: flex; flex-direction: column; align-items: center; gap: 0.5rem; padding: 1rem; border: 1px solid #e2e8f0; border-radius: 8px; transition: box-shadow 0.2s; }
+    .icon-item:hover { box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+    .icon-item code { font-size: 0.75rem; color: #64748b; text-align: center; }
+    .size-demo { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+    .color-demo { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; margin: 1rem 0; }
+    .btn-demo { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 1rem; border: none; border-radius: 6px; cursor: pointer; font-size: 0.875rem; transition: all 0.2s; }
+    .btn-primary { background: #2563eb; color: white; }
+    .btn-primary:hover { background: #1d4ed8; }
+    .btn-secondary { background: #64748b; color: white; }
+    .btn-secondary:hover { background: #475569; }
+    .btn-ghost { background: transparent; color: #2563eb; border: 1px solid #2563eb; }
+    .btn-ghost:hover { background: #eff6ff; }
+  </style>
+</head>
+<body>
+  <h1>Monochrome SVG Icon System - Demo</h1>
+  <p>Professional icon system using SVG sprite with <code>currentColor</code> for CSS tinting.</p>
+
+  <!-- Usage Examples -->
+  <section class="demo-section">
+    <h2>Usage Methods</h2>
+
+    <h3>1. JavaScript Module (Recommended)</h3>
+    <pre><code>import { icon, injectSprite, initIcons } from './assets/icons/icons.js';
+
+// Auto-initialize (injects sprite + replaces data-icon elements)
+await initIcons();
+
+// Or manually inject sprite once
+await injectSprite();
+
+// Create icon element
+const svgEl = createIcon('arrow-right', { size: 'lg', ariaLabel: 'Next' });
+element.appendChild(svgEl);
+
+// Get HTML string for innerHTML
+element.innerHTML = icon('github', { size: 'xl', class: 'icon-primary' });</code></pre>
+
+    <h3>2. Declarative HTML (data-icon attribute)</h3>
+    <pre><code><!-- Automatically replaced on initIcons() -->
+<span data-icon="sun" data-icon-size="lg" data-icon-label="Mode clair"></span>
+<button>
+  <span data-icon="download" data-icon-size="sm"></span>
+  Télécharger
+</button></code></pre>
+
+    <h3>3. Direct SVG (No JS needed)</h3>
+    <pre><code><svg class="icon icon-lg" aria-hidden="true">
+  <use href="/assets/icons/sprite.svg#icon-arrow-right"></use>
+</svg></code></pre>
+  </section>
+
+  <!-- All Icons Grid -->
+  <section class="demo-section">
+    <h2>All 58 Icons</h2>
+    <div class="icon-grid" id="icon-grid"></div>
+  </section>
+
+  <!-- Size Variants -->
+  <section class="demo-section">
+    <h2>Size Variants</h2>
+    <div class="size-demo" id="size-demo"></div>
+  </section>
+
+  <!-- Color Variants -->
+  <section class="demo-section">
+    <h2>Color Variants (using CSS custom properties)</h2>
+    <div class="color-demo" id="color-demo"></div>
+  </section>
+
+  <!-- Button Examples -->
+  <section class="demo-section">
+    <h2>Button Examples</h2>
+    <div style="display: flex; gap: 1rem; flex-wrap: wrap;" id="button-demo"></div>
+  </section>
+
+  <!-- Interactive States -->
+  <section class="demo-section">
+    <h2>Interactive States</h2>
+    <p>Hover/focus states work automatically with CSS:</p>
+    <div style="display: flex; gap: 2rem; flex-wrap: wrap;">
+      <a href="#" class="icon-hover" style="color: #64748b;">
+        <svg class="icon icon-lg" aria-hidden="true"><use href="#icon-external-link"/></svg>
+        Link with hover effect
+      </a>
+      <button class="btn-primary" style="display: inline-flex; align-items: center; gap: 0.5rem;">
+        <svg class="icon icon-sm" aria-hidden="true"><use href="#icon-download"/></svg>
+        Download
+      </button>
+    </div>
+  </section>
+
+  <!-- Animation Examples -->
+  <section class="demo-section">
+    <h2>Animations</h2>
+    <div style="display: flex; gap: 2rem; align-items: center; flex-wrap: wrap;">
+      <svg class="icon icon-xl icon-spin" aria-label="Chargement"><use href="#icon-zap"/></svg>
+      <svg class="icon icon-xl icon-pulse" aria-label="Pulsation"><use href="#icon-heart"/></svg>
+      <svg class="icon icon-xl icon-bounce" aria-label="Rebond"><use href="#icon-arrow-right"/></svg>
+    </div>
+    <p class="text-sm text-muted mt-2">Classes: <code>.icon-spin</code>, <code>.icon-pulse</code>, <code>.icon-bounce</code></p>
+  </section>
+
+  <script type="module">
+    import { icon, createIcon, injectSprite, replaceIcons, initIcons } from './icons.js';
+
+    // Initialize the icon system
+    await initIcons();
+
+    // Get all icon names from the sprite
+    const iconNames = [
+      'arrow-right', 'arrow-left', 'chevron-down', 'menu', 'close',
+      'sun', 'moon',
+      'mail', 'phone', 'location',
+      'linkedin', 'github', 'youtube',
+      'pdf',
+      'play', 'pause',
+      'check', 'star', 'sparkles', 'external-link', 'download', 'upload', 'settings', 'info', 'warning', 'error', 'success',
+      'leaf', 'flower', 'branch',
+      'code', 'design', 'video', 'camera', 'music', 'ai', 'brain', 'terminal', 'database', 'cloud', 'lock', 'shield', 'eye', 'eye-off', 'calendar', 'clock', 'map-pin',
+      'quote', 'timeline', 'chart',
+      'palette', 'brush', 'film', 'layers', 'zap', 'cpu', 'server', 'network'
+    ];
+
+    // Populate icon grid
+    const grid = document.getElementById('icon-grid');
+    iconNames.forEach(name => {
+      const item = document.createElement('div');
+      item.className = 'icon-item';
+      item.innerHTML = `
+        ${icon(name, { size: 'lg', class: 'icon-primary' })}
+        <code>${name}</code>
+      `;
+      grid.appendChild(item);
+    });
+
+    // Size demo
+    const sizeDemo = document.getElementById('size-demo');
+    ['xs', 'sm', 'md', 'lg', 'xl', '2xl'].forEach(size => {
+      const wrapper = document.createElement('div');
+      wrapper.style.display = 'flex';
+      wrapper.style.flexDirection = 'column';
+      wrapper.style.alignItems = 'center';
+      wrapper.style.gap = '0.25rem';
+      wrapper.innerHTML = `
+        ${icon('star', { size, class: 'icon-primary' })}
+        <code>.icon-${size}</code>
+      `;
+      sizeDemo.appendChild(wrapper);
+    });
+
+    // Color demo
+    const colorDemo = document.getElementById('color-demo');
+    ['primary', 'secondary', 'success', 'warning', 'error', 'muted', 'inverse'].forEach(color => {
+      const wrapper = document.createElement('div');
+      wrapper.style.display = 'flex';
+      wrapper.style.flexDirection = 'column';
+      wrapper.style.alignItems = 'center';
+      wrapper.style.gap = '0.25rem';
+      wrapper.innerHTML = `
+        ${icon('check', { size: 'lg', class: `icon-${color}` })}
+        <code>.icon-${color}</code>
+      `;
+      colorDemo.appendChild(wrapper);
+    });
+
+    // Button demo
+    const buttonDemo = document.getElementById('button-demo');
+    const buttons = [
+      { icon: 'download', text: 'Télécharger', class: 'btn-primary' },
+      { icon: 'github', text: 'GitHub', class: 'btn-secondary' },
+      { icon: 'external-link', text: 'Lien externe', class: 'btn-ghost' },
+      { icon: 'mail', text: 'Contact', class: 'btn-primary' },
+      { icon: 'settings', text: 'Paramètres', class: 'btn-secondary' },
+      { icon: 'info', text: 'Aide', class: 'btn-ghost' },
+    ];
+    buttons.forEach(btn => {
+      const button = document.createElement('button');
+      button.className = `btn-demo ${btn.class}`;
+      button.innerHTML = `${icon(btn.icon, { size: 'sm' })} ${btn.text}`;
+      buttonDemo.appendChild(button);
+    });
+
+    console.log('Icon system demo initialized!');
+    console.log('Available functions:', { icon, createIcon, injectSprite, replaceIcons, initIcons });
+  </script>
+</body>
+</html>

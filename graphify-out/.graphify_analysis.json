@@ -1,0 +1,186 @@
+{
+  "communities": {
+    "0": [
+      "js_script",
+      "js_script_apply",
+      "js_script_applytheme",
+      "js_script_closegame",
+      "js_script_copytext",
+      "js_script_doresize",
+      "js_script_heropoint",
+      "js_script_islightmode",
+      "js_script_ondown",
+      "js_script_onmove",
+      "js_script_release",
+      "js_script_render",
+      "js_script_scheduleresize",
+      "js_script_step",
+      "js_script_tick"
+    ],
+    "1": [
+      "cookie",
+      "cookie_accept",
+      "cookie_disableoptional",
+      "cookie_enableoptional",
+      "cookie_hidebanner",
+      "cookie_init",
+      "cookie_loadanalytics",
+      "cookie_readconsent",
+      "cookie_refuse",
+      "cookie_reset",
+      "cookie_showbanner",
+      "cookie_writeconsent"
+    ],
+    "2": [
+      "js_cookie",
+      "js_cookie_accept",
+      "js_cookie_disableoptional",
+      "js_cookie_enableoptional",
+      "js_cookie_hidebanner",
+      "js_cookie_init",
+      "js_cookie_loadanalytics",
+      "js_cookie_readconsent",
+      "js_cookie_refuse",
+      "js_cookie_reset",
+      "js_cookie_showbanner",
+      "js_cookie_writeconsent"
+    ],
+    "3": [
+      "footer_arc",
+      "footer_arc_compile",
+      "footer_arc_onleave",
+      "footer_arc_render",
+      "footer_arc_resize",
+      "footer_arc_track",
+      "footer_arc_u"
+    ],
+    "4": [
+      "js_footer_arc",
+      "js_footer_arc_compile",
+      "js_footer_arc_onleave",
+      "js_footer_arc_render",
+      "js_footer_arc_resize",
+      "js_footer_arc_track",
+      "js_footer_arc_u"
+    ],
+    "5": [
+      "assets_icons_icons_icons",
+      "assets_icons_icons_icons_createicon",
+      "assets_icons_icons_icons_icon",
+      "assets_icons_icons_icons_initicons",
+      "assets_icons_icons_icons_injectsprite",
+      "assets_icons_icons_icons_replaceicons"
+    ],
+    "6": [
+      "js_script_createsmokeparticle",
+      "js_script_playexplosionsound",
+      "js_script_startsmoke",
+      "js_script_stopsmoke",
+      "js_script_triggerexplosion"
+    ],
+    "7": [
+      "js_script_finish",
+      "js_script_markdone",
+      "js_script_renderprogress",
+      "js_script_skiptoend",
+      "js_script_typenext"
+    ],
+    "8": [
+      "js_script_getinitialtheme",
+      "js_script_getparishour",
+      "js_script_gettimebasedtheme"
+    ],
+    "9": [
+      "js_script_handleclip",
+      "js_script_opengame",
+      "js_script_startgame"
+    ],
+    "10": [
+      "js_script_applylock",
+      "js_script_clearalllocks"
+    ],
+    "11": [
+      "js_script_build",
+      "js_script_go"
+    ]
+  },
+  "cohesion": {
+    "0": 0.17142857142857143,
+    "1": 0.3939393939393939,
+    "2": 0.3939393939393939,
+    "3": 0.3333333333333333,
+    "4": 0.3333333333333333,
+    "5": 0.5333333333333333,
+    "6": 0.4,
+    "7": 0.6,
+    "8": 0.6666666666666666,
+    "9": 0.6666666666666666,
+    "10": 1.0,
+    "11": 1.0
+  },
+  "gods": [
+    {
+      "id": "cookie_init",
+      "label": "init()",
+      "degree": 8
+    },
+    {
+      "id": "js_cookie_init",
+      "label": "init()",
+      "degree": 8
+    },
+    {
+      "id": "cookie_accept",
+      "label": "accept()",
+      "degree": 5
+    },
+    {
+      "id": "cookie_refuse",
+      "label": "refuse()",
+      "degree": 5
+    },
+    {
+      "id": "js_cookie_accept",
+      "label": "accept()",
+      "degree": 5
+    },
+    {
+      "id": "js_cookie_refuse",
+      "label": "refuse()",
+      "degree": 5
+    },
+    {
+      "id": "js_script_finish",
+      "label": "finish()",
+      "degree": 5
+    },
+    {
+      "id": "cookie_enableoptional",
+      "label": "enableOptional()",
+      "degree": 4
+    },
+    {
+      "id": "js_cookie_enableoptional",
+      "label": "enableOptional()",
+      "degree": 4
+    },
+    {
+      "id": "js_script_triggerexplosion",
+      "label": "triggerExplosion()",
+      "degree": 4
+    }
+  ],
+  "surprises": [],
+  "questions": [
+    {
+      "type": "verify_inferred",
+      "question": "Are the 4 inferred relationships involving `init()` (e.g. with `cookie.js` and `accept()`) actually correct?",
+      "why": "`init()` has 4 INFERRED edges - model-reasoned connections that need verification."
+    },
+    {
+      "type": "verify_inferred",
+      "question": "Are the 4 inferred relationships involving `init()` (e.g. with `js/cookie.js` and `accept()`) actually correct?",
+      "why": "`init()` has 4 INFERRED edges - model-reasoned connections that need verification."
+    }
+  ]
+}

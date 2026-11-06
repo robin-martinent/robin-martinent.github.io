@@ -1,0 +1,45 @@
+{
+  "assets/icons/icons/icons.js": {
+    "mtime": 1793237920.0407035,
+    "seen": 1793982910.986693,
+    "ast_hash": "614e59c12cfa74aca97771f50f36727e",
+    "semantic_hash": "614e59c12cfa74aca97771f50f36727e"
+  },
+  "cookie.js": {
+    "mtime": 1793237919.8614502,
+    "seen": 1793982910.9869187,
+    "ast_hash": "c790575706d3e869732177277b015731",
+    "semantic_hash": "c790575706d3e869732177277b015731"
+  },
+  "footer-arc.js": {
+    "mtime": 1793237919.8659286,
+    "seen": 1793982910.987094,
+    "ast_hash": "54bf44433549c6b680d4e18c01d5b1e4",
+    "semantic_hash": "54bf44433549c6b680d4e18c01d5b1e4"
+  },
+  "js/cookie.js": {
+    "mtime": 1793237920.171208,
+    "seen": 1793982910.9872775,
+    "ast_hash": "c790575706d3e869732177277b015731",
+    "semantic_hash": "c790575706d3e869732177277b015731"
+  },
+  "js/footer-arc.js": {
+    "mtime": 1793237920.1756222,
+    "seen": 1793982910.9874475,
+    "ast_hash": "54bf44433549c6b680d4e18c01d5b1e4",
+    "semantic_hash": "54bf44433549c6b680d4e18c01d5b1e4"
+  },
+  "js/script.js": {
+    "mtime": 1793237920.1799674,
+    "seen": 1793982910.987602,
+    "ast_hash": "cbed3daac36cb13327dba86e37e55932",
+    "semantic_hash": "cbed3daac36cb13327dba86e37e55932"
+  },
+  "skills-lock.json": {
+    "mtime": 1793980104.1264577,
+    "seen": 1793982910.9877572,
+    "ast_hash": "c6a62db08785db6fd2262fa97306acc9",
+    "semantic_hash": "c6a62db08785db6fd2262fa97306acc9",
+    "ast_empty": true
+  }
+}

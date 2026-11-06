@@ -1,0 +1,163 @@
+/**
+ * Icon System - CSS Utilities
+ * Include this in your main CSS or import it
+ */
+
+/* Base icon styles */
+.icon {
+  display: inline-block;
+  vertical-align: middle;
+  flex-shrink: 0;
+  color: currentColor;
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 2;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  transition: color 0.2s ease, transform 0.2s ease;
+}
+
+/* Size utilities */
+.icon-xs { width: 16px; height: 16px; }
+.icon-sm { width: 20px; height: 20px; }
+.icon-md { width: 24px; height: 24px; }
+.icon-lg { width: 32px; height: 32px; }
+.icon-xl { width: 48px; height: 48px; }
+.icon-2xl { width: 64px; height: 64px; }
+
+/* Semantic color modifiers (use with CSS custom properties) */
+.icon-primary { color: var(--icon-primary, var(--color-primary, #2563eb)); }
+.icon-secondary { color: var(--icon-secondary, var(--color-secondary, #64748b)); }
+.icon-success { color: var(--icon-success, var(--color-success, #10b981)); }
+.icon-warning { color: var(--icon-warning, var(--color-warning, #f59e0b)); }
+.icon-error { color: var(--icon-error, var(--color-error, #ef4444)); }
+.icon-muted { color: var(--icon-muted, var(--color-muted, #94a3b8)); }
+.icon-inverse { color: var(--icon-inverse, var(--color-inverse, #ffffff)); }
+
+/* State modifiers */
+.icon-hover:hover { color: var(--icon-hover, var(--color-primary-hover, #1d4ed8)); }
+.icon-active:active { transform: scale(0.95); }
+.icon-disabled { opacity: 0.4; pointer-events: none; }
+
+/* Animation utilities */
+.icon-spin {
+  animation: icon-spin 1s linear infinite;
+}
+
+@keyframes icon-spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+.icon-pulse {
+  animation: icon-pulse 2s ease-in-out infinite;
+}
+
+@keyframes icon-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.5; }
+}
+
+.icon-bounce {
+  animation: icon-bounce 1s ease-in-out infinite;
+}
+
+@keyframes icon-bounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-4px); }
+}
+
+/* Interactive states */
+a .icon,
+button .icon,
+[role="button"] .icon {
+  transition: color 0.2s ease, transform 0.15s ease;
+}
+
+a:hover .icon,
+button:hover .icon,
+[role="button"]:hover .icon {
+  color: var(--icon-hover-color, inherit);
+}
+
+a:active .icon,
+button:active .icon,
+[role="button"]:active .icon {
+  transform: scale(0.9);
+}
+
+/* Focus visible for accessibility */
+.icon:focus-visible {
+  outline: 2px solid var(--focus-color, #2563eb);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Stack icons */
+.icon-stack {
+  position: relative;
+  display: inline-flex;
+}
+
+.icon-stack .icon {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.icon-stack .icon-bottom { z-index: 1; }
+.icon-stack .icon-top { z-index: 2; }
+
+/* Badge/icon combination */
+.icon-badge {
+  position: relative;
+  display: inline-flex;
+}
+
+.icon-badge .icon {
+  position: relative;
+  z-index: 1;
+}
+
+.icon-badge::after {
+  content: attr(data-count);
+  position: absolute;
+  top: -4px;
+  right: -4px;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  background: var(--badge-bg, #ef4444);
+  color: var(--badge-color, #fff);
+  font-size: 10px;
+  font-weight: 600;
+  line-height: 16px;
+  text-align: center;
+  border-radius: 8px;
+  border: 2px solid var(--bg-color, #fff);
+}
+
+/* RTL support */
+[dir="rtl"] .icon-rtl-flip {
+  transform: scaleX(-1);
+}
+
+/* Reduced motion */
+@media (prefers-reduced-motion: reduce) {
+  .icon,
+  .icon-spin,
+  .icon-pulse,
+  .icon-bounce {
+    animation: none !important;
+    transition: none !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .icon {
+    color: #000 !important;
+    stroke: #000 !important;
+  }
+}

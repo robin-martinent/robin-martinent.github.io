@@ -1,0 +1,14 @@
+# robots.txt — Robin Martinent portfolio
+# https://robin-martinent.github.io
+
+User-agent: *
+Allow: /
+
+# Le contenu est indexable, sauf la page 404.
+Disallow: /pages/404.html
+
+# Sitemap
+Sitemap: https://robin-martinent.github.io/sitemap.xml
+
+# Crawl-delay modéré pour ne pas surcharger GitHub Pages
+Crawl-delay: 1 
